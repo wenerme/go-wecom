@@ -2,7 +2,7 @@ package wecom
 
 import (
 	"net/http"
-	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/pkg/errors"
@@ -16,10 +16,13 @@ type Client struct {
 	Conf             Conf
 	Request          req.Request
 	AccessTokenCache TokenResponse
-	JsApiTicketCache TicketResponse
+	JsAPITicketCache TicketResponse
 	AgentTicketCache TicketResponse
 	OnTokenUpdate    func(c *Client)
-	tokenMu          sync.RWMutex
+
+	updatingToken       int32
+	updatingTicket      int32
+	updatingAgentTicket int32
 }
 
 func NewClient(conf Conf) *Client {
@@ -36,17 +39,17 @@ func NewClient(conf Conf) *Client {
 
 type ClientCache struct {
 	AccessToken *TokenResponse
-	JsApiTicket *TicketResponse
+	JsAPITicket *TicketResponse
 	AgentTicket *TicketResponse
 }
 
 func (c *Client) DumpCache() ClientCache {
 	a := c.AccessTokenCache
-	b := c.JsApiTicketCache
+	b := c.JsAPITicketCache
 	d := c.AgentTicketCache
 	return ClientCache{
 		AccessToken: &a,
-		JsApiTicket: &b,
+		JsAPITicket: &b,
 		AgentTicket: &d,
 	}
 }
@@ -58,8 +61,8 @@ func (c *Client) LoadCache(cc *ClientCache) {
 	if cc.AccessToken != nil {
 		c.AccessTokenCache = *cc.AccessToken
 	}
-	if cc.JsApiTicket != nil {
-		c.JsApiTicketCache = *cc.JsApiTicket
+	if cc.JsAPITicket != nil {
+		c.JsAPITicketCache = *cc.JsAPITicket
 	}
 	if cc.AgentTicket != nil {
 		c.AgentTicketCache = *cc.AgentTicket
@@ -72,50 +75,48 @@ func (c *Client) shouldRefresh(ts int64) bool {
 	return ts-time.Now().Unix() < 30*60
 }
 
-func (c *Client) JsApiTicket() (string, error) {
-	if c.shouldRefresh(c.JsApiTicketCache.ExpireAt) {
-		// todo try lock
-		c.tokenMu.Lock()
-		defer c.tokenMu.Unlock()
-		cache := c.JsApiTicketCache
-		if c.shouldRefresh(cache.ExpireAt) {
-			var err error
+func (c *Client) JsAPITicket() (string, error) {
+	var lastErr error
+	if c.shouldRefresh(c.JsAPITicketCache.ExpireAt) {
+		if atomic.CompareAndSwapInt32(&c.updatingTicket, 0, 1) {
+			defer func() {
+				atomic.CompareAndSwapInt32(&c.updatingTicket, 1, 0)
+			}()
 			var next TicketResponse
-			next, err = c.GetJsApiTicket()
-			if err != nil {
-				logrus.WithError(err).Error("get js api ticket failed")
-				if cache.ExpireAt < time.Now().Unix() {
-					return "", errors.Wrap(err, "get js api ticket failed")
-				}
+			next, lastErr = c.GetJsAPITicket()
+			if lastErr != nil {
+				logrus.WithError(lastErr).Error("get js api ticket failed")
 			} else {
-				cache = next
-				c.JsApiTicketCache = next
+				c.JsAPITicketCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
 				}
 			}
 		}
 	}
-	return c.JsApiTicketCache.Ticket, nil
+
+	cache := c.JsAPITicketCache
+	if cache.ExpireAt < time.Now().Unix() {
+		if lastErr == nil {
+			return "", errors.New("get js api ticket expired or invalid")
+		}
+		return "", errors.Wrap(lastErr, "get js api ticket failed")
+	}
+	return cache.Ticket, nil
 }
 
 func (c *Client) AgentTicket() (string, error) {
+	var lastErr error
 	if c.shouldRefresh(c.AgentTicketCache.ExpireAt) {
-		// todo try lock
-		c.tokenMu.Lock()
-		defer c.tokenMu.Unlock()
-		cache := c.AgentTicketCache
-		if c.shouldRefresh(cache.ExpireAt) {
-			var err error
+		if atomic.CompareAndSwapInt32(&c.updatingAgentTicket, 0, 1) {
+			defer func() {
+				atomic.CompareAndSwapInt32(&c.updatingAgentTicket, 1, 0)
+			}()
 			var next TicketResponse
-			next, err = c.GetAgentTicket()
-			if err != nil {
-				logrus.WithError(err).Error("get js api ticket failed")
-				if cache.ExpireAt < time.Now().Unix() {
-					return "", errors.Wrap(err, "get js api ticket failed")
-				}
+			next, lastErr = c.GetAgentTicket()
+			if lastErr != nil {
+				logrus.WithError(lastErr).Error("get js api ticket failed")
 			} else {
-				cache = next
 				c.AgentTicketCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
@@ -123,26 +124,29 @@ func (c *Client) AgentTicket() (string, error) {
 			}
 		}
 	}
-	return c.AgentTicketCache.Ticket, nil
+
+	cache := c.AgentTicketCache
+	if cache.ExpireAt < time.Now().Unix() {
+		if lastErr == nil {
+			return "", errors.New("get js api ticket expired or invalid")
+		}
+		return "", errors.Wrap(lastErr, "get js api ticket failed")
+	}
+	return cache.Ticket, nil
 }
 
 func (c *Client) AccessToken() (string, error) {
+	var lastErr error
 	if c.shouldRefresh(c.AccessTokenCache.ExpireAt) {
-		// todo try lock
-		c.tokenMu.Lock()
-		defer c.tokenMu.Unlock()
-		cache := c.AccessTokenCache
-		if c.shouldRefresh(cache.ExpireAt) {
-			var err error
+		if atomic.CompareAndSwapInt32(&c.updatingToken, 0, 1) {
+			defer func() {
+				atomic.CompareAndSwapInt32(&c.updatingToken, 1, 0)
+			}()
 			var next TokenResponse
-			next, err = c.GetToken()
-			if err != nil {
-				logrus.WithError(err).Error("get token failed")
-				if cache.ExpireAt < time.Now().Unix() {
-					return "", errors.Wrap(err, "get token failed")
-				}
+			next, lastErr = c.GetToken()
+			if lastErr != nil {
+				logrus.WithError(lastErr).Error("get js api ticket failed")
 			} else {
-				cache = next
 				c.AccessTokenCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
@@ -150,7 +154,15 @@ func (c *Client) AccessToken() (string, error) {
 			}
 		}
 	}
-	return c.AccessTokenCache.AccessToken, nil
+
+	cache := c.AccessTokenCache
+	if cache.ExpireAt < time.Now().Unix() {
+		if lastErr == nil {
+			return "", errors.New("get js api ticket expired or invalid")
+		}
+		return "", errors.Wrap(lastErr, "get js api ticket failed")
+	}
+	return cache.AccessToken, nil
 }
 
 func (c *Client) GetToken() (out TokenResponse, err error) {
@@ -171,7 +183,7 @@ func (c *Client) GetToken() (out TokenResponse, err error) {
 	return out, err
 }
 
-func (c *Client) GetJsApiTicket() (out TicketResponse, err error) {
+func (c *Client) GetJsAPITicket() (out TicketResponse, err error) {
 	var accessToken string
 	accessToken, err = c.AccessToken()
 	if err != nil {

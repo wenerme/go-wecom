@@ -26,6 +26,6 @@ type TicketResponse struct {
 	ExpireAt  int64  `json:"expire_at"` //  extra
 }
 
-type GetApiDomainIpResponse struct {
-	IpList []string `json:"ip_list"`
+type GetAPIDomainIPResponse struct {
+	IPList []string `json:"ip_list"`
 }

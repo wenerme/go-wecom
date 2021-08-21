@@ -1,63 +1,51 @@
-package wecom_test
+package wecom
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 
-	"github.com/wenerme/go-req"
+	"github.com/stretchr/testify/assert"
 
-	"github.com/wenerme/go-wecom/wecom"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/render"
 )
 
-func ExampleNewClient() {
-	client := wecom.NewClient(wecom.Conf{
-		CorpID:     "",
-		AgentID:    "",
-		CorpSecret: "",
+func TestNewClient(t *testing.T) {
+	mux := chi.NewMux()
+	mux.Get("/cgi-bin/gettoken", func(writer http.ResponseWriter, request *http.Request) {
+		render.JSON(writer, request, TokenResponse{AccessToken: "token", ExpiresIn: 300})
 	})
-	// 当 Token 变化时生成缓存
-	client.OnTokenUpdate = func(c *wecom.Client) {
-		cache := c.DumpCache()
-		bytes, _ := json.Marshal(cache)
-		_ = os.WriteFile("wecom-cache.json", bytes, 0o600)
-	}
+	mux.Get("/cgi-bin/get_jsapi_ticket", func(writer http.ResponseWriter, request *http.Request) {
+		render.JSON(writer, request, TicketResponse{Ticket: "ticket", ExpiresIn: 300})
+	})
+	mux.Get("/cgi-bin/ticket/get", func(writer http.ResponseWriter, request *http.Request) {
+		render.JSON(writer, request, TicketResponse{Ticket: "agent-ticket", ExpiresIn: 300})
+	})
+	server := httptest.NewServer(mux)
+	defer server.Close()
 
-	// 访问接口会自动获取或使用当前缓存
+	client := NewClient(Conf{
+		CorpID:     "CorpID",
+		AgentID:    "AgentID",
+		CorpSecret: "CorpSecret",
+	})
+	// client.Request.Options = append(client.Request.Options, req.DebugHook(nil))
+	client.Request.BaseURL = server.URL
 	token, err := client.AccessToken()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Token", token)
-	ticket, err := client.JsApiTicket()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Ticket", ticket)
+	assert.NoError(t, err)
+	assert.Equal(t, "token", token)
+	ticket, err := client.JsAPITicket()
+	assert.NoError(t, err)
+	assert.Equal(t, "ticket", ticket)
+	agentTicket, err := client.AgentTicket()
+	assert.NoError(t, err)
+	assert.Equal(t, "agent-ticket", agentTicket)
 
-	// 加载缓存 - 复用之前的 Token
-	cache := wecom.ClientCache{}
-	bytes, err := os.ReadFile("wecom-cache.json")
-	if err == nil {
-		if json.Unmarshal(bytes, &cache) == nil {
-			client.LoadCache(&cache)
-		}
-	}
-
-	// 访问没有实现的接口
-	er := wecom.GenericResponse{}
-	dto := wecom.GetApiDomainIpResponse{}
-	err = client.Request.With(req.Request{
-		URL: "/cgi-bin/get_api_domain_ip",
-		Query: map[string]interface{}{
-			"access_token": token,
-		},
-	}).Fetch(&er, &dto)
-	if err == nil {
-		err = er.AsError()
-	}
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("response", dto)
+	cache := client.DumpCache()
+	nc := NewClient(Conf{})
+	nc.LoadCache(&cache)
+	assert.Equal(t, nc.AccessTokenCache, client.AccessTokenCache)
+	assert.Equal(t, nc.AgentTicketCache, client.AgentTicketCache)
+	assert.Equal(t, nc.JsAPITicketCache, client.JsAPITicketCache)
 }
