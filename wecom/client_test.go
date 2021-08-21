@@ -48,4 +48,14 @@ func TestNewClient(t *testing.T) {
 	assert.Equal(t, nc.AccessTokenCache, client.AccessTokenCache)
 	assert.Equal(t, nc.AgentTicketCache, client.AgentTicketCache)
 	assert.Equal(t, nc.JsAPITicketCache, client.JsAPITicketCache)
+	{
+		config, err := client.SignConfig("http://test")
+		assert.NoError(t, err)
+		assert.NotEmpty(t, config.Signature)
+	}
+	{
+		config, err := client.SignAgentConfig("http://test")
+		assert.NoError(t, err)
+		assert.NotEmpty(t, config.Signature)
+	}
 }

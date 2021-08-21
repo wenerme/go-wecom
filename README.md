@@ -84,5 +84,4 @@ func ExampleNewClient() {
   }
   fmt.Println("response", dto)
 }
-
 ```
