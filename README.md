@@ -8,7 +8,7 @@
 [ci]: https://github.com/wenerme/go-wecom/actions/workflows/ci.yml
 [cov-img]: https://codecov.io/gh/wenerme/go-wecom/branch/main/graph/badge.svg
 [cov]: https://codecov.io/gh/wenerme/go-wecom/branch/main
-[report-card-img]: https://goreportcard.com/badge/github.com/wenerme/go-weco
+[report-card-img]: https://goreportcard.com/badge/github.com/wenerme/go-wecom
 [report-card]: https://goreportcard.com/report/github.com/wenerme/go-wecom
 
 Wechat Work/Wecom/企业微信 Golang SDK
