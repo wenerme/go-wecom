@@ -1,7 +1,9 @@
 package wecom
 
 import (
+	"context"
 	"net/http"
+	"net/url"
 	"sync/atomic"
 	"time"
 
@@ -25,7 +27,31 @@ type Client struct {
 	updatingAgentTicket int32
 }
 
+func WithAccessToken(r *req.Request) (err error) {
+	if r.Context == nil {
+		return nil
+	}
+	client := FromContext(r.Context)
+	if client != nil {
+		var token string
+		token, err = client.AccessToken()
+		var v url.Values
+		if err == nil {
+			v, err = req.ValuesOf(r.Query)
+			if err == nil {
+				if v == nil {
+					v = url.Values{}
+					r.Query = v
+				}
+				v.Set("access_token", token)
+			}
+		}
+	}
+	return
+}
+
 func NewClient(conf Conf) *Client {
+	ctx := context.Background()
 	c := &Client{
 		Conf: conf,
 		Request: req.Request{
@@ -34,6 +60,7 @@ func NewClient(conf Conf) *Client {
 			Options: []interface{}{req.JSONEncode, req.JSONDecode},
 		},
 	}
+	c.Request.Context = NewContext(ctx, c)
 	return c
 }
 
@@ -184,17 +211,10 @@ func (c *Client) GetToken() (out TokenResponse, err error) {
 }
 
 func (c *Client) GetJsAPITicket() (out TicketResponse, err error) {
-	var accessToken string
-	accessToken, err = c.AccessToken()
-	if err != nil {
-		return
-	}
 	var er GenericResponse
 	err = c.Request.With(req.Request{
-		URL: "/cgi-bin/get_jsapi_ticket",
-		Query: map[string]interface{}{
-			"access_token": accessToken,
-		},
+		URL:     "/cgi-bin/get_jsapi_ticket",
+		Options: []interface{}{WithAccessToken},
 	}).Fetch(&er, &out)
 	if err == nil {
 		err = er.AsError()

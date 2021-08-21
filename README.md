@@ -85,3 +85,9 @@ func ExampleNewClient() {
   fmt.Println("response", dto)
 }
 ```
+
+## Reference
+
+- [xen0n/go-workwx](https://github.com/xen0n/go-workwx)
+  - 比较成熟的 Golang 企业微信 SDK
+  - 没有 第三方接口、服务商接口、会话存档

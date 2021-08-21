@@ -21,6 +21,6 @@ func FromContext(ctx context.Context) *Client {
 	return value.(*Client)
 }
 
-func NewContext(ctx context.Context, db *Client) context.Context {
-	return context.WithValue(ctx, ClientContextKey, db)
+func NewContext(ctx context.Context, v *Client) context.Context {
+	return context.WithValue(ctx, ClientContextKey, v)
 }

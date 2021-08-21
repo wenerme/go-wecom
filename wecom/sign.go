@@ -1,7 +1,7 @@
 package wecom
 
 import (
-	"crypto/sha1"
+	"crypto/sha1" // nolint:gosec
 	"encoding/hex"
 	"fmt"
 	"math/rand"
@@ -10,7 +10,7 @@ import (
 )
 
 type JsSdkConfig struct {
-	AppId     string `json:"appId"`
+	AppID     string `json:"appId"`
 	Timestamp int64  `json:"timestamp"`
 	Nonce     string `json:"nonceStr"`
 	Signature string `json:"signature"`
@@ -22,7 +22,7 @@ func (c *Client) SignAgentConfig(url string) (*JsSdkConfig, error) {
 		return nil, err
 	}
 	o := &JsSdkConfig{
-		AppId: c.Conf.CorpID,
+		AppID: c.Conf.CorpID,
 	}
 	o.Sign(ticket, url)
 	return o, nil
@@ -34,7 +34,7 @@ func (c *Client) SignConfig(url string) (*JsSdkConfig, error) {
 		return nil, err
 	}
 	o := &JsSdkConfig{
-		AppId: c.Conf.CorpID,
+		AppID: c.Conf.CorpID,
 	}
 	o.Sign(ticket, url)
 	return o, nil
@@ -42,7 +42,7 @@ func (c *Client) SignConfig(url string) (*JsSdkConfig, error) {
 
 func (o *JsSdkConfig) Sign(ticket string, url string) {
 	if o.Nonce == "" {
-		o.Nonce = strconv.Itoa(rand.Int())
+		o.Nonce = strconv.Itoa(rand.Int()) // nolint:gosec
 	}
 	if o.Timestamp == 0 {
 		o.Timestamp = time.Now().Unix()
@@ -52,6 +52,6 @@ func (o *JsSdkConfig) Sign(ticket string, url string) {
 }
 
 func sha1sum(s string) string {
-	sum := sha1.Sum([]byte(s))
+	sum := sha1.Sum([]byte(s)) //nolint
 	return hex.EncodeToString(sum[:])
 }

@@ -14,9 +14,17 @@ import (
 func TestNewClient(t *testing.T) {
 	mux := chi.NewMux()
 	mux.Get("/cgi-bin/gettoken", func(writer http.ResponseWriter, request *http.Request) {
+		if request.URL.Query().Get("corpsecret") != "CorpSecret" {
+			render.JSON(writer, request, GenericResponse{ErrorCode: 1, ErrorMessage: "invalid secret"})
+			return
+		}
 		render.JSON(writer, request, TokenResponse{AccessToken: "token", ExpiresIn: 300})
 	})
 	mux.Get("/cgi-bin/get_jsapi_ticket", func(writer http.ResponseWriter, request *http.Request) {
+		if request.URL.Query().Get("access_token") != "token" {
+			render.JSON(writer, request, GenericResponse{ErrorCode: 1, ErrorMessage: "invalid token"})
+			return
+		}
 		render.JSON(writer, request, TicketResponse{Ticket: "ticket", ExpiresIn: 300})
 	})
 	mux.Get("/cgi-bin/ticket/get", func(writer http.ResponseWriter, request *http.Request) {
@@ -28,10 +36,15 @@ func TestNewClient(t *testing.T) {
 	client := NewClient(Conf{
 		CorpID:     "CorpID",
 		AgentID:    "AgentID",
-		CorpSecret: "CorpSecret",
+		CorpSecret: "",
 	})
 	// client.Request.Options = append(client.Request.Options, req.DebugHook(nil))
 	client.Request.BaseURL = server.URL
+	{
+		_, err := client.AccessToken()
+		assert.Error(t, err)
+	}
+	client.Conf.CorpSecret = "CorpSecret"
 	token, err := client.AccessToken()
 	assert.NoError(t, err)
 	assert.Equal(t, "token", token)
