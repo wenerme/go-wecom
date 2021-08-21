@@ -4,7 +4,7 @@
 
 [doc-img]: https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square
 [doc]: https://pkg.go.dev/github.com/wenerme/go-wecom?tab=doc
-[ci-img]: https://github.com/wenerme/go-wecom/actions/workflows/ci.yml/badge.sv
+[ci-img]: https://github.com/wenerme/go-wecom/actions/workflows/ci.yml/badge.svg
 [ci]: https://github.com/wenerme/go-wecom/actions/workflows/ci.yml
 [cov-img]: https://codecov.io/gh/wenerme/go-wecom/branch/main/graph/badge.svg
 [cov]: https://codecov.io/gh/wenerme/go-wecom/branch/main
