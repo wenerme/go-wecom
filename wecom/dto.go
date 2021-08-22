@@ -9,9 +9,13 @@ type GenericResponse struct {
 
 func (r GenericResponse) AsError() error {
 	if r.ErrorCode != 0 {
-		return fmt.Errorf("wecom api(%v): %v", r.ErrorCode, r.ErrorMessage)
+		return &r
 	}
 	return nil
+}
+
+func (r GenericResponse) Error() string {
+	return fmt.Sprintf("%v: %v", r.ErrorCode, r.ErrorMessage)
 }
 
 type TokenResponse struct {

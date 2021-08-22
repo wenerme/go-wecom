@@ -52,6 +52,6 @@ func (o *JsSdkConfig) Sign(ticket string, url string) {
 }
 
 func sha1sum(s string) string {
-	sum := sha1.Sum([]byte(s)) //nolint
+	sum := sha1.Sum([]byte(s)) //nolint:gosec
 	return hex.EncodeToString(sum[:])
 }

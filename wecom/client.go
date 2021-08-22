@@ -3,7 +3,6 @@ package wecom
 import (
 	"context"
 	"net/http"
-	"net/url"
 	"sync/atomic"
 	"time"
 
@@ -27,27 +26,8 @@ type Client struct {
 	updatingAgentTicket int32
 }
 
-func WithAccessToken(r *req.Request) (err error) {
-	if r.Context == nil {
-		return nil
-	}
-	client := FromContext(r.Context)
-	if client != nil {
-		var token string
-		token, err = client.AccessToken()
-		var v url.Values
-		if err == nil {
-			v, err = req.ValuesOf(r.Query)
-			if err == nil {
-				if v == nil {
-					v = url.Values{}
-					r.Query = v
-				}
-				v.Set("access_token", token)
-			}
-		}
-	}
-	return
+func WithoutAccessToken(o *middlewareOptions) {
+	o.WithoutAccessToken = true
 }
 
 func NewClient(conf Conf) *Client {
@@ -57,10 +37,11 @@ func NewClient(conf Conf) *Client {
 		Request: req.Request{
 			BaseURL: DefaultAPI,
 			Method:  http.MethodGet,
-			Options: []interface{}{req.JSONEncode, req.JSONDecode},
+			Options: []interface{}{requestMiddleware, req.JSONEncode, req.JSONDecode},
 		},
 	}
 	c.Request.Context = NewContext(ctx, c)
+	c.Request.Extension.With(wecomeMiddleware)
 	return c
 }
 
@@ -142,7 +123,7 @@ func (c *Client) AgentTicket() (string, error) {
 			var next TicketResponse
 			next, lastErr = c.GetAgentTicket()
 			if lastErr != nil {
-				logrus.WithError(lastErr).Error("get js api ticket failed")
+				logrus.WithError(lastErr).Error("get agent ticket failed")
 			} else {
 				c.AgentTicketCache = next
 				if c.OnTokenUpdate != nil {
@@ -155,9 +136,9 @@ func (c *Client) AgentTicket() (string, error) {
 	cache := c.AgentTicketCache
 	if cache.ExpireAt < time.Now().Unix() {
 		if lastErr == nil {
-			return "", errors.New("get js api ticket expired or invalid")
+			return "", errors.New("agent ticket expired or invalid")
 		}
-		return "", errors.Wrap(lastErr, "get js api ticket failed")
+		return "", errors.Wrap(lastErr, "get agent ticket failed")
 	}
 	return cache.Ticket, nil
 }
@@ -172,7 +153,7 @@ func (c *Client) AccessToken() (string, error) {
 			var next TokenResponse
 			next, lastErr = c.GetToken()
 			if lastErr != nil {
-				logrus.WithError(lastErr).Error("get js api ticket failed")
+				logrus.WithError(lastErr).Error("get token failed")
 			} else {
 				c.AccessTokenCache = next
 				if c.OnTokenUpdate != nil {
@@ -185,25 +166,22 @@ func (c *Client) AccessToken() (string, error) {
 	cache := c.AccessTokenCache
 	if cache.ExpireAt < time.Now().Unix() {
 		if lastErr == nil {
-			return "", errors.New("get js api ticket expired or invalid")
+			return "", errors.New("token expired or invalid")
 		}
-		return "", errors.Wrap(lastErr, "get js api ticket failed")
+		return "", errors.Wrap(lastErr, "get token failed")
 	}
 	return cache.AccessToken, nil
 }
 
 func (c *Client) GetToken() (out TokenResponse, err error) {
-	var er GenericResponse
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/gettoken",
 		Query: map[string]interface{}{
 			"corpid":     c.Conf.CorpID,
 			"corpsecret": c.Conf.CorpSecret,
 		},
-	}).Fetch(&er, &out)
-	if err == nil {
-		err = er.AsError()
-	}
+		Options: []interface{}{WithoutAccessToken},
+	}).Fetch(&out)
 	if err == nil {
 		out.ExpireAt = int64(out.ExpiresIn) + time.Now().Unix()
 	}
@@ -211,14 +189,9 @@ func (c *Client) GetToken() (out TokenResponse, err error) {
 }
 
 func (c *Client) GetJsAPITicket() (out TicketResponse, err error) {
-	var er GenericResponse
 	err = c.Request.With(req.Request{
-		URL:     "/cgi-bin/get_jsapi_ticket",
-		Options: []interface{}{WithAccessToken},
-	}).Fetch(&er, &out)
-	if err == nil {
-		err = er.AsError()
-	}
+		URL: "/cgi-bin/get_jsapi_ticket",
+	}).Fetch(&out)
 	if err == nil {
 		out.ExpireAt = int64(out.ExpiresIn) + time.Now().Unix()
 	}
@@ -226,22 +199,12 @@ func (c *Client) GetJsAPITicket() (out TicketResponse, err error) {
 }
 
 func (c *Client) GetAgentTicket() (out TicketResponse, err error) {
-	var accessToken string
-	accessToken, err = c.AccessToken()
-	if err != nil {
-		return
-	}
-	var er GenericResponse
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/ticket/get",
 		Query: map[string]interface{}{
-			"access_token": accessToken,
-			"type":         "agent_config",
+			"type": "agent_config",
 		},
-	}).Fetch(&er, &out)
-	if err == nil {
-		err = er.AsError()
-	}
+	}).Fetch(&out)
 	if err == nil {
 		out.ExpireAt = int64(out.ExpiresIn) + time.Now().Unix()
 	}

@@ -29,7 +29,6 @@ import (
   "os"
 
   "github.com/wenerme/go-req"
-
   "github.com/wenerme/go-wecom/wecom"
 )
 
@@ -52,7 +51,7 @@ func ExampleNewClient() {
     panic(err)
   }
   fmt.Println("Token", token)
-  ticket, err := client.JsApiTicket()
+  ticket, err := client.JsAPITicket()
   if err != nil {
     panic(err)
   }
@@ -68,17 +67,14 @@ func ExampleNewClient() {
   }
 
   // 访问没有实现的接口
-  er := wecom.GenericResponse{}
-  dto := wecom.GetApiDomainIpResponse{}
+  dto := wecom.GetAPIDomainIPResponse{}
   err = client.Request.With(req.Request{
-    URL: "/cgi-bin/get_api_domain_ip",
-    Query: map[string]interface{}{
-      "access_token": token,
+    URL:     "/cgi-bin/get_api_domain_ip",
+    Options: []interface{}{
+      // 如果不需要 access_token
+      // wecom.WithoutAccessToken,
     },
-  }).Fetch(&er, &dto)
-  if err == nil {
-    err = er.AsError()
-  }
+  }).Fetch(&dto)
   if err != nil {
     panic(err)
   }
