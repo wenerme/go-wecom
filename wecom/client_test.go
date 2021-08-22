@@ -1,8 +1,6 @@
 package wecom
 
 import (
-	"crypto/rand"
-	"encoding/hex"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -14,22 +12,13 @@ import (
 	"github.com/go-chi/render"
 )
 
-func randString() string {
-	b := make([]byte, 8)
-	_, err := rand.Read(b)
-	if err != nil {
-		panic(err)
-	}
-	return hex.EncodeToString(b)
-}
-
 func TestNewClient(t *testing.T) {
 	mux := chi.NewMux()
 
 	getTokenCount := 0
-	mockAccessToken := randString()
-	mockJsTicket := randString()
-	mockAgentTicket := randString()
+	mockAccessToken := createNonce()
+	mockJsTicket := createNonce()
+	mockAgentTicket := createNonce()
 	requireAccessToken := func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 			if request.URL.Query().Get("access_token") != mockAccessToken {

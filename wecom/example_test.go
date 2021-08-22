@@ -15,6 +15,13 @@ func ExampleNewClient() {
 		AgentID:    "",
 		CorpSecret: "",
 	})
+	// 加载缓存 - 复用之前的 Token
+	cache := wecom.ClientCache{}
+	if bytes, err := os.ReadFile("wecom-cache.json"); err == nil {
+		if json.Unmarshal(bytes, &cache) == nil {
+			client.LoadCache(&cache)
+		}
+	}
 	// 当 Token 变化时生成缓存
 	client.OnTokenUpdate = func(c *wecom.Client) {
 		cache := c.DumpCache()
@@ -33,15 +40,6 @@ func ExampleNewClient() {
 		panic(err)
 	}
 	fmt.Println("Ticket", ticket)
-
-	// 加载缓存 - 复用之前的 Token
-	cache := wecom.ClientCache{}
-	bytes, err := os.ReadFile("wecom-cache.json")
-	if err == nil {
-		if json.Unmarshal(bytes, &cache) == nil {
-			client.LoadCache(&cache)
-		}
-	}
 
 	// 访问没有实现的接口
 	dto := wecom.GetAPIDomainIPResponse{}

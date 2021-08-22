@@ -4,8 +4,6 @@ import (
 	"crypto/sha1" // nolint:gosec
 	"encoding/hex"
 	"fmt"
-	"math/rand"
-	"strconv"
 	"time"
 )
 
@@ -16,13 +14,22 @@ type JsSdkConfig struct {
 	Signature string `json:"signature"`
 }
 
-func (c *Client) SignAgentConfig(url string) (*JsSdkConfig, error) {
+type JsSdkAgentConfig struct {
+	CorpID    string `json:"corpid"`
+	AgentID   string `json:"agentid"`
+	Timestamp int64  `json:"timestamp"`
+	Nonce     string `json:"nonceStr"`
+	Signature string `json:"signature"`
+}
+
+func (c *Client) SignAgentConfig(url string) (*JsSdkAgentConfig, error) {
 	ticket, err := c.AgentTicket()
 	if err != nil {
 		return nil, err
 	}
-	o := &JsSdkConfig{
-		AppID: c.Conf.CorpID,
+	o := &JsSdkAgentConfig{
+		CorpID:  c.Conf.CorpID,
+		AgentID: c.Conf.AgentID,
 	}
 	o.Sign(ticket, url)
 	return o, nil
@@ -42,7 +49,18 @@ func (c *Client) SignConfig(url string) (*JsSdkConfig, error) {
 
 func (o *JsSdkConfig) Sign(ticket string, url string) {
 	if o.Nonce == "" {
-		o.Nonce = strconv.Itoa(rand.Int()) // nolint:gosec
+		o.Nonce = createNonce()
+	}
+	if o.Timestamp == 0 {
+		o.Timestamp = time.Now().Unix()
+	}
+	raw := fmt.Sprintf("jsapi_ticket=%v&noncestr=%v&timestamp=%v&url=%v", ticket, o.Nonce, o.Timestamp, url)
+	o.Signature = sha1sum(raw)
+}
+
+func (o *JsSdkAgentConfig) Sign(ticket string, url string) {
+	if o.Nonce == "" {
+		o.Nonce = createNonce()
 	}
 	if o.Timestamp == 0 {
 		o.Timestamp = time.Now().Unix()
