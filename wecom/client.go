@@ -14,16 +14,18 @@ import (
 const DefaultAPI = "https://qyapi.weixin.qq.com"
 
 type Client struct {
-	Conf             Conf
-	Request          req.Request
-	AccessTokenCache TokenResponse
-	JsAPITicketCache TicketResponse
-	AgentTicketCache TicketResponse
-	OnTokenUpdate    func(c *Client)
+	Conf               Conf
+	Request            req.Request
+	AccessTokenCache   TokenResponse
+	JsAPITicketCache   TicketResponse
+	AgentTicketCache   TicketResponse
+	ProviderTokenCache ProviderTokenResponse
+	OnTokenUpdate      func(c *Client)
 
-	updatingToken       int32
-	updatingTicket      int32
-	updatingAgentTicket int32
+	updatingToken         int32
+	updatingProviderToken int32
+	updatingTicket        int32
+	updatingAgentTicket   int32
 }
 
 func WithoutAccessToken(o *middlewareOptions) {
@@ -46,34 +48,55 @@ func NewClient(conf Conf) *Client {
 }
 
 type ClientCache struct {
-	AccessToken *TokenResponse
-	JsAPITicket *TicketResponse
-	AgentTicket *TicketResponse
+	AccessToken   *TokenResponse
+	JsAPITicket   *TicketResponse
+	AgentTicket   *TicketResponse
+	ProviderToken *ProviderTokenResponse
 }
 
 func (c *Client) DumpCache() ClientCache {
-	a := c.AccessTokenCache
-	b := c.JsAPITicketCache
-	d := c.AgentTicketCache
-	return ClientCache{
-		AccessToken: &a,
-		JsAPITicket: &b,
-		AgentTicket: &d,
+	a := &c.AccessTokenCache
+	b := &c.JsAPITicketCache
+	d := &c.AgentTicketCache
+	e := &c.ProviderTokenCache
+	now := time.Now().Unix()
+	if a.ExpireAt < now {
+		a = nil
 	}
+	if b.ExpireAt < now {
+		b = nil
+	}
+	if d.ExpireAt < now {
+		d = nil
+	}
+	if e.ExpireAt < now {
+		e = nil
+	}
+	cc := ClientCache{
+		AccessToken:   a,
+		JsAPITicket:   b,
+		AgentTicket:   d,
+		ProviderToken: e,
+	}
+	return cc
 }
 
 func (c *Client) LoadCache(cc *ClientCache) {
 	if cc == nil {
 		return
 	}
-	if cc.AccessToken != nil {
+	now := time.Now().Unix()
+	if cc.AccessToken != nil && cc.AccessToken.ExpireAt > now {
 		c.AccessTokenCache = *cc.AccessToken
 	}
-	if cc.JsAPITicket != nil {
+	if cc.JsAPITicket != nil && cc.JsAPITicket.ExpireAt > now {
 		c.JsAPITicketCache = *cc.JsAPITicket
 	}
-	if cc.AgentTicket != nil {
+	if cc.AgentTicket != nil && cc.AgentTicket.ExpireAt > now {
 		c.AgentTicketCache = *cc.AgentTicket
+	}
+	if cc.ProviderToken != nil && cc.ProviderToken.ExpireAt > now {
+		c.ProviderTokenCache = *cc.ProviderToken
 	}
 }
 
@@ -171,6 +194,36 @@ func (c *Client) AccessToken() (string, error) {
 		return "", errors.Wrap(lastErr, "get token failed")
 	}
 	return cache.AccessToken, nil
+}
+
+func (c *Client) ProviderToken() (string, error) {
+	var lastErr error
+	if c.shouldRefresh(c.ProviderTokenCache.ExpireAt) {
+		if atomic.CompareAndSwapInt32(&c.updatingProviderToken, 0, 1) {
+			defer func() {
+				atomic.CompareAndSwapInt32(&c.updatingProviderToken, 1, 0)
+			}()
+			var next ProviderTokenResponse
+			next, lastErr = c.GetProviderToken()
+			if lastErr != nil {
+				logrus.WithError(lastErr).Error("get token failed")
+			} else {
+				c.ProviderTokenCache = next
+				if c.OnTokenUpdate != nil {
+					c.OnTokenUpdate(c)
+				}
+			}
+		}
+	}
+
+	cache := c.ProviderTokenCache
+	if cache.ExpireAt < time.Now().Unix() {
+		if lastErr == nil {
+			return "", errors.New("token expired or invalid")
+		}
+		return "", errors.Wrap(lastErr, "get token failed")
+	}
+	return cache.ProviderAccessToken, nil
 }
 
 func (c *Client) GetToken() (out TokenResponse, err error) {

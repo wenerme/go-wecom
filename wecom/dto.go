@@ -26,6 +26,11 @@ type TokenResponse struct {
 	ExpireAt    int64  `json:"expire_at"` //  extra
 }
 
+type GetProviderTokenRequest struct {
+	CorpID         string `json:"corpid"`
+	ProviderSecret string `json:"provider_secret"`
+}
+
 type ProviderTokenResponse struct {
 	ProviderAccessToken string `json:"provider_access_token"`
 	ExpiresIn           int    `json:"expires_in"`
@@ -44,6 +49,6 @@ type TicketResponse struct {
 	ExpireAt  int64  `json:"expire_at"` //  extra
 }
 
-type GetAPIDomainIPResponse struct {
+type IPListResponse struct {
 	IPList []string `json:"ip_list"`
 }

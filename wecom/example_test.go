@@ -42,7 +42,7 @@ func ExampleNewClient() {
 	fmt.Println("Ticket", ticket)
 
 	// 访问没有实现的接口
-	dto := wecom.GetAPIDomainIPResponse{}
+	dto := wecom.IPListResponse{}
 	err = client.Request.With(req.Request{
 		URL:     "/cgi-bin/get_api_domain_ip",
 		Options: []interface{}{

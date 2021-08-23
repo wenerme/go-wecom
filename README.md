@@ -65,7 +65,7 @@ func ExampleNewClient() {
   fmt.Println("Ticket", ticket)
 
   // 访问没有实现的接口
-  dto := wecom.GetAPIDomainIPResponse{}
+  dto := wecom.IPListResponse{}
   err = client.Request.With(req.Request{
     URL:     "/cgi-bin/get_api_domain_ip",
     Options: []interface{}{
@@ -82,6 +82,9 @@ func ExampleNewClient() {
 
 ## Reference
 
+- [wenerme/go-req](https://github.com/wenerme/go-req)
+  - 接口底层库
 - [xen0n/go-workwx](https://github.com/xen0n/go-workwx)
   - 比较成熟的 Golang 企业微信 SDK
   - 没有 第三方接口、服务商接口、会话存档
+- [sbzhu/weworkapi_golang](https://github.com/sbzhu/weworkapi_golang)
