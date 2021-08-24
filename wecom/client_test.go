@@ -160,6 +160,7 @@ func DecodeURLValues(values url.Values, out interface{}) error {
 		Metadata:         nil,
 		Result:           out,
 		WeaklyTypedInput: true,
+		TagName:          "json",
 	}
 	decoder, err := mapstructure.NewDecoder(config)
 	if err != nil {

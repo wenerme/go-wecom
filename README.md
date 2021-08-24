@@ -19,6 +19,7 @@ Wechat Work/Wecom/企业微信 Golang SDK
 - 没有内部状态和 goroutine
 - 自动尝试提前获取相应的 Token 和 Ticket
 - 实现逻辑清晰 - 没有实现的接口可直接调用
+- wwcrypt - 企业微信回调加密实现 - 作用同 sbzhu/weworkapi_golang
 
 ```go
 package wecom_test
@@ -88,3 +89,4 @@ func ExampleNewClient() {
   - 比较成熟的 Golang 企业微信 SDK
   - 没有 第三方接口、服务商接口、会话存档
 - [sbzhu/weworkapi_golang](https://github.com/sbzhu/weworkapi_golang)
+  - 官方 Golang 加密库
