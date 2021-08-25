@@ -32,7 +32,7 @@ func TestManualDecrypt(t *testing.T) {
 	// Token 为接收消息 token
 	token := "1372623149"
 	// recvId := "wx5823bf96d3bd56c7"
-	r := wecom.ServiceGenericCallbackRequest{
+	r := wecom.PushRequestParams{
 		Nonce:            "QDG6eK",
 		Timestamp:        "1409659813",
 		MessageSignature: "477715d11cdb4164915debcba66cb864d751f3e6",
@@ -89,7 +89,7 @@ func TestCrypto(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-		r := wecom.ServiceGenericCallbackRequest{}
+		r := wecom.PushRequestParams{}
 		assert.NoError(t, DecodeURLValues(u.Query(), &r))
 		assert.NoError(t, err)
 		fmt.Println("Echo String", r.EchoString)

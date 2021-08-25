@@ -1,19 +1,17 @@
 package wecom
 
-import "encoding/xml"
+/*
+https://work.weixin.qq.com/api/doc/10975
+*/
 
-type SuiteTicketEvent struct {
-	XMLName     xml.Name `xml:"xml"`
-	SuiteID     string   `xml:"SuiteId"`
-	InfoType    string   `xml:"InfoType"`
-	TimeStamp   int64    `xml:"TimeStamp"`
-	SuiteTicket string   `xml:"SuiteTicket"`
+type GetSuiteTokenRequest struct {
+	SuiteID     string `json:"suite_id"`
+	SuiteSecret string `json:"suite_secret"`
+	SuiteTicket string `json:"suite_ticket"`
 }
 
-// ServiceGenericCallbackRequest 服务商回调请求
-type ServiceGenericCallbackRequest struct {
-	MessageSignature string `json:"msg_signature"`
-	Timestamp        string `json:"timestamp"`
-	Nonce            string `json:"nonce"`
-	EchoString       string `json:"echostr,omitempty"`
+type GetPreAuthCodeResponse struct {
+	PreAuthCode string `json:"pre_auth_code"`
+	ExpiresIn   int    `json:"expires_in"`
+	ExpiresAt   int    `json:"expires_at"`
 }
