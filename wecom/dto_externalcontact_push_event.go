@@ -28,6 +28,7 @@ type ChangeExternalContactAddExternalContactPushEvent struct {
 func (ChangeExternalContactAddExternalContactPushEvent) EventInfoType() string {
 	return "change_external_contact" //nolint:goconst
 }
+
 func (ChangeExternalContactAddExternalContactPushEvent) EventChangeType() string {
 	return "add_external_contact" //nolint:goconst
 }
@@ -54,6 +55,7 @@ type ChangeExternalContactEditExternalContactPushEvent struct {
 func (ChangeExternalContactEditExternalContactPushEvent) EventInfoType() string {
 	return "change_external_contact" //nolint:goconst
 }
+
 func (ChangeExternalContactEditExternalContactPushEvent) EventChangeType() string {
 	return "edit_external_contact" //nolint:goconst
 }
@@ -84,6 +86,7 @@ type ChangeExternalContactAddHalfExternalContactPushEvent struct {
 func (ChangeExternalContactAddHalfExternalContactPushEvent) EventInfoType() string {
 	return "change_external_contact" //nolint:goconst
 }
+
 func (ChangeExternalContactAddHalfExternalContactPushEvent) EventChangeType() string {
 	return "add_half_external_contact" //nolint:goconst
 }
@@ -110,6 +113,7 @@ type ChangeExternalContactDelExternalContactPushEvent struct {
 func (ChangeExternalContactDelExternalContactPushEvent) EventInfoType() string {
 	return "change_external_contact" //nolint:goconst
 }
+
 func (ChangeExternalContactDelExternalContactPushEvent) EventChangeType() string {
 	return "del_external_contact" //nolint:goconst
 }
@@ -136,6 +140,7 @@ type ChangeExternalContactDelFollowUserPushEvent struct {
 func (ChangeExternalContactDelFollowUserPushEvent) EventInfoType() string {
 	return "change_external_contact" //nolint:goconst
 }
+
 func (ChangeExternalContactDelFollowUserPushEvent) EventChangeType() string {
 	return "del_follow_user" //nolint:goconst
 }
@@ -164,6 +169,7 @@ type ChangeExternalContactTransferFailPushEvent struct {
 func (ChangeExternalContactTransferFailPushEvent) EventInfoType() string {
 	return "change_external_contact" //nolint:goconst
 }
+
 func (ChangeExternalContactTransferFailPushEvent) EventChangeType() string {
 	return "transfer_fail" //nolint:goconst
 }
@@ -188,6 +194,7 @@ type ChangeExternalChatCreatePushEvent struct {
 func (ChangeExternalChatCreatePushEvent) EventInfoType() string {
 	return "change_external_chat" //nolint:goconst
 }
+
 func (ChangeExternalChatCreatePushEvent) EventChangeType() string {
 	return "create" //nolint:goconst
 }
@@ -220,6 +227,7 @@ type ChangeExternalChatUpdatePushEvent struct {
 func (ChangeExternalChatUpdatePushEvent) EventInfoType() string {
 	return "change_external_chat" //nolint:goconst
 }
+
 func (ChangeExternalChatUpdatePushEvent) EventChangeType() string {
 	return "update" //nolint:goconst
 }
@@ -244,6 +252,7 @@ type ChangeExternalChatDismissPushEvent struct {
 func (ChangeExternalChatDismissPushEvent) EventInfoType() string {
 	return "change_external_chat" //nolint:goconst
 }
+
 func (ChangeExternalChatDismissPushEvent) EventChangeType() string {
 	return "dismiss" //nolint:goconst
 }
@@ -270,6 +279,7 @@ type ChangeExternalTagCreatePushEvent struct {
 func (ChangeExternalTagCreatePushEvent) EventInfoType() string {
 	return "change_external_tag" //nolint:goconst
 }
+
 func (ChangeExternalTagCreatePushEvent) EventChangeType() string {
 	return "create" //nolint:goconst
 }
@@ -296,6 +306,7 @@ type ChangeExternalTagUpdatePushEvent struct {
 func (ChangeExternalTagUpdatePushEvent) EventInfoType() string {
 	return "change_external_tag" //nolint:goconst
 }
+
 func (ChangeExternalTagUpdatePushEvent) EventChangeType() string {
 	return "update" //nolint:goconst
 }
@@ -322,6 +333,7 @@ type ChangeExternalTagDeletePushEvent struct {
 func (ChangeExternalTagDeletePushEvent) EventInfoType() string {
 	return "change_external_tag" //nolint:goconst
 }
+
 func (ChangeExternalTagDeletePushEvent) EventChangeType() string {
 	return "delete" //nolint:goconst
 }

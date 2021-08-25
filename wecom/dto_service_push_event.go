@@ -113,6 +113,7 @@ type ChangeContactCreateUserPushEvent struct {
 func (ChangeContactCreateUserPushEvent) EventInfoType() string {
 	return "change_contact" //nolint:goconst
 }
+
 func (ChangeContactCreateUserPushEvent) EventChangeType() string {
 	return "create_user" //nolint:goconst
 }
@@ -162,6 +163,7 @@ type ChangeContactUpdateUserPushEvent struct {
 func (ChangeContactUpdateUserPushEvent) EventInfoType() string {
 	return "change_contact" //nolint:goconst
 }
+
 func (ChangeContactUpdateUserPushEvent) EventChangeType() string {
 	return "update_user" //nolint:goconst
 }
@@ -185,6 +187,7 @@ type ChangeContactDeleteUserPushEvent struct {
 func (ChangeContactDeleteUserPushEvent) EventInfoType() string {
 	return "change_contact" //nolint:goconst
 }
+
 func (ChangeContactDeleteUserPushEvent) EventChangeType() string {
 	return "delete_user" //nolint:goconst
 }
@@ -214,6 +217,7 @@ type ChangeContactCreatePartyPushEvent struct {
 func (ChangeContactCreatePartyPushEvent) EventInfoType() string {
 	return "change_contact" //nolint:goconst
 }
+
 func (ChangeContactCreatePartyPushEvent) EventChangeType() string {
 	return "create_party" //nolint:goconst
 }
@@ -241,6 +245,7 @@ type ChangeContactUpdatePartyPushEvent struct {
 func (ChangeContactUpdatePartyPushEvent) EventInfoType() string {
 	return "change_contact" //nolint:goconst
 }
+
 func (ChangeContactUpdatePartyPushEvent) EventChangeType() string {
 	return "update_party" //nolint:goconst
 }
@@ -264,6 +269,7 @@ type ChangeContactDeletePartyPushEvent struct {
 func (ChangeContactDeletePartyPushEvent) EventInfoType() string {
 	return "change_contact" //nolint:goconst
 }
+
 func (ChangeContactDeletePartyPushEvent) EventChangeType() string {
 	return "delete_party" //nolint:goconst
 }
@@ -295,6 +301,7 @@ type ChangeContactUpdateTagPushEvent struct {
 func (ChangeContactUpdateTagPushEvent) EventInfoType() string {
 	return "change_contact" //nolint:goconst
 }
+
 func (ChangeContactUpdateTagPushEvent) EventChangeType() string {
 	return "update_tag" //nolint:goconst
 }
