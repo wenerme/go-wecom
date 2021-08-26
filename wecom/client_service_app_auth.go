@@ -6,7 +6,7 @@ import "github.com/wenerme/go-req"
 // 该API用于获取第三方应用凭证（suite_access_token）。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90600
-func (c *Client) GetSuiteToken(r *GetSuiteTokenRequest) (out GetSuiteTokenResponse, err error) {
+func (c *Client) GetSuiteToken(r *GetSuiteTokenRequest) (out SuiteTokenResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/service/get_suite_token",
@@ -28,7 +28,6 @@ func (c *Client) GetPreAuthCode(r *GetPreAuthCodeRequest) (out GetPreAuthCodeRes
 		URL:    "/cgi-bin/service/get_pre_auth_code",
 		Query:  r,
 		Options: []interface{}{
-
 			WithSuiteAccessToken,
 		},
 	}).Fetch(&out)
@@ -45,7 +44,6 @@ func (c *Client) SetSessionInfo(r *SetSessionInfoRequest) (out GenericResponse, 
 		URL:    "/cgi-bin/service/set_session_info",
 		Body:   r,
 		Options: []interface{}{
-
 			WithSuiteAccessToken,
 		},
 	}).Fetch(&out)
@@ -125,7 +123,7 @@ type GetSuiteTokenRequest struct {
 	SuiteTicket string `json:"suite_ticket" validate:"required"`
 }
 
-type GetSuiteTokenResponse struct {
+type SuiteTokenResponse struct {
 	// SuiteAccessToken 第三方应用access_token,最长为512字节
 	SuiteAccessToken string `json:"suite_access_token"`
 	// ExpiresIn 有效期（秒）

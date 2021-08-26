@@ -14,6 +14,7 @@ import (
 
 type middlewareOptions struct {
 	WithoutAccessToken bool
+	GetToken           func(c *Client, r *req.Request) (string, string, error)
 }
 
 const middlewareOptionsContextKey = contextKey("middlewareOptionsContextKey")
@@ -33,6 +34,11 @@ func getMiddlewareOptions(r *req.Request) *middlewareOptions {
 	return o
 }
 
+func getAccessToken(c *Client, r *req.Request) (string, string, error) {
+	token, err := c.AccessToken()
+	return "access_token", token, err
+}
+
 func requestMiddleware(r *req.Request) (err error) {
 	if r.Context == nil {
 		return nil
@@ -42,6 +48,9 @@ func requestMiddleware(r *req.Request) (err error) {
 	if client == nil {
 		return errors.New("no wecom.Client in context")
 	}
+	if o.GetToken == nil {
+		o.GetToken = getAccessToken
+	}
 	if !o.WithoutAccessToken {
 		var v url.Values
 		v, err = req.ValuesOf(r.Query)
@@ -49,13 +58,10 @@ func requestMiddleware(r *req.Request) (err error) {
 			v = url.Values{}
 		}
 		r.Query = v
-
-		_, found := v["access_token"]
-		if err == nil && !found {
-			var token string
-			token, err = client.AccessToken()
-			if err == nil {
-				v.Set("access_token", token)
+		key, val, err := o.GetToken(client, r)
+		if err == nil {
+			if _, found := v[key]; !found {
+				v.Set(key, val)
 			}
 		}
 	}

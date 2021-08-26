@@ -25,7 +25,7 @@ func TestServiceAppAuthSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		response := GetSuiteTokenResponse{}
+		response := SuiteTokenResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/service/get_suite_token.response.json")
 			assert.NoError(t, err)

@@ -15,7 +15,7 @@ Wechat Work/Wecom/企业微信 Golang SDK
 
 ## 特性
 
-- 支持缓存 Token、Ticket、AgentTicket
+- 支持缓存 AccessToken, JsTicket, AgentTicket, SuiteToken
 - 支持自建应用开发
 - 支持第三方应用开发
 - 生成回调事件模型 - 包含文档

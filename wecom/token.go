@@ -31,11 +31,11 @@ func (r TicketResponse) GetExpireAt() int64 {
 	return r.ExpireAt
 }
 
-func (r GetSuiteTokenResponse) GetToken() string {
+func (r SuiteTokenResponse) GetToken() string {
 	return r.SuiteAccessToken
 }
 
-func (r GetSuiteTokenResponse) GetExpireAt() int64 {
+func (r SuiteTokenResponse) GetExpireAt() int64 {
 	return r.ExpireAt
 }
 

@@ -2,6 +2,7 @@ package wecom
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"sync/atomic"
 	"time"
@@ -20,19 +21,14 @@ type Client struct {
 	JsAPITicketCache   TicketResponse
 	AgentTicketCache   TicketResponse
 	ProviderTokenCache ProviderTokenResponse
+	SuiteTokenCache    SuiteTokenResponse
 	OnTokenUpdate      func(c *Client)
 
 	updatingToken         int32
 	updatingProviderToken int32
+	updatingSuiteToken    int32
 	updatingTicket        int32
 	updatingAgentTicket   int32
-}
-
-func WithoutAccessToken(o *middlewareOptions) {
-	o.WithoutAccessToken = true
-}
-
-func WithSuiteAccessToken(o *middlewareOptions) {
 }
 
 func NewClient(conf Conf) *Client {
@@ -55,6 +51,7 @@ type ClientCache struct {
 	JsAPITicket   *TicketResponse
 	AgentTicket   *TicketResponse
 	ProviderToken *ProviderTokenResponse
+	SuiteToken    *SuiteTokenResponse
 }
 
 func (c *Client) DumpCache() ClientCache {
@@ -62,6 +59,7 @@ func (c *Client) DumpCache() ClientCache {
 	b := &c.JsAPITicketCache
 	d := &c.AgentTicketCache
 	e := &c.ProviderTokenCache
+	f := &c.SuiteTokenCache
 	now := time.Now().Unix()
 	if a.ExpireAt < now {
 		a = nil
@@ -75,11 +73,15 @@ func (c *Client) DumpCache() ClientCache {
 	if e.ExpireAt < now {
 		e = nil
 	}
+	if f.ExpireAt < now {
+		f = nil
+	}
 	cc := ClientCache{
 		AccessToken:   a,
 		JsAPITicket:   b,
 		AgentTicket:   d,
 		ProviderToken: e,
+		SuiteToken:    f,
 	}
 	return cc
 }
@@ -100,6 +102,9 @@ func (c *Client) LoadCache(cc *ClientCache) {
 	}
 	if cc.ProviderToken != nil && cc.ProviderToken.ExpireAt > now {
 		c.ProviderTokenCache = *cc.ProviderToken
+	}
+	if cc.SuiteToken != nil && cc.SuiteToken.ExpireAt > now {
+		c.SuiteTokenCache = *cc.SuiteToken
 	}
 }
 
@@ -129,14 +134,7 @@ func (c *Client) JsAPITicket() (string, error) {
 		}
 	}
 
-	cache := c.JsAPITicketCache
-	if cache.ExpireAt < time.Now().Unix() {
-		if lastErr == nil {
-			return "", errors.New("get js api ticket expired or invalid")
-		}
-		return "", errors.Wrap(lastErr, "get js api ticket failed")
-	}
-	return cache.Ticket, nil
+	return validToken(c.JsAPITicketCache, "js api ticket", lastErr)
 }
 
 func (c *Client) AgentTicket() (string, error) {
@@ -159,14 +157,7 @@ func (c *Client) AgentTicket() (string, error) {
 		}
 	}
 
-	cache := c.AgentTicketCache
-	if cache.ExpireAt < time.Now().Unix() {
-		if lastErr == nil {
-			return "", errors.New("agent ticket expired or invalid")
-		}
-		return "", errors.Wrap(lastErr, "get agent ticket failed")
-	}
-	return cache.Ticket, nil
+	return validToken(c.AgentTicketCache, "agent ticket", lastErr)
 }
 
 func (c *Client) AccessToken() (string, error) {
@@ -189,14 +180,7 @@ func (c *Client) AccessToken() (string, error) {
 		}
 	}
 
-	cache := c.AccessTokenCache
-	if cache.ExpireAt < time.Now().Unix() {
-		if lastErr == nil {
-			return "", errors.New("token expired or invalid")
-		}
-		return "", errors.Wrap(lastErr, "get token failed")
-	}
-	return cache.AccessToken, nil
+	return validToken(c.AccessTokenCache, "access token", lastErr)
 }
 
 func (c *Client) ProviderToken() (string, error) {
@@ -218,15 +202,44 @@ func (c *Client) ProviderToken() (string, error) {
 			}
 		}
 	}
+	return validToken(c.ProviderTokenCache, "provider token", lastErr)
+}
 
-	cache := c.ProviderTokenCache
-	if cache.ExpireAt < time.Now().Unix() {
-		if lastErr == nil {
-			return "", errors.New("token expired or invalid")
+func (c *Client) SuiteAccessToken() (string, error) {
+	var lastErr error
+	if c.shouldRefresh(c.SuiteTokenCache.ExpireAt) {
+		if atomic.CompareAndSwapInt32(&c.updatingSuiteToken, 0, 1) {
+			defer func() {
+				atomic.CompareAndSwapInt32(&c.updatingSuiteToken, 1, 0)
+			}()
+			var next SuiteTokenResponse
+			next, lastErr = c.GetSuiteToken(&GetSuiteTokenRequest{
+				SuiteID:     c.Conf.SuiteID,
+				SuiteSecret: c.Conf.SuiteSecret,
+				SuiteTicket: c.Conf.SuiteTicket,
+			})
+			if lastErr != nil {
+				logrus.WithError(lastErr).Error("get suite token failed")
+			} else {
+				c.SuiteTokenCache = next
+				if c.OnTokenUpdate != nil {
+					c.OnTokenUpdate(c)
+				}
+			}
 		}
-		return "", errors.Wrap(lastErr, "get token failed")
 	}
-	return cache.ProviderAccessToken, nil
+
+	return validToken(c.SuiteTokenCache, "suite token", lastErr)
+}
+
+func validToken(cache Token, typ string, lastErr error) (string, error) {
+	if cache.GetExpireAt() < time.Now().Unix() {
+		if lastErr == nil {
+			return "", fmt.Errorf("%v expired or invalid", typ)
+		}
+		return "", errors.Wrapf(lastErr, "get %v failed", typ)
+	}
+	return cache.GetToken(), nil
 }
 
 func (c *Client) GetToken() (out TokenResponse, err error) {

@@ -37,12 +37,6 @@ type ProviderTokenResponse struct {
 	ExpireAt            int64  `json:"expire_at"` //  extra
 }
 
-type SuiteTokenResponse struct {
-	SuiteAccessToken string `json:"suite_access_token"`
-	ExpiresIn        int    `json:"expires_in"`
-	ExpireAt         int64  `json:"expire_at"` //  extra
-}
-
 type TicketResponse struct {
 	Ticket    string `json:"ticket"`
 	ExpiresIn int    `json:"expires_in"`
