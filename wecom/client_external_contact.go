@@ -66,11 +66,11 @@ func (c *Client) RemarkExternalContact(r *RemarkExternalContactRequest) (out Gen
 	return
 }
 
-// UnionIDToExternalUserid 外部联系人unionid转换
+// UnionIDToExternalUserID 外部联系人unionid转换
 // 服务商为企业代开发微信小程序的场景，服务商可通过此接口，将微信客户的unionid转为external_userid（如何获取?）。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93274
-func (c *Client) UnionIDToExternalUserid(r *UnionIDToExternalUseridRequest) (out UnionIDToExternalUseridResponse, err error) {
+func (c *Client) UnionIDToExternalUserID(r *UnionIDToExternalUserIDRequest) (out UnionIDToExternalUserIDResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/unionid_to_external_userid",
@@ -325,11 +325,11 @@ func (c *Client) AddMessageTemplate(r *AddMessageTemplateRequest) (out AddMessag
 	return
 }
 
-// GetGroupMessageListV2 获取群发记录列表
+// GetGroupmessageListV2 获取群发记录列表
 // 企业和第三方应用可通过此接口获取企业与成员的群发记录。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupMessageListV2(r *GetGroupMessageListV2Request) (out GetGroupMessageListV2Response, err error) {
+func (c *Client) GetGroupmessageListV2(r *GetGroupmessageListV2Request) (out GetGroupmessageListV2Response, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/get_groupmsg_list_v2",
@@ -338,10 +338,10 @@ func (c *Client) GetGroupMessageListV2(r *GetGroupMessageListV2Request) (out Get
 	return
 }
 
-// GetGroupMessageTask 获取群发成员发送任务列表
+// GetGroupmessageTask 获取群发成员发送任务列表
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupMessageTask(r *GetGroupMessageTaskRequest) (out GetGroupMessageTaskResponse, err error) {
+func (c *Client) GetGroupmessageTask(r *GetGroupmessageTaskRequest) (out GetGroupmessageTaskResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/get_groupmsg_task",
@@ -350,10 +350,10 @@ func (c *Client) GetGroupMessageTask(r *GetGroupMessageTaskRequest) (out GetGrou
 	return
 }
 
-// GetGroupMessageSendResult 获取企业群发成员执行结果
+// GetGroupmessageSendResult 获取企业群发成员执行结果
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupMessageSendResult(r *GetGroupMessageSendResultRequest) (out GetGroupMessageSendResultResponse, err error) {
+func (c *Client) GetGroupmessageSendResult(r *GetGroupmessageSendResultRequest) (out GetGroupmessageSendResultResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/get_groupmsg_send_result",
@@ -414,11 +414,11 @@ func (c *Client) GetGroupWelcomeTemplate(r *GetGroupWelcomeTemplateRequest) (out
 	return
 }
 
-// DelGroupWelcomeTemplate 删除入群欢迎语素材
+// DeleteGroupWelcomeTemplate 删除入群欢迎语素材
 // 企业可通过此API删除入群欢迎语素材，且仅能删除调用方自己创建的入群欢迎语素材。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93438
-func (c *Client) DelGroupWelcomeTemplate(r *DelGroupWelcomeTemplateRequest) (out GenericResponse, err error) {
+func (c *Client) DeleteGroupWelcomeTemplate(r *DeleteGroupWelcomeTemplateRequest) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/group_welcome_template/del",
@@ -476,7 +476,7 @@ type ListExternalContactRequest struct {
 
 type ListExternalContactResponse struct {
 	// ExternalUserID 外部联系人的userid列表
-	ExternalUserID string `json:"external_userid"`
+	ExternalUserID []string `json:"external_userid"`
 }
 
 type GetExternalContactRequest struct {
@@ -487,26 +487,6 @@ type GetExternalContactRequest struct {
 }
 
 type GetExternalContactResponse struct {
-	// ExternalUserID 外部联系人的userid
-	ExternalUserID string `json:"external_userid"`
-	// Name 外部联系人的名称[注1]
-	Name string `json:"name"`
-	// Avatar 外部联系人头像，代开发自建应用需要管理员授权才可以获取，第三方不可获取
-	Avatar string `json:"avatar"`
-	// Type 外部联系人的类型，1表示该外部联系人是微信用户，2表示该外部联系人是企业微信用户
-	Type string `json:"type"`
-	// Gender 外部联系人性别 0-未知 1-男性 2-女性
-	Gender string `json:"gender"`
-	// Unionid 外部联系人在微信开放平台的唯一身份标识（微信unionid），通过此字段企业可将外部联系人与公众号/小程序用户关联起来。仅当联系人类型是微信用户，且企业或第三方服务商绑定了微信开发者ID有此字段。查看绑定方法
-	Unionid string `json:"unionid"`
-	// Position 外部联系人的职位，如果外部企业或用户选择隐藏职位，则不返回，仅当联系人类型是企业微信用户时有此字段
-	Position string `json:"position"`
-	// CorpName 外部联系人所在企业的简称，仅当联系人类型是企业微信用户时有此字段
-	CorpName string `json:"corp_name"`
-	// CorpFullName 外部联系人所在企业的主体名称，仅当联系人类型是企业微信用户时有此字段
-	CorpFullName string `json:"corp_full_name"`
-	// ExternalProfile 外部联系人的自定义展示信息，可以有多个字段和多种类型，包括文本，网页和小程序，仅当联系人类型是企业微信用户时有此字段，字段详情见对外属性；
-	ExternalProfile string `json:"external_profile"`
 	// NextCursor 分页的cursor，当跟进人多于500人时返回
 	NextCursor string `json:"next_cursor"`
 
@@ -585,16 +565,16 @@ type RemarkExternalContactRequest struct {
 	RemarkCompany string `json:"remark_company"`
 	// RemarkMobiles 此用户对外部联系人备注的手机号
 	RemarkMobiles []string `json:"remark_mobiles"`
-	// RemarkPicMediaid 备注图片的mediaid，
-	RemarkPicMediaid string `json:"remark_pic_mediaid"`
+	// RemarkPicMediaID 备注图片的mediaid，
+	RemarkPicMediaID string `json:"remark_pic_mediaid"`
 }
 
-type UnionIDToExternalUseridRequest struct {
-	// Unionid 微信客户的unionid
-	Unionid string `json:"unionid"`
+type UnionIDToExternalUserIDRequest struct {
+	// UnionID 微信客户的unionid
+	UnionID string `json:"unionid"`
 }
 
-type UnionIDToExternalUseridResponse struct {
+type UnionIDToExternalUserIDResponse struct {
 	// ExternalUserID 该企业的外部联系人ID
 	ExternalUserID string `json:"external_userid"`
 }
@@ -915,8 +895,8 @@ type GetGroupChatResponseGroupChatMemberList struct {
 	UserID string `json:"userid"`
 	// Type 成员类型。1 - 企业成员2 - 外部联系人
 	Type int `json:"type"`
-	// Unionid 外部联系人在微信开放平台的唯一身份标识（微信unionid），通过此字段企业可将外部联系人与公众号/小程序用户关联起来。仅当群成员类型是微信用户（包括企业成员未添加好友），且企业或第三方服务商绑定了微信开发者ID有此字段。查看绑定方法
-	Unionid string `json:"unionid"`
+	// UnionID 外部联系人在微信开放平台的唯一身份标识（微信unionid），通过此字段企业可将外部联系人与公众号/小程序用户关联起来。仅当群成员类型是微信用户（包括企业成员未添加好友），且企业或第三方服务商绑定了微信开发者ID有此字段。查看绑定方法
+	UnionID string `json:"unionid"`
 	// JoinTime 入群时间
 	JoinTime int `json:"join_time"`
 	// JoinScene 入群方式。1 - 由群成员邀请入群（直接邀请入群）2 - 由群成员邀请入群（通过邀请链接入群）3 - 通过扫描群二维码入群
@@ -1199,7 +1179,7 @@ type AddMessageTemplateRequestFile struct {
 	MediaID string `json:"media_id"`
 }
 
-type GetGroupMessageListV2Request struct {
+type GetGroupmessageListV2Request struct {
 	// ChatType 群发任务的类型，默认为single，表示发送给客户，group表示发送给客户群
 	ChatType string `json:"chat_type"`
 	// StartTime 群发任务记录开始时间
@@ -1216,14 +1196,14 @@ type GetGroupMessageListV2Request struct {
 	Cursor string `json:"cursor"`
 }
 
-type GetGroupMessageListV2Response struct {
+type GetGroupmessageListV2Response struct {
 	// NextCursor 分页游标，再下次请求时填写以获取之后分页的记录，如果已经没有更多的数据则返回空
 	NextCursor string `json:"next_cursor"`
 	// GroupMessageList 群发记录列表
-	GroupMessageList []GetGroupMessageListV2ResponseGroupMessageList `json:"group_msg_list"`
+	GroupMessageList []GetGroupmessageListV2ResponseGroupMessageList `json:"group_msg_list"`
 }
 
-type GetGroupMessageListV2ResponseGroupMessageList struct {
+type GetGroupmessageListV2ResponseGroupMessageList struct {
 	// Messageid 企业群发消息的id，可用于获取企业群发成员执行结果
 	Messageid string `json:"msgid"`
 	// Creator 群发消息创建者userid，API接口创建的群发消息不返回该字段
@@ -1233,39 +1213,39 @@ type GetGroupMessageListV2ResponseGroupMessageList struct {
 	// CreateType 群发消息创建来源。0：企业 1：个人
 	CreateType int `json:"create_type"`
 
-	Text GetGroupMessageListV2ResponseGroupMessageListText `json:"text"`
+	Text GetGroupmessageListV2ResponseGroupMessageListText `json:"text"`
 
-	Attachments []GetGroupMessageListV2ResponseGroupMessageListAttachments `json:"attachments"`
+	Attachments []GetGroupmessageListV2ResponseGroupMessageListAttachments `json:"attachments"`
 }
 
-type GetGroupMessageListV2ResponseGroupMessageListText struct {
+type GetGroupmessageListV2ResponseGroupMessageListText struct {
 	// Content 消息文本内容，最多4000个字节
 	Content string `json:"content"`
 }
 
-type GetGroupMessageListV2ResponseGroupMessageListAttachments struct {
+type GetGroupmessageListV2ResponseGroupMessageListAttachments struct {
 	// Messagetype 值必须是image
 	Messagetype string `json:"msgtype"`
 
-	Image GetGroupMessageListV2ResponseGroupMessageListAttachmentsImage `json:"image"`
+	Image GetGroupmessageListV2ResponseGroupMessageListAttachmentsImage `json:"image"`
 
-	Link GetGroupMessageListV2ResponseGroupMessageListAttachmentsLink `json:"link"`
+	Link GetGroupmessageListV2ResponseGroupMessageListAttachmentsLink `json:"link"`
 
-	MiniProgram GetGroupMessageListV2ResponseGroupMessageListAttachmentsMiniProgram `json:"miniprogram"`
+	MiniProgram GetGroupmessageListV2ResponseGroupMessageListAttachmentsMiniProgram `json:"miniprogram"`
 
-	Video GetGroupMessageListV2ResponseGroupMessageListAttachmentsVideo `json:"video"`
+	Video GetGroupmessageListV2ResponseGroupMessageListAttachmentsVideo `json:"video"`
 
-	File GetGroupMessageListV2ResponseGroupMessageListAttachmentsFile `json:"file"`
+	File GetGroupmessageListV2ResponseGroupMessageListAttachmentsFile `json:"file"`
 }
 
-type GetGroupMessageListV2ResponseGroupMessageListAttachmentsImage struct {
+type GetGroupmessageListV2ResponseGroupMessageListAttachmentsImage struct {
 	// MediaID 图片的media_id，可以通过获取临时素材下载资源
 	MediaID string `json:"media_id"`
 	// PicURL 图片的url，与图片的media_id不能共存优先吐出media_id
 	PicURL string `json:"pic_url"`
 }
 
-type GetGroupMessageListV2ResponseGroupMessageListAttachmentsLink struct {
+type GetGroupmessageListV2ResponseGroupMessageListAttachmentsLink struct {
 	// Title 图文消息标题
 	Title string `json:"title"`
 	// PicURL 图文消息封面的url
@@ -1276,7 +1256,7 @@ type GetGroupMessageListV2ResponseGroupMessageListAttachmentsLink struct {
 	URL string `json:"url"`
 }
 
-type GetGroupMessageListV2ResponseGroupMessageListAttachmentsMiniProgram struct {
+type GetGroupmessageListV2ResponseGroupMessageListAttachmentsMiniProgram struct {
 	// Title 小程序消息标题，最多64个字节
 	Title string `json:"title"`
 	// Appid 小程序appid，必须是关联到企业的小程序应用
@@ -1285,17 +1265,17 @@ type GetGroupMessageListV2ResponseGroupMessageListAttachmentsMiniProgram struct 
 	Page string `json:"page"`
 }
 
-type GetGroupMessageListV2ResponseGroupMessageListAttachmentsVideo struct {
+type GetGroupmessageListV2ResponseGroupMessageListAttachmentsVideo struct {
 	// MediaID 视频的media_id，可以通过获取临时素材下载资源
 	MediaID string `json:"media_id"`
 }
 
-type GetGroupMessageListV2ResponseGroupMessageListAttachmentsFile struct {
+type GetGroupmessageListV2ResponseGroupMessageListAttachmentsFile struct {
 	// MediaID 文件的media_id，可以通过获取临时素材下载资源
 	MediaID string `json:"media_id"`
 }
 
-type GetGroupMessageTaskRequest struct {
+type GetGroupmessageTaskRequest struct {
 	// Messageid 群发消息的id，通过获取群发记录列表接口返回
 	Messageid string `json:"msgid"`
 	// Limit 返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值
@@ -1304,14 +1284,14 @@ type GetGroupMessageTaskRequest struct {
 	Cursor string `json:"cursor"`
 }
 
-type GetGroupMessageTaskResponse struct {
+type GetGroupmessageTaskResponse struct {
 	// NextCursor 分页游标，再下次请求时填写以获取之后分页的记录，如果已经没有更多的数据则返回空
 	NextCursor string `json:"next_cursor"`
 	// TaskList 群发成员发送任务列表
-	TaskList []GetGroupMessageTaskResponseTaskList `json:"task_list"`
+	TaskList []GetGroupmessageTaskResponseTaskList `json:"task_list"`
 }
 
-type GetGroupMessageTaskResponseTaskList struct {
+type GetGroupmessageTaskResponseTaskList struct {
 	// UserID 企业服务人员的userid
 	UserID string `json:"userid"`
 	// Status 发送状态：0-未发送 2-已发送
@@ -1320,7 +1300,7 @@ type GetGroupMessageTaskResponseTaskList struct {
 	SendTime int `json:"send_time"`
 }
 
-type GetGroupMessageSendResultRequest struct {
+type GetGroupmessageSendResultRequest struct {
 	// Messageid 群发消息的id，通过获取群发记录列表接口返回
 	Messageid string `json:"msgid"`
 	// UserID 发送成员userid，通过获取群发成员发送任务列表接口返回
@@ -1331,14 +1311,14 @@ type GetGroupMessageSendResultRequest struct {
 	Cursor string `json:"cursor"`
 }
 
-type GetGroupMessageSendResultResponse struct {
+type GetGroupmessageSendResultResponse struct {
 	// NextCursor 分页游标，再下次请求时填写以获取之后分页的记录，如果已经没有更多的数据则返回空
 	NextCursor string `json:"next_cursor"`
 	// SendList 群成员发送结果列表
-	SendList []GetGroupMessageSendResultResponseSendList `json:"send_list"`
+	SendList []GetGroupmessageSendResultResponseSendList `json:"send_list"`
 }
 
-type GetGroupMessageSendResultResponseSendList struct {
+type GetGroupmessageSendResultResponseSendList struct {
 	// ExternalUserID 外部联系人userid，群发消息到企业的客户群不返回该字段
 	ExternalUserID string `json:"external_userid"`
 	// ChatID 外部客户群id，群发消息到客户不返回该字段
@@ -1611,7 +1591,7 @@ type GetGroupWelcomeTemplateResponseVideo struct {
 	MediaID string `json:"media_id"`
 }
 
-type DelGroupWelcomeTemplateRequest struct {
+type DeleteGroupWelcomeTemplateRequest struct {
 	// TemplateID 群欢迎语的素材id
 	TemplateID string `json:"template_id"`
 	// AgentID 授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数

@@ -1,0 +1,10 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "userids": [
+    "CORPID/USERID"
+  ],
+  "department_ids": [
+    "LINKEDID/DEPARTMENTID"
+  ]
+}

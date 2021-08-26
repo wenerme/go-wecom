@@ -83,6 +83,11 @@ var wecomeMiddleware = req.Hook{
 		er := GenericResponse{}
 		// skip for now
 		if err = json.Unmarshal(body, &er); err != nil {
+			if r.StatusCode >= 400 {
+				er.ErrorCode = r.StatusCode
+				er.ErrorMessage = r.Status
+				return er
+			}
 			return nil
 		}
 		return er.AsError()
