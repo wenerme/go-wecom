@@ -25,6 +25,8 @@ Wechat Work/Wecom/企业微信 Golang SDK
 - 自动尝试提前获取相应的 Token 和 Ticket
 - 实现逻辑清晰 - 没有实现的接口可直接调用
 - wwcrypt - 企业微信回调加密实现 - 作用同 sbzhu/weworkapi_golang
+- 数据模型大多基于官方接口文档生成 - 包含注释
+- 包含 Mock 测试
 - 接口支持
   - 通讯录管理 - 成员、部门、标签、异步批量、互联企业
     - [ ] 通讯录回调

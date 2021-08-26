@@ -32,6 +32,9 @@ func WithoutAccessToken(o *middlewareOptions) {
 	o.WithoutAccessToken = true
 }
 
+func WithSuiteAccessToken(o *middlewareOptions) {
+}
+
 func NewClient(conf Conf) *Client {
 	ctx := context.Background()
 	c := &Client{

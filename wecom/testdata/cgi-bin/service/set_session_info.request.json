@@ -1,0 +1,11 @@
+{
+  "pre_auth_code": "xxxxx",
+  "session_info": {
+    "appid": [
+      1,
+      2,
+      3
+    ],
+    "auth_type": 1
+  }
+}
