@@ -17,18 +17,18 @@ func TestContactsExportSerialization(t *testing.T) {
 	c := ts.Client
 
 	{
-		request := SimpleUserRequest{}
+		request := ExportSimpleUserRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/simple_user.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.SimpleUser(&request)
+		res, err := c.ExportSimpleUser(&request)
 		assert.NoError(t, err)
 		_ = res
 
-		response := SimpleUserResponse{}
+		response := ExportSimpleUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/simple_user.response.json")
 			assert.NoError(t, err)
@@ -37,31 +37,31 @@ func TestContactsExportSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
-		request := UserRequest{}
+		request := ExportUserRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/user.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.User(&request)
+		res, err := c.ExportUser(&request)
 		assert.NoError(t, err)
 		_ = res
 
 	}
 	{
-		request := DepartmentRequest{}
+		request := ExportDepartmentRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/department.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.Department(&request)
+		res, err := c.ExportDepartment(&request)
 		assert.NoError(t, err)
 		_ = res
 
-		response := DepartmentResponse{}
+		response := ExportDepartmentResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/department.response.json")
 			assert.NoError(t, err)
@@ -70,18 +70,18 @@ func TestContactsExportSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
-		request := TaguserRequest{}
+		request := ExportTagUserRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/taguser.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.Taguser(&request)
+		res, err := c.ExportTagUser(&request)
 		assert.NoError(t, err)
 		_ = res
 
-		response := TaguserResponse{}
+		response := ExportTagUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/taguser.response.json")
 			assert.NoError(t, err)

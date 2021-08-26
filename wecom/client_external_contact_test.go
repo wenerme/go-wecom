@@ -31,6 +31,85 @@ func TestExternalContactSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
+		request := AddContactWayRequest{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/add_contact_way.request.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &request))
+		}
+
+		res, err := c.AddContactWay(&request)
+		assert.NoError(t, err)
+		_ = res
+
+		response := AddContactWayResponse{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/add_contact_way.response.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &response))
+		}
+		assert.Equal(t, response, res)
+	}
+	{
+		request := GetContactWayRequest{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/get_contact_way.request.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &request))
+		}
+
+		res, err := c.GetContactWay(&request)
+		assert.NoError(t, err)
+		_ = res
+
+		response := GetContactWayResponse{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/get_contact_way.response.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &response))
+		}
+		assert.Equal(t, response, res)
+	}
+	{
+		request := UpdateContactWayRequest{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/update_contact_way.request.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &request))
+		}
+
+		res, err := c.UpdateContactWay(&request)
+		assert.NoError(t, err)
+		_ = res
+
+	}
+	{
+		request := DeleteContactWayRequest{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/del_contact_way.request.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &request))
+		}
+
+		res, err := c.DeleteContactWay(&request)
+		assert.NoError(t, err)
+		_ = res
+
+	}
+	{
+		request := CloseTempChatRequest{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/close_temp_chat.request.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &request))
+		}
+
+		res, err := c.CloseTempChat(&request)
+		assert.NoError(t, err)
+		_ = res
+
+	}
+	{
 		request := ListExternalContactRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/list.request.json")
@@ -170,14 +249,14 @@ func TestExternalContactSerialization(t *testing.T) {
 
 	}
 	{
-		request := DelCorpTagRequest{}
+		request := DeleteCorpTagRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/del_corp_tag.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.DelCorpTag(&request)
+		res, err := c.DeleteCorpTag(&request)
 		assert.NoError(t, err)
 		_ = res
 
@@ -465,18 +544,18 @@ func TestExternalContactSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
-		request := GetGroupmessageListV2Request{}
+		request := GetGroupMessageListV2Request{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/get_groupmsg_list_v2.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.GetGroupmessageListV2(&request)
+		res, err := c.GetGroupMessageListV2(&request)
 		assert.NoError(t, err)
 		_ = res
 
-		response := GetGroupmessageListV2Response{}
+		response := GetGroupMessageListV2Response{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/get_groupmsg_list_v2.response.json")
 			assert.NoError(t, err)
@@ -485,18 +564,18 @@ func TestExternalContactSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
-		request := GetGroupmessageTaskRequest{}
+		request := GetGroupMessageTaskRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/get_groupmsg_task.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.GetGroupmessageTask(&request)
+		res, err := c.GetGroupMessageTask(&request)
 		assert.NoError(t, err)
 		_ = res
 
-		response := GetGroupmessageTaskResponse{}
+		response := GetGroupMessageTaskResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/get_groupmsg_task.response.json")
 			assert.NoError(t, err)
@@ -505,18 +584,18 @@ func TestExternalContactSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
-		request := GetGroupmessageSendResultRequest{}
+		request := GetGroupMessageSendResultRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/get_groupmsg_send_result.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.GetGroupmessageSendResult(&request)
+		res, err := c.GetGroupMessageSendResult(&request)
 		assert.NoError(t, err)
 		_ = res
 
-		response := GetGroupmessageSendResultResponse{}
+		response := GetGroupMessageSendResultResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/get_groupmsg_send_result.response.json")
 			assert.NoError(t, err)
@@ -558,14 +637,14 @@ func TestExternalContactSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
-		request := EditRequest{}
+		request := EditGroupWelcomeTemplateRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/externalcontact/group_welcome_template/edit.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.Edit(&request)
+		res, err := c.EditGroupWelcomeTemplate(&request)
 		assert.NoError(t, err)
 		_ = res
 

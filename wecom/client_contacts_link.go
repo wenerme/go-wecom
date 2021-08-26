@@ -64,7 +64,7 @@ func (c *Client) LinkGetPermList() (out LinkGetPermListResponse, err error) {
 
 type LinkSimpleListUserRequest struct {
 	// DepartmentID 该字段用的是互联应用可见范围接口返回的department_ids参数，用的是 linkedid + ’/‘ + department_id 拼成的字符串
-	DepartmentID string `json:"department_id"`
+	DepartmentID string `json:"department_id" validate:"required"`
 	// FetchChild 是否递归获取子部门下面的成员：1-递归获取，0-只获取本部门，不传默认只获取本部门成员
 	FetchChild bool `json:"fetch_child"`
 }
@@ -76,7 +76,7 @@ type LinkSimpleListUserResponse struct {
 
 type LinkListUserRequest struct {
 	// DepartmentID 该字段用的是互联应用可见范围接口返回的department_ids参数，用的是 linkedid + ’/‘ + department_id 拼成的字符串
-	DepartmentID string `json:"department_id"`
+	DepartmentID string `json:"department_id" validate:"required"`
 	// FetchChild 是否递归获取子部门下面的成员：1-递归获取，0-只获取本部门，不传默认只获取本部门成员
 	FetchChild bool `json:"fetch_child"`
 }
@@ -88,7 +88,7 @@ type LinkListUserResponse struct {
 
 type LinkListDepartmentRequest struct {
 	// DepartmentID 该字段用的是互联应用可见范围接口返回的department_ids参数，用的是 linkedid + ’/‘ + department_id 拼成的字符串
-	DepartmentID string `json:"department_id"`
+	DepartmentID string `json:"department_id" validate:"required"`
 }
 
 type LinkListDepartmentResponse struct {
@@ -98,7 +98,7 @@ type LinkListDepartmentResponse struct {
 
 type LinkGetUserRequest struct {
 	// UserID 该字段用的是互联应用可见范围接口返回的userids参数，用的是 CorpId + ’/‘ + USERID 拼成的字符串
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 }
 
 type LinkGetUserResponse struct {

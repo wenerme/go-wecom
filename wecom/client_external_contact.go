@@ -14,6 +14,71 @@ func (c *Client) GetFollowUserList() (out GetFollowUserListResponse, err error) 
 	return
 }
 
+// AddContactWay 配置客户联系「联系我」方式
+// 企业可以在管理后台-客户联系-加客户中配置成员的「联系我」的二维码或者小程序按钮，客户通过扫描二维码或点击小程序上的按钮，即可获取成员联系方式，主动联系到成员。企业可通过此接口为具有客户联系功能的成员生成专属的「联系我」二维码或者「联系我」按钮。如果配置的是「联系我」按钮，需要开发者的小程序接入小程序插件。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92577
+func (c *Client) AddContactWay(r *AddContactWayRequest) (out AddContactWayResponse, err error) {
+	err = c.Request.With(req.Request{
+		Method: "POST",
+		URL:    "/cgi-bin/externalcontact/add_contact_way",
+		Body:   r,
+	}).Fetch(&out)
+	return
+}
+
+// GetContactWay 获取企业已配置的「联系我」方式
+// 获取企业配置的「联系我」二维码和「联系我」小程序按钮。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92577
+func (c *Client) GetContactWay(r *GetContactWayRequest) (out GetContactWayResponse, err error) {
+	err = c.Request.With(req.Request{
+		Method: "POST",
+		URL:    "/cgi-bin/externalcontact/get_contact_way",
+		Body:   r,
+	}).Fetch(&out)
+	return
+}
+
+// UpdateContactWay 更新企业已配置的「联系我」方式
+// 更新企业配置的「联系我」二维码和「联系我」小程序按钮中的信息，如使用人员和备注等。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92577
+func (c *Client) UpdateContactWay(r *UpdateContactWayRequest) (out GenericResponse, err error) {
+	err = c.Request.With(req.Request{
+		Method: "POST",
+		URL:    "/cgi-bin/externalcontact/update_contact_way",
+		Body:   r,
+	}).Fetch(&out)
+	return
+}
+
+// DeleteContactWay 删除企业已配置的「联系我」方式
+// 删除一个已配置的「联系我」二维码或者「联系我」小程序按钮。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92577
+func (c *Client) DeleteContactWay(r *DeleteContactWayRequest) (out GenericResponse, err error) {
+	err = c.Request.With(req.Request{
+		Method: "POST",
+		URL:    "/cgi-bin/externalcontact/del_contact_way",
+		Body:   r,
+	}).Fetch(&out)
+	return
+}
+
+// CloseTempChat 结束临时会话
+// 将指定的企业成员和客户之前的临时会话断开，断开前会自动下发已配置的结束语。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92577
+func (c *Client) CloseTempChat(r *CloseTempChatRequest) (out GenericResponse, err error) {
+	err = c.Request.With(req.Request{
+		Method: "POST",
+		URL:    "/cgi-bin/externalcontact/close_temp_chat",
+		Body:   r,
+	}).Fetch(&out)
+	return
+}
+
 // ListExternalContact 获取客户列表
 // 企业可通过此接口获取指定成员添加的客户列表。客户是指配置了客户联系功能的成员所添加的外部联系人。没有配置客户联系功能的成员，所添加的外部联系人将不会作为客户返回。
 //
@@ -118,11 +183,11 @@ func (c *Client) EditCorpTag(r *EditCorpTagRequest) (out GenericResponse, err er
 	return
 }
 
-// DelCorpTag 删除企业客户标签
+// DeleteCorpTag 删除企业客户标签
 // 企业可通过此接口删除客户标签库中的标签，或删除整个标签组。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92696
-func (c *Client) DelCorpTag(r *DelCorpTagRequest) (out GenericResponse, err error) {
+func (c *Client) DeleteCorpTag(r *DeleteCorpTagRequest) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/del_corp_tag",
@@ -325,11 +390,11 @@ func (c *Client) AddMessageTemplate(r *AddMessageTemplateRequest) (out AddMessag
 	return
 }
 
-// GetGroupmessageListV2 获取群发记录列表
+// GetGroupMessageListV2 获取群发记录列表
 // 企业和第三方应用可通过此接口获取企业与成员的群发记录。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupmessageListV2(r *GetGroupmessageListV2Request) (out GetGroupmessageListV2Response, err error) {
+func (c *Client) GetGroupMessageListV2(r *GetGroupMessageListV2Request) (out GetGroupMessageListV2Response, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/get_groupmsg_list_v2",
@@ -338,10 +403,10 @@ func (c *Client) GetGroupmessageListV2(r *GetGroupmessageListV2Request) (out Get
 	return
 }
 
-// GetGroupmessageTask 获取群发成员发送任务列表
+// GetGroupMessageTask 获取群发成员发送任务列表
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupmessageTask(r *GetGroupmessageTaskRequest) (out GetGroupmessageTaskResponse, err error) {
+func (c *Client) GetGroupMessageTask(r *GetGroupMessageTaskRequest) (out GetGroupMessageTaskResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/get_groupmsg_task",
@@ -350,10 +415,10 @@ func (c *Client) GetGroupmessageTask(r *GetGroupmessageTaskRequest) (out GetGrou
 	return
 }
 
-// GetGroupmessageSendResult 获取企业群发成员执行结果
+// GetGroupMessageSendResult 获取企业群发成员执行结果
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupmessageSendResult(r *GetGroupmessageSendResultRequest) (out GetGroupmessageSendResultResponse, err error) {
+func (c *Client) GetGroupMessageSendResult(r *GetGroupMessageSendResultRequest) (out GetGroupMessageSendResultResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/get_groupmsg_send_result",
@@ -388,11 +453,11 @@ func (c *Client) AddGroupWelcomeTemplate(r *AddGroupWelcomeTemplateRequest) (out
 	return
 }
 
-// Edit 编辑入群欢迎语素材
+// EditGroupWelcomeTemplate 编辑入群欢迎语素材
 // 企业可通过此API编辑入群欢迎语素材库中的素材，且仅能够编辑调用方自己创建的入群欢迎语素材。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93438
-func (c *Client) Edit(r *EditRequest) (out GenericResponse, err error) {
+func (c *Client) EditGroupWelcomeTemplate(r *EditGroupWelcomeTemplateRequest) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/externalcontact/group_welcome_template/edit",
@@ -469,9 +534,120 @@ type GetFollowUserListResponse struct {
 	FollowUser []string `json:"follow_user"`
 }
 
+type AddContactWayRequest struct {
+	// Type 联系方式类型,1-单人, 2-多人
+	Type int `json:"type" validate:"required"`
+	// Scene 场景，1-在小程序中联系，2-通过二维码联系
+	Scene int `json:"scene" validate:"required"`
+	// Style 在小程序中联系时使用的控件样式，详见附表
+	Style int `json:"style"`
+	// Remark 联系方式的备注信息，用于助记，不超过30个字符
+	Remark string `json:"remark"`
+	// SkipVerify 外部客户添加时是否无需验证，默认为true
+	SkipVerify bool `json:"skip_verify"`
+	// State 企业自定义的state参数，用于区分不同的添加渠道，在调用“获取外部联系人详情”时会返回该参数值，不超过30个字符
+	State string `json:"state"`
+	// User 使用该联系方式的用户userID列表，在type为1时为必填，且只能有一个
+	User []string `json:"user"`
+	// Party 使用该联系方式的部门id列表，只在type为2时有效
+	Party []int `json:"party"`
+	// IsTemp 是否临时会话模式，true表示使用临时会话模式，默认为false
+	IsTemp bool `json:"is_temp"`
+	// ExpiresIn 临时会话二维码有效期，以秒为单位。该参数仅在is_temp为true时有效，默认7天
+	ExpiresIn int `json:"expires_in"`
+	// ChatExpiresIn 临时会话有效期，以秒为单位。该参数仅在is_temp为true时有效，默认为添加好友后24小时
+	ChatExpiresIn int `json:"chat_expires_in"`
+	// UnionID 可进行临时会话的客户unionid，该参数仅在is_temp为true时有效，如不指定则不进行限制
+	UnionID string `json:"unionid"`
+	// Conclusions 结束语，会话结束时自动发送给客户，可参考“结束语定义”，仅在is_temp为true时有效
+	Conclusions *Conclusions `json:"conclusions"`
+}
+
+type AddContactWayResponse struct {
+	// ConfigID 新增联系方式的配置id
+	ConfigID string `json:"config_id"`
+	// QrCode 联系我二维码链接，仅在scene为2时返回
+	QrCode string `json:"qr_code"`
+}
+
+type GetContactWayRequest struct {
+	// ConfigID 联系方式的配置id
+	ConfigID string `json:"config_id" validate:"required"`
+}
+
+type GetContactWayResponse struct {
+	// ConfigID 新增联系方式的配置id
+	ConfigID string `json:"config_id"`
+	// Type 联系方式类型，1-单人，2-多人
+	Type string `json:"type"`
+	// Scene 场景，1-在小程序中联系，2-通过二维码联系
+	Scene string `json:"scene"`
+	// IsTemp 是否临时会话模式，默认为false，true表示使用临时会话模式
+	IsTemp string `json:"is_temp"`
+	// Remark 联系方式的备注信息，用于助记
+	Remark string `json:"remark"`
+	// SkipVerify 外部客户添加时是否无需验证
+	SkipVerify string `json:"skip_verify"`
+	// State 企业自定义的state参数，用于区分不同的添加渠道，在调用“获取外部联系人详情”时会返回该参数值
+	State string `json:"state"`
+	// Style 小程序中联系按钮的样式，仅在scene为1时返回，详见附录
+	Style string `json:"style"`
+	// QrCode 联系二维码的URL，仅在scene为2时返回
+	QrCode string `json:"qr_code"`
+	// User 使用该联系方式的用户userID列表
+	User string `json:"user"`
+	// Party 使用该联系方式的部门id列表
+	Party string `json:"party"`
+	// ExpiresIn 临时会话二维码有效期，以秒为单位
+	ExpiresIn string `json:"expires_in"`
+	// ChatExpiresIn 临时会话有效期，以秒为单位
+	ChatExpiresIn string `json:"chat_expires_in"`
+	// UnionID 可进行临时会话的客户unionid
+	UnionID string `json:"unionid"`
+	// Conclusions 结束语，可参考“结束语定义”
+	Conclusions string `json:"conclusions"`
+}
+
+type UpdateContactWayRequest struct {
+	// ConfigID 企业联系方式的配置id
+	ConfigID string `json:"config_id" validate:"required"`
+	// Remark 联系方式的备注信息，不超过30个字符，将覆盖之前的备注
+	Remark string `json:"remark"`
+	// SkipVerify 外部客户添加时是否无需验证
+	SkipVerify bool `json:"skip_verify"`
+	// Style 样式，只针对“在小程序中联系”的配置生效
+	Style int `json:"style"`
+	// State 企业自定义的state参数，用于区分不同的添加渠道，在调用“获取外部联系人详情”时会返回该参数值
+	State string `json:"state"`
+	// User 使用该联系方式的用户列表，将覆盖原有用户列表
+	User []string `json:"user"`
+	// Party 使用该联系方式的部门列表，将覆盖原有部门列表，只在配置的type为2时有效
+	Party []int `json:"party"`
+	// ExpiresIn 临时会话二维码有效期，以秒为单位，该参数仅在临时会话模式下有效
+	ExpiresIn int `json:"expires_in"`
+	// ChatExpiresIn 临时会话有效期，以秒为单位，该参数仅在临时会话模式下有效
+	ChatExpiresIn int `json:"chat_expires_in"`
+	// UnionID 可进行临时会话的客户unionid，该参数仅在临时会话模式有效，如不指定则不进行限制
+	UnionID string `json:"unionid"`
+	// Conclusions 结束语，会话结束时自动发送给客户，可参考“结束语定义”，仅临时会话模式（is_temp为true）可设置
+	Conclusions *Conclusions `json:"conclusions"`
+}
+
+type DeleteContactWayRequest struct {
+	// ConfigID 企业联系方式的配置id
+	ConfigID string `json:"config_id" validate:"required"`
+}
+
+type CloseTempChatRequest struct {
+	// UserID 企业成员的userid
+	UserID string `json:"userid" validate:"required"`
+	// ExternalUserID 客户的外部联系人userid
+	ExternalUserID string `json:"external_userid" validate:"required"`
+}
+
 type ListExternalContactRequest struct {
 	// UserID 企业成员的userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 }
 
 type ListExternalContactResponse struct {
@@ -481,7 +657,7 @@ type ListExternalContactResponse struct {
 
 type GetExternalContactRequest struct {
 	// ExternalUserID 外部联系人的userid，注意不是企业成员的帐号
-	ExternalUserID string `json:"external_userid"`
+	ExternalUserID string `json:"external_userid" validate:"required"`
 	// Cursor 上次请求返回的next_cursor
 	Cursor string `json:"cursor"`
 }
@@ -531,7 +707,7 @@ type GetExternalContactResponseFollowUserTags struct {
 
 type BatchGetByUserRequest struct {
 	// UserIDList 企业成员的userid列表，字符串类型，最多支持100个
-	UserIDList []string `json:"userid_list"`
+	UserIDList []string `json:"userid_list" validate:"required"`
 	// Cursor 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
 	Cursor string `json:"cursor"`
 	// Limit 返回的最大记录数，整型，最大值100，默认值50，超过最大值时取最大值
@@ -554,9 +730,9 @@ type BatchGetByUserResponseExternalContactList struct {
 
 type RemarkExternalContactRequest struct {
 	// UserID 企业成员的userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 	// ExternalUserID 外部联系人userid
-	ExternalUserID string `json:"external_userid"`
+	ExternalUserID string `json:"external_userid" validate:"required"`
 	// Remark 此用户对外部联系人的备注，最多20个字符
 	Remark string `json:"remark"`
 	// Description 此用户对外部联系人的描述，最多150个字符
@@ -571,7 +747,7 @@ type RemarkExternalContactRequest struct {
 
 type UnionIDToExternalUserIDRequest struct {
 	// UnionID 微信客户的unionid
-	UnionID string `json:"unionid"`
+	UnionID string `json:"unionid" validate:"required"`
 }
 
 type UnionIDToExternalUserIDResponse struct {
@@ -638,7 +814,7 @@ type AddCorpTagResponse struct {
 
 type AddCorpTagRequestTag struct {
 	// Name 添加的标签名称，最长为30个字符
-	Name string `json:"name"`
+	Name string `json:"name" validate:"required"`
 	// Order 标签次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
 	Order int `json:"order"`
 }
@@ -669,7 +845,7 @@ type AddCorpTagResponseTagGroupTag struct {
 
 type EditCorpTagRequest struct {
 	// ID 标签或标签组的id
-	ID string `json:"id"`
+	ID string `json:"id" validate:"required"`
 	// Name 新的标签或标签组名称，最长为30个字符
 	Name string `json:"name"`
 	// Order 标签/标签组的次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
@@ -678,7 +854,7 @@ type EditCorpTagRequest struct {
 	AgentID int `json:"agentid"`
 }
 
-type DelCorpTagRequest struct {
+type DeleteCorpTagRequest struct {
 	// TagID 标签的id列表
 	TagID []string `json:"tag_id"`
 	// GroupID 标签组的id列表
@@ -689,9 +865,9 @@ type DelCorpTagRequest struct {
 
 type MarkTagExternalContactRequest struct {
 	// UserID 添加外部联系人的userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 	// ExternalUserID 外部联系人userid
-	ExternalUserID string `json:"external_userid"`
+	ExternalUserID string `json:"external_userid" validate:"required"`
 	// AddTag 要标记的标签列表
 	AddTag []string `json:"add_tag"`
 	// RemoveTag 要移除的标签列表
@@ -700,11 +876,11 @@ type MarkTagExternalContactRequest struct {
 
 type TransferCustomerExternalContactRequest struct {
 	// HandoverUserID 原跟进成员的userid
-	HandoverUserID string `json:"handover_userid"`
+	HandoverUserID string `json:"handover_userid" validate:"required"`
 	// TakeoverUserID 接替成员的userid
-	TakeoverUserID string `json:"takeover_userid"`
+	TakeoverUserID string `json:"takeover_userid" validate:"required"`
 	// ExternalUserID 客户的external_userid列表，每次最多分配100个客户
-	ExternalUserID []string `json:"external_userid"`
+	ExternalUserID []string `json:"external_userid" validate:"required"`
 	// TransferSuccessMessage 转移成功后发给客户的消息，最多200个字符，不填则使用默认文案
 	TransferSuccessMessage string `json:"transfer_success_msg"`
 }
@@ -716,15 +892,15 @@ type TransferCustomerExternalContactResponse struct {
 type TransferCustomerExternalContactResponseCustomer struct {
 	// ExternalUserID 客户的external_userid
 	ExternalUserID string `json:"external_userid"`
-	// Errcode 对此客户进行分配的结果, 具体可参考全局错误码, 0表示成功发起接替,待24小时后自动接替,并不代表最终接替成功
-	Errcode int `json:"errcode"`
+	// ErrorCode 对此客户进行分配的结果, 具体可参考全局错误码, 0表示成功发起接替,待24小时后自动接替,并不代表最终接替成功
+	ErrorCode int `json:"errcode"`
 }
 
 type TransferResultExternalContactRequest struct {
 	// HandoverUserID 原添加成员的userid
-	HandoverUserID string `json:"handover_userid"`
+	HandoverUserID string `json:"handover_userid" validate:"required"`
 	// TakeoverUserID 接替成员的userid
-	TakeoverUserID string `json:"takeover_userid"`
+	TakeoverUserID string `json:"takeover_userid" validate:"required"`
 	// Cursor 分页查询的cursor，每个分页返回的数据不会超过1000条；不填或为空表示获取第一个分页；
 	Cursor string `json:"cursor"`
 }
@@ -768,17 +944,17 @@ type GetUnassignedListResponseInfo struct {
 	HandoverUserID string `json:"handover_userid"`
 	// ExternalUserID 外部联系人userid
 	ExternalUserID string `json:"external_userid"`
-	// DimissionTime 成员离职时间
-	DimissionTime int `json:"dimission_time"`
+	// DismissionTime 成员离职时间
+	DismissionTime int `json:"dimission_time"`
 }
 
 type TransferCustomerResignedRequest struct {
 	// HandoverUserID 原跟进成员的userid
-	HandoverUserID string `json:"handover_userid"`
+	HandoverUserID string `json:"handover_userid" validate:"required"`
 	// TakeoverUserID 接替成员的userid
-	TakeoverUserID string `json:"takeover_userid"`
+	TakeoverUserID string `json:"takeover_userid" validate:"required"`
 	// ExternalUserID 客户的external_userid列表，最多一次转移100个客户
-	ExternalUserID []string `json:"external_userid"`
+	ExternalUserID []string `json:"external_userid" validate:"required"`
 }
 
 type TransferCustomerResignedResponse struct {
@@ -788,15 +964,15 @@ type TransferCustomerResignedResponse struct {
 type TransferCustomerResignedResponseCustomer struct {
 	// ExternalUserID 客户的external_userid
 	ExternalUserID string `json:"external_userid"`
-	// Errcode 对此客户进行分配的结果, 具体可参考全局错误码, 0表示开始分配流程,待24小时后自动接替,并不代表最终分配成功
-	Errcode int `json:"errcode"`
+	// ErrorCode 对此客户进行分配的结果, 具体可参考全局错误码, 0表示开始分配流程,待24小时后自动接替,并不代表最终分配成功
+	ErrorCode int `json:"errcode"`
 }
 
 type TransferResultResignedRequest struct {
 	// HandoverUserID 原添加成员的userid
-	HandoverUserID string `json:"handover_userid"`
+	HandoverUserID string `json:"handover_userid" validate:"required"`
 	// TakeoverUserID 接替成员的userid
-	TakeoverUserID string `json:"takeover_userid"`
+	TakeoverUserID string `json:"takeover_userid" validate:"required"`
 	// Cursor 分页查询的cursor，每个分页返回的数据不会超过1000条；不填或为空表示获取第一个分页
 	Cursor string `json:"cursor"`
 }
@@ -819,9 +995,9 @@ type TransferResultResignedResponseCustomer struct {
 
 type TransferGroupChatRequest struct {
 	// ChatIDList 需要转群主的客户群ID列表。取值范围： 1 ~ 100
-	ChatIDList []string `json:"chat_id_list"`
+	ChatIDList []string `json:"chat_id_list" validate:"required"`
 	// NewOwner 新群主ID
-	NewOwner string `json:"new_owner"`
+	NewOwner string `json:"new_owner" validate:"required"`
 }
 
 type TransferGroupChatResponse struct {
@@ -832,10 +1008,10 @@ type TransferGroupChatResponse struct {
 type TransferGroupChatResponseFailedChatList struct {
 	// ChatID 没能成功继承的群ID
 	ChatID string `json:"chat_id"`
-	// Errcode 没能成功继承的群，错误码
-	Errcode int `json:"errcode"`
-	// Errmessage 没能成功继承的群，错误描述
-	Errmessage string `json:"errmsg"`
+	// ErrorCode 没能成功继承的群，错误码
+	ErrorCode int `json:"errcode"`
+	// ErrorMessage 没能成功继承的群，错误描述
+	ErrorMessage string `json:"errmsg"`
 }
 
 type ListGroupChatRequest struct {
@@ -846,7 +1022,7 @@ type ListGroupChatRequest struct {
 	// Cursor 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填
 	Cursor string `json:"cursor"`
 	// Limit 分页，预期请求的数据量，取值范围 1 ~ 1000
-	Limit int `json:"limit"`
+	Limit int `json:"limit" validate:"required"`
 }
 
 type ListGroupChatResponse struct {
@@ -921,9 +1097,9 @@ type GetGroupChatResponseGroupChatAdminList struct {
 
 type GetMomentListRequest struct {
 	// StartTime 朋友圈记录开始时间。Unix时间戳
-	StartTime int `json:"start_time"`
+	StartTime int `json:"start_time" validate:"required"`
 	// EndTime 朋友圈记录结束时间。Unix时间戳
-	EndTime int `json:"end_time"`
+	EndTime int `json:"end_time" validate:"required"`
 	// Creator 朋友圈创建人的userid
 	Creator string `json:"creator"`
 	// FilterType 朋友圈类型。0：企业发表 1：个人发表 2：所有，包括个人创建以及企业创建，默认情况下为所有类型
@@ -999,7 +1175,7 @@ type GetMomentListResponseMomentListLocation struct {
 
 type GetMomentTaskRequest struct {
 	// MomentID 朋友圈id,仅支持企业发表的朋友圈id
-	MomentID string `json:"moment_id"`
+	MomentID string `json:"moment_id" validate:"required"`
 	// Cursor 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
 	Cursor string `json:"cursor"`
 	// Limit 返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值
@@ -1022,9 +1198,9 @@ type GetMomentTaskResponseTaskList struct {
 
 type GetMomentCustomerListRequest struct {
 	// MomentID 朋友圈id
-	MomentID string `json:"moment_id"`
+	MomentID string `json:"moment_id" validate:"required"`
 	// UserID 企业发表成员userid，如果是企业创建的朋友圈，可以通过获取客户朋友圈企业发表的列表获取已发表成员userid，如果是个人创建的朋友圈，创建人userid就是企业发表成员userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 	// Cursor 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
 	Cursor string `json:"cursor"`
 	// Limit 返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值
@@ -1047,9 +1223,9 @@ type GetMomentCustomerListResponseCustomerList struct {
 
 type GetMomentSendResultRequest struct {
 	// MomentID 朋友圈id
-	MomentID string `json:"moment_id"`
+	MomentID string `json:"moment_id" validate:"required"`
 	// UserID 企业发表成员userid，如果是企业创建的朋友圈，可以通过获取客户朋友圈企业发表的列表获取已发表成员userid，如果是个人创建的朋友圈，创建人userid就是企业发表成员userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 	// Cursor 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
 	Cursor string `json:"cursor"`
 	// Limit 返回的最大记录数，整型，最大值5000，默认值3000，超过最大值时取默认值
@@ -1070,9 +1246,9 @@ type GetMomentSendResultResponseCustomerList struct {
 
 type GetMomentCommentsRequest struct {
 	// MomentID 朋友圈id
-	MomentID string `json:"moment_id"`
+	MomentID string `json:"moment_id" validate:"required"`
 	// UserID 企业发表成员userid，如果是企业创建的朋友圈，可以通过获取客户朋友圈企业发表的列表获取已发表成员userid，如果是个人创建的朋友圈，创建人userid就是企业发表成员userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 }
 
 type GetMomentCommentsResponse struct {
@@ -1126,8 +1302,8 @@ type AddMessageTemplateRequest struct {
 type AddMessageTemplateResponse struct {
 	// FailList 无效或无法发送的external_userid列表
 	FailList []string `json:"fail_list"`
-	// Messageid 企业群发消息的id，可用于获取群发消息发送结果
-	Messageid string `json:"msgid"`
+	// MessageID 企业群发消息的id，可用于获取群发消息发送结果
+	MessageID string `json:"msgid"`
 }
 
 type AddMessageTemplateRequestText struct {
@@ -1136,8 +1312,8 @@ type AddMessageTemplateRequestText struct {
 }
 
 type AddMessageTemplateRequestAttachments struct {
-	// Messagetype 附件类型，可选image、link、miniprogram或者video
-	Messagetype string `json:"msgtype"`
+	// MessageType 附件类型，可选image、link、miniprogram或者video
+	MessageType string `json:"msgtype" validate:"required"`
 }
 
 type AddMessageTemplateRequestImage struct {
@@ -1149,43 +1325,43 @@ type AddMessageTemplateRequestImage struct {
 
 type AddMessageTemplateRequestLink struct {
 	// Title 图文消息标题，最长128个字节
-	Title string `json:"title"`
+	Title string `json:"title" validate:"required"`
 	// PicURL 图文消息封面的url，最长2048个字节
 	PicURL string `json:"picurl"`
 	// Desc 图文消息的描述，最多512个字节
 	Desc string `json:"desc"`
 	// URL 图文消息的链接，最长2048个字节
-	URL string `json:"url"`
+	URL string `json:"url" validate:"required"`
 }
 
 type AddMessageTemplateRequestMiniProgram struct {
 	// Title 小程序消息标题，最多64个字节
-	Title string `json:"title"`
+	Title string `json:"title" validate:"required"`
 	// PicMediaID 小程序消息封面的mediaid，封面图建议尺寸为520*416
-	PicMediaID string `json:"pic_media_id"`
-	// Appid 小程序appid（可以在微信公众平台上查询），必须是关联到企业的小程序应用
-	Appid string `json:"appid"`
+	PicMediaID string `json:"pic_media_id" validate:"required"`
+	// AppID 小程序appid（可以在微信公众平台上查询），必须是关联到企业的小程序应用
+	AppID string `json:"appid" validate:"required"`
 	// Page 小程序page路径
-	Page string `json:"page"`
+	Page string `json:"page" validate:"required"`
 }
 
 type AddMessageTemplateRequestVideo struct {
 	// MediaID 视频的media_id，可以通过素材管理接口获得
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 }
 
 type AddMessageTemplateRequestFile struct {
 	// MediaID 文件的media_id，可以通过素材管理接口获得
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 }
 
-type GetGroupmessageListV2Request struct {
+type GetGroupMessageListV2Request struct {
 	// ChatType 群发任务的类型，默认为single，表示发送给客户，group表示发送给客户群
-	ChatType string `json:"chat_type"`
+	ChatType string `json:"chat_type" validate:"required"`
 	// StartTime 群发任务记录开始时间
-	StartTime int `json:"start_time"`
+	StartTime int `json:"start_time" validate:"required"`
 	// EndTime 群发任务记录结束时间
-	EndTime int `json:"end_time"`
+	EndTime int `json:"end_time" validate:"required"`
 	// Creator 群发任务创建人企业账号id
 	Creator string `json:"creator"`
 	// FilterType 创建人类型。0：企业发表 1：个人发表 2：所有，包括个人创建以及企业创建，默认情况下为所有类型
@@ -1196,16 +1372,16 @@ type GetGroupmessageListV2Request struct {
 	Cursor string `json:"cursor"`
 }
 
-type GetGroupmessageListV2Response struct {
+type GetGroupMessageListV2Response struct {
 	// NextCursor 分页游标，再下次请求时填写以获取之后分页的记录，如果已经没有更多的数据则返回空
 	NextCursor string `json:"next_cursor"`
 	// GroupMessageList 群发记录列表
-	GroupMessageList []GetGroupmessageListV2ResponseGroupMessageList `json:"group_msg_list"`
+	GroupMessageList []GetGroupMessageListV2ResponseGroupMessageList `json:"group_msg_list"`
 }
 
-type GetGroupmessageListV2ResponseGroupMessageList struct {
-	// Messageid 企业群发消息的id，可用于获取企业群发成员执行结果
-	Messageid string `json:"msgid"`
+type GetGroupMessageListV2ResponseGroupMessageList struct {
+	// MessageID 企业群发消息的id，可用于获取企业群发成员执行结果
+	MessageID string `json:"msgid"`
 	// Creator 群发消息创建者userid，API接口创建的群发消息不返回该字段
 	Creator string `json:"creator"`
 	// CreateTime 创建时间
@@ -1213,39 +1389,39 @@ type GetGroupmessageListV2ResponseGroupMessageList struct {
 	// CreateType 群发消息创建来源。0：企业 1：个人
 	CreateType int `json:"create_type"`
 
-	Text GetGroupmessageListV2ResponseGroupMessageListText `json:"text"`
+	Text GetGroupMessageListV2ResponseGroupMessageListText `json:"text"`
 
-	Attachments []GetGroupmessageListV2ResponseGroupMessageListAttachments `json:"attachments"`
+	Attachments []GetGroupMessageListV2ResponseGroupMessageListAttachments `json:"attachments"`
 }
 
-type GetGroupmessageListV2ResponseGroupMessageListText struct {
+type GetGroupMessageListV2ResponseGroupMessageListText struct {
 	// Content 消息文本内容，最多4000个字节
 	Content string `json:"content"`
 }
 
-type GetGroupmessageListV2ResponseGroupMessageListAttachments struct {
-	// Messagetype 值必须是image
-	Messagetype string `json:"msgtype"`
+type GetGroupMessageListV2ResponseGroupMessageListAttachments struct {
+	// MessageType 值必须是image
+	MessageType string `json:"msgtype"`
 
-	Image GetGroupmessageListV2ResponseGroupMessageListAttachmentsImage `json:"image"`
+	Image GetGroupMessageListV2ResponseGroupMessageListAttachmentsImage `json:"image"`
 
-	Link GetGroupmessageListV2ResponseGroupMessageListAttachmentsLink `json:"link"`
+	Link GetGroupMessageListV2ResponseGroupMessageListAttachmentsLink `json:"link"`
 
-	MiniProgram GetGroupmessageListV2ResponseGroupMessageListAttachmentsMiniProgram `json:"miniprogram"`
+	MiniProgram GetGroupMessageListV2ResponseGroupMessageListAttachmentsMiniProgram `json:"miniprogram"`
 
-	Video GetGroupmessageListV2ResponseGroupMessageListAttachmentsVideo `json:"video"`
+	Video GetGroupMessageListV2ResponseGroupMessageListAttachmentsVideo `json:"video"`
 
-	File GetGroupmessageListV2ResponseGroupMessageListAttachmentsFile `json:"file"`
+	File GetGroupMessageListV2ResponseGroupMessageListAttachmentsFile `json:"file"`
 }
 
-type GetGroupmessageListV2ResponseGroupMessageListAttachmentsImage struct {
+type GetGroupMessageListV2ResponseGroupMessageListAttachmentsImage struct {
 	// MediaID 图片的media_id，可以通过获取临时素材下载资源
 	MediaID string `json:"media_id"`
 	// PicURL 图片的url，与图片的media_id不能共存优先吐出media_id
 	PicURL string `json:"pic_url"`
 }
 
-type GetGroupmessageListV2ResponseGroupMessageListAttachmentsLink struct {
+type GetGroupMessageListV2ResponseGroupMessageListAttachmentsLink struct {
 	// Title 图文消息标题
 	Title string `json:"title"`
 	// PicURL 图文消息封面的url
@@ -1256,42 +1432,42 @@ type GetGroupmessageListV2ResponseGroupMessageListAttachmentsLink struct {
 	URL string `json:"url"`
 }
 
-type GetGroupmessageListV2ResponseGroupMessageListAttachmentsMiniProgram struct {
+type GetGroupMessageListV2ResponseGroupMessageListAttachmentsMiniProgram struct {
 	// Title 小程序消息标题，最多64个字节
 	Title string `json:"title"`
-	// Appid 小程序appid，必须是关联到企业的小程序应用
-	Appid string `json:"appid"`
+	// AppID 小程序appid，必须是关联到企业的小程序应用
+	AppID string `json:"appid"`
 	// Page 小程序page路径
 	Page string `json:"page"`
 }
 
-type GetGroupmessageListV2ResponseGroupMessageListAttachmentsVideo struct {
+type GetGroupMessageListV2ResponseGroupMessageListAttachmentsVideo struct {
 	// MediaID 视频的media_id，可以通过获取临时素材下载资源
 	MediaID string `json:"media_id"`
 }
 
-type GetGroupmessageListV2ResponseGroupMessageListAttachmentsFile struct {
+type GetGroupMessageListV2ResponseGroupMessageListAttachmentsFile struct {
 	// MediaID 文件的media_id，可以通过获取临时素材下载资源
 	MediaID string `json:"media_id"`
 }
 
-type GetGroupmessageTaskRequest struct {
-	// Messageid 群发消息的id，通过获取群发记录列表接口返回
-	Messageid string `json:"msgid"`
+type GetGroupMessageTaskRequest struct {
+	// MessageID 群发消息的id，通过获取群发记录列表接口返回
+	MessageID string `json:"msgid" validate:"required"`
 	// Limit 返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值
 	Limit int `json:"limit"`
 	// Cursor 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
 	Cursor string `json:"cursor"`
 }
 
-type GetGroupmessageTaskResponse struct {
+type GetGroupMessageTaskResponse struct {
 	// NextCursor 分页游标，再下次请求时填写以获取之后分页的记录，如果已经没有更多的数据则返回空
 	NextCursor string `json:"next_cursor"`
 	// TaskList 群发成员发送任务列表
-	TaskList []GetGroupmessageTaskResponseTaskList `json:"task_list"`
+	TaskList []GetGroupMessageTaskResponseTaskList `json:"task_list"`
 }
 
-type GetGroupmessageTaskResponseTaskList struct {
+type GetGroupMessageTaskResponseTaskList struct {
 	// UserID 企业服务人员的userid
 	UserID string `json:"userid"`
 	// Status 发送状态：0-未发送 2-已发送
@@ -1300,25 +1476,25 @@ type GetGroupmessageTaskResponseTaskList struct {
 	SendTime int `json:"send_time"`
 }
 
-type GetGroupmessageSendResultRequest struct {
-	// Messageid 群发消息的id，通过获取群发记录列表接口返回
-	Messageid string `json:"msgid"`
+type GetGroupMessageSendResultRequest struct {
+	// MessageID 群发消息的id，通过获取群发记录列表接口返回
+	MessageID string `json:"msgid" validate:"required"`
 	// UserID 发送成员userid，通过获取群发成员发送任务列表接口返回
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 	// Limit 返回的最大记录数，整型，最大值1000，默认值500，超过最大值时取默认值
 	Limit int `json:"limit"`
 	// Cursor 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用可不填
 	Cursor string `json:"cursor"`
 }
 
-type GetGroupmessageSendResultResponse struct {
+type GetGroupMessageSendResultResponse struct {
 	// NextCursor 分页游标，再下次请求时填写以获取之后分页的记录，如果已经没有更多的数据则返回空
 	NextCursor string `json:"next_cursor"`
 	// SendList 群成员发送结果列表
-	SendList []GetGroupmessageSendResultResponseSendList `json:"send_list"`
+	SendList []GetGroupMessageSendResultResponseSendList `json:"send_list"`
 }
 
-type GetGroupmessageSendResultResponseSendList struct {
+type GetGroupMessageSendResultResponseSendList struct {
 	// ExternalUserID 外部联系人userid，群发消息到企业的客户群不返回该字段
 	ExternalUserID string `json:"external_userid"`
 	// ChatID 外部客户群id，群发消息到客户不返回该字段
@@ -1333,7 +1509,7 @@ type GetGroupmessageSendResultResponseSendList struct {
 
 type SendWelcomeMessageRequest struct {
 	// WelcomeCode 通过添加外部联系人事件推送给企业的发送欢迎语的凭证，有效期为20秒
-	WelcomeCode string `json:"welcome_code"`
+	WelcomeCode string `json:"welcome_code" validate:"required"`
 	// Attachments 附件，最多可添加9个附件
 	Attachments []SendWelcomeMessageRequestAttachments `json:"attachments"`
 
@@ -1356,8 +1532,8 @@ type SendWelcomeMessageRequestText struct {
 }
 
 type SendWelcomeMessageRequestAttachments struct {
-	// Messagetype 附件类型，可选image、link、miniprogram或者video
-	Messagetype string `json:"msgtype"`
+	// MessageType 附件类型，可选image、link、miniprogram或者video
+	MessageType string `json:"msgtype" validate:"required"`
 }
 
 type SendWelcomeMessageRequestImage struct {
@@ -1369,34 +1545,34 @@ type SendWelcomeMessageRequestImage struct {
 
 type SendWelcomeMessageRequestLink struct {
 	// Title 图文消息标题，最长为128字节
-	Title string `json:"title"`
+	Title string `json:"title" validate:"required"`
 	// PicURL 图文消息封面的url
 	PicURL string `json:"picurl"`
 	// Desc 图文消息的描述，最长为512字节
 	Desc string `json:"desc"`
 	// URL 图文消息的链接
-	URL string `json:"url"`
+	URL string `json:"url" validate:"required"`
 }
 
 type SendWelcomeMessageRequestMiniProgram struct {
 	// Title 小程序消息标题，最长为64字节
-	Title string `json:"title"`
+	Title string `json:"title" validate:"required"`
 	// PicMediaID 小程序消息封面的mediaid，封面图建议尺寸为520*416
-	PicMediaID string `json:"pic_media_id"`
-	// Appid 小程序appid，必须是关联到企业的小程序应用
-	Appid string `json:"appid"`
+	PicMediaID string `json:"pic_media_id" validate:"required"`
+	// AppID 小程序appid，必须是关联到企业的小程序应用
+	AppID string `json:"appid" validate:"required"`
 	// Page 小程序page路径
-	Page string `json:"page"`
+	Page string `json:"page" validate:"required"`
 }
 
 type SendWelcomeMessageRequestVideo struct {
 	// MediaID 视频的media_id，可以通过素材管理接口获得
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 }
 
 type SendWelcomeMessageRequestFile struct {
 	// MediaID 文件的media_id,  可以通过素材管理接口获得
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 }
 
 type AddGroupWelcomeTemplateRequest struct {
@@ -1437,102 +1613,102 @@ type AddGroupWelcomeTemplateRequestImage struct {
 
 type AddGroupWelcomeTemplateRequestLink struct {
 	// Title 图文消息标题，最长为128字节
-	Title string `json:"title"`
+	Title string `json:"title" validate:"required"`
 	// PicURL 图文消息封面的url
 	PicURL string `json:"picurl"`
 	// Desc 图文消息的描述，最长为512字节
 	Desc string `json:"desc"`
 	// URL 图文消息的链接
-	URL string `json:"url"`
+	URL string `json:"url" validate:"required"`
 }
 
 type AddGroupWelcomeTemplateRequestMiniProgram struct {
 	// Title 小程序消息标题，最长为64字节
-	Title string `json:"title"`
+	Title string `json:"title" validate:"required"`
 	// PicMediaID 小程序消息封面的mediaid，封面图建议尺寸为520*416
-	PicMediaID string `json:"pic_media_id"`
-	// Appid 小程序appid，必须是关联到企业的小程序应用
-	Appid string `json:"appid"`
+	PicMediaID string `json:"pic_media_id" validate:"required"`
+	// AppID 小程序appid，必须是关联到企业的小程序应用
+	AppID string `json:"appid" validate:"required"`
 	// Page 小程序page路径
-	Page string `json:"page"`
+	Page string `json:"page" validate:"required"`
 }
 
 type AddGroupWelcomeTemplateRequestFile struct {
 	// MediaID 文件id，可以通过素材管理接口获得
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 }
 
 type AddGroupWelcomeTemplateRequestVideo struct {
 	// MediaID 视频媒体文件id，可以通过素材管理接口获得
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 }
 
-type EditRequest struct {
+type EditGroupWelcomeTemplateRequest struct {
 	// TemplateID 欢迎语素材id
-	TemplateID string `json:"template_id"`
+	TemplateID string `json:"template_id" validate:"required"`
 	// AgentID 授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数
 	AgentID int `json:"agentid"`
 
-	Text EditRequestText `json:"text"`
+	Text EditGroupWelcomeTemplateRequestText `json:"text"`
 
-	Image EditRequestImage `json:"image"`
+	Image EditGroupWelcomeTemplateRequestImage `json:"image"`
 
-	Link EditRequestLink `json:"link"`
+	Link EditGroupWelcomeTemplateRequestLink `json:"link"`
 
-	MiniProgram EditRequestMiniProgram `json:"miniprogram"`
+	MiniProgram EditGroupWelcomeTemplateRequestMiniProgram `json:"miniprogram"`
 
-	File EditRequestFile `json:"file"`
+	File EditGroupWelcomeTemplateRequestFile `json:"file"`
 
-	Video EditRequestVideo `json:"video"`
+	Video EditGroupWelcomeTemplateRequestVideo `json:"video"`
 }
 
-type EditRequestText struct {
+type EditGroupWelcomeTemplateRequestText struct {
 	// Content 消息文本内容,最长为4000字节
 	Content string `json:"content"`
 }
 
-type EditRequestImage struct {
+type EditGroupWelcomeTemplateRequestImage struct {
 	// MediaID 图片的media_id，可以通过素材管理接口获得
 	MediaID string `json:"media_id"`
 	// PicURL 图片的链接，仅可使用上传图片接口得到的链接
 	PicURL string `json:"pic_url"`
 }
 
-type EditRequestLink struct {
+type EditGroupWelcomeTemplateRequestLink struct {
 	// Title 图文消息标题，最长为128字节
-	Title string `json:"title"`
+	Title string `json:"title" validate:"required"`
 	// PicURL 图文消息封面的url
 	PicURL string `json:"picurl"`
 	// Desc 图文消息的描述，最长为512字节
 	Desc string `json:"desc"`
 	// URL 图文消息的链接
-	URL string `json:"url"`
+	URL string `json:"url" validate:"required"`
 }
 
-type EditRequestMiniProgram struct {
+type EditGroupWelcomeTemplateRequestMiniProgram struct {
 	// Title 小程序消息标题，最长为64字节
-	Title string `json:"title"`
+	Title string `json:"title" validate:"required"`
 	// PicMediaID 小程序消息封面的mediaid，封面图建议尺寸为520*416
-	PicMediaID string `json:"pic_media_id"`
-	// Appid 小程序appid，必须是关联到企业的小程序应用
-	Appid string `json:"appid"`
+	PicMediaID string `json:"pic_media_id" validate:"required"`
+	// AppID 小程序appid，必须是关联到企业的小程序应用
+	AppID string `json:"appid" validate:"required"`
 	// Page 小程序page路径
-	Page string `json:"page"`
+	Page string `json:"page" validate:"required"`
 }
 
-type EditRequestFile struct {
+type EditGroupWelcomeTemplateRequestFile struct {
 	// MediaID 文件id，可以通过素材管理接口获得
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 }
 
-type EditRequestVideo struct {
+type EditGroupWelcomeTemplateRequestVideo struct {
 	// MediaID 视频媒体文件id，可以通过素材管理接口获得
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 }
 
 type GetGroupWelcomeTemplateRequest struct {
 	// TemplateID 群欢迎语的素材id
-	TemplateID string `json:"template_id"`
+	TemplateID string `json:"template_id" validate:"required"`
 }
 
 type GetGroupWelcomeTemplateResponse struct {
@@ -1575,8 +1751,8 @@ type GetGroupWelcomeTemplateResponseMiniProgram struct {
 	Title string `json:"title"`
 	// PicMediaID 小程序消息封面的mediaid
 	PicMediaID string `json:"pic_media_id"`
-	// Appid 小程序appid
-	Appid string `json:"appid"`
+	// AppID 小程序appid
+	AppID string `json:"appid"`
 	// Page 小程序page路径
 	Page string `json:"page"`
 }
@@ -1593,7 +1769,7 @@ type GetGroupWelcomeTemplateResponseVideo struct {
 
 type DeleteGroupWelcomeTemplateRequest struct {
 	// TemplateID 群欢迎语的素材id
-	TemplateID string `json:"template_id"`
+	TemplateID string `json:"template_id" validate:"required"`
 	// AgentID 授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数
 	AgentID int `json:"agentid"`
 }
@@ -1604,9 +1780,9 @@ type GetUserBehaviorDataRequest struct {
 	// PartyID 部门ID列表，最多100个
 	PartyID []int `json:"partyid"`
 	// StartTime 数据起始时间
-	StartTime int `json:"start_time"`
+	StartTime int `json:"start_time" validate:"required"`
 	// EndTime 数据结束时间
-	EndTime int `json:"end_time"`
+	EndTime int `json:"end_time" validate:"required"`
 }
 
 type GetUserBehaviorDataResponse struct {
@@ -1634,11 +1810,11 @@ type GetUserBehaviorDataResponseBehaviorData struct {
 
 type GroupChatStatisticRequest struct {
 	// DayBeginTime 起始日期的时间戳，填当天的0时0分0秒（否则系统自动处理为当天的0分0秒）。取值范围：昨天至前180天。
-	DayBeginTime int `json:"day_begin_time"`
+	DayBeginTime int `json:"day_begin_time" validate:"required"`
 	// DayEndTime 结束日期的时间戳，填当天的0时0分0秒（否则系统自动处理为当天的0分0秒）。取值范围：昨天至前180天。如果不填，默认同 day_begin_time（即默认取一天的数据）
 	DayEndTime int `json:"day_end_time"`
 	// OwnerFilter 群主过滤。如果不填，表示获取应用可见范围内全部群主的数据（但是不建议这么用，如果可见范围人数超过1000人，为了防止数据包过大，会报错 81017）
-	OwnerFilter GroupChatStatisticRequestOwnerFilter `json:"owner_filter"`
+	OwnerFilter GroupChatStatisticRequestOwnerFilter `json:"owner_filter" validate:"required"`
 	// OrderBy 排序方式。1 - 新增群的数量2 - 群总数3 - 新增群人数4 - 群总人数默认为1
 	OrderBy int `json:"order_by"`
 	// OrderAsc 是否升序。0-否；1-是。默认降序
@@ -1660,7 +1836,7 @@ type GroupChatStatisticResponse struct {
 
 type GroupChatStatisticRequestOwnerFilter struct {
 	// UserIDList 群主ID列表。最多100个
-	UserIDList []string `json:"userid_list"`
+	UserIDList []string `json:"userid_list" validate:"required"`
 }
 
 type GroupChatStatisticResponseItems struct {
@@ -1691,11 +1867,11 @@ type GroupChatStatisticResponseItemsData struct {
 
 type StatisticGroupByDayRequest struct {
 	// DayBeginTime 起始日期的时间戳，填当天的0时0分0秒（否则系统自动处理为当天的0分0秒）。取值范围：昨天至前180天。
-	DayBeginTime int `json:"day_begin_time"`
+	DayBeginTime int `json:"day_begin_time" validate:"required"`
 	// DayEndTime 结束日期的时间戳，填当天的0时0分0秒（否则系统自动处理为当天的0分0秒）。取值范围：昨天至前180天。如果不填，默认同 day_begin_time（即默认取一天的数据）
 	DayEndTime int `json:"day_end_time"`
 	// OwnerFilter 群主过滤。如果不填，表示获取应用可见范围内全部群主的数据（但是不建议这么用，如果可见范围人数超过1000人，为了防止数据包过大，会报错 81017）
-	OwnerFilter StatisticGroupByDayRequestOwnerFilter `json:"owner_filter"`
+	OwnerFilter StatisticGroupByDayRequestOwnerFilter `json:"owner_filter" validate:"required"`
 }
 
 type StatisticGroupByDayResponse struct {
@@ -1705,7 +1881,7 @@ type StatisticGroupByDayResponse struct {
 
 type StatisticGroupByDayRequestOwnerFilter struct {
 	// UserIDList 群主ID列表。最多100个
-	UserIDList []string `json:"userid_list"`
+	UserIDList []string `json:"userid_list" validate:"required"`
 }
 
 type StatisticGroupByDayResponseItems struct {

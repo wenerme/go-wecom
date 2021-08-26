@@ -140,15 +140,15 @@ func (c *Client) GetActiveStat(r *GetActiveStatRequest) (out GetActiveStatRespon
 
 type CreateUserRequest struct {
 	// UserID 成员UserID。对应管理端的帐号，企业内必须唯一。不区分大小写，长度为1~64个字节。只能由数字、字母和“_-@.”四种字符组成，且第一个字符必须是数字或字母。
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 	// Name 成员名称。长度为1~64个utf8字符
-	Name string `json:"name"`
+	Name string `json:"name" validate:"required"`
 	// Alias 成员别名。长度1~32个utf8字符
 	Alias string `json:"alias"`
 	// Mobile 手机号码。企业内必须唯一，mobile/email二者不能同时为空
 	Mobile string `json:"mobile"`
 	// Department 成员所属部门id列表,不超过100个
-	Department []int `json:"department"`
+	Department []int `json:"department" validate:"required"`
 	// Order 部门内的排序值，默认为0，成员次序以创建时间从小到大排列。个数必须和参数department的个数一致，数值越大排序越前面。有效的值范围是[0, 2^32)
 	Order []int `json:"order"`
 	// Position 职务信息。长度为0~128个字符
@@ -183,7 +183,7 @@ type CreateUserRequest struct {
 
 type UpdateUserRequest struct {
 	// UserID 成员UserID。对应管理端的帐号，企业内必须唯一。不区分大小写，长度为1~64个字节
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 	// Name 成员名称。长度为1~64个utf8字符
 	Name string `json:"name"`
 	// Alias 别名。长度为1-32个utf8字符
@@ -224,17 +224,17 @@ type UpdateUserRequest struct {
 
 type DeleteUserRequest struct {
 	// UserID 成员UserID。对应管理端的帐号
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 }
 
 type BatchDeleteUserRequest struct {
-	// UserIdlist 成员UserID列表。对应管理端的帐号。最多支持200个。若存在无效UserID，直接返回错误
-	UserIdlist []string `json:"useridlist"`
+	// UserIDList 成员UserID列表。对应管理端的帐号。最多支持200个。若存在无效UserID，直接返回错误
+	UserIDList []string `json:"useridlist" validate:"required"`
 }
 
 type SimpleListUserRequest struct {
 	// DepartmentID 获取的部门id
-	DepartmentID string `json:"department_id"`
+	DepartmentID string `json:"department_id" validate:"required"`
 	// FetchChild 是否递归获取子部门下面的成员：1-递归获取，0-只获取本部门
 	FetchChild string `json:"fetch_child"`
 }
@@ -246,7 +246,7 @@ type SimpleListUserResponse struct {
 
 type ListUserRequest struct {
 	// DepartmentID 获取的部门id
-	DepartmentID string `json:"department_id"`
+	DepartmentID string `json:"department_id" validate:"required"`
 	// FetchChild 1/0：是否递归获取子部门下面的成员
 	FetchChild string `json:"fetch_child"`
 }
@@ -258,7 +258,7 @@ type ListUserResponse struct {
 
 type ConvertToOpenIDRequest struct {
 	// UserID 企业内的成员id
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 }
 
 type ConvertToOpenIDResponse struct {
@@ -268,7 +268,7 @@ type ConvertToOpenIDResponse struct {
 
 type AuthSuccessRequest struct {
 	// UserID 成员UserID。对应管理端的帐号
-	UserID string `json:"userid"`
+	UserID string `json:"userid" validate:"required"`
 }
 
 type BatchInviteRequest struct {
@@ -281,12 +281,12 @@ type BatchInviteRequest struct {
 }
 
 type BatchInviteResponse struct {
-	// Invaliduser 非法成员列表
-	Invaliduser string `json:"invaliduser"`
+	// InvalidUser 非法成员列表
+	InvalidUser string `json:"invaliduser"`
 	// InvalidParty 非法部门列表
 	InvalidParty string `json:"invalidparty"`
-	// Invalidtag 非法标签列表
-	Invalidtag string `json:"invalidtag"`
+	// InvalidTag 非法标签列表
+	InvalidTag string `json:"invalidtag"`
 }
 
 type GetJoinQrcodeRequest struct {
@@ -301,7 +301,7 @@ type GetJoinQrcodeResponse struct {
 
 type GetActiveStatRequest struct {
 	// Date 具体某天的活跃人数，最长支持获取30天前数据
-	Date string `json:"date"`
+	Date string `json:"date" validate:"required"`
 }
 
 type GetActiveStatResponse struct {

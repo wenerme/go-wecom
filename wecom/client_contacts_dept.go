@@ -52,11 +52,11 @@ func (c *Client) ListDepartment(r *ListDepartmentRequest) (out ListDepartmentRes
 
 type CreateDepartmentRequest struct {
 	// Name 部门名称。同一个层级的部门名称不能重复。长度限制为1~32个字符，字符不能包括\:*?”&lt;&gt;｜
-	Name string `json:"name"`
+	Name string `json:"name" validate:"required"`
 	// NameEn 英文名称。同一个层级的部门名称不能重复。需要在管理后台开启多语言支持才能生效。长度限制为1~32个字符，字符不能包括\:*?”&lt;&gt;｜
 	NameEn string `json:"name_en"`
 	// ParentID 父部门id，32位整型
-	ParentID int `json:"parentid"`
+	ParentID int `json:"parentid" validate:"required"`
 	// Order 在父部门中的次序值。order值大的排序靠前。有效的值范围是[0, 2^32)
 	Order int `json:"order"`
 	// ID 部门id，32位整型，指定时必须大于1。若不填该参数，将自动生成id
@@ -70,7 +70,7 @@ type CreateDepartmentResponse struct {
 
 type UpdateDepartmentRequest struct {
 	// ID 部门id
-	ID int `json:"id"`
+	ID int `json:"id" validate:"required"`
 	// Name 部门名称。长度限制为1~32个字符，字符不能包括\:*?”&lt;&gt;｜
 	Name string `json:"name"`
 	// NameEn 英文名称，需要在管理后台开启多语言支持才能生效。长度限制为1~32个字符，字符不能包括\:*?”&lt;&gt;｜
@@ -83,7 +83,7 @@ type UpdateDepartmentRequest struct {
 
 type DeleteDepartmentRequest struct {
 	// ID 部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）
-	ID string `json:"id"`
+	ID string `json:"id" validate:"required"`
 }
 
 type ListDepartmentRequest struct {

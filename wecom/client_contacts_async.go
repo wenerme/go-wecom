@@ -55,7 +55,7 @@ func (c *Client) BatchGetResult(r *BatchGetResultRequest) (out BatchGetResultRes
 
 type BatchSyncUserRequest struct {
 	// MediaID 上传的csv文件的media_id
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 	// ToInvite 是否邀请新建的成员使用企业微信（将通过微信服务通知或短信或邮件下发邀请，每天自动下发一次，最多持续3个工作日），默认值为true。
 	ToInvite bool `json:"to_invite"`
 	// Callback 回调信息。如填写该项则任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项
@@ -69,7 +69,7 @@ type BatchSyncUserResponse struct {
 
 type BatchReplaceUserRequest struct {
 	// MediaID 上传的csv文件的media_id
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 	// ToInvite 是否邀请新建的成员使用企业微信（将通过微信服务通知或短信或邮件下发邀请，每天自动下发一次，最多持续3个工作日），默认值为true。
 	ToInvite bool `json:"to_invite"`
 	// Callback 回调信息。如填写该项则任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项
@@ -83,7 +83,7 @@ type BatchReplaceUserResponse struct {
 
 type BatchReplacePartyRequest struct {
 	// MediaID 上传的csv文件的media_id
-	MediaID string `json:"media_id"`
+	MediaID string `json:"media_id" validate:"required"`
 	// Callback 回调信息。如填写该项则任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项
 	Callback BatchSyncCallback `json:"callback"`
 }
@@ -95,7 +95,7 @@ type BatchReplacePartyResponse struct {
 
 type BatchGetResultRequest struct {
 	// JobID 异步任务id，最大长度为64字节
-	JobID string `json:"jobid"`
+	JobID string `json:"jobid" validate:"required"`
 }
 
 type BatchGetResultResponse struct {

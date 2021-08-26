@@ -26,20 +26,29 @@ type ExternalContactResponse struct {
 }
 
 type ExternalContactProfileResponse struct {
-	ExternalAttr []struct {
-		Type int    `json:"type"`
-		Name string `json:"name"`
-		Text struct {
-			Value string `json:"value"`
-		} `json:"text,omitempty"`
-		Web struct {
-			URL   string `json:"url"`
-			Title string `json:"title"`
-		} `json:"web,omitempty"`
-		MiniProgram struct {
-			AppID    string `json:"appid"`
-			PagePath string `json:"pagepath"`
-			Title    string `json:"title"`
-		} `json:"miniprogram,omitempty"`
-	} `json:"external_attr"`
+	ExternalAttr []ExtAttr `json:"external_attr"`
+}
+
+// Conclusions 结束语
+// https://work.weixin.qq.com/api/doc/90001/90143/92577#%E7%BB%93%E6%9D%9F%E8%AF%AD%E5%AE%9A%E4%B9%89
+type Conclusions struct {
+	Text struct {
+		Content string `json:"content"`
+	} `json:"text"`
+	Image struct {
+		MediaID string `json:"media_id"`
+		PicURL  string `json:"pic_url"`
+	} `json:"image"`
+	Link struct {
+		Title  string `json:"title"`
+		PicURL string `json:"picurl"`
+		Desc   string `json:"desc"`
+		URL    string `json:"url"`
+	} `json:"link"`
+	MiniProgram struct {
+		Title      string `json:"title"`
+		PicMediaID string `json:"pic_media_id"`
+		AppID      string `json:"appid"`
+		Page       string `json:"page"`
+	} `json:"miniprogram"`
 }

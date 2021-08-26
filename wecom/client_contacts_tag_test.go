@@ -76,27 +76,27 @@ func TestContactsTagSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
-		request := AddtagusersRequest{}
+		request := AddTagUsersRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/tag/addtagusers.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.Addtagusers(&request)
+		res, err := c.AddTagUsers(&request)
 		assert.NoError(t, err)
 		_ = res
 
 	}
 	{
-		request := DeltagusersRequest{}
+		request := DeleteTagUsersRequest{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/tag/deltagusers.request.json")
 			assert.NoError(t, err)
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.Deltagusers(&request)
+		res, err := c.DeleteTagUsers(&request)
 		assert.NoError(t, err)
 		_ = res
 

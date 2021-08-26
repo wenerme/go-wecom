@@ -50,10 +50,10 @@ func (c *Client) GetTag(r *GetTagRequest) (out GetTagResponse, err error) {
 	return
 }
 
-// Addtagusers 增加标签成员
+// AddTagUsers 增加标签成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90214
-func (c *Client) Addtagusers(r *AddtagusersRequest) (out AddtagusersResponse, err error) {
+func (c *Client) AddTagUsers(r *AddTagUsersRequest) (out AddTagUsersResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/tag/addtagusers",
@@ -62,10 +62,10 @@ func (c *Client) Addtagusers(r *AddtagusersRequest) (out AddtagusersResponse, er
 	return
 }
 
-// Deltagusers 删除标签成员
+// DeleteTagUsers 删除标签成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90215
-func (c *Client) Deltagusers(r *DeltagusersRequest) (out DeltagusersResponse, err error) {
+func (c *Client) DeleteTagUsers(r *DeleteTagUsersRequest) (out DeleteTagUsersResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: "POST",
 		URL:    "/cgi-bin/tag/deltagusers",
@@ -87,7 +87,7 @@ func (c *Client) ListTag() (out ListTagResponse, err error) {
 
 type CreateTagRequest struct {
 	// TagName 标签名称，长度限制为32个字以内（汉字或英文字母），标签名不可与其他标签重名。
-	TagName string `json:"tagname"`
+	TagName string `json:"tagname" validate:"required"`
 	// TagID 标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。
 	TagID int `json:"tagid"`
 }
@@ -99,19 +99,19 @@ type CreateTagResponse struct {
 
 type UpdateTagRequest struct {
 	// TagID 标签ID
-	TagID int `json:"tagid"`
+	TagID int `json:"tagid" validate:"required"`
 	// TagName 标签名称，长度限制为32个字（汉字或英文字母），标签不可与其他标签重名。
-	TagName string `json:"tagname"`
+	TagName string `json:"tagname" validate:"required"`
 }
 
 type DeleteTagRequest struct {
 	// TagID 标签ID
-	TagID string `json:"tagid"`
+	TagID string `json:"tagid" validate:"required"`
 }
 
 type GetTagRequest struct {
 	// TagID 标签ID
-	TagID string `json:"tagid"`
+	TagID string `json:"tagid" validate:"required"`
 }
 
 type GetTagResponse struct {
@@ -123,32 +123,32 @@ type GetTagResponse struct {
 	PartyList []int `json:"partylist"`
 }
 
-type AddtagusersRequest struct {
+type AddTagUsersRequest struct {
 	// TagID 标签ID
-	TagID int `json:"tagid"`
+	TagID int `json:"tagid" validate:"required"`
 	// UserList 企业成员ID列表，注意：userlist、partylist不能同时为空，单次请求个数不超过1000
 	UserList []string `json:"userlist"`
 	// PartyList 企业部门ID列表，注意：userlist、partylist不能同时为空，单次请求个数不超过100
 	PartyList []int `json:"partylist"`
 }
 
-type AddtagusersResponse struct {
+type AddTagUsersResponse struct {
 	// InvalidList 非法的成员帐号列表
 	InvalidList string `json:"invalidlist"`
 	// InvalidParty 非法的部门id列表
 	InvalidParty string `json:"invalidparty"`
 }
 
-type DeltagusersRequest struct {
+type DeleteTagUsersRequest struct {
 	// TagID 标签ID
-	TagID int `json:"tagid"`
+	TagID int `json:"tagid" validate:"required"`
 	// UserList 企业成员ID列表，注意：userlist、partylist不能同时为空，单次请求长度不超过1000
 	UserList []string `json:"userlist"`
 	// PartyList 企业部门ID列表，注意：userlist、partylist不能同时为空，单次请求长度不超过100
 	PartyList []int `json:"partylist"`
 }
 
-type DeltagusersResponse struct {
+type DeleteTagUsersResponse struct {
 	// InvalidList 非法的成员帐号列表
 	InvalidList string `json:"invalidlist"`
 	// InvalidParty 非法的部门id列表
