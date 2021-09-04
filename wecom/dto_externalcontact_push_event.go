@@ -18,7 +18,7 @@ type ChangeExternalContactAddExternalContactPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 企业服务人员的UserID
 	UserID string `xml:"UserID"`
 	// WelcomeCode 欢迎语code，可用于发送欢迎语
@@ -47,7 +47,7 @@ type ChangeExternalContactEditExternalContactPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 企业服务人员的UserID
 	UserID string `xml:"UserID"`
 }
@@ -76,7 +76,7 @@ type ChangeExternalContactAddHalfExternalContactPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 企业服务人员的UserID
 	UserID string `xml:"UserID"`
 	// WelcomeCode 欢迎语code，可用于发送欢迎语
@@ -105,7 +105,7 @@ type ChangeExternalContactDelExternalContactPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 企业服务人员的UserID
 	UserID string `xml:"UserID"`
 }
@@ -132,7 +132,7 @@ type ChangeExternalContactDelFollowUserPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 企业服务人员的UserID
 	UserID string `xml:"UserID"`
 }
@@ -161,7 +161,7 @@ type ChangeExternalContactTransferFailPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 企业服务人员的UserID
 	UserID string `xml:"UserID"`
 }
@@ -188,7 +188,7 @@ type ChangeExternalChatCreatePushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeExternalChatCreatePushEvent) EventInfoType() string {
@@ -219,7 +219,7 @@ type ChangeExternalChatUpdatePushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UpdateDetail 变更详情。目前有以下几种：add_member : 成员入群del_member : 成员退群 change_owner : 群主变更change_name : 群名变更change_notice : 群公告变更
 	UpdateDetail string `xml:"UpdateDetail"`
 }
@@ -246,7 +246,7 @@ type ChangeExternalChatDismissPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeExternalChatDismissPushEvent) EventInfoType() string {
@@ -273,7 +273,7 @@ type ChangeExternalTagCreatePushEvent struct {
 	// TagType 创建标签时，此项为tag，创建标签组时，此项为tag_group
 	TagType string `xml:"TagType"`
 	// Timestamp unix时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeExternalTagCreatePushEvent) EventInfoType() string {
@@ -300,7 +300,7 @@ type ChangeExternalTagUpdatePushEvent struct {
 	// TagType 变更标签时，此项为tag，变更标签组时，此项为tag_group
 	TagType string `xml:"TagType"`
 	// Timestamp unix时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeExternalTagUpdatePushEvent) EventInfoType() string {
@@ -327,7 +327,7 @@ type ChangeExternalTagDeletePushEvent struct {
 	// TagType 删除标签时，此项为tag，删除标签组时，此项为tag_group
 	TagType string `xml:"TagType"`
 	// Timestamp unix时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeExternalTagDeletePushEvent) EventInfoType() string {

@@ -12,7 +12,7 @@ type SuiteTicketPushEvent struct {
 	// SuiteTicket Ticket内容，最长为512字节
 	SuiteTicket string `xml:"SuiteTicket"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (SuiteTicketPushEvent) EventInfoType() string {
@@ -29,7 +29,7 @@ type CreateAuthPushEvent struct {
 	// SuiteID 第三方应用的SuiteId
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (CreateAuthPushEvent) EventInfoType() string {
@@ -46,7 +46,7 @@ type ChangeAuthPushEvent struct {
 	// SuiteID 第三方应用的SuiteId
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeAuthPushEvent) EventInfoType() string {
@@ -63,7 +63,7 @@ type CancelAuthPushEvent struct {
 	// SuiteID 第三方应用的SuiteId
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (CancelAuthPushEvent) EventInfoType() string {
@@ -105,7 +105,7 @@ type ChangeContactCreateUserPushEvent struct {
 	// Telephone 座机，仅通讯录管理应用可获取
 	Telephone string `xml:"Telephone"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 成员UserID
 	UserID string `xml:"UserID"`
 }
@@ -155,7 +155,7 @@ type ChangeContactUpdateUserPushEvent struct {
 	// Telephone 座机，仅通讯录应用可获取
 	Telephone string `xml:"Telephone"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 变更信息的成员UserID
 	UserID string `xml:"UserID"`
 }
@@ -179,7 +179,7 @@ type ChangeContactDeleteUserPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 	// UserID 变更信息的成员UserID
 	UserID string `xml:"UserID"`
 }
@@ -211,7 +211,7 @@ type ChangeContactCreatePartyPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeContactCreatePartyPushEvent) EventInfoType() string {
@@ -239,7 +239,7 @@ type ChangeContactUpdatePartyPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeContactUpdatePartyPushEvent) EventInfoType() string {
@@ -263,7 +263,7 @@ type ChangeContactDeletePartyPushEvent struct {
 	// SuiteID 第三方应用ID
 	SuiteID string `xml:"SuiteId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeContactDeletePartyPushEvent) EventInfoType() string {
@@ -295,7 +295,7 @@ type ChangeContactUpdateTagPushEvent struct {
 	// TagID 标签Id
 	TagID string `xml:"TagId"`
 	// Timestamp 时间戳
-	Timestamp string `xml:"TimeStamp"`
+	Timestamp int64 `xml:"TimeStamp"`
 }
 
 func (ChangeContactUpdateTagPushEvent) EventInfoType() string {
