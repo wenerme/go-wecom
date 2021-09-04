@@ -45,6 +45,20 @@ type CommonPushEvent struct {
 	ChangeType string `xml:"ChangeType,omitempty"`
 }
 
+func (e CommonPushEvent) GetEventType() string {
+	if e.Event != "" {
+		return e.Event
+	}
+	return e.InfoType
+}
+
+func (e CommonPushEvent) GetTimestamp() int64 {
+	if e.Timestamp != 0 {
+		return e.Timestamp
+	}
+	return e.CreateTime
+}
+
 type ChangeContactExtAttrItem struct {
 	Name  string `xml:"Name"`
 	Value string `xml:"Value"`

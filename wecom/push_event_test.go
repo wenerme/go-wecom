@@ -24,7 +24,7 @@ func TestPushEventSerialization(t *testing.T) {
 	for _, file := range files {
 		data, err := fs.ReadFile(tdFs, file)
 		assert.NoError(t, err)
-		e, err := UnmarshalEvent(data)
+		e, _, err := UnmarshalEvent(data)
 		if !assert.NoError(t, err) {
 			log.Println("failed", file)
 		}

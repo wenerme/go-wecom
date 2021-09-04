@@ -16,7 +16,7 @@ type SuiteTicketPushEvent struct {
 }
 
 func (SuiteTicketPushEvent) EventInfoType() string {
-	return " suite_ticket" //nolint:goconst
+	return "suite_ticket" //nolint:goconst
 }
 
 // CreateAuthPushEvent 从企业微信应用市场发起授权时，企业微信后台会推送授权成功通知。
