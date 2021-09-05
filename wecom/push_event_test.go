@@ -29,7 +29,19 @@ func TestPushEventSerialization(t *testing.T) {
 			if ce != nil {
 				log.Println("event", ce.GetEventType(), ce.GetTimestamp())
 			}
+			continue
 		}
-		_ = e
+
+		// xor message and event
+		assert.True(t, ce.IsMessage() != ce.IsEvent())
+		// evey event has ts
+		assert.True(t, ce.GetTimestamp() > 0)
+		assert.Equal(t, ce.GetEventType(), e.EventType())
+		if mt, ok := e.(MessageModel); ok {
+			assert.Equal(t, ce.GetMessageType(), mt.MessageType())
+		}
+		if mt, ok := e.(EventChangeModel); ok {
+			assert.Equal(t, ce.ChangeType, mt.EventChangeType())
+		}
 	}
 }

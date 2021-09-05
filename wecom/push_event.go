@@ -13,6 +13,14 @@ type EventModel interface {
 	EventType() string
 }
 
+// EventMessageType when xml message is an event, the MsgType is event
+const EventMessageType = "event"
+
+type MessageModel interface {
+	EventModel
+	MessageType() string
+}
+
 type EventChangeModel interface {
 	EventModel
 	EventChangeType() string

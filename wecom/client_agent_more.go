@@ -76,10 +76,6 @@ func (SwitchWorkbenchModePushEvent) EventType() string {
 	return "switch_workbench_mode"
 }
 
-func (SwitchWorkbenchModePushEvent) MessageType() string {
-	return "event" //nolint:goconst
-}
-
 func init() {
 	RegisterEventModel(SwitchWorkbenchModePushEvent{})
 }

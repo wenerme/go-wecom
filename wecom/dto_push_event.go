@@ -27,10 +27,6 @@ func (SubscribePushEvent) EventType() string {
 	return "subscribe" //nolint:goconst
 }
 
-func (SubscribePushEvent) MessageType() string {
-	return "event" //nolint:goconst
-}
-
 // EnterAgentPushEvent 本事件在成员进入企业微信的应用时触发
 type EnterAgentPushEvent struct {
 	XMLName xml.Name `xml:"xml"`
@@ -52,10 +48,6 @@ type EnterAgentPushEvent struct {
 
 func (EnterAgentPushEvent) EventType() string {
 	return "enter_agent" //nolint:goconst
-}
-
-func (EnterAgentPushEvent) MessageType() string {
-	return "event" //nolint:goconst
 }
 
 // LocationPushEvent 成员同意上报地理位置后，每次在进入应用会话时都会上报一次地理位置。企业可以在管理端修改应用是否需要获取地理位置权限。
@@ -87,10 +79,6 @@ func (LocationPushEvent) EventType() string {
 	return "LOCATION" //nolint:goconst
 }
 
-func (LocationPushEvent) MessageType() string {
-	return "event" //nolint:goconst
-}
-
 // BatchJobResultPushEvent 本事件是成员在使用异步任务接口时，用于接收任务执行完毕的结果通知。
 type BatchJobResultPushEvent struct {
 	XMLName xml.Name `xml:"xml"`
@@ -116,10 +104,6 @@ type BatchJobResultPushEvent struct {
 
 func (BatchJobResultPushEvent) EventType() string {
 	return "batch_job_result" //nolint:goconst
-}
-
-func (BatchJobResultPushEvent) MessageType() string {
-	return "event" //nolint:goconst
 }
 
 // ChangeContactCreatePartyPushEvent 当企业通过通讯录助手开通通讯录权限后，成员的变更会通知给企业。变更的事件，将推送到企业微信管理端通讯录助手中的‘接收事件服务器’。由通讯录同步助手调用接口触发的变更事件不回调通讯录同步助手本身。管理员在管理端更改组织架构或者成员信息以及企业微信的成员在客户端变更自己的个人信息将推送给通讯录同步助手。第三方通讯录变更事件参见第三方回调协议
@@ -151,10 +135,6 @@ func (ChangeContactCreatePartyPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
-func (ChangeContactCreatePartyPushEvent) MessageType() string {
-	return "event" //nolint:goconst
-}
-
 func (ChangeContactCreatePartyPushEvent) EventChangeType() string {
 	return "create_party" //nolint:goconst
 }
@@ -180,10 +160,6 @@ type ClickPushEvent struct {
 
 func (ClickPushEvent) EventType() string {
 	return "click" //nolint:goconst
-}
-
-func (ClickPushEvent) MessageType() string {
-	return "event" //nolint:goconst
 }
 
 // OpenApprovalChangePushEvent 本事件触发时机为：1.自建/第三方应用调用审批流程引擎发起申请之后，审批状态发生变化时2.自建/第三方应用调用审批流程引擎发起申请之后，在“审批中”状态，有任意审批人进行审批操作时
@@ -259,10 +235,6 @@ func (OpenApprovalChangePushEvent) EventType() string {
 	return "open_approval_change" //nolint:goconst
 }
 
-func (OpenApprovalChangePushEvent) MessageType() string {
-	return "event" //nolint:goconst
-}
-
 // ShareAgentChangePushEvent 本事件触发时机为：
 //
 // 上级企业把自建应用共享给下级企业使用上级企业把下级企业从共享应用中移除
@@ -284,10 +256,6 @@ type ShareAgentChangePushEvent struct {
 
 func (ShareAgentChangePushEvent) EventType() string {
 	return "share_agent_change" //nolint:goconst
-}
-
-func (ShareAgentChangePushEvent) MessageType() string {
-	return "event" //nolint:goconst
 }
 
 // TemplateCardEventPushEvent 应用下发的模板卡片消息，用户点击按钮之后触发此事件应用收到该事件之后，可以响应回复模板卡片更新消息
@@ -321,10 +289,6 @@ type TemplateCardEventPushEvent struct {
 
 func (TemplateCardEventPushEvent) EventType() string {
 	return "template_card_event" //nolint:goconst
-}
-
-func (TemplateCardEventPushEvent) MessageType() string {
-	return "event" //nolint:goconst
 }
 
 func init() {

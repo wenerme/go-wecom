@@ -47,6 +47,18 @@ type CommonPushEvent struct {
 	ChangeType string `xml:"ChangeType,omitempty"`
 }
 
+func (e CommonPushEvent) IsMessage() bool {
+	return e.MsgType != "" && e.MsgType != EventMessageType
+}
+
+func (e CommonPushEvent) IsEvent() bool {
+	return e.InfoType != "" || e.MsgType == "event"
+}
+
+func (e CommonPushEvent) GetMessageType() string {
+	return e.MsgType
+}
+
 func (e CommonPushEvent) GetEventType() string {
 	if e.Event != "" {
 		return e.Event
