@@ -15,20 +15,20 @@ import (
 const DefaultAPI = "https://qyapi.weixin.qq.com"
 
 type Client struct {
-	Conf               Conf
-	Request            req.Request
-	AccessTokenCache   TokenResponse
-	JsAPITicketCache   TicketResponse
-	AgentTicketCache   TicketResponse
-	ProviderTokenCache ProviderTokenResponse
-	SuiteTokenCache    SuiteTokenResponse
-	OnTokenUpdate      func(c *Client)
+	Conf                     Conf
+	Request                  req.Request
+	AccessTokenCache         TokenResponse
+	JsAPITicketCache         TicketResponse
+	AgentTicketCache         TicketResponse
+	ProviderAccessTokenCache ProviderTokenResponse
+	SuiteAccessTokenCache    SuiteTokenResponse
+	OnTokenUpdate            func(c *Client)
 
-	updatingToken         int32
-	updatingProviderToken int32
-	updatingSuiteToken    int32
-	updatingTicket        int32
-	updatingAgentTicket   int32
+	updatingToken               int32
+	updatingProviderAccessToken int32
+	updatingSuiteAccessToken    int32
+	updatingTicket              int32
+	updatingAgentTicket         int32
 }
 
 func NewClient(conf Conf) *Client {
@@ -47,19 +47,19 @@ func NewClient(conf Conf) *Client {
 }
 
 type ClientCache struct {
-	AccessToken   *TokenResponse
-	JsAPITicket   *TicketResponse
-	AgentTicket   *TicketResponse
-	ProviderToken *ProviderTokenResponse
-	SuiteToken    *SuiteTokenResponse
+	AccessToken              *TokenResponse
+	JsAPITicket              *TicketResponse
+	AgentTicket              *TicketResponse
+	ProviderAccessTokenCache *ProviderTokenResponse
+	SuiteAccessTokenCache    *SuiteTokenResponse
 }
 
 func (c *Client) DumpCache() ClientCache {
 	a := &c.AccessTokenCache
 	b := &c.JsAPITicketCache
 	d := &c.AgentTicketCache
-	e := &c.ProviderTokenCache
-	f := &c.SuiteTokenCache
+	e := &c.ProviderAccessTokenCache
+	f := &c.SuiteAccessTokenCache
 	now := time.Now().Unix()
 	if a.ExpireAt < now {
 		a = nil
@@ -77,11 +77,11 @@ func (c *Client) DumpCache() ClientCache {
 		f = nil
 	}
 	cc := ClientCache{
-		AccessToken:   a,
-		JsAPITicket:   b,
-		AgentTicket:   d,
-		ProviderToken: e,
-		SuiteToken:    f,
+		AccessToken:              a,
+		JsAPITicket:              b,
+		AgentTicket:              d,
+		ProviderAccessTokenCache: e,
+		SuiteAccessTokenCache:    f,
 	}
 	return cc
 }
@@ -100,11 +100,11 @@ func (c *Client) LoadCache(cc *ClientCache) {
 	if cc.AgentTicket != nil && cc.AgentTicket.ExpireAt > now {
 		c.AgentTicketCache = *cc.AgentTicket
 	}
-	if cc.ProviderToken != nil && cc.ProviderToken.ExpireAt > now {
-		c.ProviderTokenCache = *cc.ProviderToken
+	if cc.ProviderAccessTokenCache != nil && cc.ProviderAccessTokenCache.ExpireAt > now {
+		c.ProviderAccessTokenCache = *cc.ProviderAccessTokenCache
 	}
-	if cc.SuiteToken != nil && cc.SuiteToken.ExpireAt > now {
-		c.SuiteTokenCache = *cc.SuiteToken
+	if cc.SuiteAccessTokenCache != nil && cc.SuiteAccessTokenCache.ExpireAt > now {
+		c.SuiteAccessTokenCache = *cc.SuiteAccessTokenCache
 	}
 }
 
@@ -183,34 +183,34 @@ func (c *Client) AccessToken() (string, error) {
 	return validToken(c.AccessTokenCache, "access token", lastErr)
 }
 
-func (c *Client) ProviderToken() (string, error) {
+func (c *Client) ProviderAccessToken() (string, error) {
 	var lastErr error
-	if c.shouldRefresh(c.ProviderTokenCache.ExpireAt) {
-		if atomic.CompareAndSwapInt32(&c.updatingProviderToken, 0, 1) {
+	if c.shouldRefresh(c.ProviderAccessTokenCache.ExpireAt) {
+		if atomic.CompareAndSwapInt32(&c.updatingProviderAccessToken, 0, 1) {
 			defer func() {
-				atomic.CompareAndSwapInt32(&c.updatingProviderToken, 1, 0)
+				atomic.CompareAndSwapInt32(&c.updatingProviderAccessToken, 1, 0)
 			}()
 			var next ProviderTokenResponse
 			next, lastErr = c.GetProviderToken()
 			if lastErr != nil {
 				logrus.WithError(lastErr).Error("get token failed")
 			} else {
-				c.ProviderTokenCache = next
+				c.ProviderAccessTokenCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
 				}
 			}
 		}
 	}
-	return validToken(c.ProviderTokenCache, "provider token", lastErr)
+	return validToken(c.ProviderAccessTokenCache, "provider token", lastErr)
 }
 
 func (c *Client) SuiteAccessToken() (string, error) {
 	var lastErr error
-	if c.shouldRefresh(c.SuiteTokenCache.ExpireAt) {
-		if atomic.CompareAndSwapInt32(&c.updatingSuiteToken, 0, 1) {
+	if c.shouldRefresh(c.SuiteAccessTokenCache.ExpireAt) {
+		if atomic.CompareAndSwapInt32(&c.updatingSuiteAccessToken, 0, 1) {
 			defer func() {
-				atomic.CompareAndSwapInt32(&c.updatingSuiteToken, 1, 0)
+				atomic.CompareAndSwapInt32(&c.updatingSuiteAccessToken, 1, 0)
 			}()
 			var next SuiteTokenResponse
 			next, lastErr = c.GetSuiteToken(&GetSuiteTokenRequest{
@@ -221,7 +221,7 @@ func (c *Client) SuiteAccessToken() (string, error) {
 			if lastErr != nil {
 				logrus.WithError(lastErr).Error("get suite token failed")
 			} else {
-				c.SuiteTokenCache = next
+				c.SuiteAccessTokenCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
 				}
@@ -229,7 +229,7 @@ func (c *Client) SuiteAccessToken() (string, error) {
 		}
 	}
 
-	return validToken(c.SuiteTokenCache, "suite token", lastErr)
+	return validToken(c.SuiteAccessTokenCache, "suite token", lastErr)
 }
 
 func validToken(cache Token, typ string, lastErr error) (string, error) {

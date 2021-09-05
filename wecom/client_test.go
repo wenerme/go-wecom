@@ -93,7 +93,7 @@ func TestNewClient(t *testing.T) {
 			"token:", c.AccessTokenCache.AccessToken,
 			"ticket:", c.JsAPITicketCache.Ticket,
 			"agent-ticket:", c.AgentTicketCache.Ticket,
-			"provider-token:", c.ProviderTokenCache.ProviderAccessToken,
+			"provider-token:", c.ProviderAccessTokenCache.ProviderAccessToken,
 		)
 	}
 	{
@@ -110,7 +110,7 @@ func TestNewClient(t *testing.T) {
 	agentTicket, err := client.AgentTicket()
 	assert.NoError(t, err)
 	assert.Equal(t, mockAgentTicket, agentTicket)
-	providerToken, err := client.ProviderToken()
+	providerToken, err := client.ProviderAccessToken()
 	assert.NoError(t, err)
 	assert.Equal(t, mockProviderToken, providerToken)
 

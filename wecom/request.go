@@ -14,6 +14,7 @@ import (
 
 type middlewareOptions struct {
 	WithoutAccessToken bool
+	Debug              bool
 	GetToken           func(c *Client, r *req.Request) (string, string, error)
 }
 
@@ -34,9 +35,17 @@ func getMiddlewareOptions(r *req.Request) *middlewareOptions {
 	return o
 }
 
-func getAccessToken(c *Client, r *req.Request) (string, string, error) {
-	token, err := c.AccessToken()
-	return "access_token", token, err
+func getAccessToken(c *Client, r *req.Request) (key string, token string, err error) {
+	key = "access_token"
+	switch {
+	case c.Conf.CorpSecret != "":
+		token, err = c.AccessToken()
+	case c.Conf.ProviderSecret != "":
+		token, err = c.ProviderAccessToken()
+	default:
+		err = errors.New("unable to detect access_token source")
+	}
+	return
 }
 
 func requestMiddleware(r *req.Request) (err error) {
@@ -51,13 +60,20 @@ func requestMiddleware(r *req.Request) (err error) {
 	if o.GetToken == nil {
 		o.GetToken = getAccessToken
 	}
+	var v url.Values
+	v, err = req.ValuesOf(r.Query)
+	if err != nil {
+		return
+	}
+	if v == nil {
+		v = url.Values{}
+	}
+	r.Query = v
+
+	if o.Debug {
+		v.Set("debug", "1")
+	}
 	if !o.WithoutAccessToken {
-		var v url.Values
-		v, err = req.ValuesOf(r.Query)
-		if v == nil {
-			v = url.Values{}
-		}
-		r.Query = v
 		key, val, err := o.GetToken(client, r)
 		if err == nil {
 			if _, found := v[key]; !found {

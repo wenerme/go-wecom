@@ -15,7 +15,7 @@
 # vendor/
 
 .idea
-ignored
+ignored*
 cover.html
 
 infosvr.yaml

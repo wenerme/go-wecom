@@ -9,4 +9,8 @@ type Conf struct {
 	SuiteSecret    string // 第三方应用 secret
 	SuiteTicket    string // 第三方应用 ticket - 无法主动获取
 	PermSecret     string // 第三方企业永久 secret
+
+	// not used by client
+	// ProviderToken  string // used for push event
+	// EncodingAESKey string
 }

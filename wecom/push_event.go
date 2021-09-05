@@ -4,6 +4,8 @@ import (
 	"encoding/xml"
 	"fmt"
 	"reflect"
+
+	"github.com/pkg/errors"
 )
 
 type EventModel interface {
@@ -54,7 +56,7 @@ func UnmarshalCommonEvent(data []byte) (*CommonPushEvent, error) {
 	b := &CommonPushEvent{}
 	err := xml.Unmarshal(data, b)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "unmarshal comment event")
 	}
 	return b, nil
 }

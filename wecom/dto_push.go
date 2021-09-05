@@ -27,11 +27,13 @@ type CommonPushEvent struct {
 
 	// 自建应用
 
-	ToUserName   string `xml:"ToUserName,omitempty"`   // 企业微信CorpID
-	FromUserName string `xml:"FromUserName,omitempty"` // sys 系统生成
+	ToUsername   string `xml:"ToUserName,omitempty"`   // 企业微信CorpID
+	FromUsername string `xml:"FromUserName,omitempty"` // sys 系统生成
 	CreateTime   int64  `xml:"CreateTime,omitempty"`   // same as Timestamp
-	MsgType      int64  `xml:"MsgType,omitempty"`      // event
-	Event        string `xml:"Event,omitempty"`        // same as InfoType
+	MsgType      string `xml:"MsgType,omitempty"`      // event,text,image
+	MsgID        int64  `xml:"MsgId,omitempty"`
+	AgentID      int64  `xml:"AgentID,omitempty"`
+	Event        string `xml:"Event,omitempty"` // same as InfoType
 
 	// 第三方应用开发
 
@@ -49,7 +51,10 @@ func (e CommonPushEvent) GetEventType() string {
 	if e.Event != "" {
 		return e.Event
 	}
-	return e.InfoType
+	if e.InfoType != "" {
+		return e.InfoType
+	}
+	return e.Event
 }
 
 func (e CommonPushEvent) GetTimestamp() int64 {
