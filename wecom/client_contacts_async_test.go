@@ -2,6 +2,7 @@ package wecom
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 
@@ -24,16 +25,19 @@ func TestContactsAsyncSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.BatchSyncUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := BatchSyncUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/batch/syncuser.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.BatchSyncUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -44,16 +48,19 @@ func TestContactsAsyncSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.BatchReplaceUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := BatchReplaceUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/batch/replaceuser.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.BatchReplaceUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -64,16 +71,19 @@ func TestContactsAsyncSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.BatchReplaceParty(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := BatchReplacePartyResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/batch/replaceparty.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.BatchReplaceParty(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -84,16 +94,19 @@ func TestContactsAsyncSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.BatchGetResult(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := BatchGetResultResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/batch/getresult.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.BatchGetResult(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 }

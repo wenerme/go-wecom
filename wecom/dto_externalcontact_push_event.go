@@ -25,7 +25,7 @@ type ChangeExternalContactAddExternalContactPushEvent struct {
 	WelcomeCode string `xml:"WelcomeCode"`
 }
 
-func (ChangeExternalContactAddExternalContactPushEvent) EventInfoType() string {
+func (ChangeExternalContactAddExternalContactPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
@@ -52,7 +52,7 @@ type ChangeExternalContactEditExternalContactPushEvent struct {
 	UserID string `xml:"UserID"`
 }
 
-func (ChangeExternalContactEditExternalContactPushEvent) EventInfoType() string {
+func (ChangeExternalContactEditExternalContactPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
@@ -83,7 +83,7 @@ type ChangeExternalContactAddHalfExternalContactPushEvent struct {
 	WelcomeCode string `xml:"WelcomeCode"`
 }
 
-func (ChangeExternalContactAddHalfExternalContactPushEvent) EventInfoType() string {
+func (ChangeExternalContactAddHalfExternalContactPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
@@ -110,7 +110,7 @@ type ChangeExternalContactDelExternalContactPushEvent struct {
 	UserID string `xml:"UserID"`
 }
 
-func (ChangeExternalContactDelExternalContactPushEvent) EventInfoType() string {
+func (ChangeExternalContactDelExternalContactPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
@@ -137,7 +137,7 @@ type ChangeExternalContactDelFollowUserPushEvent struct {
 	UserID string `xml:"UserID"`
 }
 
-func (ChangeExternalContactDelFollowUserPushEvent) EventInfoType() string {
+func (ChangeExternalContactDelFollowUserPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
@@ -166,7 +166,7 @@ type ChangeExternalContactTransferFailPushEvent struct {
 	UserID string `xml:"UserID"`
 }
 
-func (ChangeExternalContactTransferFailPushEvent) EventInfoType() string {
+func (ChangeExternalContactTransferFailPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
@@ -191,7 +191,7 @@ type ChangeExternalChatCreatePushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeExternalChatCreatePushEvent) EventInfoType() string {
+func (ChangeExternalChatCreatePushEvent) EventType() string {
 	return "change_external_chat" //nolint:goconst
 }
 
@@ -224,7 +224,7 @@ type ChangeExternalChatUpdatePushEvent struct {
 	UpdateDetail string `xml:"UpdateDetail"`
 }
 
-func (ChangeExternalChatUpdatePushEvent) EventInfoType() string {
+func (ChangeExternalChatUpdatePushEvent) EventType() string {
 	return "change_external_chat" //nolint:goconst
 }
 
@@ -249,7 +249,7 @@ type ChangeExternalChatDismissPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeExternalChatDismissPushEvent) EventInfoType() string {
+func (ChangeExternalChatDismissPushEvent) EventType() string {
 	return "change_external_chat" //nolint:goconst
 }
 
@@ -276,7 +276,7 @@ type ChangeExternalTagCreatePushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeExternalTagCreatePushEvent) EventInfoType() string {
+func (ChangeExternalTagCreatePushEvent) EventType() string {
 	return "change_external_tag" //nolint:goconst
 }
 
@@ -303,7 +303,7 @@ type ChangeExternalTagUpdatePushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeExternalTagUpdatePushEvent) EventInfoType() string {
+func (ChangeExternalTagUpdatePushEvent) EventType() string {
 	return "change_external_tag" //nolint:goconst
 }
 
@@ -330,7 +330,7 @@ type ChangeExternalTagDeletePushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeExternalTagDeletePushEvent) EventInfoType() string {
+func (ChangeExternalTagDeletePushEvent) EventType() string {
 	return "change_external_tag" //nolint:goconst
 }
 

@@ -4,12 +4,13 @@ import (
 	"encoding/xml"
 	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/pkg/errors"
 )
 
 type EventModel interface {
-	EventInfoType() string
+	EventType() string
 }
 
 type EventChangeModel interface {
@@ -20,14 +21,14 @@ type EventChangeModel interface {
 func RegisterEventModel(e ...EventModel) {
 	for _, v := range e {
 		if c, ok := v.(EventChangeModel); ok {
-			m := _eventChangeModels[v.EventInfoType()]
+			m := _eventChangeModels[v.EventType()]
 			if m == nil {
 				m = map[string]EventChangeModel{}
-				_eventChangeModels[v.EventInfoType()] = m
+				_eventChangeModels[v.EventType()] = m
 			}
 			m[c.EventChangeType()] = c
 		} else {
-			_eventModels[v.EventInfoType()] = v
+			_eventModels[v.EventType()] = v
 		}
 	}
 }
@@ -57,6 +58,10 @@ func UnmarshalCommonEvent(data []byte) (*CommonPushEvent, error) {
 	err := xml.Unmarshal(data, b)
 	if err != nil {
 		return nil, errors.Wrap(err, "unmarshal comment event")
+	}
+	// some test data has space
+	if b.InfoType != "" {
+		b.InfoType = strings.TrimSpace(b.InfoType)
 	}
 	return b, nil
 }

@@ -2,6 +2,7 @@ package wecom
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 
@@ -24,16 +25,19 @@ func TestContactsExportSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.ExportSimpleUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := ExportSimpleUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/simple_user.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.ExportSimpleUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -57,16 +61,19 @@ func TestContactsExportSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.ExportDepartment(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := ExportDepartmentResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/department.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.ExportDepartment(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -77,16 +84,19 @@ func TestContactsExportSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.ExportTagUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := ExportTagUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/export/taguser.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.ExportTagUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 }

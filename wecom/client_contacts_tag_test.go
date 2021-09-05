@@ -2,6 +2,7 @@ package wecom
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 
@@ -63,16 +64,19 @@ func TestContactsTagSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.GetTag(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := GetTagResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/tag/get.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.GetTag(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -103,16 +107,19 @@ func TestContactsTagSerialization(t *testing.T) {
 	}
 	{
 
-		res, err := c.ListTag()
-		assert.NoError(t, err)
-		_ = res
-
 		response := ListTagResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/tag/list.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.ListTag()
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 }

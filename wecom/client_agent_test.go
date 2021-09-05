@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-//nolint:funlen
+//nolint:funlen,gocyclo
 func TestAgentSerialization(t *testing.T) {
 	ts := NewTestServer()
 	handleTokens(ts)
@@ -58,6 +58,12 @@ func TestAgentSerialization(t *testing.T) {
 		assert.Equal(t, response, res)
 	}
 	{
+		request := SetWorkbenchTemplateRequest{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/agent/set_workbench_template.request.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &request))
+		}
 
 		response := SetWorkbenchTemplateResponse{}
 		{
@@ -68,22 +74,34 @@ func TestAgentSerialization(t *testing.T) {
 			}
 		}
 
-		res, err := c.SetWorkbenchTemplate()
+		res, err := c.SetWorkbenchTemplate(&request)
 		assert.NoError(t, err)
 		_ = res
 
 		assert.Equal(t, response, res)
 	}
 	{
+		request := GetWorkbenchTemplateRequest{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/agent/get_workbench_template.request.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &request))
+		}
 
-		res, err := c.GetWorkbenchTemplate()
+		res, err := c.GetWorkbenchTemplate(&request)
 		assert.NoError(t, err)
 		_ = res
 
 	}
 	{
+		request := SetWorkbenchDataRequest{}
+		{
+			data, err := os.ReadFile("./testdata/cgi-bin/agent/set_workbench_data.request.json")
+			assert.NoError(t, err)
+			assert.NoError(t, json.Unmarshal(data, &request))
+		}
 
-		res, err := c.SetWorkbenchData()
+		res, err := c.SetWorkbenchData(&request)
 		assert.NoError(t, err)
 		_ = res
 

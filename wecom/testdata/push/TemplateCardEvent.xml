@@ -1,0 +1,28 @@
+<xml>
+  <ToUserName><![CDATA[toUser]]></ToUserName>
+  <FromUserName><![CDATA[FromUser]]></FromUserName>
+  <CreateTime>123456789</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[template_card_event]]></Event>
+  <EventKey><![CDATA[key111]]></EventKey>
+  <TaskId><![CDATA[taskid111]]></TaskId>
+  <CardType><![CDATA[text_notice]]></CardType>
+  <ResponseCode><![CDATA[ResponseCode]]></ResponseCode>
+  <AgentID>1</AgentID>
+  <SelectedItems>
+    <SelectedItem>
+      <QuestionKey><![CDATA[QuestionKey1]]></QuestionKey>
+      <OptionIds>
+        <OptionId><![CDATA[OptionId1]]></OptionId>
+        <OptionId><![CDATA[OptionId2]]></OptionId>
+      </OptionIds>
+    </SelectedItem>
+    <SelectedItem>
+      <QuestionKey><![CDATA[QuestionKey2]]></QuestionKey>
+      <OptionIds>
+        <OptionId><![CDATA[OptionId3]]></OptionId>
+        <OptionId><![CDATA[OptionId4]]></OptionId>
+      </OptionIds>
+    </SelectedItem>
+  </SelectedItems>
+</xml>

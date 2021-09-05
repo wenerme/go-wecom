@@ -15,7 +15,7 @@ type SuiteTicketPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (SuiteTicketPushEvent) EventInfoType() string {
+func (SuiteTicketPushEvent) EventType() string {
 	return "suite_ticket" //nolint:goconst
 }
 
@@ -32,7 +32,7 @@ type CreateAuthPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (CreateAuthPushEvent) EventInfoType() string {
+func (CreateAuthPushEvent) EventType() string {
 	return "create_auth" //nolint:goconst
 }
 
@@ -49,7 +49,7 @@ type ChangeAuthPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeAuthPushEvent) EventInfoType() string {
+func (ChangeAuthPushEvent) EventType() string {
 	return "change_auth" //nolint:goconst
 }
 
@@ -66,7 +66,7 @@ type CancelAuthPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (CancelAuthPushEvent) EventInfoType() string {
+func (CancelAuthPushEvent) EventType() string {
 	return "cancel_auth" //nolint:goconst
 }
 
@@ -110,7 +110,7 @@ type ChangeContactCreateUserPushEvent struct {
 	UserID string `xml:"UserID"`
 }
 
-func (ChangeContactCreateUserPushEvent) EventInfoType() string {
+func (ChangeContactCreateUserPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
@@ -160,7 +160,7 @@ type ChangeContactUpdateUserPushEvent struct {
 	UserID string `xml:"UserID"`
 }
 
-func (ChangeContactUpdateUserPushEvent) EventInfoType() string {
+func (ChangeContactUpdateUserPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
@@ -184,7 +184,7 @@ type ChangeContactDeleteUserPushEvent struct {
 	UserID string `xml:"UserID"`
 }
 
-func (ChangeContactDeleteUserPushEvent) EventInfoType() string {
+func (ChangeContactDeleteUserPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
@@ -192,7 +192,7 @@ func (ChangeContactDeleteUserPushEvent) EventChangeType() string {
 	return "delete_user" //nolint:goconst
 }
 
-type ChangeContactCreatePartyPushEvent struct {
+type ProviderChangeContactCreatePartyPushEvent struct {
 	XMLName xml.Name `xml:"xml"`
 	// AuthCorpID 授权企业的CorpID
 	AuthCorpID string `xml:"AuthCorpId"`
@@ -214,11 +214,11 @@ type ChangeContactCreatePartyPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeContactCreatePartyPushEvent) EventInfoType() string {
+func (ProviderChangeContactCreatePartyPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
-func (ChangeContactCreatePartyPushEvent) EventChangeType() string {
+func (ProviderChangeContactCreatePartyPushEvent) EventChangeType() string {
 	return "create_party" //nolint:goconst
 }
 
@@ -242,7 +242,7 @@ type ChangeContactUpdatePartyPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeContactUpdatePartyPushEvent) EventInfoType() string {
+func (ChangeContactUpdatePartyPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
@@ -266,7 +266,7 @@ type ChangeContactDeletePartyPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeContactDeletePartyPushEvent) EventInfoType() string {
+func (ChangeContactDeletePartyPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
@@ -298,7 +298,7 @@ type ChangeContactUpdateTagPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp"`
 }
 
-func (ChangeContactUpdateTagPushEvent) EventInfoType() string {
+func (ChangeContactUpdateTagPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
@@ -315,7 +315,7 @@ func init() {
 		ChangeContactCreateUserPushEvent{},
 		ChangeContactUpdateUserPushEvent{},
 		ChangeContactDeleteUserPushEvent{},
-		ChangeContactCreatePartyPushEvent{},
+		ProviderChangeContactCreatePartyPushEvent{},
 		ChangeContactUpdatePartyPushEvent{},
 		ChangeContactDeletePartyPushEvent{},
 		ChangeContactUpdateTagPushEvent{},

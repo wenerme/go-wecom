@@ -2,6 +2,7 @@ package wecom
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 
@@ -24,16 +25,19 @@ func TestContactsLinkSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.LinkSimpleListUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := LinkSimpleListUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/linkedcorp/user/simplelist.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.LinkSimpleListUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -44,16 +48,19 @@ func TestContactsLinkSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.LinkListUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := LinkListUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/linkedcorp/user/list.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.LinkListUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -64,16 +71,19 @@ func TestContactsLinkSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.LinkListDepartment(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := LinkListDepartmentResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/linkedcorp/department/list.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.LinkListDepartment(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -84,30 +94,36 @@ func TestContactsLinkSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.LinkGetUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := LinkGetUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/linkedcorp/user/get.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.LinkGetUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
-
-		res, err := c.LinkGetPermList()
-		assert.NoError(t, err)
-		_ = res
 
 		response := LinkGetPermListResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/linkedcorp/agent/get_perm_list.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.LinkGetPermList()
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 }

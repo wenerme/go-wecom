@@ -2,6 +2,7 @@ package wecom
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 
@@ -24,16 +25,19 @@ func TestContactsDeptSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.CreateDepartment(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := CreateDepartmentResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/department/create.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.CreateDepartment(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -70,16 +74,19 @@ func TestContactsDeptSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.ListDepartment(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := ListDepartmentResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/department/list.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.ListDepartment(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 }

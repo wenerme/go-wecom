@@ -18,20 +18,24 @@ Wechat Work/Wecom/企业微信 Golang SDK
 - 支持缓存 AccessToken, JsTicket, AgentTicket, SuiteToken
 - 支持自建应用开发
 - 支持第三方应用开发
-- 生成回调事件模型 - 包含文档
-  - 客户联系
-  - 第三方回调
 - 没有内部状态和 goroutine
 - 自动尝试提前获取相应的 Token 和 Ticket
 - 实现逻辑清晰 - 没有实现的接口可直接调用
 - wwcrypt - 企业微信回调加密实现 - 作用同 sbzhu/weworkapi_golang
 - 数据模型大多基于官方接口文档生成 - 包含注释
 - 包含 Mock 测试
-- 接口支持
+- 接口
   - 通讯录管理 - 成员、部门、标签、异步批量、互联企业
     - [ ] 通讯录回调
     - [ ] 导出任务完成通知 https://work.weixin.qq.com/api/doc/90000/90135/94946
   - 客户联系 - 客户管理、客户标签管理、在职继承、离职继承、客户群管理、消息推送、统计管理、变更回调
+  - 应用
+- 事件
+  - 客户联系
+  - 第三方回调
+  - 消息
+  - 消息回复
+  - 企业应用消息推送
 
 ```go
 package wecom_test

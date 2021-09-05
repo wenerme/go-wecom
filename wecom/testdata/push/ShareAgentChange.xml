@@ -1,0 +1,8 @@
+<xml>
+  <ToUserName><![CDATA[wwddddccc7775555aaa]]></ToUserName>
+  <FromUserName><![CDATA[sys]]></FromUserName>
+  <CreateTime>1527838022</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[share_agent_change]]></Event>
+  <AgentID>1</AgentID>
+</xml>

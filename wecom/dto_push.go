@@ -54,7 +54,10 @@ func (e CommonPushEvent) GetEventType() string {
 	if e.InfoType != "" {
 		return e.InfoType
 	}
-	return e.Event
+	if e.MsgType != "" {
+		return e.MsgType
+	}
+	return ""
 }
 
 func (e CommonPushEvent) GetTimestamp() int64 {

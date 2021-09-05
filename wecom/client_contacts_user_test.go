@@ -2,6 +2,7 @@ package wecom
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 
@@ -76,16 +77,19 @@ func TestContactsUserSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.SimpleListUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := SimpleListUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/user/simplelist.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.SimpleListUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -96,16 +100,19 @@ func TestContactsUserSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.ListUser(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := ListUserResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/user/list.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.ListUser(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -116,16 +123,19 @@ func TestContactsUserSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.ConvertToOpenID(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := ConvertToOpenIDResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/user/convert_to_openid.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.ConvertToOpenID(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -149,16 +159,19 @@ func TestContactsUserSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.GetJoinQrcode(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := GetJoinQrcodeResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/corp/get_join_qrcode.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.GetJoinQrcode(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 	{
@@ -169,16 +182,19 @@ func TestContactsUserSerialization(t *testing.T) {
 			assert.NoError(t, json.Unmarshal(data, &request))
 		}
 
-		res, err := c.GetActiveStat(&request)
-		assert.NoError(t, err)
-		_ = res
-
 		response := GetActiveStatResponse{}
 		{
 			data, err := os.ReadFile("./testdata/cgi-bin/user/get_active_stat.response.json")
 			assert.NoError(t, err)
-			assert.NoError(t, json.Unmarshal(data, &response))
+			if !assert.NoError(t, json.Unmarshal(data, &response)) {
+				fmt.Println(string(data))
+			}
 		}
+
+		res, err := c.GetActiveStat(&request)
+		assert.NoError(t, err)
+		_ = res
+
 		assert.Equal(t, response, res)
 	}
 }
