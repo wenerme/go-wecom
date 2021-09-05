@@ -1,0 +1,10 @@
+{
+  "agentid": 1000005,
+  "type": "image",
+  "image": {
+    "url": "xxxx",
+    "jump_url": "http://www.qq.com",
+    "pagepath": "pages/index"
+  },
+  "replace_user_data": true
+}

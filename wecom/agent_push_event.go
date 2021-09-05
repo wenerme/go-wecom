@@ -1,5 +1,0 @@
-package wecom
-
-/*
-https://work.weixin.qq.com/api/doc/90001/90143/94620#%E4%BF%AE%E6%94%B9%E8%AE%BE%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8F%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%80%E5%85%B3%E4%BA%8B%E4%BB%B6%E6%8E%A8%E9%80%81
-*/
