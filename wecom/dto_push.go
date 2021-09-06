@@ -52,7 +52,7 @@ func (e CommonPushEvent) IsMessage() bool {
 }
 
 func (e CommonPushEvent) IsEvent() bool {
-	return e.InfoType != "" || e.MsgType == "event"
+	return e.InfoType != "" || e.MsgType == EventMessageType
 }
 
 func (e CommonPushEvent) GetMessageType() string {

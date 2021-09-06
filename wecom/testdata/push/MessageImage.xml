@@ -3,8 +3,7 @@
   <FromUserName><![CDATA[fromUser]]></FromUserName>
   <CreateTime>1348831860</CreateTime>
   <MsgType><![CDATA[image]]></MsgType>
-  <PicUrl><![CDATA[this is a url]]></PicUrl>
-  <MediaId><![CDATA[media_id]]></MediaId>
-  <MsgId>1234567890123456</MsgId>
-  <AgentID>1</AgentID>
+  <Image>
+    <MediaId><![CDATA[media_id]]></MediaId>
+  </Image>
 </xml>

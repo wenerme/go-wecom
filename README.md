@@ -31,6 +31,7 @@ Wechat Work/Wecom/企业微信 Golang SDK
   - 客户联系 - 客户管理、客户标签管理、在职继承、离职继承、客户群管理、消息推送、统计管理、变更回调
   - 应用
   - 消息会话内容存档
+  - 日程、日历
 - 事件
   - 客户联系
   - 第三方回调
@@ -39,8 +40,10 @@ Wechat Work/Wecom/企业微信 Golang SDK
   - 企业应用消息推送
   - 外部联系人变更
   - 消息会话内容存档 - msgaudit_notify
+  - 日程、日历
 - TBD
   - 将企业管理员添加为外部联系人 https://work.weixin.qq.com/api/doc/13613
+  - change_external_tag shuffle
 
 ```go
 package wecom_test
