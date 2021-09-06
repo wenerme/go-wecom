@@ -6,7 +6,7 @@ https://work.weixin.qq.com/api/doc/10975
 
 type SetSessionInfo struct {
 	AppID    []int `json:"appid"`
-	AuthType int   `json:"auth_type"`
+	AuthType int   `json:"auth_type"` // 0 正式授权， 1 测试授权。 默认值为0
 }
 
 type GetAdminListItem struct {

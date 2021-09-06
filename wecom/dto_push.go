@@ -32,7 +32,7 @@ type CommonPushEvent struct {
 	CreateTime   int64  `xml:"CreateTime,omitempty"`   // same as Timestamp
 	MsgType      string `xml:"MsgType,omitempty"`      // event,text,image
 	MsgID        int64  `xml:"MsgId,omitempty"`
-	AgentID      int64  `xml:"AgentID,omitempty"`
+	AgentID      int    `xml:"AgentID,omitempty"`
 	Event        string `xml:"Event,omitempty"` // same as InfoType
 
 	// 第三方应用开发

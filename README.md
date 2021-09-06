@@ -30,12 +30,17 @@ Wechat Work/Wecom/企业微信 Golang SDK
     - [ ] 导出任务完成通知 https://work.weixin.qq.com/api/doc/90000/90135/94946
   - 客户联系 - 客户管理、客户标签管理、在职继承、离职继承、客户群管理、消息推送、统计管理、变更回调
   - 应用
+  - 消息会话内容存档
 - 事件
   - 客户联系
   - 第三方回调
   - 消息
   - 消息回复
   - 企业应用消息推送
+  - 外部联系人变更
+  - 消息会话内容存档 - msgaudit_notify
+- TBD
+  - 将企业管理员添加为外部联系人 https://work.weixin.qq.com/api/doc/13613
 
 ```go
 package wecom_test

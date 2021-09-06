@@ -11,6 +11,7 @@ func (c *Client) GetAPIDomainIP() (out IPListResponse, err error) {
 	return
 }
 
+// GetCallbackIP 获取企业微信服务器的ip段
 func (c *Client) GetCallbackIP() (out IPListResponse, err error) {
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/getcallbackip",
