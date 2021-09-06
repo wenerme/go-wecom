@@ -126,6 +126,7 @@ func (c *Client) JsAPITicket() (string, error) {
 			if lastErr != nil {
 				logrus.WithError(lastErr).Error("get js api ticket failed")
 			} else {
+				next.ExpireAt = time.Now().Unix() + int64(next.ExpiresIn) - 5
 				c.JsAPITicketCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
@@ -149,6 +150,7 @@ func (c *Client) AgentTicket() (string, error) {
 			if lastErr != nil {
 				logrus.WithError(lastErr).Error("get agent ticket failed")
 			} else {
+				next.ExpireAt = time.Now().Unix() + int64(next.ExpiresIn) - 5
 				c.AgentTicketCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
@@ -172,6 +174,7 @@ func (c *Client) AccessToken() (string, error) {
 			if lastErr != nil {
 				logrus.WithError(lastErr).Error("get token failed")
 			} else {
+				next.ExpireAt = time.Now().Unix() + int64(next.ExpiresIn) - 5
 				c.AccessTokenCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
@@ -195,6 +198,7 @@ func (c *Client) ProviderAccessToken() (string, error) {
 			if lastErr != nil {
 				logrus.WithError(lastErr).Error("get token failed")
 			} else {
+				next.ExpireAt = time.Now().Unix() + int64(next.ExpiresIn) - 5
 				c.ProviderAccessTokenCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)
@@ -213,7 +217,7 @@ func (c *Client) SuiteAccessToken() (string, error) {
 				atomic.CompareAndSwapInt32(&c.updatingSuiteAccessToken, 1, 0)
 			}()
 			var next SuiteTokenResponse
-			next, lastErr = c.GetSuiteToken(&GetSuiteTokenRequest{
+			next, lastErr = c.ProviderGetSuiteToken(&ProviderGetSuiteTokenRequest{
 				SuiteID:     c.Conf.SuiteID,
 				SuiteSecret: c.Conf.SuiteSecret,
 				SuiteTicket: c.Conf.SuiteTicket,
@@ -221,6 +225,7 @@ func (c *Client) SuiteAccessToken() (string, error) {
 			if lastErr != nil {
 				logrus.WithError(lastErr).Error("get suite token failed")
 			} else {
+				next.ExpireAt = time.Now().Unix() + int64(next.ExpiresIn) - 5
 				c.SuiteAccessTokenCache = next
 				if c.OnTokenUpdate != nil {
 					c.OnTokenUpdate(c)

@@ -1,12 +1,14 @@
 package wecom
 
-import "github.com/wenerme/go-req"
+import (
+	"github.com/wenerme/go-req"
+)
 
-// GetSuiteToken 获取第三方应用凭证
+// ProviderGetSuiteToken 获取第三方应用凭证
 // 该API用于获取第三方应用凭证（suite_access_token）。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90600
-func (c *Client) GetSuiteToken(r *GetSuiteTokenRequest, opts ...interface{}) (out SuiteTokenResponse, err error) {
+func (c *Client) ProviderGetSuiteToken(r *ProviderGetSuiteTokenRequest, opts ...interface{}) (out SuiteTokenResponse, err error) {
 	opts = append([]interface{}{WithoutAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
@@ -17,11 +19,11 @@ func (c *Client) GetSuiteToken(r *GetSuiteTokenRequest, opts ...interface{}) (ou
 	return
 }
 
-// GetPreAuthCode 获取预授权码
+// ProviderGetPreAuthCode 获取预授权码
 // 该API用于获取预授权码。预授权码用于企业授权时的第三方服务商安全验证。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90601
-func (c *Client) GetPreAuthCode(r *GetPreAuthCodeRequest, opts ...interface{}) (out GetPreAuthCodeResponse, err error) {
+func (c *Client) ProviderGetPreAuthCode(r *ProviderGetPreAuthCodeRequest, opts ...interface{}) (out PreAuthCodeResponse, err error) {
 	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "GET",
@@ -32,11 +34,11 @@ func (c *Client) GetPreAuthCode(r *GetPreAuthCodeRequest, opts ...interface{}) (
 	return
 }
 
-// SetSessionInfo 设置授权配置
+// ProviderSetSessionInfo 设置授权配置
 // 该接口可对某次授权进行配置。可支持测试模式（应用未发布时）。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90602
-func (c *Client) SetSessionInfo(r *SetSessionInfoRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) ProviderSetSessionInfo(r *ProviderSetSessionInfoRequest, opts ...interface{}) (out GenericResponse, err error) {
 	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
@@ -47,12 +49,12 @@ func (c *Client) SetSessionInfo(r *SetSessionInfoRequest, opts ...interface{}) (
 	return
 }
 
-// GetPermanentCode 获取企业永久授权码
+// ProviderGetPermanentCode 获取企业永久授权码
 // 该API用于使用临时授权码换取授权方的永久授权码，并换取授权信息、企业access_token，临时授权码一次有效。建议第三方以userid为主键，来建立自己的管理员账号。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90603
-func (c *Client) GetPermanentCode(r *GetPermanentCodeRequest, opts ...interface{}) (out GetPermanentCodeResponse, err error) {
-	opts = append([]interface{}{WithoutAccessToken}, opts...)
+func (c *Client) ProviderGetPermanentCode(r *ProviderGetPermanentCodeRequest, opts ...interface{}) (out ProviderGetPermanentCodeResponse, err error) {
+	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_permanent_code",
@@ -62,12 +64,12 @@ func (c *Client) GetPermanentCode(r *GetPermanentCodeRequest, opts ...interface{
 	return
 }
 
-// GetAuthInfo 获取企业授权信息
+// ProviderGetAuthInfo 获取企业授权信息
 // 该API用于通过永久授权码换取企业微信的授权信息。 永久code的获取，是通过临时授权码使用get_permanent_code 接口获取到的permanent_code。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90604
-func (c *Client) GetAuthInfo(r *GetAuthInfoRequest, opts ...interface{}) (out GetAuthInfoResponse, err error) {
-	opts = append([]interface{}{WithoutAccessToken}, opts...)
+func (c *Client) ProviderGetAuthInfo(r *ProviderGetAuthInfoRequest, opts ...interface{}) (out ProviderGetAuthInfoResponse, err error) {
+	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_auth_info",
@@ -77,12 +79,12 @@ func (c *Client) GetAuthInfo(r *GetAuthInfoRequest, opts ...interface{}) (out Ge
 	return
 }
 
-// GetCorpToken 获取企业凭证
+// ProviderGetCorpToken 获取企业凭证
 // 第三方服务商在取得企业的永久授权码后，通过此接口可以获取到企业的access_token。获取后可通过通讯录、应用、消息等企业接口来运营这些应用。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90605
-func (c *Client) GetCorpToken(r *GetCorpTokenRequest, opts ...interface{}) (out GetCorpTokenResponse, err error) {
-	opts = append([]interface{}{WithoutAccessToken}, opts...)
+func (c *Client) ProviderGetCorpToken(r *ProviderGetCorpTokenRequest, opts ...interface{}) (out ProviderGetCorpTokenResponse, err error) {
+	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_corp_token",
@@ -92,12 +94,12 @@ func (c *Client) GetCorpToken(r *GetCorpTokenRequest, opts ...interface{}) (out 
 	return
 }
 
-// GetAdminList 获取应用的管理员列表
+// ProviderGetAdminList 获取应用的管理员列表
 // 第三方服务商可以用此接口获取授权企业中某个第三方应用的管理员列表(不包括外部管理员)，以便服务商在用户进入应用主页之后根据是否管理员身份做权限的区分。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90606
-func (c *Client) GetAdminList(r *GetAdminListRequest, opts ...interface{}) (out GetAdminListResponse, err error) {
-	opts = append([]interface{}{WithoutAccessToken}, opts...)
+func (c *Client) ProviderGetAdminList(r *ProviderGetAdminListRequest, opts ...interface{}) (out ProviderGetAdminListResponse, err error) {
+	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_admin_list",
@@ -107,7 +109,7 @@ func (c *Client) GetAdminList(r *GetAdminListRequest, opts ...interface{}) (out 
 	return
 }
 
-type GetSuiteTokenRequest struct {
+type ProviderGetSuiteTokenRequest struct {
 	// SuiteID 以ww或wx开头应用id（对应于旧的以tj开头的套件id）
 	SuiteID string `json:"suite_id"  validate:"required"`
 	// SuiteSecret 应用secret
@@ -125,12 +127,12 @@ type SuiteTokenResponse struct {
 	ExpireAt int64 `json:"expire_at"  `
 }
 
-type GetPreAuthCodeRequest struct {
+type ProviderGetPreAuthCodeRequest struct {
 	// SuiteAccessToken 第三方应用access_token,最长为512字节
-	SuiteAccessToken string `json:"suite_access_token"  validate:"required"`
+	SuiteAccessToken string `json:"suite_access_token"  `
 }
 
-type GetPreAuthCodeResponse struct {
+type PreAuthCodeResponse struct {
 	// PreAuthCode 预授权码,最长为512字节
 	PreAuthCode string `json:"pre_auth_code"  `
 	// ExpiresIn 有效期（秒）
@@ -139,21 +141,21 @@ type GetPreAuthCodeResponse struct {
 	ExpireAt int64 `json:"expire_at"  `
 }
 
-type SetSessionInfoRequest struct {
+type ProviderSetSessionInfoRequest struct {
 	// SuiteAccessToken 第三方应用access_token
-	SuiteAccessToken string `json:"suite_access_token"  validate:"required"`
+	SuiteAccessToken string `json:"suite_access_token"  `
 	// PreAuthCode 预授权码
 	PreAuthCode string `json:"pre_auth_code"  validate:"required"`
 	// SessionInfo 本次授权过程中需要用到的会话信息
 	SessionInfo SetSessionInfo `json:"session_info"  validate:"required"`
 }
 
-type GetPermanentCodeRequest struct {
+type ProviderGetPermanentCodeRequest struct {
 	// AuthCode 临时授权码，会在授权成功时附加在redirect_uri中跳转回第三方服务商网站，或通过授权成功通知回调推送给服务商。长度为64至512个字节
 	AuthCode string `json:"auth_code"  validate:"required"`
 }
 
-type GetPermanentCodeResponse struct {
+type ProviderGetPermanentCodeResponse struct {
 	// AccessToken 授权方（企业）access_token,最长为512字节
 	AccessToken string `json:"access_token"  `
 	// ExpiresIn 授权方（企业）access_token超时时间（秒）
@@ -161,18 +163,18 @@ type GetPermanentCodeResponse struct {
 	// PermanentCode 企业微信永久授权码,最长为512字节
 	PermanentCode string `json:"permanent_code"  `
 	// AuthCorpInfo 授权方企业信息
-	AuthCorpInfo GetPermanentCodeResponseAuthCorpInfo `json:"auth_corp_info"  `
+	AuthCorpInfo ProviderGetPermanentCodeResponseAuthCorpInfo `json:"auth_corp_info"  `
 	// AuthInfo 授权信息。如果是通讯录应用，且没开启实体应用，是没有该项的。通讯录应用拥有企业通讯录的全部信息读写权限
-	AuthInfo GetPermanentCodeResponseAuthInfo `json:"auth_info"  `
+	AuthInfo ProviderGetPermanentCodeResponseAuthInfo `json:"auth_info"  `
 	// AuthUserInfo 授权管理员的信息，可能不返回（企业互联由上级企业共享第三方应用给下级时，不返回授权的管理员信息）
-	AuthUserInfo GetPermanentCodeResponseAuthUserInfo `json:"auth_user_info"  `
+	AuthUserInfo ProviderGetPermanentCodeResponseAuthUserInfo `json:"auth_user_info"  `
 	// DealerCorpInfo 代理服务商企业信息。应用被代理后才有该信息
-	DealerCorpInfo GetPermanentCodeResponseDealerCorpInfo `json:"dealer_corp_info"  `
+	DealerCorpInfo ProviderGetPermanentCodeResponseDealerCorpInfo `json:"dealer_corp_info"  `
 	// RegisterCodeInfo 推广二维码安装相关信息，扫推广二维码安装时返回。（注：无论企业是否新注册，只要通过扫推广二维码安装，都会返回该字段）
-	RegisterCodeInfo GetPermanentCodeResponseRegisterCodeInfo `json:"register_code_info"  `
+	RegisterCodeInfo ProviderGetPermanentCodeResponseRegisterCodeInfo `json:"register_code_info"  `
 }
 
-type GetPermanentCodeResponseAuthCorpInfo struct {
+type ProviderGetPermanentCodeResponseAuthCorpInfo struct {
 	// CorpID 授权方企业微信id
 	CorpID string `json:"corpid"  `
 	// CorpName 授权方企业名称，即企业简称
@@ -201,12 +203,12 @@ type GetPermanentCodeResponseAuthCorpInfo struct {
 	CorpSubIndustry string `json:"corp_sub_industry"  `
 }
 
-type GetPermanentCodeResponseAuthInfo struct {
+type ProviderGetPermanentCodeResponseAuthInfo struct {
 	// Agent 授权的应用信息，注意是一个数组，但仅旧的多应用套件授权时会返回多个agent，对新的单应用授权，永远只返回一个agent
-	Agent []GetPermanentCodeResponseAuthInfoAgent `json:"agent"  `
+	Agent []ProviderGetPermanentCodeResponseAuthInfoAgent `json:"agent"  `
 }
 
-type GetPermanentCodeResponseAuthInfoAgent struct {
+type ProviderGetPermanentCodeResponseAuthInfoAgent struct {
 	// AgentID 授权方应用id
 	AgentID int `json:"agentid"  `
 	// Name 授权方应用名字
@@ -222,12 +224,12 @@ type GetPermanentCodeResponseAuthInfoAgent struct {
 	// IsCustomizedApp 是否为代开发自建应用
 	IsCustomizedApp bool `json:"is_customized_app"  `
 	// Privilege 应用对应的权限
-	Privilege GetPermanentCodeResponseAuthInfoAgentPrivilege `json:"privilege"  `
+	Privilege ProviderGetPermanentCodeResponseAuthInfoAgentPrivilege `json:"privilege"  `
 	// SharedFrom 共享了应用的互联企业信息，仅当由互联的企业共享应用触发的安装时才返回
-	SharedFrom GetPermanentCodeResponseAuthInfoAgentSharedFrom `json:"shared_from"  `
+	SharedFrom ProviderGetPermanentCodeResponseAuthInfoAgentSharedFrom `json:"shared_from"  `
 }
 
-type GetPermanentCodeResponseAuthInfoAgentPrivilege struct {
+type ProviderGetPermanentCodeResponseAuthInfoAgentPrivilege struct {
 	// AllowParty 应用可见范围（部门）
 	AllowParty []int `json:"allow_party"  `
 	// AllowTag 应用可见范围（标签）
@@ -244,12 +246,12 @@ type GetPermanentCodeResponseAuthInfoAgentPrivilege struct {
 	Level int `json:"level"  `
 }
 
-type GetPermanentCodeResponseAuthInfoAgentSharedFrom struct {
+type ProviderGetPermanentCodeResponseAuthInfoAgentSharedFrom struct {
 	// CorpID 共享了应用的互联企业信息，仅当由互联的企业共享应用触发的安装时才返回
 	CorpID string `json:"corpid"  `
 }
 
-type GetPermanentCodeResponseAuthUserInfo struct {
+type ProviderGetPermanentCodeResponseAuthUserInfo struct {
 	// UserID 授权管理员的userid，可能为空（企业互联由上级企业共享第三方应用给下级时，不返回授权的管理员信息）
 	UserID string `json:"userid"  `
 	// OpenUserID 授权管理员的open_userid，可能为空（企业互联由上级企业共享第三方应用给下级时，不返回授权的管理员信息）
@@ -260,14 +262,14 @@ type GetPermanentCodeResponseAuthUserInfo struct {
 	Avatar string `json:"avatar"  `
 }
 
-type GetPermanentCodeResponseDealerCorpInfo struct {
+type ProviderGetPermanentCodeResponseDealerCorpInfo struct {
 	// CorpID 代理服务商企业微信id
 	CorpID string `json:"corpid"  `
 	// CorpName 代理服务商企业微信名称
 	CorpName string `json:"corp_name"  `
 }
 
-type GetPermanentCodeResponseRegisterCodeInfo struct {
+type ProviderGetPermanentCodeResponseRegisterCodeInfo struct {
 	// RegisterCode 注册码
 	RegisterCode string `json:"register_code"  `
 	// TemplateID 推广包ID
@@ -276,23 +278,23 @@ type GetPermanentCodeResponseRegisterCodeInfo struct {
 	State string `json:"state"  `
 }
 
-type GetAuthInfoRequest struct {
+type ProviderGetAuthInfoRequest struct {
 	// AuthCorpID 授权方corpid
 	AuthCorpID string `json:"auth_corpid"  validate:"required"`
 	// PermanentCode 永久授权码，通过get_permanent_code获取
 	PermanentCode string `json:"permanent_code"  validate:"required"`
 }
 
-type GetAuthInfoResponse struct {
+type ProviderGetAuthInfoResponse struct {
 	// AuthCorpInfo 授权方企业信息
-	AuthCorpInfo GetAuthInfoResponseAuthCorpInfo `json:"auth_corp_info"  `
+	AuthCorpInfo ProviderGetAuthInfoResponseAuthCorpInfo `json:"auth_corp_info"  `
 	// AuthInfo 授权信息。如果是通讯录应用，且没开启实体应用，是没有该项的。通讯录应用拥有企业通讯录的全部信息读写权限
-	AuthInfo GetAuthInfoResponseAuthInfo `json:"auth_info"  `
+	AuthInfo ProviderGetAuthInfoResponseAuthInfo `json:"auth_info"  `
 	// DealerCorpInfo 代理服务商企业信息
-	DealerCorpInfo GetAuthInfoResponseDealerCorpInfo `json:"dealer_corp_info"  `
+	DealerCorpInfo ProviderGetAuthInfoResponseDealerCorpInfo `json:"dealer_corp_info"  `
 }
 
-type GetAuthInfoResponseAuthCorpInfo struct {
+type ProviderGetAuthInfoResponseAuthCorpInfo struct {
 	// CorpID 授权方企业微信id
 	CorpID string `json:"corpid"  `
 	// CorpName 授权方企业名称
@@ -319,12 +321,12 @@ type GetAuthInfoResponseAuthCorpInfo struct {
 	CorpSubIndustry string `json:"corp_sub_industry"  `
 }
 
-type GetAuthInfoResponseAuthInfo struct {
+type ProviderGetAuthInfoResponseAuthInfo struct {
 	// Agent 授权的应用信息，注意是一个数组，但仅旧的多应用套件授权时会返回多个agent，对新的单应用授权，永远只返回一个agent
-	Agent []GetAuthInfoResponseAuthInfoAgent `json:"agent"  `
+	Agent []ProviderGetAuthInfoResponseAuthInfoAgent `json:"agent"  `
 }
 
-type GetAuthInfoResponseAuthInfoAgent struct {
+type ProviderGetAuthInfoResponseAuthInfoAgent struct {
 	// AgentID 授权方应用id
 	AgentID int `json:"agentid"  `
 	// Name 授权方应用名字
@@ -340,12 +342,12 @@ type GetAuthInfoResponseAuthInfoAgent struct {
 	// IsCustomizedApp 是否为代开发自建应用
 	IsCustomizedApp bool `json:"is_customized_app"  `
 	// Privilege 应用对应的权限
-	Privilege GetAuthInfoResponseAuthInfoAgentPrivilege `json:"privilege"  `
+	Privilege ProviderGetAuthInfoResponseAuthInfoAgentPrivilege `json:"privilege"  `
 	// SharedFrom 共享了应用的互联企业信息，仅当由互联的企业共享应用触发的安装时才返回
-	SharedFrom GetAuthInfoResponseAuthInfoAgentSharedFrom `json:"shared_from"  `
+	SharedFrom ProviderGetAuthInfoResponseAuthInfoAgentSharedFrom `json:"shared_from"  `
 }
 
-type GetAuthInfoResponseAuthInfoAgentPrivilege struct {
+type ProviderGetAuthInfoResponseAuthInfoAgentPrivilege struct {
 	// AllowParty 应用可见范围（部门）
 	AllowParty []int `json:"allow_party"  `
 	// AllowTag 应用可见范围（标签）
@@ -362,40 +364,40 @@ type GetAuthInfoResponseAuthInfoAgentPrivilege struct {
 	Level int `json:"level"  `
 }
 
-type GetAuthInfoResponseAuthInfoAgentSharedFrom struct {
+type ProviderGetAuthInfoResponseAuthInfoAgentSharedFrom struct {
 	// CorpID 共享了应用的互联企业信息，仅当由互联的企业共享应用触发的安装时才返回
 	CorpID string `json:"corpid"  `
 }
 
-type GetAuthInfoResponseDealerCorpInfo struct {
+type ProviderGetAuthInfoResponseDealerCorpInfo struct {
 	// CorpID 代理服务商企业微信id
 	CorpID string `json:"corpid"  `
 	// CorpName 代理服务商企业微信名称
 	CorpName string `json:"corp_name"  `
 }
 
-type GetCorpTokenRequest struct {
+type ProviderGetCorpTokenRequest struct {
 	// AuthCorpID 授权方corpid
 	AuthCorpID string `json:"auth_corpid"  validate:"required"`
 	// PermanentCode 永久授权码，通过get_permanent_code获取
 	PermanentCode string `json:"permanent_code"  validate:"required"`
 }
 
-type GetCorpTokenResponse struct {
+type ProviderGetCorpTokenResponse struct {
 	// AccessToken 授权方（企业）access_token,最长为512字节
 	AccessToken string `json:"access_token"  `
 	// ExpiresIn 授权方（企业）access_token超时时间
 	ExpiresIn int `json:"expires_in"  `
 }
 
-type GetAdminListRequest struct {
+type ProviderGetAdminListRequest struct {
 	// AuthCorpID 授权方corpid
 	AuthCorpID string `json:"auth_corpid"  validate:"required"`
 	// AgentID 授权方安装的应用agentid
 	AgentID int `json:"agentid"  validate:"required"`
 }
 
-type GetAdminListResponse struct {
+type ProviderGetAdminListResponse struct {
 	// Admin 应用的管理员列表（不包括外部管理员），成员授权模式下，不返回系统管理员
 	Admin []GetAdminListItem `json:"admin"  `
 }

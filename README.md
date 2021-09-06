@@ -44,6 +44,7 @@ Wechat Work/Wecom/企业微信 Golang SDK
 - TBD
   - 将企业管理员添加为外部联系人 https://work.weixin.qq.com/api/doc/13613
   - change_external_tag shuffle
+  - 批量安装应用 https://open.work.weixin.qq.com/api/doc/20990
 
 ```go
 package wecom_test

@@ -38,7 +38,7 @@ func TestPushEventSerialization(t *testing.T) {
 		assert.True(t, ce.GetTimestamp() > 0)
 		assert.Equal(t, ce.GetEventType(), e.EventType())
 		if mt, ok := e.(MessageModel); ok {
-			assert.Equal(t, ce.GetMessageType(), mt.MessageType())
+			assert.Equalf(t, ce.GetMessageType(), mt.MessageType(), "%T", mt)
 		}
 		if mt, ok := e.(EventChangeModel); ok {
 			assert.Equal(t, ce.ChangeType, mt.EventChangeType())

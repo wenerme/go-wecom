@@ -23,7 +23,7 @@ type PushRequestParams struct {
 }
 
 type CommonPushEvent struct {
-	XMLName xml.Name `xml:"xml"`
+	XMLName xml.Name `xml:"xml" json:"-"`
 
 	// 自建应用
 
@@ -37,14 +37,19 @@ type CommonPushEvent struct {
 
 	// 第三方应用开发
 
-	SuiteID    string `xml:"SuiteId,omitempty"`    // 第三方应用ID
-	AuthCorpID string `xml:"AuthCorpId,omitempty"` // 授权企业的CorpID
-	InfoType   string `xml:"InfoType,omitempty"`
-	Timestamp  int64  `xml:"TimeStamp,omitempty"`
+	SuiteID       string `xml:"SuiteId,omitempty"`       // 第三方应用ID
+	AuthCorpID    string `xml:"AuthCorpId,omitempty"`    // 授权企业的 CorpID
+	ServiceCorpID string `xml:"ServiceCorpId,omitempty"` // 服务商 CorpID
+	InfoType      string `xml:"InfoType,omitempty"`
+	Timestamp     int64  `xml:"TimeStamp,omitempty"`
 
 	// 公共
 
 	ChangeType string `xml:"ChangeType,omitempty"`
+}
+
+func (e CommonPushEvent) IsProviderEvent() bool {
+	return e.InfoType != ""
 }
 
 func (e CommonPushEvent) IsMessage() bool {
