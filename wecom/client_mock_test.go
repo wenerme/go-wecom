@@ -6,7 +6,10 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"reflect"
 	"testing"
+
+	"github.com/go-playground/validator/v10"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
@@ -100,7 +103,7 @@ func handleTokens(ts *TestServer) {
 	api := mux.With(ts.RequestAccessToken)
 	mux.Get("/cgi-bin/gettoken", func(writer http.ResponseWriter, request *http.Request) {
 		if request.URL.Query().Get("corpsecret") != ts.mockCorpSecret {
-			render.JSON(writer, request, GenericResponse{ErrorCode: 1, ErrorMessage: "invalid secret"})
+			render.JSON(writer, request, GenericResponse{ErrorCode: 1, ErrorMessage: "invalid secret " + request.RequestURI})
 			return
 		}
 		render.JSON(writer, request, TokenResponse{AccessToken: ts.mockAccessToken, ExpiresIn: 7200})
@@ -114,9 +117,124 @@ func handleTokens(ts *TestServer) {
 	mux.Post("/cgi-bin/service/get_provider_token", func(writer http.ResponseWriter, request *http.Request) {
 		r := GetProviderTokenRequest{}
 		if r.CorpID != ts.mockCorpID && r.ProviderSecret != ts.mockProviderToken {
-			render.JSON(writer, request, GenericResponse{ErrorCode: 1, ErrorMessage: "invalid secret"})
+			render.JSON(writer, request, GenericResponse{ErrorCode: 1, ErrorMessage: "invalid secret " + request.RequestURI})
 			return
 		}
 		render.JSON(writer, request, ProviderTokenResponse{ProviderAccessToken: ts.mockProviderToken, ExpiresIn: 7200})
 	})
+}
+
+var _pathToAPIName = map[string]*clientAPI{}
+
+type clientAPI struct {
+	Path              string
+	Name              string
+	Method            reflect.Method
+	RequestType       reflect.Type
+	ResponseType      reflect.Type
+	IsGenericResponse bool
+}
+
+var (
+	cRef = &Client{}
+	cv   = reflect.ValueOf(cRef)
+	ct   = cv.Type()
+)
+
+func registerClientAPIPath(path string, mn string, method interface{}) {
+	if _, ok := _pathToAPIName[path]; ok {
+		panic("path already exists: " + path)
+	}
+	a := &clientAPI{
+		Path: path,
+		Name: mn,
+	}
+	m, found := ct.MethodByName(mn)
+	if !found {
+		panic("method not found: " + mn + " for " + path)
+	}
+	a.Method = m
+
+	mt := m.Type
+	a.ResponseType = mt.Out(0)
+	if mt.NumIn() > 1 && mt.In(1).Kind() != reflect.Slice {
+		a.RequestType = mt.In(1)
+	}
+	a.IsGenericResponse = a.ResponseType.Name() == "GenericResponse"
+
+	_pathToAPIName[path] = a
+}
+
+func TestGenericSerialization(t *testing.T) {
+	ts := NewTestServer()
+	handleMockData(ts)
+	defer ts.Start()()
+	c := ts.Client
+	validate := validator.New()
+
+	for _, v := range _pathToAPIName {
+		testSerialize(t, c, validate, v)
+	}
+}
+
+func testSerialize(t *testing.T, c *Client, validate *validator.Validate, a *clientAPI) {
+	var request reflect.Value
+	var response reflect.Value
+	if a.RequestType != nil {
+		request = reflect.New(a.RequestType.Elem())
+		fn := fmt.Sprintf("./testdata%s.request.json", a.Path)
+		data, err := os.ReadFile(fn)
+		if err == nil {
+			if assert.NoError(t, json.Unmarshal(data, request.Interface())) {
+				assert.NoError(t, validate.Struct(request))
+			} else {
+				fmt.Println("failed request", a.Path, a.Name, "\n", string(data))
+				return
+			}
+		}
+	}
+
+	response = reflect.New(a.ResponseType)
+	var hasResponse bool
+	{
+		fn := fmt.Sprintf("./testdata%s.response.json", a.Path)
+		data, err := os.ReadFile(fn)
+		if err == nil {
+			hasResponse = true
+			if !assert.NoError(t, json.Unmarshal(data, response.Interface())) {
+				fmt.Println("failed response", a.Path, a.Name, "\n", string(data))
+				return
+			}
+		}
+	}
+
+	if hasResponse {
+		in := []reflect.Value{reflect.ValueOf(c)}
+		if a.RequestType != nil {
+			in = append(in, request)
+		}
+		out := a.Method.Func.Call(in)
+		res := out[0]
+		var err error
+		if !out[1].IsNil() {
+			err = out[1].Interface().(error)
+		}
+		if assert.NoError(t, err) {
+			assert.Equal(t, response.Elem().Interface(), res.Interface())
+		}
+	}
+}
+
+func TestStats(t *testing.T) {
+	n := len(_eventModels)
+	for _, v := range _eventChangeModels {
+		n += len(v)
+	}
+	fmt.Printf(` Client stats
+apis: %v
+events: %v
+`,
+		len(_pathToAPIName),
+		n,
+	)
 }

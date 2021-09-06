@@ -48,6 +48,20 @@ func (c *Client) ProviderBatchGetResult(r *ProviderBatchGetResultRequest, opts .
 	return
 }
 
+// ProviderSortContact 通讯录userid排序
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92093
+func (c *Client) ProviderSortContact(r *ProviderSortContactRequest, opts ...interface{}) (out ProviderSortContactResponse, err error) {
+	opts = append([]interface{}{WithProviderAccessToken}, opts...)
+	err = c.Request.With(req.Request{
+		Method:  "POST",
+		URL:     "/cgi-bin/service/contact/sort",
+		Body:    r,
+		Options: opts,
+	}).Fetch(&out)
+	return
+}
+
 type ProviderUploadMediaRequest struct {
 	Type string `json:"type"  `
 
@@ -97,4 +111,20 @@ type ProviderBatchGetResultResponse struct {
 	Type string `json:"type"  `
 	// Result 详细的处理结果。当任务完成后此字段有效
 	Result ProviderBatchGetResult `json:"result"  `
+}
+
+type ProviderSortContactRequest struct {
+	// ProviderAccessToken 应用提供商的provider_access_token，获取方法参见服务商的凭证
+	ProviderAccessToken string `json:"provider_access_token"  `
+	// AuthCorpID 查询的企业corpid
+	AuthCorpID string `json:"auth_corpid"  validate:"required"`
+	// SortType 排序方式 0：根据姓名拼音升序排列，返回用户userid列表 1：根据姓名拼音降序排列，返回用户userid列表
+	SortType string `json:"sort_type"  `
+	// UserIDList 要排序的userid列表，最多支持1000个
+	UserIDList string `json:"useridlist"  validate:"required"`
+}
+
+type ProviderSortContactResponse struct {
+	// UserIDList 排序后的userid列表
+	UserIDList string `json:"useridlist"  `
 }

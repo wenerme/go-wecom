@@ -1,6 +1,8 @@
 package wecom
 
-import "github.com/wenerme/go-req"
+import (
+	"github.com/wenerme/go-req"
+)
 
 // CreateUser 创建成员
 //

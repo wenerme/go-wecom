@@ -1,6 +1,8 @@
 package wecom
 
-import "github.com/wenerme/go-req"
+import (
+	"github.com/wenerme/go-req"
+)
 
 // GetAgent 获取指定的应用详情
 // 对于互联企业的应用，如果需要获取应用可见范围内其他互联企业的部门与成员，请调用互联企业-获取应用可见范围接口

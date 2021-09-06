@@ -1,6 +1,8 @@
 package wecom
 
-import "github.com/wenerme/go-req"
+import (
+	"github.com/wenerme/go-req"
+)
 
 // GetFollowUserList 获取配置了客户联系功能的成员列表
 // 企业和第三方服务商可通过此接口获取配置了客户联系功能的成员列表。
