@@ -37,14 +37,7 @@ func getMiddlewareOptions(r *req.Request) *middlewareOptions {
 
 func getAccessToken(c *Client, r *req.Request) (key string, token string, err error) {
 	key = "access_token"
-	switch {
-	case c.Conf.CorpSecret != "":
-		token, err = c.AccessToken()
-	case c.Conf.ProviderSecret != "":
-		token, err = c.ProviderAccessToken()
-	default:
-		err = errors.New("unable to detect access_token source")
-	}
+	token, err = c.AccessToken()
 	return
 }
 

@@ -2,9 +2,10 @@ package wecom_test
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/wenerme/go-req"
 	"github.com/wenerme/go-wecom/wecom"
-	"os"
 )
 
 func ExampleNewClient() {

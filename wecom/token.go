@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-type Token interface {
+type OpaqueToken interface {
 	GetToken() string
 	GetExpiresIn() int
 }
@@ -55,7 +55,7 @@ func (r PreAuthCodeResponse) GetExpiresIn() int {
 }
 
 type GenericToken struct {
-	Name      string `json:",omitempty"` // for match
+	Type      string `json:",omitempty"` //
 	OwnerID   string `json:",omitempty"` // if owner change, this token become invalid
 	Depends   string `json:",omitempty"` // extra depends
 	Token     string `json:",omitempty"` // token content
@@ -82,7 +82,7 @@ func (t GenericToken) GetExpiresIn() int {
 	return t.ExpiresIn
 }
 
-func (t *GenericToken) SetFromToken(token Token) {
+func (t *GenericToken) SetFromToken(token OpaqueToken) {
 	if token == nil {
 		return
 	}
@@ -101,7 +101,7 @@ func (t *GenericToken) SetFromToken(token Token) {
 var timeNow = time.Now
 
 // Refresh token, return changed and error
-func (t *GenericToken) Refresh(exp *GenericToken, f func() (Token, error)) (bool, error) {
+func (t *GenericToken) Refresh(exp *GenericToken, f func() (OpaqueToken, error)) (bool, error) {
 	var changed bool
 	if t.ShouldRefresh(exp) {
 		token, err := f()
@@ -111,10 +111,10 @@ func (t *GenericToken) Refresh(exp *GenericToken, f func() (Token, error)) (bool
 			return false, err
 		case err != nil:
 			// proper log error
-			log.Printf("Refresh token %v ignoreable error: %v", exp.Name, err.Error())
+			log.Printf("Refresh token %v ignoreable error: %v", exp.Type, err.Error())
 		case err == nil && token != nil:
 			t.SetFromToken(token)
-			t.Name = exp.Name
+			t.Type = exp.Type
 			t.OwnerID = exp.OwnerID
 			t.Depends = exp.Depends
 			changed = true
@@ -136,43 +136,38 @@ func (t *GenericToken) ShouldRefresh(exp *GenericToken) bool {
 }
 
 type TokenCache struct {
-	Store LoadStore
+	Store TokenLoadStore
 }
 
-func (tc *TokenCache) KeyOf(t *GenericToken) (k string, err error) {
-	if t.Name == "" {
-		return "", errors.New("get token need name")
+func keyOfGenericToken(t *GenericToken) (k string, err error) {
+	if t.Type == "" {
+		return "", errors.New("token need type")
 	}
-	k = t.Name
+	k = t.Type
 	if t.OwnerID != "" {
-		k += "@" + t.OwnerID
+		k += "." + t.OwnerID
 	}
 	return
 }
 
-func (tc *TokenCache) Refresh(exp *GenericToken, f func() (Token, error)) (string, error) {
-	key, err := tc.KeyOf(exp)
-	if err != nil {
-		return "", err
-	}
-	var token GenericToken
-	_, err = tc.Store.Load(key, &token, func(last []byte) (out interface{}, changed bool, err error) {
-		l := GenericToken{}
-		if last != nil {
-			_ = json.Unmarshal(last, &l)
+func (tc *TokenCache) Refresh(exp *GenericToken, f func() (OpaqueToken, error)) (string, error) {
+	token := *exp
+	_, err := tc.Store.Load(&token, func(last *GenericToken) (out *GenericToken, changed bool, err error) {
+		if last == nil {
+			last = &GenericToken{}
 		}
-		changed, err = l.Refresh(exp, f)
-		return l, changed, err
+		changed, err = last.Refresh(exp, f)
+		return last, changed, err
 	})
 	return token.Token, err
 }
 
 type TokenProvider interface {
-	Refresh(exp *GenericToken, f func() (Token, error)) (string, error)
+	Refresh(exp *GenericToken, f func() (OpaqueToken, error)) (string, error)
 }
 
-type LoadStore interface {
-	Load(key string, out interface{}, load func(last []byte) (out interface{}, changed bool, err error)) (changed bool, err error)
+type TokenLoadStore interface {
+	Load(out *GenericToken, load func(last *GenericToken) (out *GenericToken, changed bool, err error)) (changed bool, err error)
 }
 
 type SyncMapStore struct {
@@ -182,7 +177,7 @@ type SyncMapStore struct {
 
 type cacheEntry struct {
 	Key  string
-	Data []byte
+	Data GenericToken
 }
 
 func (s *SyncMapStore) Restore(data []byte) error {
@@ -194,7 +189,7 @@ func (s *SyncMapStore) Restore(data []byte) error {
 		}
 	}
 	for _, v := range a {
-		if v.Key != "" && v.Data != nil {
+		if v.Key != "" && v.Data.IsValid() {
 			s.m.Store(v.Key, v.Data)
 		}
 	}
@@ -204,11 +199,14 @@ func (s *SyncMapStore) Restore(data []byte) error {
 func (s *SyncMapStore) Dump() []byte {
 	var a []*cacheEntry
 	s.m.Range(func(key, value interface{}) bool {
-		a = append(a, &cacheEntry{
+		e := &cacheEntry{
 			Key:  key.(string),
-			Data: value.([]byte),
-		})
-		return false
+			Data: value.(GenericToken),
+		}
+		if e.Data.IsValid() {
+			a = append(a, e)
+		}
+		return true
 	})
 	out, err := json.Marshal(a)
 	if err != nil {
@@ -230,25 +228,30 @@ func (s *SyncMapStore) Set(key string, in interface{}) (err error) {
 	return
 }
 
-func (s *SyncMapStore) Load(key string, out interface{}, loadFunc func(last []byte) (out interface{}, changed bool, err error)) (changed bool, err error) {
-	// no exclusive lock here
+func (s *SyncMapStore) Load(out *GenericToken, loadFunc func(last *GenericToken) (out *GenericToken, changed bool, err error)) (changed bool, err error) {
+	key, err := keyOfGenericToken(out)
+	if err != nil {
+		return false, err
+	}
 
+	// no exclusive lock here
 	load, loaded := s.m.Load(key)
-	var data []byte
+	var data *GenericToken
 	if loaded {
-		data = load.([]byte)
+		t := load.(GenericToken)
+		data = &t
 	}
 
 	o, c, err := loadFunc(data)
 	if err == nil && c {
-		data, err = json.Marshal(o)
-		s.m.Store(key, data)
+		data = o
+		s.m.Store(key, *o)
 		if s.OnChange != nil {
 			s.OnChange(s)
 		}
 	}
 	if err == nil && data != nil {
-		err = json.Unmarshal(data, out)
+		*out = *data
 	}
 	return c, err
 }

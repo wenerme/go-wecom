@@ -45,14 +45,6 @@ type ClientCache struct {
 	SuiteAccessTokenCache    *SuiteTokenResponse
 }
 
-func (c *Client) GetAuthCorpAccessToken() (out TokenResponse, err error) {
-	o, err := c.ProviderGetCorpToken(&ProviderGetCorpTokenRequest{
-		AuthCorpID:    c.Conf.AuthCorpID,
-		PermanentCode: c.Conf.PermanentCode,
-	})
-	return TokenResponse(o), err
-}
-
 func (c *Client) GetToken() (out TokenResponse, err error) {
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/gettoken",

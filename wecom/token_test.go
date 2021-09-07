@@ -13,7 +13,7 @@ func TestGenericToken(t *testing.T) {
 	var token *GenericToken
 	assert.False(t, token.IsValid())
 	token = &GenericToken{}
-	changed, err := token.Refresh(&GenericToken{}, func() (Token, error) {
+	changed, err := token.Refresh(&GenericToken{}, func() (OpaqueToken, error) {
 		return nil, nil
 	})
 	assert.False(t, changed)
@@ -65,8 +65,8 @@ func TestTokenCache(t *testing.T) {
 		assert.Equal(t, "", token)
 
 		token, err = tc.Refresh(&GenericToken{
-			Name: "A",
-		}, func() (Token, error) {
+			Type: "A",
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "1"}, nil
 		})
 		assert.NoError(t, err)
@@ -74,8 +74,8 @@ func TestTokenCache(t *testing.T) {
 
 		// use cache
 		token, err = tc.Refresh(&GenericToken{
-			Name: "A",
-		}, func() (Token, error) {
+			Type: "A",
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "2"}, nil
 		})
 		assert.NoError(t, err)
@@ -83,9 +83,9 @@ func TestTokenCache(t *testing.T) {
 
 		// owner change
 		token, err = tc.Refresh(&GenericToken{
-			Name:    "A",
+			Type:    "A",
 			OwnerID: "1",
-		}, func() (Token, error) {
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "2"}, nil
 		})
 		assert.NoError(t, err)
@@ -93,19 +93,19 @@ func TestTokenCache(t *testing.T) {
 
 		// cached
 		token, err = tc.Refresh(&GenericToken{
-			Name:    "A",
+			Type:    "A",
 			OwnerID: "1",
-		}, func() (Token, error) {
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "3"}, nil
 		})
 		assert.NoError(t, err)
 		assert.Equal(t, "2", token)
 		// deps
 		token, err = tc.Refresh(&GenericToken{
-			Name:    "A",
+			Type:    "A",
 			OwnerID: "1",
 			Depends: "2",
-		}, func() (Token, error) {
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "3"}, nil
 		})
 		assert.NoError(t, err)
@@ -113,19 +113,19 @@ func TestTokenCache(t *testing.T) {
 
 		// cached
 		token, err = tc.Refresh(&GenericToken{
-			Name:    "A",
+			Type:    "A",
 			OwnerID: "1",
 			Depends: "2",
-		}, func() (Token, error) {
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "4"}, nil
 		})
 		assert.NoError(t, err)
 		assert.Equal(t, "3", token)
 		// no deps
 		token, err = tc.Refresh(&GenericToken{
-			Name:    "A",
+			Type:    "A",
 			OwnerID: "1",
-		}, func() (Token, error) {
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "4"}, nil
 		})
 		assert.NoError(t, err)
@@ -142,8 +142,8 @@ func TestTokenCache(t *testing.T) {
 		}()
 
 		token, err := tc.Refresh(&GenericToken{
-			Name: "B",
-		}, func() (Token, error) {
+			Type: "B",
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "1", ExpiresIn: 100}, nil
 		})
 		assert.NoError(t, err)
@@ -153,8 +153,8 @@ func TestTokenCache(t *testing.T) {
 
 		// still valid
 		token, err = tc.Refresh(&GenericToken{
-			Name: "B",
-		}, func() (Token, error) {
+			Type: "B",
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "2", ExpiresIn: 100}, nil
 		})
 		assert.NoError(t, err)
@@ -164,16 +164,16 @@ func TestTokenCache(t *testing.T) {
 
 		// 80%
 		token, err = tc.Refresh(&GenericToken{
-			Name: "B",
-		}, func() (Token, error) {
+			Type: "B",
+		}, func() (OpaqueToken, error) {
 			return nil, errors.New("still valid")
 		})
 		assert.NoError(t, err)
 		assert.Equal(t, "1", token)
 
 		token, err = tc.Refresh(&GenericToken{
-			Name: "B",
-		}, func() (Token, error) {
+			Type: "B",
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "2", ExpiresIn: 100}, nil
 		})
 		assert.NoError(t, err)
@@ -182,8 +182,8 @@ func TestTokenCache(t *testing.T) {
 		n = n.Add(50 * time.Second)
 		// still valid
 		token, err = tc.Refresh(&GenericToken{
-			Name: "B",
-		}, func() (Token, error) {
+			Type: "B",
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "3", ExpiresIn: 100}, nil
 		})
 		assert.NoError(t, err)
@@ -193,15 +193,15 @@ func TestTokenCache(t *testing.T) {
 
 		// expired
 		_, err = tc.Refresh(&GenericToken{
-			Name: "B",
-		}, func() (Token, error) {
+			Type: "B",
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "3", ExpiresIn: 100}, errors.New("failed")
 		})
 		assert.Error(t, err)
 		//
 		token, err = tc.Refresh(&GenericToken{
-			Name: "B",
-		}, func() (Token, error) {
+			Type: "B",
+		}, func() (OpaqueToken, error) {
 			return &GenericToken{Token: "3", ExpiresIn: 100}, nil
 		})
 		assert.NoError(t, err)
