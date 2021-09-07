@@ -10,5 +10,5 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/sbzhu/weworkapi_golang v0.0.0-20210525081115-1799804a7c8d
 	github.com/stretchr/testify v1.7.0
-	github.com/wenerme/go-req v0.0.0-20210822083855-786f4b075b17
+	github.com/wenerme/go-req v0.0.0-20210827085908-14aa984ee555
 )

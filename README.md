@@ -15,14 +15,16 @@ Wechat Work/Wecom/企业微信 Golang SDK
 
 ## 特性
 
-- 支持缓存 AccessToken, JsTicket, AgentTicket, SuiteToken
-- 支持自建应用开发
-- 支持第三方应用开发
+- 支持自建应用开发 - AccessToken
+- 支持第三方应用开发 - AuthCorpAccessToken
+- 支持缓存所有带时效的信息 - AccessToken, JsTicket, AgentTicket, SuiteToken, AuthCorpAccessToken, PreAuthCode, ProviderAccessToken
+  - 缓存支持自定义存储 - 默认内存存储
+- 支持从自定义的存储获取 密钥 信息 - SuiteTicket, PermanentCode
 - 没有内部状态和 goroutine
-- 自动尝试提前获取相应的 Token 和 Ticket
+- 自动尝试提前获取相应的 Token 和 Ticket - 有效期的 80%
 - 实现逻辑清晰 - 没有实现的接口可直接调用
 - wwcrypt - 企业微信回调加密实现 - 作用同 sbzhu/weworkapi_golang
-- 数据模型大多基于官方接口文档生成 - 包含注释
+- 数据模型大多基于官方接口文档生成 - 包含注释说明
 - 包含 API+Event Mock 测试
 - 接口
   - 通讯录管理 - 成员、部门、标签、异步批量、互联企业
@@ -104,6 +106,21 @@ func ExampleNewClient() {
 	}
 	fmt.Println("response", dto)
 }
+```
+
+### 第三方应用开发配置
+- 根据使用的接口不同，用到的信息也会不同
+
+```go
+client := wecom.NewClient(wecom.Conf{
+  CorpID:   "",
+  ProviderSecret: "",
+  AuthCorpID:   "",
+  AuthCorpPermanentCode: "",
+  SuiteID:      "",
+  SuiteSecret:  "",
+  SuiteTicket:  "",
+})
 ```
 
 ## Reference

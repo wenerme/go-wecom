@@ -54,6 +54,14 @@ func (r PreAuthCodeResponse) GetExpiresIn() int {
 	return r.ExpiresIn
 }
 
+func (r ProviderGetCorpTokenResponse) GetToken() string {
+	return r.AccessToken
+}
+
+func (r ProviderGetCorpTokenResponse) GetExpiresIn() int {
+	return r.ExpiresIn
+}
+
 type GenericToken struct {
 	Type      string `json:",omitempty"` //
 	OwnerID   string `json:",omitempty"` // if owner change, this token become invalid
@@ -215,15 +223,17 @@ func (s *SyncMapStore) Dump() []byte {
 	return out
 }
 
-func (s *SyncMapStore) Set(key string, in interface{}) (err error) {
-	if in == nil {
+func (s *SyncMapStore) Set(in *GenericToken) (err error) {
+	key, err := keyOfGenericToken(in)
+	if err != nil {
+		return err
+	}
+	if in.Token == "" {
 		s.m.Delete(key)
 		return
 	}
-	var data []byte
-	data, err = json.Marshal(in)
 	if err == nil {
-		s.m.Store(key, data)
+		s.m.Store(key, *in)
 	}
 	return
 }
@@ -256,13 +266,16 @@ func (s *SyncMapStore) Load(out *GenericToken, loadFunc func(last *GenericToken)
 	return c, err
 }
 
-func (s *SyncMapStore) Get(key string, out interface{}) (found bool, err error) {
-	var data []byte
+func (s *SyncMapStore) Get(out *GenericToken) (found bool, err error) {
+	key, err := keyOfGenericToken(out)
+	if err != nil {
+		return false, err
+	}
+
 	var load interface{}
 	load, found = s.m.Load(key)
 	if found {
-		data = load.([]byte)
-		err = json.Unmarshal(data, out)
+		*out = load.(GenericToken)
 	}
 	return
 }

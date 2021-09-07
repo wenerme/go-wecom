@@ -40,8 +40,8 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/wenerme/go-req v0.0.0-20210822083855-786f4b075b17 h1:8Y9O2M6dHsZnhf5j3OpGFfULEbTmzUHzufv/dAP4qRw=
-github.com/wenerme/go-req v0.0.0-20210822083855-786f4b075b17/go.mod h1:aQUkMiMp1qZkuSsdu2Vy2ZQK33cPNVmyWFzXatfP+Y4=
+github.com/wenerme/go-req v0.0.0-20210827085908-14aa984ee555 h1:KXCof7dNVCgVOWGGd7sI5ASa9N5go1ftEvHwW060slY=
+github.com/wenerme/go-req v0.0.0-20210827085908-14aa984ee555/go.mod h1:aQUkMiMp1qZkuSsdu2Vy2ZQK33cPNVmyWFzXatfP+Y4=
 golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 h1:/UOmuWzQfxxo9UtlXMwuQU8CMgg1eZXqTRwkSQJWKOI=
 golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=
 golang.org/x/net v0.0.0-20210226172049-e18ecbb05110/go.mod h1:m0MpNAwzfU5UDzcl9v0D8zg8gWTRqZa9RBIspLL5mdg=

@@ -27,6 +27,14 @@ func TestNewClient(t *testing.T) {
 	mockCorpID := "CorpID" + createNonce()
 	mockAgentID := "AgentID" + createNonce()
 	mockCorpSecret := "CorpSecret" + createNonce()
+	mockSuiteID := "SuiteID" + createNonce()
+	mockSuiteSecret := "SuiteSecret" + createNonce()
+	mockSuiteTicket := "SuiteTicket" + createNonce()
+	mockSuiteToken := "SuiteToken" + createNonce()
+	mockPreAuthCode := "PreAuthCode" + createNonce()
+	mockAuthCorpID := "AuthCorpID" + createNonce()
+	mockAuthCorpToken := "AuthCorpToken" + createNonce()
+	mockPermCode := "PermCode" + createNonce()
 
 	requireAccessToken := func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
@@ -48,6 +56,28 @@ func TestNewClient(t *testing.T) {
 		render.JSON(writer, request, TokenResponse{AccessToken: mockAccessToken, ExpiresIn: 7200})
 		getTokenCount++
 		assert.Equal(t, 1, getTokenCount)
+	})
+	mux.Post("/cgi-bin/service/get_corp_token", func(writer http.ResponseWriter, request *http.Request) {
+		r := ProviderGetCorpTokenRequest{}
+		assert.NoError(t, render.Decode(request, &r))
+		assert.Equal(t, mockPermCode, r.PermanentCode)
+		assert.Equal(t, mockAuthCorpID, r.AuthCorpID)
+
+		render.JSON(writer, request, ProviderGetCorpTokenResponse{AccessToken: mockAuthCorpToken, ExpiresIn: 7200})
+	})
+	mux.Post("/cgi-bin/service/get_suite_token", func(writer http.ResponseWriter, request *http.Request) {
+		r := ProviderGetSuiteTokenRequest{}
+		assert.NoError(t, render.Decode(request, &r))
+		assert.Equal(t, mockSuiteID, r.SuiteID)
+		assert.Equal(t, mockSuiteSecret, r.SuiteSecret)
+		assert.Equal(t, mockSuiteTicket, r.SuiteTicket)
+
+		render.JSON(writer, request, SuiteTokenResponse{SuiteAccessToken: mockSuiteToken, ExpiresIn: 7200})
+	})
+	mux.Get("/cgi-bin/service/get_pre_auth_code", func(writer http.ResponseWriter, request *http.Request) {
+		assert.Equal(t, mockSuiteToken, request.URL.Query().Get("suite_access_token"))
+
+		render.JSON(writer, request, PreAuthCodeResponse{PreAuthCode: mockPreAuthCode, ExpiresIn: 7200})
 	})
 	api.Get("/cgi-bin/get_jsapi_ticket", func(writer http.ResponseWriter, request *http.Request) {
 		render.JSON(writer, request, TicketResponse{Ticket: mockJsTicket, ExpiresIn: 7200})
@@ -96,8 +126,22 @@ func TestNewClient(t *testing.T) {
 		CorpID:        mockCorpID,
 		AgentID:       mockAgentID,
 		CorpSecret:    mockCorpSecret,
+		AuthCorpID:    mockAuthCorpID,
+		SuiteID:       mockSuiteID,
+		SuiteSecret:   mockSuiteSecret,
 		TokenProvider: &TokenCache{Store: store},
 	})
+	// use perm code in store
+	assert.NoError(t, store.Set(&GenericToken{
+		OwnerID: joinIds(mockSuiteID, mockAuthCorpID),
+		Type:    TokenTypeAuthCorpPermanentCode,
+		Token:   mockPermCode,
+	}))
+	assert.NoError(t, store.Set(&GenericToken{
+		OwnerID: mockSuiteID,
+		Type:    TokenTypeSuiteTicket,
+		Token:   mockSuiteTicket,
+	}))
 	// client.Request.Options = append(client.Request.Options, req.DebugHook(nil))
 	client.Request.BaseURL = server.URL
 
@@ -118,6 +162,23 @@ func TestNewClient(t *testing.T) {
 	providerToken, err := client.ProviderAccessToken()
 	assert.NoError(t, err)
 	assert.Equal(t, mockProviderToken, providerToken)
+
+	authCorpAccessToken, err := client.AuthCorpAccessToken()
+	assert.NoError(t, err)
+	assert.Equal(t, mockAuthCorpToken, authCorpAccessToken)
+
+	suiteAccessToken, err := client.SuiteAccessToken()
+	assert.NoError(t, err)
+	assert.Equal(t, mockSuiteToken, suiteAccessToken)
+
+	preAuthCode, err := client.TokenProvider.Refresh(&GenericToken{
+		OwnerID: mockSuiteID,
+		Type:    TokenTypeSuitePreAuthCode,
+	}, func() (OpaqueToken, error) {
+		return client.ProviderGetPreAuthCode(nil)
+	})
+	assert.NoError(t, err)
+	assert.Equal(t, mockPreAuthCode, preAuthCode)
 
 	{
 		config, err := client.SignConfig("http://test")

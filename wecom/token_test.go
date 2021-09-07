@@ -39,18 +39,28 @@ func TestTokenCache(t *testing.T) {
 		assert.NoError(t, store.Restore(data))
 	}
 	{
-		var k, v, neo string
-		v = "VAL"
-		assert.NoError(t, store.Set(k, v))
-		found, err := store.Get(k, &neo)
+		v := GenericToken{
+			Type:  "TA",
+			Token: "A",
+		}
+		neo := GenericToken{
+			Type: "TA",
+		}
+		assert.NoError(t, store.Set(&v))
+		found, err := store.Get(&neo)
 		assert.NoError(t, err)
 		assert.True(t, found)
 		assert.Equal(t, v, neo)
 
-		assert.NoError(t, store.Set(k, nil))
+		v.Token = ""
+		assert.NoError(t, store.Set(&v))
 
-		found, err = store.Get(k, &neo)
+		found, err = store.Get(&neo)
 		assert.NoError(t, err)
+		assert.False(t, found)
+
+		found, err = store.Get(&GenericToken{})
+		assert.Error(t, err)
 		assert.False(t, found)
 	}
 
