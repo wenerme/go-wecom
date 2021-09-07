@@ -23,7 +23,7 @@ func (r GenericResponse) Error() string {
 type TokenResponse struct {
 	AccessToken string `json:"access_token"`
 	ExpiresIn   int    `json:"expires_in"`
-	ExpireAt    int64  `json:"expire_at"` //  extra
+	ExpiresAt   int64  `json:"expires_at"` //  extra
 }
 
 type GetProviderTokenRequest struct {
@@ -34,13 +34,13 @@ type GetProviderTokenRequest struct {
 type ProviderTokenResponse struct {
 	ProviderAccessToken string `json:"provider_access_token"`
 	ExpiresIn           int    `json:"expires_in"`
-	ExpireAt            int64  `json:"expire_at"` //  extra
+	ExpiresAt           int64  `json:"expires_at"` //  extra
 }
 
 type TicketResponse struct {
 	Ticket    string `json:"ticket"`
 	ExpiresIn int    `json:"expires_in"`
-	ExpireAt  int64  `json:"expire_at"` //  extra
+	ExpiresAt int64  `json:"expires_at"` //  extra
 }
 
 type IPListResponse struct {

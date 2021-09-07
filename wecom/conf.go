@@ -8,9 +8,12 @@ type Conf struct {
 	SuiteID        string // 第三方应用 ID
 	SuiteSecret    string // 第三方应用 secret
 	SuiteTicket    string // 第三方应用 ticket - 无法主动获取
-	PermSecret     string // 第三方企业永久 secret
+	AuthCorpID     string // 企业 ID
+	PermanentCode  string // 第三方企业永久授权码
 
 	// not used by client
 	// ProviderToken  string // used for push event
 	// EncodingAESKey string
+
+	TokenProvider TokenProvider `json:"-"`
 }

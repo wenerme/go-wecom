@@ -1,33 +1,33 @@
 package wecom_test
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
-
 	"github.com/wenerme/go-req"
 	"github.com/wenerme/go-wecom/wecom"
+	"os"
 )
 
 func ExampleNewClient() {
+	// token store - 默认内存 Map - 可以使用数据库实现
+	store := &wecom.SyncMapStore{}
+	// 加载缓存 - 复用之前的 Token
+	if bytes, err := os.ReadFile("wecom-cache.json"); err == nil {
+		_ = store.Restore(bytes)
+	}
+	// 当 Token 变化时生成缓存文件
+	store.OnChange = func(s *wecom.SyncMapStore) {
+		_ = os.WriteFile("wecom-cache.json", s.Dump(), 0o600)
+	}
+
 	client := wecom.NewClient(wecom.Conf{
 		CorpID:     "",
 		AgentID:    "",
 		CorpSecret: "",
+		// 不配置默认使用 内存缓存
+		TokenProvider: &wecom.TokenCache{
+			Store: store,
+		},
 	})
-	// 加载缓存 - 复用之前的 Token
-	cache := wecom.ClientCache{}
-	if bytes, err := os.ReadFile("wecom-cache.json"); err == nil {
-		if json.Unmarshal(bytes, &cache) == nil {
-			client.LoadCache(&cache)
-		}
-	}
-	// 当 Token 变化时生成缓存
-	client.OnTokenUpdate = func(c *wecom.Client) {
-		cache := c.DumpCache()
-		bytes, _ := json.Marshal(cache)
-		_ = os.WriteFile("wecom-cache.json", bytes, 0o600)
-	}
 
 	// 访问接口会自动获取或使用当前缓存
 	token, err := client.AccessToken()

@@ -2,7 +2,6 @@ package wecom
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/wenerme/go-req"
 )
@@ -18,7 +17,7 @@ func (c *Client) GetProviderToken() (out ProviderTokenResponse, err error) {
 		Options: []interface{}{WithoutAccessToken},
 	}).Fetch(&out)
 	if err == nil {
-		out.ExpireAt = int64(out.ExpiresIn) + time.Now().Unix()
+		out.ExpiresAt = int64(out.ExpiresIn) + timeNow().Unix()
 	}
 	return
 }

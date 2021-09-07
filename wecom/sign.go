@@ -4,7 +4,6 @@ import (
 	"crypto/sha1" // nolint:gosec
 	"encoding/hex"
 	"fmt"
-	"time"
 )
 
 type JsSdkConfig struct {
@@ -52,7 +51,7 @@ func (o *JsSdkConfig) Sign(ticket string, url string) {
 		o.Nonce = createNonce()
 	}
 	if o.Timestamp == 0 {
-		o.Timestamp = time.Now().Unix()
+		o.Timestamp = timeNow().Unix()
 	}
 	raw := fmt.Sprintf("jsapi_ticket=%v&noncestr=%v&timestamp=%v&url=%v", ticket, o.Nonce, o.Timestamp, url)
 	o.Signature = sha1sum(raw)
@@ -63,7 +62,7 @@ func (o *JsSdkAgentConfig) Sign(ticket string, url string) {
 		o.Nonce = createNonce()
 	}
 	if o.Timestamp == 0 {
-		o.Timestamp = time.Now().Unix()
+		o.Timestamp = timeNow().Unix()
 	}
 	raw := fmt.Sprintf("jsapi_ticket=%v&noncestr=%v&timestamp=%v&url=%v", ticket, o.Nonce, o.Timestamp, url)
 	o.Signature = sha1sum(raw)

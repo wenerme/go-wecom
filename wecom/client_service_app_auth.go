@@ -387,7 +387,8 @@ type ProviderGetCorpTokenResponse struct {
 	// AccessToken 授权方（企业）access_token,最长为512字节
 	AccessToken string `json:"access_token"  `
 	// ExpiresIn 授权方（企业）access_token超时时间
-	ExpiresIn int `json:"expires_in"  `
+	ExpiresIn int   `json:"expires_in"  `
+	ExpiresAt int64 `json:"expire_at"`
 }
 
 type ProviderGetAdminListRequest struct {
