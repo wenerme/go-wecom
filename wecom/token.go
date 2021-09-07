@@ -96,17 +96,21 @@ func (t *GenericToken) SetFromToken(token OpaqueToken) {
 	}
 	t.Token = token.GetToken()
 	t.ExpiresIn = token.GetExpiresIn()
+	t.ExpiresAt = 0
 	if i, ok := token.(interface {
 		GetExpiresAt() int64
 	}); ok {
 		t.ExpiresAt = i.GetExpiresAt()
 	}
 	if t.ExpiresIn > 0 && t.ExpiresAt == 0 {
-		t.ExpiresAt = int64(t.ExpiresIn) + timeNow().Unix()
+		t.ExpiresAt = int64(t.ExpiresIn) + timeNowUnix()
 	}
 }
 
 var timeNow = time.Now
+var timeNowUnix = func() int64 {
+	return timeNow().Unix()
+}
 
 // Refresh token, return changed and error
 func (t *GenericToken) Refresh(exp *GenericToken, f func() (OpaqueToken, error)) (bool, error) {
