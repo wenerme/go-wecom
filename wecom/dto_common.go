@@ -1,9 +1,11 @@
 package wecom
 
+// ExtAttrs extra attributes model
 type ExtAttrs struct {
 	Attrs []ExtAttr `json:"attrs"`
 }
 
+// ExtAttr extra attribute model
 type ExtAttr struct {
 	// Type 0 文本, 1 网页, 2 小程序
 	Type int    `json:"type"`

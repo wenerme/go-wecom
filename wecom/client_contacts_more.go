@@ -1,8 +1,5 @@
 package wecom
 
-// RootDepartmentID is 1
-const RootDepartmentID = 1
-
 // SimpleListUserResponseItem is item model of SimpleListUserResponse.UserList
 type SimpleListUserResponseItem struct {
 	// UserID 成员UserID。对应管理端的帐号

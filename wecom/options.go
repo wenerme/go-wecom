@@ -2,10 +2,12 @@ package wecom
 
 import "github.com/wenerme/go-req"
 
+// WithoutAccessToken when request do not add query access_token
 func WithoutAccessToken(o *middlewareOptions) {
 	o.WithoutAccessToken = true
 }
 
+// WithSuiteAccessToken when request add query suite_access_token
 func WithSuiteAccessToken(o *middlewareOptions) {
 	o.GetToken = func(c *Client, r *req.Request) (string, string, error) {
 		token, err := c.SuiteAccessToken()
@@ -13,6 +15,7 @@ func WithSuiteAccessToken(o *middlewareOptions) {
 	}
 }
 
+// WithProviderAccessToken when request add query provider_access_token
 func WithProviderAccessToken(o *middlewareOptions) {
 	o.GetToken = func(c *Client, r *req.Request) (string, string, error) {
 		token, err := c.ProviderAccessToken()

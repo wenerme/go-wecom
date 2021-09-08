@@ -4,8 +4,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-type TokenType string
-
 // nolint:gosec
 const (
 	TokenTypeJsAPITicket           = "JsAPITicket"
@@ -32,6 +30,7 @@ func joinIds(s ...string) string {
 	return o
 }
 
+// JsAPITicket request or return cached JsAPITicket
 func (c *Client) JsAPITicket() (string, error) {
 	// depends on AccessToken
 	t := &GenericToken{
@@ -46,6 +45,7 @@ func (c *Client) JsAPITicket() (string, error) {
 	})
 }
 
+// AgentTicket request or return cached AgentTicket
 func (c *Client) AgentTicket() (string, error) {
 	// depends on AccessToken
 	t := &GenericToken{
@@ -61,6 +61,7 @@ func (c *Client) AgentTicket() (string, error) {
 	})
 }
 
+// AuthCorpAccessToken request or return cached AuthCorpAccessToken
 func (c *Client) AuthCorpAccessToken() (string, error) {
 	// depends on Suite
 	return c.TokenProvider.Refresh(&GenericToken{
@@ -86,6 +87,7 @@ func (c *Client) AuthCorpAccessToken() (string, error) {
 	})
 }
 
+// AccessToken request or return cached AccessToken
 func (c *Client) AccessToken() (string, error) {
 	switch {
 	case c.Conf.CorpID != "" && c.Conf.CorpSecret != "":
@@ -102,6 +104,7 @@ func (c *Client) AccessToken() (string, error) {
 	}
 }
 
+// ProviderAccessToken request or return cached ProviderAccessToken
 func (c *Client) ProviderAccessToken() (string, error) {
 	return c.TokenProvider.Refresh(&GenericToken{
 		OwnerID: c.Conf.CorpID,
@@ -111,6 +114,7 @@ func (c *Client) ProviderAccessToken() (string, error) {
 	})
 }
 
+// SuiteAccessToken request or return cached SuiteAccessToken
 func (c *Client) SuiteAccessToken() (string, error) {
 	return c.TokenProvider.Refresh(&GenericToken{
 		OwnerID: c.Conf.SuiteID,

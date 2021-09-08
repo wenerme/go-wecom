@@ -7,14 +7,14 @@ import (
 	"github.com/wenerme/go-req"
 )
 
-const DefaultAPI = "https://qyapi.weixin.qq.com"
-
+// Client of Wecom/WechatWork/企业微信
 type Client struct {
 	Conf          Conf
 	Request       req.Request
 	TokenProvider TokenProvider
 }
 
+// NewClient create a new Client
 func NewClient(conf Conf) *Client {
 	ctx := context.Background()
 	c := &Client{
@@ -37,14 +37,7 @@ func NewClient(conf Conf) *Client {
 	return c
 }
 
-type ClientCache struct {
-	AccessToken              *TokenResponse
-	JsAPITicket              *TicketResponse
-	AgentTicket              *TicketResponse
-	ProviderAccessTokenCache *ProviderTokenResponse
-	SuiteAccessTokenCache    *SuiteTokenResponse
-}
-
+// GetToken request a access_token
 func (c *Client) GetToken() (out TokenResponse, err error) {
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/gettoken",
@@ -60,6 +53,7 @@ func (c *Client) GetToken() (out TokenResponse, err error) {
 	return out, err
 }
 
+// GetJsAPITicket request a JsAPITicket
 func (c *Client) GetJsAPITicket() (out TicketResponse, err error) {
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/get_jsapi_ticket",
@@ -70,6 +64,7 @@ func (c *Client) GetJsAPITicket() (out TicketResponse, err error) {
 	return out, err
 }
 
+// GetAgentTicket request a AgentTicket
 func (c *Client) GetAgentTicket() (out TicketResponse, err error) {
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/ticket/get",

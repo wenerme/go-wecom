@@ -26,10 +26,12 @@ type ListAgentResponseItem struct {
 	SquareLogoURL string `json:"square_logo_url"`
 }
 
+// WorkbenchTemplateItemKeyData is model of SetWorkbenchTemplateRequest.KeyData
 type WorkbenchTemplateItemKeyData struct {
 	Items []WorkbenchTemplateItemKeyDataItem `json:"items"`
 }
 
+// WorkbenchTemplateItemKeyDataItem is item model of WorkbenchTemplateItemKeyData
 type WorkbenchTemplateItemKeyDataItem struct {
 	Key      string `json:"key"`
 	Data     string `json:"data"`
@@ -37,18 +39,21 @@ type WorkbenchTemplateItemKeyDataItem struct {
 	PagePath string `json:"pagepath"`
 }
 
+// WorkbenchTemplateItemImage is model of SetWorkbenchTemplateRequest.Image
 type WorkbenchTemplateItemImage struct {
 	URL      string `json:"url"`
 	JumpURL  string `json:"jump_url"`
 	PagePath string `json:"pagepath"`
 }
 
+// WorkbenchTemplateItemWebView is model of SetWorkbenchTemplateRequest.Webview
 type WorkbenchTemplateItemWebView struct {
 	URL      string `json:"url"`
 	JumpURL  string `json:"jump_url"`
 	PagePath string `json:"pagepath"`
 }
 
+// WorkbenchTemplateItemList is item model of SetWorkbenchTemplateRequest.List
 type WorkbenchTemplateItemList struct {
 	Title    string `json:"title"`
 	JumpURL  string `json:"jump_url"`
@@ -59,7 +64,7 @@ type WorkbenchTemplateItemList struct {
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/94620
 type SwitchWorkbenchModePushEvent struct {
-	XMLName xml.Name `xml:"xml"`
+	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
 	AgentID int `xml:"AgentID"`
 	// CreateTime 消息创建时间（整型）
