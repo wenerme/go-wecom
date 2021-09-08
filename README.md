@@ -160,7 +160,7 @@ client := wecom.NewClient(wecom.Conf{
 </details>
 
 <details>
-<summary>客户联系 API</summary>
+<summary>客户联系</summary>
 
 * [x] 成员对外信息
 * [x] 客户管理
@@ -188,7 +188,7 @@ client := wecom.NewClient(wecom.Conf{
 </details>
 
 <details>
-<summary>身份验证 API</summary>
+<summary>身份验证</summary>
 
 * [x] 获取访问用户身份
 
@@ -233,7 +233,7 @@ client := wecom.NewClient(wecom.Conf{
 </details>
 
 <details>
-<summary>素材管理 API</summary>
+<summary>素材管理</summary>
 
 * [ ] 上传临时素材
 * [ ] 上传永久图片

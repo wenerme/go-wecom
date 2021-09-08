@@ -5,12 +5,11 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
-	"crypto/sha1" //nolint:gosec
+
+	//nolint:gosec
 	"encoding/base64"
 	"encoding/binary"
-	"encoding/hex"
 	"errors"
-	"fmt"
 	"sort"
 	"strings"
 )
@@ -138,39 +137,4 @@ func (c *Crypto) GetEncrypter() (cipher.BlockMode, error) {
 	}
 	err := c.initCipher()
 	return c.encrypter, err
-}
-
-// pkcs7strip remove pkcs7 padding
-func pkcs7strip(data []byte, blockSize int) ([]byte, error) {
-	// https://gist.github.com/nanmu42/b838acc10d393bc51cb861128ce7f89c
-	length := len(data)
-	if length == 0 {
-		return nil, errors.New("pkcs7: Data is empty")
-	}
-	if length%blockSize != 0 {
-		return nil, errors.New("pkcs7: Data is not block-aligned")
-	}
-	padLen := int(data[length-1])
-	ref := bytes.Repeat([]byte{byte(padLen)}, padLen)
-	// todo padLen > blockSize ||
-	//   echostr 不满足这个条件
-	if padLen == 0 || !bytes.HasSuffix(data, ref) {
-		return nil, errors.New("pkcs7: Invalid padding")
-	}
-	return data[:length-padLen], nil
-}
-
-// pkcs7pad add pkcs7 padding
-func pkcs7pad(data []byte, blockSize int) ([]byte, error) {
-	if blockSize < 0 || blockSize > 256 {
-		return nil, fmt.Errorf("pkcs7: Invalid block size %d", blockSize)
-	}
-	padLen := blockSize - len(data)%blockSize
-	padding := bytes.Repeat([]byte{byte(padLen)}, padLen)
-	return append(data, padding...), nil
-}
-
-func sha1sum(s string) string {
-	sum := sha1.Sum([]byte(s)) //nolint:gosec
-	return hex.EncodeToString(sum[:])
 }
