@@ -107,10 +107,12 @@ func (t *GenericToken) SetFromToken(token OpaqueToken) {
 	}
 }
 
-var timeNow = time.Now
-var timeNowUnix = func() int64 {
-	return timeNow().Unix()
-}
+var (
+	timeNow     = time.Now
+	timeNowUnix = func() int64 {
+		return timeNow().Unix()
+	}
+)
 
 // Refresh token, return changed and error
 func (t *GenericToken) Refresh(exp *GenericToken, f func() (OpaqueToken, error)) (bool, error) {

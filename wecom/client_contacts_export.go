@@ -69,61 +69,71 @@ func (c *Client) ExportGetResult(r *ExportGetResultRequest, opts ...interface{})
 	return
 }
 
+// ExportSimpleUserRequest is request of Client.ExportSimpleUser
 type ExportSimpleUserRequest struct {
-	// EncodingAeskey base64encode的加密密钥，长度固定为43，加密方式采用aes-256-cbc方式
-	EncodingAeskey string `json:"encoding_aeskey"  validate:"required"`
+	// EncodingAesKey base64encode的加密密钥，长度固定为43，加密方式采用aes-256-cbc方式
+	EncodingAesKey string `json:"encoding_aeskey"  validate:"required"`
 	// BlockSize 每块数据的人员数，支持范围[10^4,10^6]，默认值为10^6
 	BlockSize int `json:"block_size"  `
 }
 
+// ExportSimpleUserResponse is response of Client.ExportSimpleUser
 type ExportSimpleUserResponse struct {
 	// JobID 任务ID，可通过获取导出结果接口查询任务结果
 	JobID string `json:"jobid"  `
 }
 
+// ExportUserRequest is request of Client.ExportUser
 type ExportUserRequest struct {
-	// EncodingAeskey base64encode的加密密钥，长度固定为43，加密方式采用aes-256-cbc方式
-	EncodingAeskey string `json:"encoding_aeskey"  validate:"required"`
+	// EncodingAesKey base64encode的加密密钥，长度固定为43，加密方式采用aes-256-cbc方式
+	EncodingAesKey string `json:"encoding_aeskey"  validate:"required"`
 	// BlockSize 每块数据的人员数，支持范围[10^4,10^6]，默认值为10^6
 	BlockSize int `json:"block_size"  `
 }
 
+// ExportUserResponse is response of Client.ExportUser
 type ExportUserResponse struct {
 	// JobID 任务ID，可通过获取导出结果接口查询任务结果
 	JobID string `json:"jobid"  `
 }
 
+// ExportDepartmentRequest is request of Client.ExportDepartment
 type ExportDepartmentRequest struct {
-	// EncodingAeskey base64encode的加密密钥，长度固定为43，加密方式采用aes-256-cbc方式
-	EncodingAeskey string `json:"encoding_aeskey"  validate:"required"`
+	// EncodingAesKey base64encode的加密密钥，长度固定为43，加密方式采用aes-256-cbc方式
+	EncodingAesKey string `json:"encoding_aeskey"  validate:"required"`
 	// BlockSize 每块数据的部门数，支持范围[10^4,10^6]，默认值为10^6
 	BlockSize int `json:"block_size"  `
 }
 
+// ExportDepartmentResponse is response of Client.ExportDepartment
 type ExportDepartmentResponse struct {
 	// JobID 任务ID，可通过获取导出结果接口查询任务结果
 	JobID string `json:"jobid"  `
 }
 
+// ExportTagUserRequest is request of Client.ExportTagUser
 type ExportTagUserRequest struct {
 	// TagID 需要导出的标签
 	TagID int `json:"tagid"  validate:"required"`
-	// EncodingAeskey base64encode的加密密钥，长度固定为43，加密方式采用aes-256-cbc方式
-	EncodingAeskey string `json:"encoding_aeskey"  validate:"required"`
+	// EncodingAesKey base64encode的加密密钥，长度固定为43，加密方式采用aes-256-cbc方式
+	EncodingAesKey string `json:"encoding_aeskey"  validate:"required"`
 	// BlockSize 每块数据的人员数和部门数之和，支持范围[10^4,10^6]，默认值为10^6
 	BlockSize int `json:"block_size"  `
 }
 
+// ExportTagUserResponse is response of Client.ExportTagUser
 type ExportTagUserResponse struct {
 	// JobID 任务ID，可通过获取导出结果接口查询任务结果
 	JobID string `json:"jobid"  `
 }
 
+// ExportGetResultRequest is request of Client.ExportGetResult
 type ExportGetResultRequest struct {
 	// JobID 导出任务接口成功后返回
 	JobID string `json:"jobid"  validate:"required"`
 }
 
+// ExportGetResultResponse is response of Client.ExportGetResult
 type ExportGetResultResponse struct {
 	// Status 任务状态:0-未处理，1-处理中，2-完成，3-异常失败
 	Status string `json:"status"  `
@@ -131,11 +141,12 @@ type ExportGetResultResponse struct {
 	DataList ExportGetResultResponseDataList `json:"data_list"  `
 }
 
+// ExportGetResultResponseDataList is model of ExportGetResultResponse.DataList
 type ExportGetResultResponseDataList struct {
 	// URL 数据下载链接,支持指定Range头部分段下载。有效期2个小时
 	URL string `json:"url"  `
 	// Size 密文数据大小
-	Size string `json:"size"  `
+	Size int `json:"size"  `
 	// Md5 密文数据md5
 	Md5 string `json:"md5"  `
 }

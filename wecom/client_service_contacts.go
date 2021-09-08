@@ -62,6 +62,7 @@ func (c *Client) ProviderSortContact(r *ProviderSortContactRequest, opts ...inte
 	return
 }
 
+// ProviderUploadMediaRequest is request of Client.ProviderUploadMedia
 type ProviderUploadMediaRequest struct {
 	Type string `json:"type"  `
 
@@ -70,6 +71,7 @@ type ProviderUploadMediaRequest struct {
 	CreatedAt string `json:"created_at"  `
 }
 
+// ProviderUploadMediaResponse is response of Client.ProviderUploadMedia
 type ProviderUploadMediaResponse struct {
 	// Type 媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)
 	Type string `json:"type"  `
@@ -79,6 +81,7 @@ type ProviderUploadMediaResponse struct {
 	CreatedAt string `json:"created_at"  `
 }
 
+// ProviderIDTranslateContactRequest is request of Client.ProviderIDTranslateContact
 type ProviderIDTranslateContactRequest struct {
 	// ProviderAccessToken 服务商provider_access_token，获取方法参见服务商的凭证
 	ProviderAccessToken string `json:"provider_access_token"  `
@@ -92,11 +95,13 @@ type ProviderIDTranslateContactRequest struct {
 	OutputFileFormat string `json:"output_file_format"  `
 }
 
+// ProviderIDTranslateContactResponse is response of Client.ProviderIDTranslateContact
 type ProviderIDTranslateContactResponse struct {
 	// JobID 异步任务id，最大长度为64字节。jobid用于接口 获取异步任务结果 传递
 	JobID string `json:"jobid"  `
 }
 
+// ProviderBatchGetResultRequest is request of Client.ProviderBatchGetResult
 type ProviderBatchGetResultRequest struct {
 	// ProviderAccessToken 服务商provider_access_token，获取方法参见服务商的凭证
 	ProviderAccessToken string `json:"provider_access_token"  `
@@ -104,6 +109,7 @@ type ProviderBatchGetResultRequest struct {
 	JobID string `json:"jobid"  validate:"required"`
 }
 
+// ProviderBatchGetResultResponse is response of Client.ProviderBatchGetResult
 type ProviderBatchGetResultResponse struct {
 	// Status 任务状态，整型，1表示任务开始，2表示任务进行中，3表示任务已完成
 	Status int `json:"status"  `
@@ -113,6 +119,7 @@ type ProviderBatchGetResultResponse struct {
 	Result ProviderBatchGetResult `json:"result"  `
 }
 
+// ProviderSortContactRequest is request of Client.ProviderSortContact
 type ProviderSortContactRequest struct {
 	// ProviderAccessToken 应用提供商的provider_access_token，获取方法参见服务商的凭证
 	ProviderAccessToken string `json:"provider_access_token"  `
@@ -124,6 +131,7 @@ type ProviderSortContactRequest struct {
 	UserIDList string `json:"useridlist"  validate:"required"`
 }
 
+// ProviderSortContactResponse is response of Client.ProviderSortContact
 type ProviderSortContactResponse struct {
 	// UserIDList 排序后的userid列表
 	UserIDList string `json:"useridlist"  `

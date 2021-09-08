@@ -32,21 +32,25 @@ func (c *Client) MessageAuditGetGroupChat(r *MessageAuditGetGroupChatRequest, op
 	return
 }
 
+// MessageAuditGetPermitUserListRequest is request of Client.MessageAuditGetPermitUserList
 type MessageAuditGetPermitUserListRequest struct {
 	// Type 拉取对应版本的开启成员列表。1表示办公版；2表示服务版；3表示企业版。非必填，不填写的时候返回全量成员列表。
 	Type int `json:"type"  `
 }
 
+// MessageAuditGetPermitUserListResponse is response of Client.MessageAuditGetPermitUserList
 type MessageAuditGetPermitUserListResponse struct {
 	// Ids 设置在开启范围内的成员的userid列表
 	Ids []string `json:"ids"  `
 }
 
+// MessageAuditGetGroupChatRequest is request of Client.MessageAuditGetGroupChat
 type MessageAuditGetGroupChatRequest struct {
 	// RoomID 待查询的群id
 	RoomID string `json:"roomid"  validate:"required"`
 }
 
+// MessageAuditGetGroupChatResponse is response of Client.MessageAuditGetGroupChat
 type MessageAuditGetGroupChatResponse struct {
 	// RoomName roomid对应的群名称
 	RoomName string `json:"roomname"  `

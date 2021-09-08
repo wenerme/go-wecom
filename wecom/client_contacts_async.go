@@ -59,6 +59,7 @@ func (c *Client) BatchGetResult(r *BatchGetResultRequest, opts ...interface{}) (
 	return
 }
 
+// BatchSyncUserRequest is request of Client.BatchSyncUser
 type BatchSyncUserRequest struct {
 	// MediaID 上传的csv文件的media_id
 	MediaID string `json:"media_id"  validate:"required"`
@@ -68,11 +69,13 @@ type BatchSyncUserRequest struct {
 	Callback BatchSyncCallback `json:"callback"  `
 }
 
+// BatchSyncUserResponse is response of Client.BatchSyncUser
 type BatchSyncUserResponse struct {
 	// JobID 异步任务id，最大长度为64字节
 	JobID string `json:"jobid"  `
 }
 
+// BatchReplaceUserRequest is request of Client.BatchReplaceUser
 type BatchReplaceUserRequest struct {
 	// MediaID 上传的csv文件的media_id
 	MediaID string `json:"media_id"  validate:"required"`
@@ -82,11 +85,13 @@ type BatchReplaceUserRequest struct {
 	Callback BatchSyncCallback `json:"callback"  `
 }
 
+// BatchReplaceUserResponse is response of Client.BatchReplaceUser
 type BatchReplaceUserResponse struct {
 	// JobID 异步任务id，最大长度为64字节
 	JobID string `json:"jobid"  `
 }
 
+// BatchReplacePartyRequest is request of Client.BatchReplaceParty
 type BatchReplacePartyRequest struct {
 	// MediaID 上传的csv文件的media_id
 	MediaID string `json:"media_id"  validate:"required"`
@@ -94,16 +99,19 @@ type BatchReplacePartyRequest struct {
 	Callback BatchSyncCallback `json:"callback"  `
 }
 
+// BatchReplacePartyResponse is response of Client.BatchReplaceParty
 type BatchReplacePartyResponse struct {
 	// JobID 异步任务id，最大长度为64字节
 	JobID string `json:"jobid"  `
 }
 
+// BatchGetResultRequest is request of Client.BatchGetResult
 type BatchGetResultRequest struct {
 	// JobID 异步任务id，最大长度为64字节
 	JobID string `json:"jobid"  validate:"required"`
 }
 
+// BatchGetResultResponse is response of Client.BatchGetResult
 type BatchGetResultResponse struct {
 	// Status 任务状态，整型，1表示任务开始，2表示任务进行中，3表示任务已完成
 	Status int `json:"status"  `

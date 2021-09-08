@@ -94,6 +94,7 @@ func (c *Client) ListTag(opts ...interface{}) (out ListTagResponse, err error) {
 	return
 }
 
+// CreateTagRequest is request of Client.CreateTag
 type CreateTagRequest struct {
 	// TagName 标签名称，长度限制为32个字以内（汉字或英文字母），标签名不可与其他标签重名。
 	TagName string `json:"tagname"  validate:"required"`
@@ -101,11 +102,13 @@ type CreateTagRequest struct {
 	TagID int `json:"tagid"  `
 }
 
+// CreateTagResponse is response of Client.CreateTag
 type CreateTagResponse struct {
 	// TagID 标签id
 	TagID string `json:"tagid"  `
 }
 
+// UpdateTagRequest is request of Client.UpdateTag
 type UpdateTagRequest struct {
 	// TagID 标签ID
 	TagID int `json:"tagid"  validate:"required"`
@@ -113,16 +116,19 @@ type UpdateTagRequest struct {
 	TagName string `json:"tagname"  validate:"required"`
 }
 
+// DeleteTagRequest is request of Client.DeleteTag
 type DeleteTagRequest struct {
 	// TagID 标签ID
 	TagID string `json:"tagid"  validate:"required"`
 }
 
+// GetTagRequest is request of Client.GetTag
 type GetTagRequest struct {
 	// TagID 标签ID
 	TagID string `json:"tagid"  validate:"required"`
 }
 
+// GetTagResponse is response of Client.GetTag
 type GetTagResponse struct {
 	// TagName 标签名
 	TagName string `json:"tagname"  `
@@ -132,6 +138,7 @@ type GetTagResponse struct {
 	PartyList []int `json:"partylist"  `
 }
 
+// AddTagUsersRequest is request of Client.AddTagUsers
 type AddTagUsersRequest struct {
 	// TagID 标签ID
 	TagID int `json:"tagid"  validate:"required"`
@@ -141,6 +148,7 @@ type AddTagUsersRequest struct {
 	PartyList []int `json:"partylist"  `
 }
 
+// AddTagUsersResponse is response of Client.AddTagUsers
 type AddTagUsersResponse struct {
 	// InvalidList 非法的成员帐号列表
 	InvalidList string `json:"invalidlist"  `
@@ -148,6 +156,7 @@ type AddTagUsersResponse struct {
 	InvalidParty string `json:"invalidparty"  `
 }
 
+// DeleteTagUsersRequest is request of Client.DeleteTagUsers
 type DeleteTagUsersRequest struct {
 	// TagID 标签ID
 	TagID int `json:"tagid"  validate:"required"`
@@ -157,6 +166,7 @@ type DeleteTagUsersRequest struct {
 	PartyList []int `json:"partylist"  `
 }
 
+// DeleteTagUsersResponse is response of Client.DeleteTagUsers
 type DeleteTagUsersResponse struct {
 	// InvalidList 非法的成员帐号列表
 	InvalidList string `json:"invalidlist"  `
@@ -164,6 +174,7 @@ type DeleteTagUsersResponse struct {
 	InvalidParty string `json:"invalidparty"  `
 }
 
+// ListTagResponse is response of Client.ListTag
 type ListTagResponse struct {
 	// TagList 标签列表
 	TagList []ListTag `json:"taglist"  `

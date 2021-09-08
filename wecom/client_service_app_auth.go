@@ -109,6 +109,7 @@ func (c *Client) ProviderGetAdminList(r *ProviderGetAdminListRequest, opts ...in
 	return
 }
 
+// ProviderGetSuiteTokenRequest is request of Client.ProviderGetSuiteToken
 type ProviderGetSuiteTokenRequest struct {
 	// SuiteID 以ww或wx开头应用id（对应于旧的以tj开头的套件id）
 	SuiteID string `json:"suite_id"  validate:"required"`
@@ -118,6 +119,7 @@ type ProviderGetSuiteTokenRequest struct {
 	SuiteTicket string `json:"suite_ticket"  validate:"required"`
 }
 
+// ProviderGetSuiteTokenResponse is response of Client.ProviderGetSuiteToken
 type SuiteTokenResponse struct {
 	// SuiteAccessToken 第三方应用access_token,最长为512字节
 	SuiteAccessToken string `json:"suite_access_token"  `
@@ -127,11 +129,13 @@ type SuiteTokenResponse struct {
 	ExpireAt int64 `json:"expire_at"  `
 }
 
+// ProviderGetPreAuthCodeRequest is request of Client.ProviderGetPreAuthCode
 type ProviderGetPreAuthCodeRequest struct {
 	// SuiteAccessToken 第三方应用access_token,最长为512字节
 	SuiteAccessToken string `json:"suite_access_token"  `
 }
 
+// ProviderGetPreAuthCodeResponse is response of Client.ProviderGetPreAuthCode
 type PreAuthCodeResponse struct {
 	// PreAuthCode 预授权码,最长为512字节
 	PreAuthCode string `json:"pre_auth_code"  `
@@ -141,6 +145,7 @@ type PreAuthCodeResponse struct {
 	ExpireAt int64 `json:"expire_at"  `
 }
 
+// ProviderSetSessionInfoRequest is request of Client.ProviderSetSessionInfo
 type ProviderSetSessionInfoRequest struct {
 	// SuiteAccessToken 第三方应用access_token
 	SuiteAccessToken string `json:"suite_access_token"  `
@@ -150,11 +155,13 @@ type ProviderSetSessionInfoRequest struct {
 	SessionInfo SetSessionInfo `json:"session_info"  validate:"required"`
 }
 
+// ProviderGetPermanentCodeRequest is request of Client.ProviderGetPermanentCode
 type ProviderGetPermanentCodeRequest struct {
 	// AuthCode 临时授权码，会在授权成功时附加在redirect_uri中跳转回第三方服务商网站，或通过授权成功通知回调推送给服务商。长度为64至512个字节
 	AuthCode string `json:"auth_code"  validate:"required"`
 }
 
+// ProviderGetPermanentCodeResponse is response of Client.ProviderGetPermanentCode
 type ProviderGetPermanentCodeResponse struct {
 	// AccessToken 授权方（企业）access_token,最长为512字节
 	AccessToken string `json:"access_token"  `
@@ -174,6 +181,7 @@ type ProviderGetPermanentCodeResponse struct {
 	RegisterCodeInfo ProviderGetPermanentCodeResponseRegisterCodeInfo `json:"register_code_info"  `
 }
 
+// ProviderGetPermanentCodeResponseAuthCorpInfo is model of ProviderGetPermanentCodeResponse.AuthCorpInfo
 type ProviderGetPermanentCodeResponseAuthCorpInfo struct {
 	// CorpID 授权方企业微信id
 	CorpID string `json:"corpid"  `
@@ -203,11 +211,13 @@ type ProviderGetPermanentCodeResponseAuthCorpInfo struct {
 	CorpSubIndustry string `json:"corp_sub_industry"  `
 }
 
+// ProviderGetPermanentCodeResponseAuthInfo is model of ProviderGetPermanentCodeResponse.AuthInfo
 type ProviderGetPermanentCodeResponseAuthInfo struct {
 	// Agent 授权的应用信息，注意是一个数组，但仅旧的多应用套件授权时会返回多个agent，对新的单应用授权，永远只返回一个agent
 	Agent []ProviderGetPermanentCodeResponseAuthInfoAgent `json:"agent"  `
 }
 
+// ProviderGetPermanentCodeResponseAuthInfoAgent is model of ProviderGetPermanentCodeResponseAuthInfo.Agent
 type ProviderGetPermanentCodeResponseAuthInfoAgent struct {
 	// AgentID 授权方应用id
 	AgentID int `json:"agentid"  `
@@ -229,6 +239,7 @@ type ProviderGetPermanentCodeResponseAuthInfoAgent struct {
 	SharedFrom ProviderGetPermanentCodeResponseAuthInfoAgentSharedFrom `json:"shared_from"  `
 }
 
+// ProviderGetPermanentCodeResponseAuthInfoAgentPrivilege is model of ProviderGetPermanentCodeResponseAuthInfoAgent.Privilege
 type ProviderGetPermanentCodeResponseAuthInfoAgentPrivilege struct {
 	// AllowParty 应用可见范围（部门）
 	AllowParty []int `json:"allow_party"  `
@@ -246,11 +257,13 @@ type ProviderGetPermanentCodeResponseAuthInfoAgentPrivilege struct {
 	Level int `json:"level"  `
 }
 
+// ProviderGetPermanentCodeResponseAuthInfoAgentSharedFrom is model of ProviderGetPermanentCodeResponseAuthInfoAgent.SharedFrom
 type ProviderGetPermanentCodeResponseAuthInfoAgentSharedFrom struct {
 	// CorpID 共享了应用的互联企业信息，仅当由互联的企业共享应用触发的安装时才返回
 	CorpID string `json:"corpid"  `
 }
 
+// ProviderGetPermanentCodeResponseAuthUserInfo is model of ProviderGetPermanentCodeResponse.AuthUserInfo
 type ProviderGetPermanentCodeResponseAuthUserInfo struct {
 	// UserID 授权管理员的userid，可能为空（企业互联由上级企业共享第三方应用给下级时，不返回授权的管理员信息）
 	UserID string `json:"userid"  `
@@ -262,6 +275,7 @@ type ProviderGetPermanentCodeResponseAuthUserInfo struct {
 	Avatar string `json:"avatar"  `
 }
 
+// ProviderGetPermanentCodeResponseDealerCorpInfo is model of ProviderGetPermanentCodeResponse.DealerCorpInfo
 type ProviderGetPermanentCodeResponseDealerCorpInfo struct {
 	// CorpID 代理服务商企业微信id
 	CorpID string `json:"corpid"  `
@@ -269,6 +283,7 @@ type ProviderGetPermanentCodeResponseDealerCorpInfo struct {
 	CorpName string `json:"corp_name"  `
 }
 
+// ProviderGetPermanentCodeResponseRegisterCodeInfo is model of ProviderGetPermanentCodeResponse.RegisterCodeInfo
 type ProviderGetPermanentCodeResponseRegisterCodeInfo struct {
 	// RegisterCode 注册码
 	RegisterCode string `json:"register_code"  `
@@ -278,6 +293,7 @@ type ProviderGetPermanentCodeResponseRegisterCodeInfo struct {
 	State string `json:"state"  `
 }
 
+// ProviderGetAuthInfoRequest is request of Client.ProviderGetAuthInfo
 type ProviderGetAuthInfoRequest struct {
 	// AuthCorpID 授权方corpid
 	AuthCorpID string `json:"auth_corpid"  validate:"required"`
@@ -285,6 +301,7 @@ type ProviderGetAuthInfoRequest struct {
 	PermanentCode string `json:"permanent_code"  validate:"required"`
 }
 
+// ProviderGetAuthInfoResponse is response of Client.ProviderGetAuthInfo
 type ProviderGetAuthInfoResponse struct {
 	// AuthCorpInfo 授权方企业信息
 	AuthCorpInfo ProviderGetAuthInfoResponseAuthCorpInfo `json:"auth_corp_info"  `
@@ -294,6 +311,7 @@ type ProviderGetAuthInfoResponse struct {
 	DealerCorpInfo ProviderGetAuthInfoResponseDealerCorpInfo `json:"dealer_corp_info"  `
 }
 
+// ProviderGetAuthInfoResponseAuthCorpInfo is model of ProviderGetAuthInfoResponse.AuthCorpInfo
 type ProviderGetAuthInfoResponseAuthCorpInfo struct {
 	// CorpID 授权方企业微信id
 	CorpID string `json:"corpid"  `
@@ -321,11 +339,13 @@ type ProviderGetAuthInfoResponseAuthCorpInfo struct {
 	CorpSubIndustry string `json:"corp_sub_industry"  `
 }
 
+// ProviderGetAuthInfoResponseAuthInfo is model of ProviderGetAuthInfoResponse.AuthInfo
 type ProviderGetAuthInfoResponseAuthInfo struct {
 	// Agent 授权的应用信息，注意是一个数组，但仅旧的多应用套件授权时会返回多个agent，对新的单应用授权，永远只返回一个agent
 	Agent []ProviderGetAuthInfoResponseAuthInfoAgent `json:"agent"  `
 }
 
+// ProviderGetAuthInfoResponseAuthInfoAgent is model of ProviderGetAuthInfoResponseAuthInfo.Agent
 type ProviderGetAuthInfoResponseAuthInfoAgent struct {
 	// AgentID 授权方应用id
 	AgentID int `json:"agentid"  `
@@ -347,6 +367,7 @@ type ProviderGetAuthInfoResponseAuthInfoAgent struct {
 	SharedFrom ProviderGetAuthInfoResponseAuthInfoAgentSharedFrom `json:"shared_from"  `
 }
 
+// ProviderGetAuthInfoResponseAuthInfoAgentPrivilege is model of ProviderGetAuthInfoResponseAuthInfoAgent.Privilege
 type ProviderGetAuthInfoResponseAuthInfoAgentPrivilege struct {
 	// AllowParty 应用可见范围（部门）
 	AllowParty []int `json:"allow_party"  `
@@ -364,11 +385,13 @@ type ProviderGetAuthInfoResponseAuthInfoAgentPrivilege struct {
 	Level int `json:"level"  `
 }
 
+// ProviderGetAuthInfoResponseAuthInfoAgentSharedFrom is model of ProviderGetAuthInfoResponseAuthInfoAgent.SharedFrom
 type ProviderGetAuthInfoResponseAuthInfoAgentSharedFrom struct {
 	// CorpID 共享了应用的互联企业信息，仅当由互联的企业共享应用触发的安装时才返回
 	CorpID string `json:"corpid"  `
 }
 
+// ProviderGetAuthInfoResponseDealerCorpInfo is model of ProviderGetAuthInfoResponse.DealerCorpInfo
 type ProviderGetAuthInfoResponseDealerCorpInfo struct {
 	// CorpID 代理服务商企业微信id
 	CorpID string `json:"corpid"  `
@@ -376,6 +399,7 @@ type ProviderGetAuthInfoResponseDealerCorpInfo struct {
 	CorpName string `json:"corp_name"  `
 }
 
+// ProviderGetCorpTokenRequest is request of Client.ProviderGetCorpToken
 type ProviderGetCorpTokenRequest struct {
 	// AuthCorpID 授权方corpid
 	AuthCorpID string `json:"auth_corpid"  validate:"required"`
@@ -383,14 +407,15 @@ type ProviderGetCorpTokenRequest struct {
 	PermanentCode string `json:"permanent_code"  validate:"required"`
 }
 
+// ProviderGetCorpTokenResponse is response of Client.ProviderGetCorpToken
 type ProviderGetCorpTokenResponse struct {
 	// AccessToken 授权方（企业）access_token,最长为512字节
 	AccessToken string `json:"access_token"  `
 	// ExpiresIn 授权方（企业）access_token超时时间
-	ExpiresIn int   `json:"expires_in"  `
-	ExpiresAt int64 `json:"expire_at"`
+	ExpiresIn int `json:"expires_in"  `
 }
 
+// ProviderGetAdminListRequest is request of Client.ProviderGetAdminList
 type ProviderGetAdminListRequest struct {
 	// AuthCorpID 授权方corpid
 	AuthCorpID string `json:"auth_corpid"  validate:"required"`
@@ -398,6 +423,7 @@ type ProviderGetAdminListRequest struct {
 	AgentID int `json:"agentid"  validate:"required"`
 }
 
+// ProviderGetAdminListResponse is response of Client.ProviderGetAdminList
 type ProviderGetAdminListResponse struct {
 	// Admin 应用的管理员列表（不包括外部管理员），成员授权模式下，不返回系统管理员
 	Admin []GetAdminListItem `json:"admin"  `

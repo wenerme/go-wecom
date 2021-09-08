@@ -69,6 +69,7 @@ func (c *Client) LinkGetPermList(opts ...interface{}) (out LinkGetPermListRespon
 	return
 }
 
+// LinkSimpleListUserRequest is request of Client.LinkSimpleListUser
 type LinkSimpleListUserRequest struct {
 	// DepartmentID 该字段用的是互联应用可见范围接口返回的department_ids参数，用的是 linkedid + ’/‘ + department_id 拼成的字符串
 	DepartmentID string `json:"department_id"  validate:"required"`
@@ -76,11 +77,13 @@ type LinkSimpleListUserRequest struct {
 	FetchChild bool `json:"fetch_child"  `
 }
 
+// LinkSimpleListUserResponse is response of Client.LinkSimpleListUser
 type LinkSimpleListUserResponse struct {
 	// UserList 成员列表
 	UserList []LinkSimpleListUser `json:"userlist"  `
 }
 
+// LinkListUserRequest is request of Client.LinkListUser
 type LinkListUserRequest struct {
 	// DepartmentID 该字段用的是互联应用可见范围接口返回的department_ids参数，用的是 linkedid + ’/‘ + department_id 拼成的字符串
 	DepartmentID string `json:"department_id"  validate:"required"`
@@ -88,31 +91,37 @@ type LinkListUserRequest struct {
 	FetchChild bool `json:"fetch_child"  `
 }
 
+// LinkListUserResponse is response of Client.LinkListUser
 type LinkListUserResponse struct {
 	// UserList 成员列表，user包含的属性可在管理端配置
 	UserList []LinkListUser `json:"userlist"  `
 }
 
+// LinkListDepartmentRequest is request of Client.LinkListDepartment
 type LinkListDepartmentRequest struct {
 	// DepartmentID 该字段用的是互联应用可见范围接口返回的department_ids参数，用的是 linkedid + ’/‘ + department_id 拼成的字符串
 	DepartmentID string `json:"department_id"  validate:"required"`
 }
 
+// LinkListDepartmentResponse is response of Client.LinkListDepartment
 type LinkListDepartmentResponse struct {
 	// DepartmentList 部门列表
 	DepartmentList []LinkListDepartment `json:"department_list"  `
 }
 
+// LinkGetUserRequest is request of Client.LinkGetUser
 type LinkGetUserRequest struct {
 	// UserID 该字段用的是互联应用可见范围接口返回的userids参数，用的是 CorpId + ’/‘ + USERID 拼成的字符串
 	UserID string `json:"userid"  validate:"required"`
 }
 
+// LinkGetUserResponse is response of Client.LinkGetUser
 type LinkGetUserResponse struct {
 	// UserInfo 成员的详细信息，user包含的属性可在管理端配置
 	UserInfo LinkGetUser `json:"user_info"  `
 }
 
+// LinkGetPermListResponse is response of Client.LinkGetPermList
 type LinkGetPermListResponse struct {
 	// UserIds 可见的userids，是用 CorpId + ’/‘ + USERID 拼成的字符串
 	UserIds []string `json:"userids"  `

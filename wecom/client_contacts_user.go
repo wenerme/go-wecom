@@ -151,6 +151,7 @@ func (c *Client) GetActiveStat(r *GetActiveStatRequest, opts ...interface{}) (ou
 	return
 }
 
+// CreateUserRequest is request of Client.CreateUser
 type CreateUserRequest struct {
 	// UserID 成员UserID。对应管理端的帐号，企业内必须唯一。不区分大小写，长度为1~64个字节。只能由数字、字母和“_-@.”四种字符组成，且第一个字符必须是数字或字母。
 	UserID string `json:"userid"  validate:"required"`
@@ -194,6 +195,7 @@ type CreateUserRequest struct {
 	MainDepartment int `json:"main_department"  `
 }
 
+// UpdateUserRequest is request of Client.UpdateUser
 type UpdateUserRequest struct {
 	// UserID 成员UserID。对应管理端的帐号，企业内必须唯一。不区分大小写，长度为1~64个字节
 	UserID string `json:"userid"  validate:"required"`
@@ -235,16 +237,19 @@ type UpdateUserRequest struct {
 	MainDepartment int `json:"main_department"  `
 }
 
+// DeleteUserRequest is request of Client.DeleteUser
 type DeleteUserRequest struct {
 	// UserID 成员UserID。对应管理端的帐号
 	UserID string `json:"userid"  validate:"required"`
 }
 
+// BatchDeleteUserRequest is request of Client.BatchDeleteUser
 type BatchDeleteUserRequest struct {
 	// UserIDList 成员UserID列表。对应管理端的帐号。最多支持200个。若存在无效UserID，直接返回错误
 	UserIDList []string `json:"useridlist"  validate:"required"`
 }
 
+// SimpleListUserRequest is request of Client.SimpleListUser
 type SimpleListUserRequest struct {
 	// DepartmentID 获取的部门id
 	DepartmentID string `json:"department_id"  validate:"required"`
@@ -252,11 +257,13 @@ type SimpleListUserRequest struct {
 	FetchChild string `json:"fetch_child"  `
 }
 
+// SimpleListUserResponse is response of Client.SimpleListUser
 type SimpleListUserResponse struct {
 	// UserList 成员列表
 	UserList []SimpleListUser `json:"userlist"  `
 }
 
+// ListUserRequest is request of Client.ListUser
 type ListUserRequest struct {
 	// DepartmentID 获取的部门id
 	DepartmentID string `json:"department_id"  validate:"required"`
@@ -264,26 +271,31 @@ type ListUserRequest struct {
 	FetchChild string `json:"fetch_child"  `
 }
 
+// ListUserResponse is response of Client.ListUser
 type ListUserResponse struct {
 	// UserList 成员列表
 	UserList []ListUser `json:"userlist"  `
 }
 
+// ConvertToOpenIDRequest is request of Client.ConvertToOpenID
 type ConvertToOpenIDRequest struct {
 	// UserID 企业内的成员id
 	UserID string `json:"userid"  validate:"required"`
 }
 
+// ConvertToOpenIDResponse is response of Client.ConvertToOpenID
 type ConvertToOpenIDResponse struct {
 	// OpenID 企业微信成员userid对应的openid
 	OpenID string `json:"openid"  `
 }
 
+// AuthSuccessRequest is request of Client.AuthSuccess
 type AuthSuccessRequest struct {
 	// UserID 成员UserID。对应管理端的帐号
 	UserID string `json:"userid"  validate:"required"`
 }
 
+// BatchInviteRequest is request of Client.BatchInvite
 type BatchInviteRequest struct {
 	// User 成员ID列表, 最多支持1000个。
 	User string `json:"user"  `
@@ -293,6 +305,7 @@ type BatchInviteRequest struct {
 	Tag string `json:"tag"  `
 }
 
+// BatchInviteResponse is response of Client.BatchInvite
 type BatchInviteResponse struct {
 	// InvalidUser 非法成员列表
 	InvalidUser string `json:"invaliduser"  `
@@ -302,21 +315,25 @@ type BatchInviteResponse struct {
 	InvalidTag string `json:"invalidtag"  `
 }
 
+// GetJoinQrcodeRequest is request of Client.GetJoinQrcode
 type GetJoinQrcodeRequest struct {
 	// SizeType qrcode尺寸类型，1: 171 x 171; 2: 399 x 399; 3: 741 x 741; 4: 2052 x 2052
 	SizeType string `json:"size_type"  `
 }
 
+// GetJoinQrcodeResponse is response of Client.GetJoinQrcode
 type GetJoinQrcodeResponse struct {
 	// JoinQrcode 二维码链接，有效期7天
 	JoinQrcode string `json:"join_qrcode"  `
 }
 
+// GetActiveStatRequest is request of Client.GetActiveStat
 type GetActiveStatRequest struct {
 	// Date 具体某天的活跃人数，最长支持获取30天前数据
 	Date string `json:"date"  validate:"required"`
 }
 
+// GetActiveStatResponse is response of Client.GetActiveStat
 type GetActiveStatResponse struct {
 	// ActiveCount 活跃成员数
 	ActiveCount int `json:"active_cnt"  `

@@ -56,6 +56,7 @@ func (c *Client) ListDepartment(r *ListDepartmentRequest, opts ...interface{}) (
 	return
 }
 
+// CreateDepartmentRequest is request of Client.CreateDepartment
 type CreateDepartmentRequest struct {
 	// Name 部门名称。同一个层级的部门名称不能重复。长度限制为1~32个字符，字符不能包括\:*?”&lt;&gt;｜
 	Name string `json:"name"  validate:"required"`
@@ -69,11 +70,13 @@ type CreateDepartmentRequest struct {
 	ID int `json:"id"  `
 }
 
+// CreateDepartmentResponse is response of Client.CreateDepartment
 type CreateDepartmentResponse struct {
 	// ID 创建的部门id
 	ID int `json:"id"  `
 }
 
+// UpdateDepartmentRequest is request of Client.UpdateDepartment
 type UpdateDepartmentRequest struct {
 	// ID 部门id
 	ID int `json:"id"  validate:"required"`
@@ -87,16 +90,19 @@ type UpdateDepartmentRequest struct {
 	Order int `json:"order"  `
 }
 
+// DeleteDepartmentRequest is request of Client.DeleteDepartment
 type DeleteDepartmentRequest struct {
 	// ID 部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）
 	ID string `json:"id"  validate:"required"`
 }
 
+// ListDepartmentRequest is request of Client.ListDepartment
 type ListDepartmentRequest struct {
 	// ID 部门id。获取指定部门及其下的子部门（以及及子部门的子部门等等，递归）。 如果不填，默认获取全量组织架构
-	ID string `json:"id"  `
+	ID int `json:"id"  `
 }
 
+// ListDepartmentResponse is response of Client.ListDepartment
 type ListDepartmentResponse struct {
 	// Department 部门列表数据。
 	Department []ListDepartment `json:"department"  `

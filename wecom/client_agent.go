@@ -70,11 +70,13 @@ func (c *Client) SetWorkbenchData(r *SetWorkbenchDataRequest, opts ...interface{
 	return
 }
 
+// GetAgentRequest is request of Client.GetAgent
 type GetAgentRequest struct {
 	// AgentID 应用id
 	AgentID int `json:"agentid"  validate:"required"`
 }
 
+// GetAgentResponse is response of Client.GetAgent
 type GetAgentResponse struct {
 	// AgentID 企业应用id
 	AgentID int `json:"agentid"  `
@@ -102,11 +104,13 @@ type GetAgentResponse struct {
 	HomeURL string `json:"home_url"  `
 }
 
+// ListAgentResponse is response of Client.ListAgent
 type ListAgentResponse struct {
 	// AgentList AgentItemArray
 	AgentList []ListAgent `json:"agentlist"  `
 }
 
+// SetWorkbenchTemplateRequest is request of Client.SetWorkbenchTemplate
 type SetWorkbenchTemplateRequest struct {
 	// Type 模版类型，目前支持的自定义类型包括 “keydata”、 “image”、 “list”、 “webview” 。若设置的type为 “normal”,则相当于从自定义模式切换为普通宫格或者列表展示模式
 	Type string `json:"type"  validate:"required"`
@@ -124,6 +128,7 @@ type SetWorkbenchTemplateRequest struct {
 	ReplaceUserData bool `json:"replace_user_data"  `
 }
 
+// SetWorkbenchTemplateResponse is response of Client.SetWorkbenchTemplate
 type SetWorkbenchTemplateResponse struct {
 	// AccessToken 是
 	AccessToken string `json:"access_token"  `
@@ -131,11 +136,13 @@ type SetWorkbenchTemplateResponse struct {
 	AgentID string `json:"agentid"  `
 }
 
+// GetWorkbenchTemplateRequest is request of Client.GetWorkbenchTemplate
 type GetWorkbenchTemplateRequest struct {
 	// AgentID 应用id
 	AgentID int `json:"agentid"  validate:"required"`
 }
 
+// GetWorkbenchTemplateResponse is response of Client.GetWorkbenchTemplate
 type GetWorkbenchTemplateResponse struct {
 	// AccessToken 是
 	AccessToken string `json:"access_token"  `
@@ -155,6 +162,7 @@ type GetWorkbenchTemplateResponse struct {
 	Webview []WorkbenchTemplateItemWebView `json:"webview"  `
 }
 
+// SetWorkbenchDataRequest is request of Client.SetWorkbenchData
 type SetWorkbenchDataRequest struct {
 	// AgentID 应用id
 	AgentID int `json:"agentid"  validate:"required"`
@@ -172,6 +180,7 @@ type SetWorkbenchDataRequest struct {
 	Webview []WorkbenchTemplateItemWebView `json:"webview"  `
 }
 
+// SetWorkbenchDataResponse is response of Client.SetWorkbenchData
 type SetWorkbenchDataResponse struct {
 	// AccessToken 是
 	AccessToken string `json:"access_token"  `

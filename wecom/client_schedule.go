@@ -130,6 +130,7 @@ func (c *Client) ScheduleGetByCalendar(r *ScheduleGetByCalendarRequest, opts ...
 	return
 }
 
+// AddCalendarRequest is request of Client.AddCalendar
 type AddCalendarRequest struct {
 	// Calendar 日历信息
 	Calendar AddCalendar `json:"calendar"  validate:"required"`
@@ -137,11 +138,13 @@ type AddCalendarRequest struct {
 	AgentID int `json:"agentid"  `
 }
 
+// AddCalendarResponse is response of Client.AddCalendar
 type AddCalendarResponse struct {
 	// CalenderID 日历ID
 	CalenderID string `json:"cal_id"  `
 }
 
+// AddCalendarRequestShares is model of AddCalendarRequest.Shares
 type AddCalendarRequestShares struct {
 	// UserID 日历共享成员的id
 	UserID string `json:"userid"  validate:"required"`
@@ -149,11 +152,13 @@ type AddCalendarRequestShares struct {
 	Readonly int `json:"readonly"  `
 }
 
+// UpdateCalendarRequest is request of Client.UpdateCalendar
 type UpdateCalendarRequest struct {
 	// Calendar 日历信息
 	Calendar UpdateCalendar `json:"calendar"  validate:"required"`
 }
 
+// UpdateCalendarRequestShares is model of UpdateCalendarRequest.Shares
 type UpdateCalendarRequestShares struct {
 	// UserID 日历共享成员的id
 	UserID string `json:"userid"  validate:"required"`
@@ -161,16 +166,19 @@ type UpdateCalendarRequestShares struct {
 	Readonly int `json:"readonly"  `
 }
 
+// GetCalendarRequest is request of Client.GetCalendar
 type GetCalendarRequest struct {
 	// CalenderIDList 日历ID列表，调用创建日历接口后获得。一次最多可获取1000条
 	CalenderIDList []string `json:"cal_id_list"  validate:"required"`
 }
 
+// GetCalendarResponse is response of Client.GetCalendar
 type GetCalendarResponse struct {
 	// CalendarList 日历列表
 	CalendarList []GetCalender `json:"calendar_list"  `
 }
 
+// GetCalendarResponseShares is model of GetCalendarResponse.Shares
 type GetCalendarResponseShares struct {
 	// UserID 日历共享成员的id
 	UserID string `json:"userid"  `
@@ -178,11 +186,13 @@ type GetCalendarResponseShares struct {
 	Readonly int `json:"readonly"  `
 }
 
+// DeleteCalendarRequest is request of Client.DeleteCalendar
 type DeleteCalendarRequest struct {
 	// CalenderID 日历ID
 	CalenderID string `json:"cal_id"  validate:"required"`
 }
 
+// AddScheduleRequest is request of Client.AddSchedule
 type AddScheduleRequest struct {
 	// Schedule obj
 	Schedule AddScheduleRequestSchedule `json:"schedule"  validate:"required"`
@@ -190,11 +200,13 @@ type AddScheduleRequest struct {
 	AgentID int `json:"agentid"  `
 }
 
+// AddScheduleResponse is response of Client.AddSchedule
 type AddScheduleResponse struct {
 	// ScheduleID string
 	ScheduleID string `json:"schedule_id"  `
 }
 
+// AddScheduleRequestSchedule is model of AddScheduleRequest.Schedule
 type AddScheduleRequestSchedule struct {
 	// Attendees obj[]
 	Attendees []AddScheduleRequestScheduleAttendees `json:"attendees"  `
@@ -216,11 +228,13 @@ type AddScheduleRequestSchedule struct {
 	CalenderID string `json:"cal_id"  `
 }
 
+// AddScheduleRequestScheduleAttendees is model of AddScheduleRequestSchedule.Attendees
 type AddScheduleRequestScheduleAttendees struct {
 	// UserID string
 	UserID string `json:"userid"  validate:"required"`
 }
 
+// AddScheduleRequestScheduleReminders is model of AddScheduleRequestSchedule.Reminders
 type AddScheduleRequestScheduleReminders struct {
 	// IsRemind int32
 	IsRemind int `json:"is_remind"  `
@@ -244,11 +258,13 @@ type AddScheduleRequestScheduleReminders struct {
 	Timezone int `json:"timezone"  `
 }
 
+// UpdateScheduleRequest is request of Client.UpdateSchedule
 type UpdateScheduleRequest struct {
 	// Schedule obj
 	Schedule UpdateScheduleRequestSchedule `json:"schedule"  validate:"required"`
 }
 
+// UpdateScheduleRequestSchedule is model of UpdateScheduleRequest.Schedule
 type UpdateScheduleRequestSchedule struct {
 	// ScheduleID string
 	ScheduleID string `json:"schedule_id"  validate:"required"`
@@ -270,11 +286,13 @@ type UpdateScheduleRequestSchedule struct {
 	EndTime int `json:"end_time"  `
 }
 
+// UpdateScheduleRequestScheduleAttendees is model of UpdateScheduleRequestSchedule.Attendees
 type UpdateScheduleRequestScheduleAttendees struct {
 	// UserID string
 	UserID string `json:"userid"  validate:"required"`
 }
 
+// UpdateScheduleRequestScheduleReminders is model of UpdateScheduleRequestSchedule.Reminders
 type UpdateScheduleRequestScheduleReminders struct {
 	// IsRemind int32
 	IsRemind int `json:"is_remind"  `
@@ -298,16 +316,19 @@ type UpdateScheduleRequestScheduleReminders struct {
 	Timezone int `json:"timezone"  `
 }
 
+// GetScheduleRequest is request of Client.GetSchedule
 type GetScheduleRequest struct {
 	// ScheduleIDList 日程ID列表。一次最多拉取1000条
 	ScheduleIDList []string `json:"schedule_id_list"  validate:"required"`
 }
 
+// GetScheduleResponse is response of Client.GetSchedule
 type GetScheduleResponse struct {
 	// ScheduleList obj[]
 	ScheduleList []GetScheduleResponseScheduleList `json:"schedule_list"  `
 }
 
+// GetScheduleResponseScheduleList is model of GetScheduleResponse.ScheduleList
 type GetScheduleResponseScheduleList struct {
 	// ScheduleID string
 	ScheduleID string `json:"schedule_id"  `
@@ -333,6 +354,7 @@ type GetScheduleResponseScheduleList struct {
 	CalenderID string `json:"cal_id"  `
 }
 
+// GetScheduleResponseScheduleListAttendees is model of GetScheduleResponseScheduleList.Attendees
 type GetScheduleResponseScheduleListAttendees struct {
 	// UserID string
 	UserID string `json:"userid"  `
@@ -340,6 +362,7 @@ type GetScheduleResponseScheduleListAttendees struct {
 	ResponseStatus int `json:"response_status"  `
 }
 
+// GetScheduleResponseScheduleListReminders is model of GetScheduleResponseScheduleList.Reminders
 type GetScheduleResponseScheduleListReminders struct {
 	// IsRemind int32
 	IsRemind int `json:"is_remind"  `
@@ -367,16 +390,19 @@ type GetScheduleResponseScheduleListReminders struct {
 	ExcludeTimeList []GetScheduleResponseScheduleListRemindersExcludeTimeList `json:"exclude_time_list"  `
 }
 
+// GetScheduleResponseScheduleListRemindersExcludeTimeList is model of GetScheduleResponseScheduleListReminders.ExcludeTimeList
 type GetScheduleResponseScheduleListRemindersExcludeTimeList struct {
 	// StartTime uint32
 	StartTime int `json:"start_time"  `
 }
 
+// DeleteScheduleRequest is request of Client.DeleteSchedule
 type DeleteScheduleRequest struct {
 	// ScheduleID 日程ID
 	ScheduleID string `json:"schedule_id"  validate:"required"`
 }
 
+// ScheduleGetByCalendarRequest is request of Client.ScheduleGetByCalendar
 type ScheduleGetByCalendarRequest struct {
 	// CalenderID 日历ID
 	CalenderID string `json:"cal_id"  validate:"required"`
@@ -386,11 +412,13 @@ type ScheduleGetByCalendarRequest struct {
 	Limit int `json:"limit"  `
 }
 
+// ScheduleGetByCalendarResponse is response of Client.ScheduleGetByCalendar
 type ScheduleGetByCalendarResponse struct {
 	// ScheduleList obj[]
 	ScheduleList []ScheduleGetByCalendarResponseScheduleList `json:"schedule_list"  `
 }
 
+// ScheduleGetByCalendarResponseScheduleList is model of ScheduleGetByCalendarResponse.ScheduleList
 type ScheduleGetByCalendarResponseScheduleList struct {
 	// ScheduleID string
 	ScheduleID string `json:"schedule_id"  `
@@ -418,6 +446,7 @@ type ScheduleGetByCalendarResponseScheduleList struct {
 	CalenderID string `json:"cal_id"  `
 }
 
+// ScheduleGetByCalendarResponseScheduleListAttendees is model of ScheduleGetByCalendarResponseScheduleList.Attendees
 type ScheduleGetByCalendarResponseScheduleListAttendees struct {
 	// UserID string
 	UserID string `json:"userid"  `
@@ -425,6 +454,7 @@ type ScheduleGetByCalendarResponseScheduleListAttendees struct {
 	ResponseStatus int `json:"response_status"  `
 }
 
+// ScheduleGetByCalendarResponseScheduleListReminders is model of ScheduleGetByCalendarResponseScheduleList.Reminders
 type ScheduleGetByCalendarResponseScheduleListReminders struct {
 	// IsRemind int32
 	IsRemind int `json:"is_remind"  `
