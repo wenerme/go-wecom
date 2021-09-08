@@ -133,7 +133,7 @@ type GetTagResponse struct {
 	// TagName 标签名
 	TagName string `json:"tagname"  `
 	// UserList 标签中包含的成员列表
-	UserList []GetTagUser `json:"userlist"  `
+	UserList []GetTagResponseUserItem `json:"userlist"  `
 	// PartyList 标签中包含的部门id列表
 	PartyList []int `json:"partylist"  `
 }
@@ -177,5 +177,5 @@ type DeleteTagUsersResponse struct {
 // ListTagResponse is response of Client.ListTag
 type ListTagResponse struct {
 	// TagList 标签列表
-	TagList []ListTag `json:"taglist"  `
+	TagList []ListTagResponseItem `json:"taglist"  `
 }

@@ -3,7 +3,8 @@ package wecom
 // RootDepartmentID is 1
 const RootDepartmentID = 1
 
-type SimpleListUser struct {
+// SimpleListUserResponseItem is item model of SimpleListUserResponse.UserList
+type SimpleListUserResponseItem struct {
 	// UserID 成员UserID。对应管理端的帐号
 	UserID string `json:"userid"`
 	// Name 成员名称，代开发自建应用需要管理员授权才返回；此字段从2019年12月30日起，对新创建第三方应用不再返回真实name，使用userid代替name，2020年6月30日起，对所有历史第三方应用不再返回真实name，使用userid代替name，后续第三方仅通讯录应用可获取，未返回名称的情况需要通过通讯录展示组件来展示名字
@@ -14,7 +15,8 @@ type SimpleListUser struct {
 	OpenUserID string `json:"open_userid"`
 }
 
-type ListUser struct {
+// ListUserResponseItem is item model of ListUserResponse.UserList
+type ListUserResponseItem struct {
 	// UserID 成员UserID。对应管理端的帐号
 	UserID string `json:"userid"`
 	// Name 成员名称；第三方不可获取，调用时返回userid以代替name；代开发自建应用需要管理员授权才返回；对于非第三方创建的成员，第三方通讯录应用也不可获取；未返回名称的情况需要通过通讯录展示组件来展示名字
@@ -89,7 +91,8 @@ type BatchGetResult struct {
 	ErrorMessage string `json:"errmsg"`
 }
 
-type ListDepartment struct {
+// ListDepartmentResponseItem is item model of ListDepartmentResponse.Department
+type ListDepartmentResponseItem struct {
 	// ID 创建的部门id
 	ID int `json:"id"`
 	// Name 部门名称，代开发自建应用需要管理员授权才返回；此字段从2019年12月30日起，对新创建第三方应用不再返回，2020年6月30日起，对所有历史第三方应用不再返回name，返回的name字段使用id代替，后续第三方仅通讯录应用可获取，未返回名称的情况需要通过通讯录展示组件来展示部门名称
@@ -102,7 +105,8 @@ type ListDepartment struct {
 	Order int `json:"order"`
 }
 
-type LinkSimpleListUser struct {
+// LinkSimpleListUserResponseItem is item model of LinkSimpleListUserResponse.UserList
+type LinkSimpleListUserResponseItem struct {
 	// UserID 成员UserID。对应管理端的帐号
 	UserID string `json:"userid"`
 	// Name 成员真实名称
@@ -113,7 +117,8 @@ type LinkSimpleListUser struct {
 	CorpID string `json:"corpid"`
 }
 
-type LinkListUser struct {
+// LinkListUserResponseItem is item model of LinkListUserResponse.UserList
+type LinkListUserResponseItem struct {
 	// UserID 成员UserID。对应管理端的帐号，企业内必须唯一。不区分大小写，长度为1~64个字节
 	UserID string `json:"userid"`
 	// Name 成员真实名称
@@ -134,7 +139,8 @@ type LinkListUser struct {
 	ExtAttr ExtAttrs `json:"extattr"`
 }
 
-type LinkListDepartment struct {
+// LinkListDepartmentResponseItem is item model of LinkListDepartmentResponse.DepartmentList
+type LinkListDepartmentResponseItem struct {
 	// DepartmentID 部门id
 	DepartmentID string `json:"department_id"`
 	// DepartmentName 部门名称
@@ -145,7 +151,8 @@ type LinkListDepartment struct {
 	Order int `json:"order"`
 }
 
-type LinkGetUser struct {
+// LinkGetUserResponseUserInfo is model of LinkGetUserResponse.UserInfo
+type LinkGetUserResponseUserInfo struct {
 	// UserID 成员UserID。对应管理端的帐号，企业内必须唯一。不区分大小写，长度为1~64个字节
 	UserID string `json:"userid"`
 	// Name 成员真实名称
@@ -166,14 +173,15 @@ type LinkGetUser struct {
 	ExtAttr ExtAttrs `json:"extattr"`
 }
 
-type GetTagUser struct {
+type GetTagResponseUserItem struct {
 	// UserID 成员帐号
 	UserID string `json:"userid"`
 	// Name 成员名称，代开发自建应用需要管理员授权才返回该字段；此字段从2019年12月30日起，对新创建第三方应用不再返回，2020年6月30日起，对所有历史第三方应用不再返回，后续第三方仅通讯录应用可获取，未返回名称的情况需要通过通讯录展示组件来展示名字
 	Name string `json:"name"`
 }
 
-type ListTag struct {
+// ListTagResponseItem is model of ListTagResponse.TagList
+type ListTagResponseItem struct {
 	// TagID 标签id
 	TagID int `json:"tagid"`
 	// TagName 标签名

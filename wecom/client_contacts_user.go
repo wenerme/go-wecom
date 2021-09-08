@@ -260,7 +260,7 @@ type SimpleListUserRequest struct {
 // SimpleListUserResponse is response of Client.SimpleListUser
 type SimpleListUserResponse struct {
 	// UserList 成员列表
-	UserList []SimpleListUser `json:"userlist"  `
+	UserList []SimpleListUserResponseItem `json:"userlist"  `
 }
 
 // ListUserRequest is request of Client.ListUser
@@ -274,7 +274,7 @@ type ListUserRequest struct {
 // ListUserResponse is response of Client.ListUser
 type ListUserResponse struct {
 	// UserList 成员列表
-	UserList []ListUser `json:"userlist"  `
+	UserList []ListUserResponseItem `json:"userlist"  `
 }
 
 // ConvertToOpenIDRequest is request of Client.ConvertToOpenID

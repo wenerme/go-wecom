@@ -107,7 +107,7 @@ type GetAgentResponse struct {
 // ListAgentResponse is response of Client.ListAgent
 type ListAgentResponse struct {
 	// AgentList AgentItemArray
-	AgentList []ListAgent `json:"agentlist"  `
+	AgentList []ListAgentResponseItem `json:"agentlist"  `
 }
 
 // SetWorkbenchTemplateRequest is request of Client.SetWorkbenchTemplate

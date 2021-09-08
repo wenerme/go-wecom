@@ -80,7 +80,7 @@ type LinkSimpleListUserRequest struct {
 // LinkSimpleListUserResponse is response of Client.LinkSimpleListUser
 type LinkSimpleListUserResponse struct {
 	// UserList 成员列表
-	UserList []LinkSimpleListUser `json:"userlist"  `
+	UserList []LinkSimpleListUserResponseItem `json:"userlist"  `
 }
 
 // LinkListUserRequest is request of Client.LinkListUser
@@ -94,7 +94,7 @@ type LinkListUserRequest struct {
 // LinkListUserResponse is response of Client.LinkListUser
 type LinkListUserResponse struct {
 	// UserList 成员列表，user包含的属性可在管理端配置
-	UserList []LinkListUser `json:"userlist"  `
+	UserList []LinkListUserResponseItem `json:"userlist"  `
 }
 
 // LinkListDepartmentRequest is request of Client.LinkListDepartment
@@ -106,7 +106,7 @@ type LinkListDepartmentRequest struct {
 // LinkListDepartmentResponse is response of Client.LinkListDepartment
 type LinkListDepartmentResponse struct {
 	// DepartmentList 部门列表
-	DepartmentList []LinkListDepartment `json:"department_list"  `
+	DepartmentList []LinkListDepartmentResponseItem `json:"department_list"  `
 }
 
 // LinkGetUserRequest is request of Client.LinkGetUser
@@ -118,7 +118,7 @@ type LinkGetUserRequest struct {
 // LinkGetUserResponse is response of Client.LinkGetUser
 type LinkGetUserResponse struct {
 	// UserInfo 成员的详细信息，user包含的属性可在管理端配置
-	UserInfo LinkGetUser `json:"user_info"  `
+	UserInfo LinkGetUserResponseUserInfo `json:"user_info"  `
 }
 
 // LinkGetPermListResponse is response of Client.LinkGetPermList

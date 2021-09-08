@@ -105,5 +105,5 @@ type ListDepartmentRequest struct {
 // ListDepartmentResponse is response of Client.ListDepartment
 type ListDepartmentResponse struct {
 	// Department 部门列表数据。
-	Department []ListDepartment `json:"department"  `
+	Department []ListDepartmentResponseItem `json:"department"  `
 }

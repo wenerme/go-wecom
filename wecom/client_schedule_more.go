@@ -32,7 +32,8 @@ type UpdateCalendar struct {
 	Shares []UpdateCalendarRequestShares `json:"shares"  `
 }
 
-type GetCalender struct {
+// GetCalendarResponseItem is item model of GetCalendarResponse.CalendarList
+type GetCalendarResponseItem struct {
 	// CalID 日历ID
 	CalID string `json:"cal_id"  `
 	// Organizer 指定的组织者userid

@@ -175,7 +175,7 @@ type GetCalendarRequest struct {
 // GetCalendarResponse is response of Client.GetCalendar
 type GetCalendarResponse struct {
 	// CalendarList 日历列表
-	CalendarList []GetCalender `json:"calendar_list"  `
+	CalendarList []GetCalendarResponseItem `json:"calendar_list"  `
 }
 
 // GetCalendarResponseShares is model of GetCalendarResponse.Shares

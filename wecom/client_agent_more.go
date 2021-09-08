@@ -2,21 +2,25 @@ package wecom
 
 import "encoding/xml"
 
+// GetAgentAllowUserInfos is model of GetAgentResponse.AllowUserInfos
 type GetAgentAllowUserInfos struct {
 	Users []struct {
 		UserID string `json:"userid"`
 	} `json:"user"`
 }
 
+// GetAgentAllowParties is model of GetAgentResponse.AllowParties
 type GetAgentAllowParties struct {
 	PartyIDs []int `json:"partyid"`
 }
 
+// GetAgentAllowTags is model of GetAgentResponse.AllowTags
 type GetAgentAllowTags struct {
 	TagIDs []int `json:"tagid"`
 }
 
-type ListAgent struct {
+// ListAgentResponseItem is model of ListAgentResponse.AgentList
+type ListAgentResponseItem struct {
 	AgentID       int    `json:"agentid"`
 	Name          string `json:"name"`
 	SquareLogoURL string `json:"square_logo_url"`
