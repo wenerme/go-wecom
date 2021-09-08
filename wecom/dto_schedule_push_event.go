@@ -2,7 +2,10 @@ package wecom
 
 import "encoding/xml"
 
-// ModifyCalendarPushEvent 当用户修改了API创建的日历时，触发该事件。
+// ModifyCalendarPushEvent 修改日历事件
+// 当用户修改了API创建的日历时，触发该事件。
+//
+// see https://open.work.weixin.qq.com/api/doc/90000/90135/93651
 type ModifyCalendarPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// CalID 日历ID
@@ -19,15 +22,20 @@ type ModifyCalendarPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (ModifyCalendarPushEvent) EventType() string {
 	return "modify_calendar" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (ModifyCalendarPushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// DeleteCalendarPushEvent 当组织者删除了API创建的日历时，触发该事件。
+// DeleteCalendarPushEvent 删除日历事件
+// 当组织者删除了API创建的日历时，触发该事件。
+//
+// see https://open.work.weixin.qq.com/api/doc/90000/90135/93651
 type DeleteCalendarPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// CalID 日历ID
@@ -44,15 +52,20 @@ type DeleteCalendarPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (DeleteCalendarPushEvent) EventType() string {
 	return "delete_calendar" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (DeleteCalendarPushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// AddSchedulePushEvent 当用户在API创建的日历上添加了日程后，触发该事件。
+// AddSchedulePushEvent 添加日程事件
+// 当用户在API创建的日历上添加了日程后，触发该事件。
+//
+// see https://open.work.weixin.qq.com/api/doc/90000/90135/93651
 type AddSchedulePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// CalID 日历ID
@@ -71,15 +84,20 @@ type AddSchedulePushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (AddSchedulePushEvent) EventType() string {
 	return "add_schedule" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (AddSchedulePushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// ModifySchedulePushEvent 当用户在API创建的日历上修改了日程后，触发该事件。
+// ModifySchedulePushEvent 修改日程事件
+// 当用户在API创建的日历上修改了日程后，触发该事件。
+//
+// see https://open.work.weixin.qq.com/api/doc/90000/90135/93651
 type ModifySchedulePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// CalID 日历ID
@@ -98,15 +116,20 @@ type ModifySchedulePushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (ModifySchedulePushEvent) EventType() string {
 	return "modify_schedule" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (ModifySchedulePushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// DeleteSchedulePushEvent 当用户在API创建的日历上删除了日程后，触发该事件。
+// DeleteSchedulePushEvent 删除日程事件
+// 当用户在API创建的日历上删除了日程后，触发该事件。
+//
+// see https://open.work.weixin.qq.com/api/doc/90000/90135/93651
 type DeleteSchedulePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// CalID 日历ID
@@ -125,10 +148,12 @@ type DeleteSchedulePushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (DeleteSchedulePushEvent) EventType() string {
 	return "delete_schedule" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (DeleteSchedulePushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }

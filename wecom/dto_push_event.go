@@ -2,9 +2,12 @@ package wecom
 
 import "encoding/xml"
 
-// SubscribePushEvent 小程序在管理端开启接收消息配置后，也可收到关注/取消关注事件本事件触发时机为：
+// SubscribePushEvent 成员关注及取消关注事件
+// 小程序在管理端开启接收消息配置后，也可收到关注/取消关注事件本事件触发时机为：
 //
 // 成员已经加入企业，管理员添加成员到应用可见范围(或移除可见范围)时成员已经在应用可见范围，成员加入(或退出)企业时
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type SubscribePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -23,15 +26,20 @@ type SubscribePushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (SubscribePushEvent) EventType() string {
 	return "subscribe" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (SubscribePushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// EnterAgentPushEvent 本事件在成员进入企业微信的应用时触发
+// EnterAgentPushEvent 进入应用
+// 本事件在成员进入企业微信的应用时触发
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type EnterAgentPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -50,15 +58,20 @@ type EnterAgentPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (EnterAgentPushEvent) EventType() string {
 	return "enter_agent" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (EnterAgentPushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// LocationPushEvent 成员同意上报地理位置后，每次在进入应用会话时都会上报一次地理位置。企业可以在管理端修改应用是否需要获取地理位置权限。
+// LocationPushEvent 上报地理位置
+// 成员同意上报地理位置后，每次在进入应用会话时都会上报一次地理位置。企业可以在管理端修改应用是否需要获取地理位置权限。
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type LocationPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -83,15 +96,20 @@ type LocationPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (LocationPushEvent) EventType() string {
 	return "LOCATION" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (LocationPushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// BatchJobResultPushEvent 本事件是成员在使用异步任务接口时，用于接收任务执行完毕的结果通知。
+// BatchJobResultPushEvent 异步任务完成事件推送
+// 本事件是成员在使用异步任务接口时，用于接收任务执行完毕的结果通知。
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type BatchJobResultPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// CreateTime 消息创建时间（整型）
@@ -114,15 +132,20 @@ type BatchJobResultPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (BatchJobResultPushEvent) EventType() string {
 	return "batch_job_result" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (BatchJobResultPushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// ChangeContactCreatePartyPushEvent 当企业通过通讯录助手开通通讯录权限后，成员的变更会通知给企业。变更的事件，将推送到企业微信管理端通讯录助手中的‘接收事件服务器’。由通讯录同步助手调用接口触发的变更事件不回调通讯录同步助手本身。管理员在管理端更改组织架构或者成员信息以及企业微信的成员在客户端变更自己的个人信息将推送给通讯录同步助手。第三方通讯录变更事件参见第三方回调协议
+// ChangeContactCreatePartyPushEvent 通讯录变更事件
+// 当企业通过通讯录助手开通通讯录权限后，成员的变更会通知给企业。变更的事件，将推送到企业微信管理端通讯录助手中的‘接收事件服务器’。由通讯录同步助手调用接口触发的变更事件不回调通讯录同步助手本身。管理员在管理端更改组织架构或者成员信息以及企业微信的成员在客户端变更自己的个人信息将推送给通讯录同步助手。第三方通讯录变更事件参见第三方回调协议
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type ChangeContactCreatePartyPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// ChangeType 此时固定为create_party
@@ -147,19 +170,25 @@ type ChangeContactCreatePartyPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (ChangeContactCreatePartyPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (ChangeContactCreatePartyPushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeContactCreatePartyPushEvent) EventChangeType() string {
 	return "create_party" //nolint:goconst
 }
 
-// ClickPushEvent 成员点击自定义菜单后，企业微信会把点击事件推送给应用。点击菜单弹出子菜单，不会产生上报。企业微信iPhone1.2.2/Android1.2.2版本开始支持菜单事件，旧版本企业微信成员点击后将没有回应，应用不能正常接收到事件推送。自定义菜单可以在管理后台的应用设置界面配置。
+// ClickPushEvent 菜单事件
+// 成员点击自定义菜单后，企业微信会把点击事件推送给应用。点击菜单弹出子菜单，不会产生上报。企业微信iPhone1.2.2/Android1.2.2版本开始支持菜单事件，旧版本企业微信成员点击后将没有回应，应用不能正常接收到事件推送。自定义菜单可以在管理后台的应用设置界面配置。
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type ClickPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -178,15 +207,20 @@ type ClickPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (ClickPushEvent) EventType() string {
 	return "click" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (ClickPushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// OpenApprovalChangePushEvent 本事件触发时机为：1.自建/第三方应用调用审批流程引擎发起申请之后，审批状态发生变化时2.自建/第三方应用调用审批流程引擎发起申请之后，在“审批中”状态，有任意审批人进行审批操作时
+// OpenApprovalChangePushEvent 审批状态通知事件
+// 本事件触发时机为：1.自建/第三方应用调用审批流程引擎发起申请之后，审批状态发生变化时2.自建/第三方应用调用审批流程引擎发起申请之后，在“审批中”状态，有任意审批人进行审批操作时
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type OpenApprovalChangePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -255,17 +289,22 @@ type OpenApprovalChangePushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (OpenApprovalChangePushEvent) EventType() string {
 	return "open_approval_change" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (OpenApprovalChangePushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// ShareAgentChangePushEvent 本事件触发时机为：
+// ShareAgentChangePushEvent 共享应用事件回调
+// 本事件触发时机为：
 //
 // 上级企业把自建应用共享给下级企业使用上级企业把下级企业从共享应用中移除
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type ShareAgentChangePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 上级企业应用的id，整型。可在应用的设置页面查看
@@ -282,15 +321,20 @@ type ShareAgentChangePushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (ShareAgentChangePushEvent) EventType() string {
 	return "share_agent_change" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (ShareAgentChangePushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }
 
-// TemplateCardEventPushEvent 应用下发的模板卡片消息，用户点击按钮之后触发此事件应用收到该事件之后，可以响应回复模板卡片更新消息
+// TemplateCardEventPushEvent 模板卡片事件推送
+// 应用下发的模板卡片消息，用户点击按钮之后触发此事件应用收到该事件之后，可以响应回复模板卡片更新消息
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90240
 type TemplateCardEventPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -319,10 +363,12 @@ type TemplateCardEventPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (TemplateCardEventPushEvent) EventType() string {
 	return "template_card_event" //nolint:goconst
 }
 
+// MessageType impl MessageModel
 func (TemplateCardEventPushEvent) MessageType() string {
 	return "event" //nolint:goconst
 }

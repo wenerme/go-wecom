@@ -15,6 +15,7 @@ type SuiteTicketPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (SuiteTicketPushEvent) EventType() string {
 	return "suite_ticket" //nolint:goconst
 }
@@ -32,6 +33,7 @@ type CreateAuthPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (CreateAuthPushEvent) EventType() string {
 	return "create_auth" //nolint:goconst
 }
@@ -49,6 +51,7 @@ type ChangeAuthPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeAuthPushEvent) EventType() string {
 	return "change_auth" //nolint:goconst
 }
@@ -66,6 +69,7 @@ type CancelAuthPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (CancelAuthPushEvent) EventType() string {
 	return "cancel_auth" //nolint:goconst
 }
@@ -110,10 +114,12 @@ type ChangeContactCreateUserPushEvent struct {
 	UserID string `xml:"UserID" json:"UserID"`
 }
 
+// EventType impl EventModel
 func (ChangeContactCreateUserPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeContactCreateUserPushEvent) EventChangeType() string {
 	return "create_user" //nolint:goconst
 }
@@ -160,10 +166,12 @@ type ChangeContactUpdateUserPushEvent struct {
 	UserID string `xml:"UserID" json:"UserID"`
 }
 
+// EventType impl EventModel
 func (ChangeContactUpdateUserPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeContactUpdateUserPushEvent) EventChangeType() string {
 	return "update_user" //nolint:goconst
 }
@@ -184,10 +192,12 @@ type ChangeContactDeleteUserPushEvent struct {
 	UserID string `xml:"UserID" json:"UserID"`
 }
 
+// EventType impl EventModel
 func (ChangeContactDeleteUserPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeContactDeleteUserPushEvent) EventChangeType() string {
 	return "delete_user" //nolint:goconst
 }
@@ -214,10 +224,12 @@ type ProviderChangeContactCreatePartyPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ProviderChangeContactCreatePartyPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ProviderChangeContactCreatePartyPushEvent) EventChangeType() string {
 	return "create_party" //nolint:goconst
 }
@@ -242,10 +254,12 @@ type ChangeContactUpdatePartyPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeContactUpdatePartyPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeContactUpdatePartyPushEvent) EventChangeType() string {
 	return "update_party" //nolint:goconst
 }
@@ -266,10 +280,12 @@ type ChangeContactDeletePartyPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeContactDeletePartyPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeContactDeletePartyPushEvent) EventChangeType() string {
 	return "delete_party" //nolint:goconst
 }
@@ -298,10 +314,12 @@ type ChangeContactUpdateTagPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeContactUpdateTagPushEvent) EventType() string {
 	return "change_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeContactUpdateTagPushEvent) EventChangeType() string {
 	return "update_tag" //nolint:goconst
 }

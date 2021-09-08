@@ -2,7 +2,10 @@ package wecom
 
 import "encoding/xml"
 
-// ChangeExternalContactAddExternalContactPushEvent 授权企业中配置了客户联系功能的成员添加外部联系人时，企业微信服务器会向应用的“指令回调URL”推送该事件
+// ChangeExternalContactAddExternalContactPushEvent 添加企业客户事件
+// 授权企业中配置了客户联系功能的成员添加外部联系人时，企业微信服务器会向应用的“指令回调URL”推送该事件
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalContactAddExternalContactPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -25,15 +28,20 @@ type ChangeExternalContactAddExternalContactPushEvent struct {
 	WelcomeCode string `xml:"WelcomeCode" json:"WelcomeCode"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalContactAddExternalContactPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalContactAddExternalContactPushEvent) EventChangeType() string {
 	return "add_external_contact" //nolint:goconst
 }
 
-// ChangeExternalContactEditExternalContactPushEvent 授权企业中配置了客户联系功能的成员编辑外部联系人的备注信息(不包括备注手机号码)或企业标签时，企业微信服务器会向应用的“指令回调URL”推送该事件，但仅修改外部联系人备注手机号时不会触发回调。
+// ChangeExternalContactEditExternalContactPushEvent 编辑企业客户事件
+// 授权企业中配置了客户联系功能的成员编辑外部联系人的备注信息(不包括备注手机号码)或企业标签时，企业微信服务器会向应用的“指令回调URL”推送该事件，但仅修改外部联系人备注手机号时不会触发回调。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalContactEditExternalContactPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -52,15 +60,20 @@ type ChangeExternalContactEditExternalContactPushEvent struct {
 	UserID string `xml:"UserID" json:"UserID"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalContactEditExternalContactPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalContactEditExternalContactPushEvent) EventChangeType() string {
 	return "edit_external_contact" //nolint:goconst
 }
 
-// ChangeExternalContactAddHalfExternalContactPushEvent 外部联系人添加了配置了客户联系功能且开启了免验证的成员时（此时成员尚未确认添加对方为好友），企业微信服务器会向应用的“指令回调URL”推送该事件
+// ChangeExternalContactAddHalfExternalContactPushEvent 外部联系人免验证添加成员事件
+// 外部联系人添加了配置了客户联系功能且开启了免验证的成员时（此时成员尚未确认添加对方为好友），企业微信服务器会向应用的“指令回调URL”推送该事件
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalContactAddHalfExternalContactPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -83,15 +96,20 @@ type ChangeExternalContactAddHalfExternalContactPushEvent struct {
 	WelcomeCode string `xml:"WelcomeCode" json:"WelcomeCode"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalContactAddHalfExternalContactPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalContactAddHalfExternalContactPushEvent) EventChangeType() string {
 	return "add_half_external_contact" //nolint:goconst
 }
 
-// ChangeExternalContactDelExternalContactPushEvent 授权企业中配置了客户联系功能的成员删除外部联系人时，企业微信服务器会向应用的“指令回调URL”推送该事件
+// ChangeExternalContactDelExternalContactPushEvent 删除企业客户事件
+// 授权企业中配置了客户联系功能的成员删除外部联系人时，企业微信服务器会向应用的“指令回调URL”推送该事件
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalContactDelExternalContactPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -110,15 +128,20 @@ type ChangeExternalContactDelExternalContactPushEvent struct {
 	UserID string `xml:"UserID" json:"UserID"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalContactDelExternalContactPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalContactDelExternalContactPushEvent) EventChangeType() string {
 	return "del_external_contact" //nolint:goconst
 }
 
-// ChangeExternalContactDelFollowUserPushEvent 授权企业中配置了客户联系功能的成员被外部联系人删除时，企业微信服务器会向应用的“指令回调URL”推送该事件
+// ChangeExternalContactDelFollowUserPushEvent 删除跟进成员事件
+// 授权企业中配置了客户联系功能的成员被外部联系人删除时，企业微信服务器会向应用的“指令回调URL”推送该事件
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalContactDelFollowUserPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -137,15 +160,20 @@ type ChangeExternalContactDelFollowUserPushEvent struct {
 	UserID string `xml:"UserID" json:"UserID"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalContactDelFollowUserPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalContactDelFollowUserPushEvent) EventChangeType() string {
 	return "del_follow_user" //nolint:goconst
 }
 
-// ChangeExternalContactTransferFailPushEvent 企业将客户分配给新的成员接替后，当客户添加失败时，企业微信服务器会向应用的“指令回调URL”推送该事件
+// ChangeExternalContactTransferFailPushEvent 客户接替失败事件
+// 企业将客户分配给新的成员接替后，当客户添加失败时，企业微信服务器会向应用的“指令回调URL”推送该事件
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalContactTransferFailPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -166,15 +194,20 @@ type ChangeExternalContactTransferFailPushEvent struct {
 	UserID string `xml:"UserID" json:"UserID"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalContactTransferFailPushEvent) EventType() string {
 	return "change_external_contact" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalContactTransferFailPushEvent) EventChangeType() string {
 	return "transfer_fail" //nolint:goconst
 }
 
-// ChangeExternalChatCreatePushEvent 有新增客户群时，回调该事件。收到该事件后，企业可以调用获取客户群详情接口获取客户群详情。
+// ChangeExternalChatCreatePushEvent 客户群创建事件
+// 有新增客户群时，回调该事件。收到该事件后，企业可以调用获取客户群详情接口获取客户群详情。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalChatCreatePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -191,15 +224,20 @@ type ChangeExternalChatCreatePushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalChatCreatePushEvent) EventType() string {
 	return "change_external_chat" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalChatCreatePushEvent) EventChangeType() string {
 	return "create" //nolint:goconst
 }
 
-// ChangeExternalChatUpdatePushEvent 客户群被修改后（群名变更，群成员增加或移除，群公告变更），回调该事件。收到该事件后，企业需要再调用获取客户群详情接口，以获取最新的群详情。
+// ChangeExternalChatUpdatePushEvent 客户群变更事件
+// 客户群被修改后（群名变更，群成员增加或移除，群公告变更），回调该事件。收到该事件后，企业需要再调用获取客户群详情接口，以获取最新的群详情。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalChatUpdatePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -224,15 +262,20 @@ type ChangeExternalChatUpdatePushEvent struct {
 	UpdateDetail string `xml:"UpdateDetail" json:"UpdateDetail"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalChatUpdatePushEvent) EventType() string {
 	return "change_external_chat" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalChatUpdatePushEvent) EventChangeType() string {
 	return "update" //nolint:goconst
 }
 
-// ChangeExternalChatDismissPushEvent 当客户群被群主解散后，回调该事件。
+// ChangeExternalChatDismissPushEvent 客户群解散事件
+// 当客户群被群主解散后，回调该事件。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalChatDismissPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -249,15 +292,20 @@ type ChangeExternalChatDismissPushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalChatDismissPushEvent) EventType() string {
 	return "change_external_chat" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalChatDismissPushEvent) EventChangeType() string {
 	return "dismiss" //nolint:goconst
 }
 
-// ChangeExternalTagCreatePushEvent 企业/管理员创建客户标签/标签组时，企业微信服务器将向具有企业客户权限的第三方应用指令回调URL回调此事件。收到该事件后，第三方服务商需要调用获取企业标签库来获取标签/标签组的详细信息。
+// ChangeExternalTagCreatePushEvent 企业客户标签创建事件
+// 企业/管理员创建客户标签/标签组时，企业微信服务器将向具有企业客户权限的第三方应用指令回调URL回调此事件。收到该事件后，第三方服务商需要调用获取企业标签库来获取标签/标签组的详细信息。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalTagCreatePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -276,15 +324,20 @@ type ChangeExternalTagCreatePushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalTagCreatePushEvent) EventType() string {
 	return "change_external_tag" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalTagCreatePushEvent) EventChangeType() string {
 	return "create" //nolint:goconst
 }
 
-// ChangeExternalTagUpdatePushEvent 当企业客户标签/标签组被修改时，企业微信服务器将向具有企业客户权限的第三方应用指令回调URL回调此事件。收到该事件后，第三方服务商需要调用获取企业标签库来获取标签/标签组的详细信息。
+// ChangeExternalTagUpdatePushEvent 企业客户标签变更事件
+// 当企业客户标签/标签组被修改时，企业微信服务器将向具有企业客户权限的第三方应用指令回调URL回调此事件。收到该事件后，第三方服务商需要调用获取企业标签库来获取标签/标签组的详细信息。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalTagUpdatePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -303,15 +356,20 @@ type ChangeExternalTagUpdatePushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalTagUpdatePushEvent) EventType() string {
 	return "change_external_tag" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalTagUpdatePushEvent) EventChangeType() string {
 	return "update" //nolint:goconst
 }
 
-// ChangeExternalTagDeletePushEvent 当企业客户标签/标签组被删除改时，企业微信服务器将向具有企业客户权限的第三方应用指令回调URL回调此事件。删除标签组时，该标签组下的所有标签将被同时删除，但不会进行回调。
+// ChangeExternalTagDeletePushEvent 企业客户标签删除事件
+// 当企业客户标签/标签组被删除改时，企业微信服务器将向具有企业客户权限的第三方应用指令回调URL回调此事件。删除标签组时，该标签组下的所有标签将被同时删除，但不会进行回调。
+//
+// see https://work.weixin.qq.com/api/doc/90001/90143/92277
 type ChangeExternalTagDeletePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AuthCorpID 授权企业的CorpID
@@ -330,10 +388,12 @@ type ChangeExternalTagDeletePushEvent struct {
 	Timestamp int64 `xml:"TimeStamp" json:"TimeStamp"`
 }
 
+// EventType impl EventModel
 func (ChangeExternalTagDeletePushEvent) EventType() string {
 	return "change_external_tag" //nolint:goconst
 }
 
+// EventChangeType impl EventChangeModel
 func (ChangeExternalTagDeletePushEvent) EventChangeType() string {
 	return "delete" //nolint:goconst
 }

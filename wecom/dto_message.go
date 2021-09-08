@@ -2,7 +2,9 @@ package wecom
 
 import "encoding/xml"
 
-// MessageTextPushEvent 消息示例：
+// MessageTextPushEvent 文本消息
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90239
 type MessageTextPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -21,15 +23,19 @@ type MessageTextPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (e MessageTextPushEvent) EventType() string {
 	return e.MessageType()
 }
 
+// MessageType impl MessageModel
 func (MessageTextPushEvent) MessageType() string {
 	return "text" //nolint:goconst
 }
 
-// MessageImagePushEvent 消息示例：
+// MessageImagePushEvent 图片消息
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90239
 type MessageImagePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -50,15 +56,19 @@ type MessageImagePushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (e MessageImagePushEvent) EventType() string {
 	return e.MessageType()
 }
 
+// MessageType impl MessageModel
 func (MessageImagePushEvent) MessageType() string {
 	return "image" //nolint:goconst
 }
 
-// MessageVoicePushEvent 消息示例：
+// MessageVoicePushEvent 语音消息
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90239
 type MessageVoicePushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -79,15 +89,19 @@ type MessageVoicePushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (e MessageVoicePushEvent) EventType() string {
 	return e.MessageType()
 }
 
+// MessageType impl MessageModel
 func (MessageVoicePushEvent) MessageType() string {
 	return "voice" //nolint:goconst
 }
 
-// MessageVideoPushEvent 消息示例：
+// MessageVideoPushEvent 视频消息
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90239
 type MessageVideoPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -108,15 +122,19 @@ type MessageVideoPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (e MessageVideoPushEvent) EventType() string {
 	return e.MessageType()
 }
 
+// MessageType impl MessageModel
 func (MessageVideoPushEvent) MessageType() string {
 	return "video" //nolint:goconst
 }
 
-// MessageLocationPushEvent 消息示例：
+// MessageLocationPushEvent 位置消息
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90239
 type MessageLocationPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -143,15 +161,19 @@ type MessageLocationPushEvent struct {
 	ToUsername string `xml:"ToUserName" json:"ToUserName"`
 }
 
+// EventType impl EventModel
 func (e MessageLocationPushEvent) EventType() string {
 	return e.MessageType()
 }
 
+// MessageType impl MessageModel
 func (MessageLocationPushEvent) MessageType() string {
 	return "location" //nolint:goconst
 }
 
-// MessageLinkPushEvent 消息示例：
+// MessageLinkPushEvent 链接消息
+//
+// see https://work.weixin.qq.com/api/doc/90000/90135/90239
 type MessageLinkPushEvent struct {
 	XMLName xml.Name `xml:"xml" json:"-"`
 	// AgentID 企业应用的id，整型。可在应用的设置页面查看
@@ -176,10 +198,12 @@ type MessageLinkPushEvent struct {
 	URL string `xml:"Url" json:"Url"`
 }
 
+// EventType impl EventModel
 func (e MessageLinkPushEvent) EventType() string {
 	return e.MessageType()
 }
 
+// MessageType impl MessageModel
 func (MessageLinkPushEvent) MessageType() string {
 	return "link" //nolint:goconst
 }
