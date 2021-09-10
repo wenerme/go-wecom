@@ -2,6 +2,7 @@ package wecom
 
 func init() {
 	registerClientAPIPath("/cgi-bin/user/create", "CreateUser", cRef.CreateUser)
+	registerClientAPIPath("/cgi-bin/user/get", "GetUser", cRef.GetUser)
 	registerClientAPIPath("/cgi-bin/user/update", "UpdateUser", cRef.UpdateUser)
 	registerClientAPIPath("/cgi-bin/user/delete", "DeleteUser", cRef.DeleteUser)
 	registerClientAPIPath("/cgi-bin/user/batchdelete", "BatchDeleteUser", cRef.BatchDeleteUser)
