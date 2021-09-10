@@ -3,6 +3,7 @@ package wecom
 import (
 	"encoding/json"
 	"fmt"
+	mathrand "math/rand"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -22,7 +23,7 @@ type TestServer struct {
 	mockAgentTicket   string
 	mockProviderToken string
 	mockCorpID        string
-	mockAgentID       string
+	mockAgentID       int
 	mockCorpSecret    string
 	Mux               *chi.Mux
 	Server            *httptest.Server
@@ -36,7 +37,7 @@ func NewTestServer() *TestServer {
 		mockAgentTicket:   "AgentTicket" + createNonce(),
 		mockProviderToken: "ProviderToken" + createNonce(),
 		mockCorpID:        "CorpID" + createNonce(),
-		mockAgentID:       "AgentID" + createNonce(),
+		mockAgentID:       mathrand.Int(), //nolint:gosec
 		mockCorpSecret:    "CorpSecret" + createNonce(),
 		Mux:               chi.NewMux(),
 	}

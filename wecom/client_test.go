@@ -2,6 +2,7 @@ package wecom
 
 import (
 	"fmt"
+	"math/rand"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -25,7 +26,7 @@ func TestNewClient(t *testing.T) {
 	mockAgentTicket := "AgentTicket" + createNonce()
 	mockProviderToken := "ProviderToken" + createNonce()
 	mockCorpID := "CorpID" + createNonce()
-	mockAgentID := "AgentID" + createNonce()
+	mockAgentID := rand.Int() //nolint:gosec
 	mockCorpSecret := "CorpSecret" + createNonce()
 	mockSuiteID := "SuiteID" + createNonce()
 	mockSuiteSecret := "SuiteSecret" + createNonce()
@@ -132,15 +133,15 @@ func TestNewClient(t *testing.T) {
 		TokenProvider: &TokenCache{Store: store},
 	})
 	// use perm code in store
-	assert.NoError(t, store.Set(&GenericToken{
+	assert.NoError(t, store.Set(&GenericSecret{
 		OwnerID: joinIds(mockSuiteID, mockAuthCorpID),
-		Type:    TokenTypeAuthCorpPermanentCode,
-		Token:   mockPermCode,
+		Type:    SecretTypeAuthCorpPermanentCode,
+		Secret:  mockPermCode,
 	}))
-	assert.NoError(t, store.Set(&GenericToken{
+	assert.NoError(t, store.Set(&GenericSecret{
 		OwnerID: mockSuiteID,
-		Type:    TokenTypeSuiteTicket,
-		Token:   mockSuiteTicket,
+		Type:    SecretTypeSuiteTicket,
+		Secret:  mockSuiteTicket,
 	}))
 	// client.Request.Options = append(client.Request.Options, req.DebugHook(nil))
 	client.Request.BaseURL = server.URL
@@ -171,10 +172,10 @@ func TestNewClient(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, mockSuiteToken, suiteAccessToken)
 
-	preAuthCode, err := client.TokenProvider.Refresh(&GenericToken{
+	preAuthCode, err := client.TokenProvider.Refresh(&GenericSecret{
 		OwnerID: mockSuiteID,
-		Type:    TokenTypeSuitePreAuthCode,
-	}, func() (OpaqueToken, error) {
+		Type:    SecretTypeSuitePreAuthCode,
+	}, func() (OpaqueSecret, error) {
 		return client.ProviderGetPreAuthCode(nil)
 	})
 	assert.NoError(t, err)

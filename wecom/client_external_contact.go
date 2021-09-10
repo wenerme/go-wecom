@@ -329,10 +329,11 @@ func (c *Client) ListGroupChat(r *ListGroupChatRequest, opts ...interface{}) (ou
 // 通过客户群ID，获取详情。包括群名、群成员列表、群成员入群时间、入群方式。（客户群是由具有客户群使用权限的成员创建的外部群）
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92707
-func (c *Client) GetGroupChat(opts ...interface{}) (out GetGroupChatResponse, err error) {
+func (c *Client) GetGroupChat(r *GetGroupChatRequest, opts ...interface{}) (out GetGroupChatResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/get",
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1139,6 +1140,14 @@ type ListGroupChatResponseGroupChatList struct {
 	ChatID string `json:"chat_id"  `
 	// Status 客户群跟进状态。0 - 跟进人正常1 - 跟进人离职2 - 离职继承中3 - 离职继承完成
 	Status int `json:"status"  `
+}
+
+// GetGroupChatRequest is request of Client.GetGroupChat
+type GetGroupChatRequest struct {
+	// ChatID 客户群ID
+	ChatID string `json:"chat_id"  validate:"required"`
+	// NeedName 是否需要返回群成员的名字group_chat.member_list.name。0-不返回；1-返回。默认不返回
+	NeedName int `json:"need_name"  `
 }
 
 // GetGroupChatResponse is response of Client.GetGroupChat

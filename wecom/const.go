@@ -53,7 +53,19 @@ const (
 	ExternalContactSourceTypeWechatContact           ExternalContactSourceType = 6   // 微信联系人
 	ExternalContactSourceTypeWechatFriendRequest     ExternalContactSourceType = 7   // 来自微信的添加好友申请
 	ExternalContactSourceTypeProviderCustomerService ExternalContactSourceType = 8   // 安装第三方应用时自动添加的客服人员
-	ExternalContactSourceTypeSearchEMail             ExternalContactSourceType = 9   // 搜索邮箱
+	ExternalContactSourceTypeSearchEmail             ExternalContactSourceType = 9   // 搜索邮箱
 	ExternalContactSourceTypeInternalShare           ExternalContactSourceType = 201 // 内部成员共享
 	ExternalContactSourceTypeManagerAssignment       ExternalContactSourceType = 202 // 管理员/负责人分配
+)
+
+// ExternalContactGroupChatStatusType status type of external group chat
+// used by ListGroupChatResponseGroupChatList.Status
+//
+type ExternalContactGroupChatStatusType int
+
+const (
+	ExternalContactGroupChatStatusTypeNormal       ExternalContactGroupChatStatusType = 0 // 跟进人正常
+	ExternalContactGroupChatStatusTypeResign       ExternalContactGroupChatStatusType = 1 // 跟进人离职
+	ExternalContactGroupChatStatusTypeTransferring ExternalContactGroupChatStatusType = 2 // 离职继承中
+	ExternalContactGroupChatStatusTypeTransferred  ExternalContactGroupChatStatusType = 3 // 离职继承完成
 )

@@ -9,12 +9,12 @@ import (
 	"github.com/pkg/errors"
 )
 
-type OpaqueToken interface {
-	GetToken() string
+type OpaqueSecret interface {
+	GetSecret() string
 	GetExpiresIn() int
 }
 
-func (r ProviderTokenResponse) GetToken() string {
+func (r ProviderTokenResponse) GetSecret() string {
 	return r.ProviderAccessToken
 }
 
@@ -22,7 +22,7 @@ func (r ProviderTokenResponse) GetExpiresIn() int {
 	return r.ExpiresIn
 }
 
-func (r TokenResponse) GetToken() string {
+func (r TokenResponse) GetSecret() string {
 	return r.AccessToken
 }
 
@@ -30,7 +30,7 @@ func (r TokenResponse) GetExpiresIn() int {
 	return r.ExpiresIn
 }
 
-func (r TicketResponse) GetToken() string {
+func (r TicketResponse) GetSecret() string {
 	return r.Ticket
 }
 
@@ -38,7 +38,7 @@ func (r TicketResponse) GetExpiresIn() int {
 	return r.ExpiresIn
 }
 
-func (r SuiteTokenResponse) GetToken() string {
+func (r SuiteTokenResponse) GetSecret() string {
 	return r.SuiteAccessToken
 }
 
@@ -46,7 +46,7 @@ func (r SuiteTokenResponse) GetExpiresIn() int {
 	return r.ExpiresIn
 }
 
-func (r PreAuthCodeResponse) GetToken() string {
+func (r PreAuthCodeResponse) GetSecret() string {
 	return r.PreAuthCode
 }
 
@@ -54,7 +54,7 @@ func (r PreAuthCodeResponse) GetExpiresIn() int {
 	return r.ExpiresIn
 }
 
-func (r ProviderGetCorpTokenResponse) GetToken() string {
+func (r ProviderGetCorpTokenResponse) GetSecret() string {
 	return r.AccessToken
 }
 
@@ -62,39 +62,39 @@ func (r ProviderGetCorpTokenResponse) GetExpiresIn() int {
 	return r.ExpiresIn
 }
 
-type GenericToken struct {
+type GenericSecret struct {
 	Type      string `json:",omitempty"` //
 	OwnerID   string `json:",omitempty"` // if owner change, this token become invalid
 	Depends   string `json:",omitempty"` // extra depends
-	Token     string `json:",omitempty"` // token content
+	Secret    string `json:",omitempty"` // secret content
 	ExpiresIn int    `json:",omitempty"` // valid in seconds - 0 means no expire
 	ExpiresAt int64  `json:",omitempty"` // expires unix timestamp
 }
 
-func (t *GenericToken) IsValid() bool {
-	if t == nil || t.Token == "" {
+func (t *GenericSecret) IsValid() bool {
+	if t == nil || t.Secret == "" {
 		return false
 	}
 	return t.ExpiresIn == 0 || t.ExpiresAt >= timeNow().Unix()
 }
 
-func (t GenericToken) GetToken() string {
-	return t.Token
+func (t GenericSecret) GetSecret() string {
+	return t.Secret
 }
 
-func (t GenericToken) GetExpiresAt() int64 {
+func (t GenericSecret) GetExpiresAt() int64 {
 	return t.ExpiresAt
 }
 
-func (t GenericToken) GetExpiresIn() int {
+func (t GenericSecret) GetExpiresIn() int {
 	return t.ExpiresIn
 }
 
-func (t *GenericToken) SetFromToken(token OpaqueToken) {
+func (t *GenericSecret) SetFromToken(token OpaqueSecret) {
 	if token == nil {
 		return
 	}
-	t.Token = token.GetToken()
+	t.Secret = token.GetSecret()
 	t.ExpiresIn = token.GetExpiresIn()
 	t.ExpiresAt = 0
 	if i, ok := token.(interface {
@@ -115,7 +115,7 @@ var (
 )
 
 // Refresh token, return changed and error
-func (t *GenericToken) Refresh(exp *GenericToken, f func() (OpaqueToken, error)) (bool, error) {
+func (t *GenericSecret) Refresh(exp *GenericSecret, f func() (OpaqueSecret, error)) (bool, error) {
 	var changed bool
 	if t.ShouldRefresh(exp) {
 		token, err := f()
@@ -137,9 +137,9 @@ func (t *GenericToken) Refresh(exp *GenericToken, f func() (OpaqueToken, error))
 	return changed, nil
 }
 
-func (t *GenericToken) ShouldRefresh(exp *GenericToken) bool {
+func (t *GenericSecret) ShouldRefresh(exp *GenericSecret) bool {
 	switch {
-	case t == nil || t.Token == "":
+	case t == nil || t.Secret == "":
 	case t.OwnerID != exp.OwnerID || t.Depends != exp.Depends:
 	case t.ExpiresIn > 0 && t.ExpiresAt-int64(.2*float64(t.ExpiresIn)) <= timeNow().Unix():
 		// 80% expires_in
@@ -153,7 +153,7 @@ type TokenCache struct {
 	Store TokenLoadStore
 }
 
-func keyOfGenericToken(t *GenericToken) (k string, err error) {
+func keyOfGenericToken(t *GenericSecret) (k string, err error) {
 	if t.Type == "" {
 		return "", errors.New("token need type")
 	}
@@ -164,24 +164,24 @@ func keyOfGenericToken(t *GenericToken) (k string, err error) {
 	return
 }
 
-func (tc *TokenCache) Refresh(exp *GenericToken, f func() (OpaqueToken, error)) (string, error) {
+func (tc *TokenCache) Refresh(exp *GenericSecret, f func() (OpaqueSecret, error)) (string, error) {
 	token := *exp
-	_, err := tc.Store.Load(&token, func(last *GenericToken) (out *GenericToken, changed bool, err error) {
+	_, err := tc.Store.Load(&token, func(last *GenericSecret) (out *GenericSecret, changed bool, err error) {
 		if last == nil {
-			last = &GenericToken{}
+			last = &GenericSecret{}
 		}
 		changed, err = last.Refresh(exp, f)
 		return last, changed, err
 	})
-	return token.Token, err
+	return token.Secret, err
 }
 
 type TokenProvider interface {
-	Refresh(exp *GenericToken, f func() (OpaqueToken, error)) (string, error)
+	Refresh(exp *GenericSecret, f func() (OpaqueSecret, error)) (string, error)
 }
 
 type TokenLoadStore interface {
-	Load(out *GenericToken, load func(last *GenericToken) (out *GenericToken, changed bool, err error)) (changed bool, err error)
+	Load(out *GenericSecret, load func(last *GenericSecret) (out *GenericSecret, changed bool, err error)) (changed bool, err error)
 }
 
 type SyncMapStore struct {
@@ -191,7 +191,7 @@ type SyncMapStore struct {
 
 type cacheEntry struct {
 	Key  string
-	Data GenericToken
+	Data GenericSecret
 }
 
 func (s *SyncMapStore) Restore(data []byte) error {
@@ -215,7 +215,7 @@ func (s *SyncMapStore) Dump() []byte {
 	s.m.Range(func(key, value interface{}) bool {
 		e := &cacheEntry{
 			Key:  key.(string),
-			Data: value.(GenericToken),
+			Data: value.(GenericSecret),
 		}
 		if e.Data.IsValid() {
 			a = append(a, e)
@@ -229,12 +229,12 @@ func (s *SyncMapStore) Dump() []byte {
 	return out
 }
 
-func (s *SyncMapStore) Set(in *GenericToken) (err error) {
+func (s *SyncMapStore) Set(in *GenericSecret) (err error) {
 	key, err := keyOfGenericToken(in)
 	if err != nil {
 		return err
 	}
-	if in.Token == "" {
+	if in.Secret == "" {
 		s.m.Delete(key)
 		return
 	}
@@ -244,7 +244,7 @@ func (s *SyncMapStore) Set(in *GenericToken) (err error) {
 	return
 }
 
-func (s *SyncMapStore) Load(out *GenericToken, loadFunc func(last *GenericToken) (out *GenericToken, changed bool, err error)) (changed bool, err error) {
+func (s *SyncMapStore) Load(out *GenericSecret, loadFunc func(last *GenericSecret) (out *GenericSecret, changed bool, err error)) (changed bool, err error) {
 	key, err := keyOfGenericToken(out)
 	if err != nil {
 		return false, err
@@ -252,9 +252,9 @@ func (s *SyncMapStore) Load(out *GenericToken, loadFunc func(last *GenericToken)
 
 	// no exclusive lock here
 	load, loaded := s.m.Load(key)
-	var data *GenericToken
+	var data *GenericSecret
 	if loaded {
-		t := load.(GenericToken)
+		t := load.(GenericSecret)
 		data = &t
 	}
 
@@ -272,7 +272,7 @@ func (s *SyncMapStore) Load(out *GenericToken, loadFunc func(last *GenericToken)
 	return c, err
 }
 
-func (s *SyncMapStore) Get(out *GenericToken) (found bool, err error) {
+func (s *SyncMapStore) Get(out *GenericSecret) (found bool, err error) {
 	key, err := keyOfGenericToken(out)
 	if err != nil {
 		return false, err
@@ -281,7 +281,7 @@ func (s *SyncMapStore) Get(out *GenericToken) (found bool, err error) {
 	var load interface{}
 	load, found = s.m.Load(key)
 	if found {
-		*out = load.(GenericToken)
+		*out = load.(GenericSecret)
 	}
 	return
 }

@@ -15,7 +15,7 @@ type JsSdkConfig struct {
 
 type JsSdkAgentConfig struct {
 	CorpID    string `json:"corpid"`
-	AgentID   string `json:"agentid"`
+	AgentID   int    `json:"agentid"`
 	Timestamp int64  `json:"timestamp"`
 	Nonce     string `json:"nonceStr"`
 	Signature string `json:"signature"`

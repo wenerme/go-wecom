@@ -52,7 +52,7 @@ func ExampleNewClient() {
 
 	client := wecom.NewClient(wecom.Conf{
 		CorpID:     "",
-		AgentID:    "",
+		AgentID:    0,
 		CorpSecret: "",
 		// 不配置默认使用 内存缓存
 		TokenProvider: &wecom.TokenCache{
