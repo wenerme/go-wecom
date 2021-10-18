@@ -1,5 +1,7 @@
 package wecom
 
+import "strconv"
+
 // DefaultAPI default client base url
 const DefaultAPI = "https://qyapi.weixin.qq.com"
 
@@ -69,3 +71,24 @@ const (
 	ExternalContactGroupChatStatusTypeTransferring ExternalContactGroupChatStatusType = 2 // 离职继承中
 	ExternalContactGroupChatStatusTypeTransferred  ExternalContactGroupChatStatusType = 3 // 离职继承完成
 )
+
+// AgentAuthType type of agent auth
+// used by ProviderGetLoginInfoResponse.Agent
+//
+type AgentAuthType int
+
+const (
+	AgentAuthTypeUsage = 0
+	AgentAuthTypeAdmin = 1
+)
+
+func (v AgentAuthType) String() string {
+	switch v {
+	case 0:
+		return "usage"
+	case 1:
+		return "admin"
+	default:
+		return strconv.Itoa(int(v))
+	}
+}

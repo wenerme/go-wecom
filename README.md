@@ -120,7 +120,23 @@ client := wecom.NewClient(wecom.Conf{
 * [ ] 电子发票
 
 <details>
-<summary>通讯录管理</summary>
+<summary>应用授权 - 100%</summary>
+
+* [x] 获取第三方应用凭证
+* [x] 获取预授权码
+* [x] 设置授权配置
+* [x] 获取企业永久授权码
+* [x] 获取企业永久授权码
+* [x] 获取企业授权信息
+* [x] 获取企业凭证
+* [x] 获取应用的管理员列表
+* [x] 回调接口
+
+</details>
+
+
+<details>
+<summary>通讯录管理 - 100%</summary>
 
 * [x] 成员管理
   - [x] 创建成员
@@ -160,7 +176,7 @@ client := wecom.NewClient(wecom.Conf{
 </details>
 
 <details>
-<summary>客户联系</summary>
+<summary>客户联系 - 100%</summary>
 
 * [x] 成员对外信息
 * [x] 客户管理
@@ -188,14 +204,25 @@ client := wecom.NewClient(wecom.Conf{
 </details>
 
 <details>
-<summary>身份验证</summary>
+<summary>身份验证 - 100%</summary>
 
 * [x] 获取访问用户身份
 
 </details>
 
 <details>
-<summary>应用管理</summary>
+<summary>推广二维码</summary>
+
+* [ ] 获取注册码
+* [ ] 查询注册状态
+* [ ] 设置授权应用可见范围
+* [ ] 设置通讯录同步完成
+* [ ] 注册完成回调事件
+
+</details>
+
+<details>
+<summary>应用管理 - 100%</summary>
 
 * [x] 获取应用
 * [x] 设置应用
@@ -207,7 +234,7 @@ client := wecom.NewClient(wecom.Conf{
 </details>
 
 <details>
-<summary>消息推送</summary>
+<summary>消息推送 - 100%</summary>
 
 * [x] 发送应用消息
 * [x] 接收消息
@@ -279,7 +306,7 @@ client := wecom.NewClient(wecom.Conf{
 
 
 <details>
-<summary>效率工具</summary>
+<summary>效率工具 - 20%</summary>
 
 * [x] 日程
   - [x] 日历接口
@@ -325,7 +352,7 @@ client := wecom.NewClient(wecom.Conf{
 
 
 <details>
-<summary>会话内容存档</summary>
+<summary>会话内容存档 - 100%</summary>
 
 * [x] 获取会话内容存档开启成员列表
 * [x] 获取会话同意情况
