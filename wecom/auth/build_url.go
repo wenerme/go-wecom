@@ -11,7 +11,7 @@ type BuildOAuth2URLOptions struct {
 	AppID        string `json:"appid,omitempty"` // 企业 CorpID 或 第三方 SuiteID
 	RedirectURI  string `json:"redirect_uri,omitempty"`
 	ResponseType string `json:"response_type,omitempty"`
-	Scope        string `json:"scope,omitempty"`
+	Scope        string `json:"scope,omitempty"` // 默认 snsapi_base, 自建使用 snsapi_userinfo 或 snsapi_privateinfo 需要 AgentID
 	State        string `json:"state,omitempty"`
 	AgentID      string `json:"agentid,omitempty"`
 }

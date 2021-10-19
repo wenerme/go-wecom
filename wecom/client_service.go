@@ -6,6 +6,58 @@ import (
 	"github.com/wenerme/go-req"
 )
 
+type SuiteGetUserInfoRequest struct {
+	SuiteAccessToken string `json:"suite_access_token,omitempty"`
+	Code             string `json:"code,omitempty"`
+}
+
+type SuiteGetUserInfoResponse struct {
+	CorpID     string `json:"CorpId,omitempty"`
+	UserID     string `json:"UserId,omitempty"`
+	OpenID     string `json:"OpenId,omitempty"`      // 不属于任何企业
+	DeviceID   string `json:"DeviceId,omitempty"`    // 手机设备号(由企业微信在安装时随机生成，删除重装会改变，升级不受影响)
+	UserTicket string `json:"user_ticket,omitempty"` // scope 为 snsapi_userinfo 或 snsapi_privateinfo
+	ExpiresIn  int    `json:"expires_in,omitempty"`
+	ExpiresAt  int64  `json:"expires_at,omitempty"`
+	OpenUserID string `json:"open_userid,omitempty"` //
+}
+
+func (c *Client) SuiteGetUserInfo(r *SuiteGetUserInfoRequest) (out SuiteGetUserInfoResponse, err error) {
+	err = c.Request.With(req.Request{
+		Method:  http.MethodGet,
+		URL:     "/cgi-bin/service/getuserinfo3rd",
+		Query:   r,
+		Options: []interface{}{WithSuiteAccessToken},
+	}).Fetch(&out)
+	if err == nil {
+		out.ExpiresAt = int64(out.ExpiresIn) + timeNow().Unix()
+	}
+	return
+}
+
+type SuiteGetUserDetailRequest struct {
+	SuiteAccessToken string `json:"suite_access_token,omitempty"`
+	UserTicket       string `json:"user_ticket,omitempty"`
+}
+type SuiteGetUserDetailResponse struct {
+	CorpID string `json:"corpid,omitempty"`
+	UserID string `json:"userid,omitempty"`
+	Name   string `json:"name,omitempty"`
+	Gender string `json:"gender,omitempty"`
+	Avatar string `json:"avatar,omitempty"`  // snsapi_privateinfo
+	QrCode string `json:"qr_code,omitempty"` // snsapi_privateinfo
+}
+
+func (c *Client) SuiteGetUserDetail(r *SuiteGetUserDetailRequest) (out SuiteGetUserDetailResponse, err error) {
+	err = c.Request.With(req.Request{
+		Method:  http.MethodPost,
+		URL:     "/cgi-bin/service/getuserdetail3rd",
+		Body:    r,
+		Options: []interface{}{WithSuiteAccessToken},
+	}).Fetch(&out)
+	return
+}
+
 func (c *Client) GetProviderToken() (out ProviderTokenResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method: http.MethodPost,

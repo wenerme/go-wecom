@@ -1,6 +1,9 @@
 package wecom
 
-import "strconv"
+import (
+	"bytes"
+	"strconv"
+)
 
 // DefaultAPI default client base url
 const DefaultAPI = "https://qyapi.weixin.qq.com"
@@ -18,6 +21,26 @@ const (
 	UserGenderTypeMale    UserGenderType = 1
 	UserGenderTypeFemale  UserGenderType = 2
 )
+
+func (v *UserGenderType) UnmarshalJSON(data []byte) error {
+	l := len(data)
+	if l == 0 {
+		return nil
+	}
+	switch {
+	case l == 0:
+		return nil
+	case l == 4 && bytes.Equal(data, []byte("null")):
+		return nil
+	case l >= 3 && data[0] == '"' && data[l-1] == '"':
+		data = data[1 : l-1]
+	}
+	val, err := strconv.Atoi(string(data))
+	if err == nil {
+		*v = UserGenderType(val)
+	}
+	return err
+}
 
 // UserStatusType status of user
 // used by ListUserResponseItem.Status
