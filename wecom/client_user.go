@@ -1,14 +1,16 @@
 package wecom
 
 import (
-	"github.com/wenerme/go-req"
 	"net/http"
+
+	"github.com/wenerme/go-req"
 )
 
 type GetUserInfoRequest struct {
 	AccessToken string `json:"access_token,omitempty"`
 	Code        string `json:"code,omitempty"`
 }
+
 type GetUserInfoResponse struct {
 	OpenID         string `json:"OpenId,omitempty"`   // 非企业成员的标识，对当前企业唯一。不超过64字节
 	DeviceID       string `json:"DeviceId,omitempty"` // 手机设备号(由企业微信在安装时随机生成，删除重装会改变，升级不受影响)

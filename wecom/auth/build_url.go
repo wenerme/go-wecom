@@ -30,9 +30,15 @@ func BuildOAuth2URL(o BuildOAuth2URLOptions) string {
 }
 
 func buildURLValues(base string, o interface{}) string {
-	u, _ := url.Parse(base)
+	u, err := url.Parse(base)
+	if err != nil {
+		panic(err)
+	}
 	query := u.Query()
-	val, _ := req.ValuesOf(o)
+	val, err := req.ValuesOf(o)
+	if err != nil {
+		panic(err)
+	}
 	mergeValues(query, val)
 	u.RawQuery = query.Encode()
 	return u.String()

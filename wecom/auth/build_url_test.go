@@ -7,14 +7,8 @@ import (
 )
 
 func TestBuildURL(t *testing.T) {
-	BuildOAuth2URL(BuildOAuth2URLOptions{
-		AppID:       "wwabcd",
-		Scope:       WecomOAuth2ScopeUserinfo,
-		AgentID:     "1000010",
-		RedirectURI: "https://example.com/auth/wecom/callback",
-	})
 	for _, test := range []struct {
-		o BuildOAuth2URLOptions
+		o interface{}
 		u string
 	}{
 		{
@@ -34,7 +28,22 @@ func TestBuildURL(t *testing.T) {
 			},
 			u: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwabcd&redirect_uri=https%3A%2F%2Fexample.com%2Fauth%2Fwecom%2Fcallback&response_type=code&scope=snsapi_base#wechat_redirect",
 		},
+		{
+			o: BuildProviderQRAuthURLOptions{
+				AppID:       "wwabcd",
+				RedirectURI: "https://example.com",
+				UserType:    ProviderQRAuthUserTypeMember,
+			},
+			u: "https://open.work.weixin.qq.com/wwopen/sso/3rd_qrConnect?appid=wwabcd&lang=&redirect_uri=https%3A%2F%2Fexample.com&usertype=member",
+		},
 	} {
-		assert.Equal(t, BuildOAuth2URL(test.o), test.u)
+		switch o := test.o.(type) {
+		case BuildProviderQRAuthURLOptions:
+			assert.Equal(t, test.u, BuildProviderQRAuthURL(o))
+		case BuildOAuth2URLOptions:
+			assert.Equal(t, test.u, BuildOAuth2URL(o))
+		default:
+			panic("invalid type")
+		}
 	}
 }

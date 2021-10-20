@@ -39,6 +39,7 @@ type SuiteGetUserDetailRequest struct {
 	SuiteAccessToken string `json:"suite_access_token,omitempty"`
 	UserTicket       string `json:"user_ticket,omitempty"`
 }
+
 type SuiteGetUserDetailResponse struct {
 	CorpID string `json:"corpid,omitempty"`
 	UserID string `json:"userid,omitempty"`

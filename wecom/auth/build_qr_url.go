@@ -1,12 +1,19 @@
 package auth
 
+const (
+	ProviderQRAuthUserTypeAdmin  ProviderQRAuthUserType = "admin"
+	ProviderQRAuthUserTypeMember ProviderQRAuthUserType = "member"
+)
+
+type ProviderQRAuthUserType = string
+
 // BuildProviderQRAuthURLOptions options for BuildProviderQRAuthURL
 type BuildProviderQRAuthURLOptions struct {
-	AppID       string `json:"appid,omitempty"` // 企业 CorpID 或 第三方 SuiteID
-	RedirectURI string `json:"redirect_uri,omitempty"`
-	UserType    string `json:"usertype,omitempty"` // admin代表管理员登录（使用微信扫码）,member代表成员登录（使用企业微信扫码），默认为admin
-	State       string `json:"state,omitempty"`
-	Lang        string `json:"lang,omitempty"` // 自定义语言，支持zh、en；lang为空则从Headers读取Accept-Language，默认值为zh
+	AppID       string                 `json:"appid,omitempty"` // 企业 CorpID 或 第三方 SuiteID
+	RedirectURI string                 `json:"redirect_uri,omitempty"`
+	UserType    ProviderQRAuthUserType `json:"usertype,omitempty"` // admin代表管理员登录（使用微信扫码）,member代表成员登录（使用企业微信扫码），默认为admin
+	State       string                 `json:"state,omitempty"`
+	Lang        string                 `json:"lang,omitempty"` // 自定义语言，支持zh、en；lang为空则从Headers读取Accept-Language，默认值为zh
 }
 
 // BuildProviderQRAuthURL 第三方扫码登陆
@@ -31,6 +38,6 @@ type BuildQRAuthURLOptions struct {
 // BuildQRAuthURL 企业自建应用扫码登陆
 //
 // https://work.weixin.qq.com/api/doc/90000/90135/91019
-func BuildQRAuthURL(o BuildProviderQRAuthURLOptions) string {
+func BuildQRAuthURL(o BuildQRAuthURLOptions) string {
 	return buildURLValues("https://open.work.weixin.qq.com/wwopen/sso/qrConnect?lang=", o)
 }
