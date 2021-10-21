@@ -28,6 +28,9 @@ func TestManualDecrypt(t *testing.T) {
 	// dev_msg_signature=sha1(sort(token、timestamp、nonce、msg_encrypt))
 	// rand_msg = random(16B) + msg_len(4B) + msg + receiveid
 	msgEnc := "RypEvHKD8QQKFhvQ6QleEB4J58tiPdvo+rtK1I9qca6aM/wvqnLSV5zEPeusUiX5L5X/0lWfrf0QADHHhGd3QczcdCUpj911L3vg3W/sYYvuJTs3TUUkSUXxaccAS0qhxchrRYt66wiSpGLYL42aM6A8dTT+6k4aSknmPj48kzJs8qLjvd4Xgpue06DOdnLxAUHzM6+kDZ+HMZfJYuR+LtwGc2hgf5gsijff0ekUNXZiqATP7PF5mZxZ3Izoun1s4zG4LUMnvw2r+KqCKIw+3IQH03v+BCA9nMELNqbSf6tiWSrXJB3LAVGUcallcrw8V2t9EL4EhzJWrQUax5wLVMNS0+rUPA3k22Ncx4XXZS9o0MBH27Bo6BpNelZpS+/uh9KsNlY6bHCmJU9p8g7m3fVKn28H3KDYA5Pl/T8Z1ptDAVe0lXdQ2YoyyH2uyPIGHBZZIs2pDBS8R07+qN+E7Q=="
+	// post xml
+	postData := []byte("<xml><ToUserName><![CDATA[wx5823bf96d3bd56c7]]></ToUserName><Encrypt><![CDATA[RypEvHKD8QQKFhvQ6QleEB4J58tiPdvo+rtK1I9qca6aM/wvqnLSV5zEPeusUiX5L5X/0lWfrf0QADHHhGd3QczcdCUpj911L3vg3W/sYYvuJTs3TUUkSUXxaccAS0qhxchrRYt66wiSpGLYL42aM6A8dTT+6k4aSknmPj48kzJs8qLjvd4Xgpue06DOdnLxAUHzM6+kDZ+HMZfJYuR+LtwGc2hgf5gsijff0ekUNXZiqATP7PF5mZxZ3Izoun1s4zG4LUMnvw2r+KqCKIw+3IQH03v+BCA9nMELNqbSf6tiWSrXJB3LAVGUcallcrw8V2t9EL4EhzJWrQUax5wLVMNS0+rUPA3k22Ncx4XXZS9o0MBH27Bo6BpNelZpS+/uh9KsNlY6bHCmJU9p8g7m3fVKn28H3KDYA5Pl/T8Z1ptDAVe0lXdQ2YoyyH2uyPIGHBZZIs2pDBS8R07+qN+E7Q==]]></Encrypt><AgentID><![CDATA[218]]></AgentID></xml>")
+
 	// ReceiveId 企业应用的回调，表示 corpid；第三方事件的回调，表示 suiteid
 	// Token 为接收消息 token
 	token := "1372623149"
@@ -70,6 +73,30 @@ func TestManualDecrypt(t *testing.T) {
 	bytes, cerr := wxCrypt.VerifyURL(r.MessageSignature, r.Timestamp, r.Nonce, r.EchoString)
 	assert.Nil(t, cerr)
 	assert.Equal(t, msg, string(bytes))
+
+	{
+		msg, e := wxCrypt.DecryptMsg(r.MessageSignature, r.Timestamp, r.Nonce, postData)
+		assert.Nil(t, e)
+		assert.Equal(t, string(bytes), string(msg))
+	}
+
+	{
+		m, err := DecryptMessage(EncodingAESKey, postData)
+		if assert.NoError(t, err) {
+			assert.Equal(t, recvID, m.ToUsername)
+			assert.Equal(t, recvID, m.Content.ReceiverID)
+			assert.Equal(t, string(bytes), string(m.Content.Content))
+		}
+	}
+	{
+		aesMsg, _ := base64.StdEncoding.DecodeString(msgEnc)
+		msg, err := DecryptContent(EncodingAESKey, aesMsg)
+		if assert.NoError(t, err) {
+			assert.Equal(t, msg.ReceiverID, recvID)
+			assert.Equal(t, string(bytes), string(msg.Content))
+			assert.True(t, msg.VerifyReceiverID(recvID))
+		}
+	}
 }
 
 func TestCrypto(t *testing.T) {

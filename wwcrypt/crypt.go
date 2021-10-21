@@ -1,17 +1,12 @@
 package wwcrypt
 
 import (
-	"bytes"
 	"crypto/aes"
 	"crypto/cipher"
-	"crypto/rand"
 
 	//nolint:gosec
 	"encoding/base64"
-	"encoding/binary"
 	"errors"
-	"sort"
-	"strings"
 )
 
 type Crypto struct {
@@ -30,20 +25,15 @@ func (c *Crypto) Reset() {
 }
 
 func (c *Crypto) EncryptMessage(dec []byte) (enc []byte, err error) {
-	buf := &bytes.Buffer{}
-	r := make([]byte, 16)
-	_, err = rand.Read(r)
+	m := &ReceiveContent{
+		ReceiverID: c.ReceiveID,
+		Content:    dec,
+	}
+	data, err := m.MarshalBinary()
 	if err != nil {
 		return nil, err
 	}
-	_, _ = buf.Write(r)
-
-	binary.BigEndian.PutUint32(r, uint32(len(dec)))
-	_, _ = buf.Write(r[:4])
-	_, _ = buf.Write(dec)
-	_, _ = buf.Write([]byte(c.ReceiveID))
-
-	return c.Encrypt(buf.Bytes())
+	return c.Encrypt(data)
 }
 
 func (c *Crypto) DecryptMessage(enc []byte) ([]byte, error) {
@@ -51,15 +41,15 @@ func (c *Crypto) DecryptMessage(enc []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	// random
-	dec = dec[16:]
-	size := binary.BigEndian.Uint32(dec)
-	dec = dec[4:]
-	receiveID := string(dec[size:])
-	if c.ReceiveID != receiveID {
+	m := &ReceiveContent{}
+	err = m.UnmarshalBinary(dec)
+	if err != nil {
+		return nil, err
+	}
+	if c.ReceiveID != m.ReceiverID {
 		return nil, errors.New("receive id not equal")
 	}
-	return dec[:size], nil
+	return m.Content, nil
 }
 
 func (c *Crypto) Verify(signature, timestamp, nonce, echo string) ([]byte, error) {
@@ -74,22 +64,15 @@ func (c *Crypto) Verify(signature, timestamp, nonce, echo string) ([]byte, error
 }
 
 func (c *Crypto) Signature(timestamp, nonce, enc string) string {
-	a := []string{c.Token, timestamp, nonce, enc}
-	sort.Strings(a)
-	s := strings.Join(a, "")
-	return sha1sum(s)
+	return Signature(c.Token, timestamp, nonce, enc)
 }
 
 func (c *Crypto) Encrypt(in []byte) (out []byte, err error) {
 	encrypter, err := c.GetEncrypter()
-	if err == nil {
-		in, err = pkcs7pad(in, encrypter.BlockSize())
+	if err != nil {
+		return nil, err
 	}
-	if err == nil {
-		out = make([]byte, len(in))
-		encrypter.CryptBlocks(out, in)
-	}
-	return
+	return encrypt(encrypter, in)
 }
 
 func (c *Crypto) Decrypt(in []byte) (out []byte, err error) {
@@ -97,10 +80,7 @@ func (c *Crypto) Decrypt(in []byte) (out []byte, err error) {
 	if err != nil {
 		return nil, err
 	}
-	out = make([]byte, len(in))
-	block.CryptBlocks(out, in)
-	out, err = pkcs7strip(out, block.BlockSize())
-	return
+	return decrypt(block, in)
 }
 
 func (c *Crypto) GetAESKey() (key []byte, err error) {
