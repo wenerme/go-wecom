@@ -92,16 +92,16 @@ func ExampleNewClient() {
 ### Webhook 开发
 
 ```go
-wecom.WebhookSend(&WebhookSendRequest{
-		Key:     "",
-		Content: SendTextContent{Content: "Hello"},
-		// debug for test only
-		Request: req.Request{
-			Options: []interface{}{req.DebugHook(&req.DebugOptions{
-				Body: true,
-			})},
-		},
-	})
+wecom.WebhookSend(&wecom.WebhookSendRequest{
+  Key:     "KEY",
+  Content: wecom.SendTextContent{Content: "Hello"},
+  // debug for test only
+  Request: req.Request{
+    Options: []interface{}{req.DebugHook(&req.DebugOptions{
+      Body: true,
+    })},
+  },
+})
 ```
 
 ### 第三方应用开发配置

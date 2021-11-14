@@ -56,3 +56,16 @@ func ExampleNewClient() {
 	}
 	fmt.Println("response", dto)
 }
+
+func ExampleWebhookSend() {
+	wecom.WebhookSend(&wecom.WebhookSendRequest{
+		Key:     "KEY",
+		Content: wecom.SendTextContent{Content: "Hello"},
+		// debug for test only
+		Request: req.Request{
+			Options: []interface{}{req.DebugHook(&req.DebugOptions{
+				Body: true,
+			})},
+		},
+	})
+}
