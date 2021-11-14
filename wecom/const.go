@@ -115,3 +115,25 @@ func (v AgentAuthType) String() string {
 		return strconv.Itoa(int(v))
 	}
 }
+
+// ExternalContactAddWay 添加客户的来源
+// used by GetExternalContactResponseFollowUser.AddWay
+//
+// see https://open.work.weixin.qq.com/api/doc/90000/90135/92114
+type ExternalContactAddWay int
+
+const (
+	ExternalContactAddWayUnknown             ExternalContactAddWay = 0   // 未知来源
+	ExternalContactAddWayScanQR              ExternalContactAddWay = 1   //	扫描二维码
+	ExternalContactAddWaySearchPhone         ExternalContactAddWay = 2   // 搜索手机号
+	ExternalContactAddWayShareContactCard    ExternalContactAddWay = 3   // 名片分享
+	ExternalContactAddWayGroup               ExternalContactAddWay = 4   // 群聊
+	ExternalContactAddWayPhoneContact        ExternalContactAddWay = 5   //	手机通讯录
+	ExternalContactAddWayWeChatContact       ExternalContactAddWay = 6   // 微信联系人
+	ExternalContactAddWayWeChatFriendRequest ExternalContactAddWay = 7   // 来自微信的添加好友申请
+	ExternalContactAddWayCustomService       ExternalContactAddWay = 8   // 安装第三方应用时自动添加的客服人员
+	ExternalContactAddWaySearchEMail         ExternalContactAddWay = 9   // 搜索邮箱
+	ExternalContactAddWayChannel             ExternalContactAddWay = 10  // 视频号主页添加
+	ExternalContactAddWayInternalShare       ExternalContactAddWay = 201 // 内部成员共享
+	ExternalContactAddWayAssign              ExternalContactAddWay = 202 // 管理员/负责人分配
+)

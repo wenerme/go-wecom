@@ -6,3 +6,7 @@ type SuiteInstalledRequestParams struct {
 	ExpiresIn int    `json:"expires_in"` // 1200
 	State     string `json:"state"`
 }
+
+func (r SuiteInstalledRequestParams) IsValid() bool {
+	return r.AuthCode != "" && r.ExpiresIn > 0
+}

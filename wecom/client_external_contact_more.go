@@ -22,7 +22,7 @@ type ExternalContactResponse struct {
 	// CorpFullName 外部联系人所在企业的主体名称，仅当联系人类型是企业微信用户时有此字段
 	CorpFullName string `json:"corp_full_name"`
 	// ExternalProfile 外部联系人的自定义展示信息，可以有多个字段和多种类型，包括文本，网页和小程序，仅当联系人类型是企业微信用户时有此字段，字段详情见对外属性；
-	ExternalProfile ExternalContactProfileResponse `json:"external_profile"`
+	ExternalProfile ExternalProfile `json:"external_profile"`
 }
 
 type ExternalContactProfileResponse struct {

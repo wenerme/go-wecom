@@ -20,6 +20,7 @@ Wechat Work/Wecom/企业微信 Golang SDK
 - 支持缓存所有带时效的信息 - AccessToken, JsTicket, AgentTicket, SuiteToken, AuthCorpAccessToken, PreAuthCode, ProviderAccessToken
   - 缓存支持自定义存储 - 默认内存存储
 - 支持从自定义的存储获取 密钥 信息 - SuiteTicket, PermanentCode
+- 支持机器人 webhook
 - 没有内部状态和 goroutine
 - 自动尝试提前获取相应的 Token 和 Ticket - 有效期的 80%
 - 实现逻辑清晰 - 没有实现的接口可直接调用
@@ -86,6 +87,21 @@ func ExampleNewClient() {
 	}
 	fmt.Println("response", dto)
 }
+```
+
+### Webhook 开发
+
+```go
+wecom.WebhookSend(&WebhookSendRequest{
+		Key:     "",
+		Content: SendTextContent{Content: "Hello"},
+		// debug for test only
+		Request: req.Request{
+			Options: []interface{}{req.DebugHook(&req.DebugOptions{
+				Body: true,
+			})},
+		},
+	})
 ```
 
 ### 第三方应用开发配置

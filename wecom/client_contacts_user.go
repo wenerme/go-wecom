@@ -200,7 +200,7 @@ type CreateUserRequest struct {
 	// ToInvite 是否邀请该成员使用企业微信（将通过微信服务通知或短信或邮件下发邀请，每天自动下发一次，最多持续3个工作日），默认值为true。
 	ToInvite bool `json:"to_invite"  `
 	// ExternalProfile 成员对外属性，字段详情见对外属性
-	ExternalProfile UserExternalProfile `json:"external_profile"  `
+	ExternalProfile ExternalProfile `json:"external_profile"  `
 	// ExternalPosition 对外职务，如果设置了该值，则以此作为对外展示的职务，否则以position来展示。长度12个汉字内
 	ExternalPosition string `json:"external_position"  `
 	// Nickname 视频号名字（设置后，成员将对外展示该视频号）。须从企业绑定到企业微信的视频号中选择，可在“我的企业”页中查看绑定的视频号
@@ -252,7 +252,7 @@ type GetUserResponse struct {
 	// QrCode 员工个人二维码，扫描可添加为外部联系人(注意返回的是一个url，可在浏览器上打开该url以展示二维码)；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
 	QrCode string `json:"qr_code"  `
 	// ExternalProfile 成员对外属性，字段详情见对外属性；代开发自建应用需要管理员授权才返回；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
-	ExternalProfile UserExternalProfile `json:"external_profile"  `
+	ExternalProfile ExternalProfile `json:"external_profile"  `
 	// ExternalPosition 对外职务，如果设置了该值，则以此作为对外展示的职务，否则以position来展示。代开发自建应用需要管理员授权才返回；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
 	ExternalPosition string `json:"external_position"  `
 	// Nickname 对外展示视频号名称（即微信视频号名称）。第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
@@ -296,7 +296,7 @@ type UpdateUserRequest struct {
 	// ExtAttr 自定义字段。自定义字段需要先在WEB管理端添加，见扩展属性添加方法，否则忽略未知属性的赋值。与对外属性一致，不过只支持type&#x3D;0的文本和type&#x3D;1的网页类型，详细描述查看对外属性
 	ExtAttr ExtAttrs `json:"extattr"  `
 	// ExternalProfile 成员对外属性，字段详情见对外属性
-	ExternalProfile UserExternalProfile `json:"external_profile"  `
+	ExternalProfile ExternalProfile `json:"external_profile"  `
 	// ExternalPosition 对外职务，如果设置了该值，则以此作为对外展示的职务，否则以position来展示。不超过12个汉字
 	ExternalPosition string `json:"external_position"  `
 	// Nickname 视频号名字（设置后，成员将对外展示该视频号）。须从企业绑定到企业微信的视频号中选择，可在“我的企业”页中查看绑定的视频号

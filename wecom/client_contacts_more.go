@@ -47,7 +47,7 @@ type ListUserResponseItem struct {
 	// QrCode 员工个人二维码，扫描可添加为外部联系人(注意返回的是一个url，可在浏览器上打开该url以展示二维码)；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
 	QrCode string `json:"qr_code"`
 	// ExternalProfile 成员对外属性，字段详情见对外属性；代开发自建应用需要管理员授权才返回；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
-	ExternalProfile UserExternalProfile `json:"external_profile"`
+	ExternalProfile ExternalProfile `json:"external_profile"`
 	// ExternalPosition 对外职务，如果设置了该值，则以此作为对外展示的职务，否则以position来展示。代开发自建应用需要管理员授权才返回；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
 	ExternalPosition string `json:"external_position"`
 	// Address 地址。代开发自建应用需要管理员授权才返回；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
@@ -60,17 +60,17 @@ type ListUserResponseItem struct {
 	HideMobile     int    `json:"hide_mobile"`
 }
 
-type UserExternalProfile struct {
+type ExternalProfile struct {
 	// ExternalCorpName 企业对外简称，需从已认证的企业简称中选填。可在“我的企业”页中查看企业简称认证状态。
-	ExternalCorpName string `json:"external_corp_name"`
+	ExternalCorpName string `json:"external_corp_name,omitempty"`
 	// WechatChannels 视频号属性
 	WechatChannels struct {
 		// Nickname 视频号名字（设置后，成员将对外展示该视频号）
-		Nickname string `json:"nickname"`
+		Nickname string `json:"nickname,omitempty"`
 		// Status 对外展示视频号状态。0表示企业视频号已被确认，可正常使用，1表示企业视频号待确认
-		Status int `json:"status"`
-	} `json:"wechat_channels"`
-	ExternalAttr []ExtAttr `json:"external_attr"`
+		Status int `json:"status,omitempty"`
+	} `json:"wechat_channels,omitempty"`
+	ExternalAttr []ExtAttr `json:"external_attr,omitempty"`
 }
 
 type BatchSyncCallback struct {

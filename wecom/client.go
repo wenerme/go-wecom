@@ -37,7 +37,16 @@ func NewClient(conf Conf) *Client {
 	return c
 }
 
-// GetToken request a access_token
+// With create new Client with this conf
+func (c *Client) With(conf Conf) (neo *Client) {
+	cc := *c
+	neo = &cc
+	neo.Conf = conf
+	neo.Request.Context = NewContext(cc.Request.Context, neo)
+	return
+}
+
+// GetToken request an access_token
 func (c *Client) GetToken() (out TokenResponse, err error) {
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/gettoken",
