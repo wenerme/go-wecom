@@ -1,6 +1,9 @@
 # BAZEL=BAZELISK_BASE_URL=https://mirrors.huaweicloud.com/bazel `go env GOPATH`/bin/bazelisk
 BAZEL=`go env GOPATH`/bin/bazelisk
 
+GOROOT 	?= `go env GOROOT`
+PATH 	:= $(GOROOT):$(PATH)
+
 ci:
 	go env
 	@$(MAKE) go-test-cover
