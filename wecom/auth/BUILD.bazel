@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "auth",
+    srcs = [
+        "build_qr_url.go",
+        "build_suite_install_url.go",
+        "build_url.go",
+    ],
+    importpath = "github.com/wenerme/go-wecom/wecom/auth",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_wenerme_go_req//:go-req"],
+)
+
+go_test(
+    name = "auth_test",
+    srcs = ["build_url_test.go"],
+    embed = [":auth"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
