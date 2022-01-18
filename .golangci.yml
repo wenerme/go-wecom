@@ -8,6 +8,7 @@ run:
     - ".*ignored_.*.go$"
     - "generated.go$"
     - model_gen.go
+    - "example_.*.go$"
 
 linters:
   disable-all: true
