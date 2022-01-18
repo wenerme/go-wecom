@@ -2,9 +2,10 @@
 BAZEL=`go env GOPATH`/bin/bazelisk
 
 ci:
+	go env
+	@$(MAKE) go-test-cover
 	#command -v bazel > /dev/null || GOPROXY=https://goproxy.io,direct go install github.com/bazelbuild/bazelisk@latest
 	#$(BAZEL) info
-	@$(MAKE) go-test-cover
 
 ##### Common #####
 
