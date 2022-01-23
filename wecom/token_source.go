@@ -15,6 +15,7 @@ type TokenSource interface {
 
 type TokenSourceFunc func(context.Context) (*Token, error)
 
+// Token implements TokenSource
 func (f TokenSourceFunc) Token(ctx context.Context) (token *Token, err error) {
 	return f(ctx)
 }

@@ -24,13 +24,16 @@ var timeNow = time.Now
 // directly. They're exported mostly for use by related packages
 // implementing derivative OAuth2 flows.
 type Token struct {
-	// AccessToken is the token that authorizes and authenticates
-	// the requests.
-	AccessToken string `json:"access_token"`
+	// TokenKey is used to distinguish different subject of token
+	TokenKey string `json:"token_key,omitempty"`
 
 	// TokenType is the type of token.
 	// The Type method returns either this or "Bearer", the default.
 	TokenType string `json:"token_type,omitempty"`
+
+	// AccessToken is the token that authorizes and authenticates
+	// the requests.
+	AccessToken string `json:"access_token"`
 
 	// RefreshToken is a token that's used by the application
 	// (as opposed to the user) to refresh the access token
