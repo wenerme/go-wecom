@@ -133,14 +133,14 @@ func TestNewClient(t *testing.T) {
 		TokenProvider: &TokenCache{Store: store},
 	})
 	// use perm code in store
-	assert.NoError(t, store.Set(&GenericSecret{
+	assert.NoError(t, store.Set(&GenericToken{
 		OwnerID: joinIds(mockSuiteID, mockAuthCorpID),
-		Type:    SecretTypeAuthCorpPermanentCode,
+		Type:    TokenTypeAuthCorpPermanentCode,
 		Secret:  mockPermCode,
 	}))
-	assert.NoError(t, store.Set(&GenericSecret{
+	assert.NoError(t, store.Set(&GenericToken{
 		OwnerID: mockSuiteID,
-		Type:    SecretTypeSuiteTicket,
+		Type:    TokenTypeSuiteTicket,
 		Secret:  mockSuiteTicket,
 	}))
 	// client.Request.Options = append(client.Request.Options, req.DebugHook(nil))
@@ -172,10 +172,10 @@ func TestNewClient(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, mockSuiteToken, suiteAccessToken)
 
-	preAuthCode, err := client.TokenProvider.Refresh(&GenericSecret{
+	preAuthCode, err := client.TokenProvider.Refresh(&GenericToken{
 		OwnerID: mockSuiteID,
-		Type:    SecretTypeSuitePreAuthCode,
-	}, func() (OpaqueSecret, error) {
+		Type:    TokenTypeSuitePreAuthCode,
+	}, func() (OpaqueToken, error) {
 		return client.ProviderGetPreAuthCode(nil)
 	})
 	assert.NoError(t, err)

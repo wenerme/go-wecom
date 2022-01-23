@@ -4,17 +4,19 @@ import (
 	"github.com/pkg/errors"
 )
 
+type TokenType = string
+
 // nolint:gosec
 const (
-	SecretTypeJsAPITicket           = "JsAPITicket"
-	SecretTypeAgentTicket           = "AgentTicket"
-	SecretTypeSuiteTicket           = "SuiteTicket"
-	SecretTypeAccessToken           = "AccessToken"
-	SecretTypeAuthCorpAccessToken   = "AuthCorpAccessToken"
-	SecretTypeAuthCorpPermanentCode = "AuthCorpPermanentCode"
-	SecretTypeProviderAccessToken   = "ProviderAccessToken"
-	SecretTypeSuiteAccessToken      = "SuiteAccessToken"
-	SecretTypeSuitePreAuthCode      = "SuitePreAuthCode"
+	TokenTypeJsAPITicket           TokenType = "JsAPITicket"
+	TokenTypeAgentTicket           TokenType = "AgentTicket"
+	TokenTypeSuiteTicket           TokenType = "SuiteTicket"
+	TokenTypeAccessToken           TokenType = "AccessToken"
+	TokenTypeAuthCorpAccessToken   TokenType = "AuthCorpAccessToken"
+	TokenTypeAuthCorpPermanentCode TokenType = "AuthCorpPermanentCode"
+	TokenTypeProviderAccessToken   TokenType = "ProviderAccessToken"
+	TokenTypeSuiteAccessToken      TokenType = "SuiteAccessToken"
+	TokenTypeSuitePreAuthCode      TokenType = "SuitePreAuthCode"
 )
 
 func joinIds(s ...string) string {
@@ -33,14 +35,14 @@ func joinIds(s ...string) string {
 // JsAPITicket request or return cached JsAPITicket
 func (c *Client) JsAPITicket() (string, error) {
 	// depends on AccessToken
-	t := &GenericSecret{
+	t := &GenericToken{
 		OwnerID: c.Conf.CorpID,
-		Type:    SecretTypeJsAPITicket,
+		Type:    TokenTypeJsAPITicket,
 	}
 	if c.Conf.SuiteID != "" && c.Conf.AuthCorpID != "" {
 		t.OwnerID = joinIds(c.Conf.SuiteID, c.Conf.AuthCorpID)
 	}
-	return c.TokenProvider.Refresh(t, func() (OpaqueSecret, error) {
+	return c.TokenProvider.Refresh(t, func() (OpaqueToken, error) {
 		return c.GetJsAPITicket()
 	})
 }
@@ -48,15 +50,15 @@ func (c *Client) JsAPITicket() (string, error) {
 // AgentTicket request or return cached AgentTicket
 func (c *Client) AgentTicket() (string, error) {
 	// depends on AccessToken
-	t := &GenericSecret{
+	t := &GenericToken{
 		OwnerID: c.Conf.CorpID,
-		Type:    SecretTypeAgentTicket,
+		Type:    TokenTypeAgentTicket,
 	}
 	if c.Conf.SuiteID != "" && c.Conf.AuthCorpID != "" {
 		t.OwnerID = joinIds(c.Conf.SuiteID, c.Conf.AuthCorpID)
 	}
 
-	return c.TokenProvider.Refresh(t, func() (OpaqueSecret, error) {
+	return c.TokenProvider.Refresh(t, func() (OpaqueToken, error) {
 		return c.GetAgentTicket()
 	})
 }
@@ -64,16 +66,16 @@ func (c *Client) AgentTicket() (string, error) {
 // AuthCorpAccessToken request or return cached AuthCorpAccessToken
 func (c *Client) AuthCorpAccessToken() (string, error) {
 	// depends on Suite
-	return c.TokenProvider.Refresh(&GenericSecret{
+	return c.TokenProvider.Refresh(&GenericToken{
 		OwnerID: joinIds(c.Conf.SuiteID, c.Conf.AuthCorpID),
-		Type:    SecretTypeAuthCorpAccessToken,
-	}, func() (o OpaqueSecret, err error) {
+		Type:    TokenTypeAuthCorpAccessToken,
+	}, func() (o OpaqueToken, err error) {
 		code := c.Conf.AuthCorpPermanentCode
 		if code == "" {
-			code, err = c.TokenProvider.Refresh(&GenericSecret{
+			code, err = c.TokenProvider.Refresh(&GenericToken{
 				OwnerID: joinIds(c.Conf.SuiteID, c.Conf.AuthCorpID),
-				Type:    SecretTypeAuthCorpPermanentCode,
-			}, func() (OpaqueSecret, error) {
+				Type:    TokenTypeAuthCorpPermanentCode,
+			}, func() (OpaqueToken, error) {
 				return nil, errors.New("missing auth corp permanent code")
 			})
 		}
@@ -91,10 +93,10 @@ func (c *Client) AuthCorpAccessToken() (string, error) {
 func (c *Client) AccessToken() (string, error) {
 	switch {
 	case c.Conf.CorpID != "" && c.Conf.CorpSecret != "":
-		return c.TokenProvider.Refresh(&GenericSecret{
+		return c.TokenProvider.Refresh(&GenericToken{
 			OwnerID: c.Conf.CorpID,
-			Type:    SecretTypeAccessToken,
-		}, func() (OpaqueSecret, error) {
+			Type:    TokenTypeAccessToken,
+		}, func() (OpaqueToken, error) {
 			return c.GetToken()
 		})
 	case c.Conf.SuiteID != "" && c.Conf.AuthCorpID != "":
@@ -106,27 +108,27 @@ func (c *Client) AccessToken() (string, error) {
 
 // ProviderAccessToken request or return cached ProviderAccessToken
 func (c *Client) ProviderAccessToken() (string, error) {
-	return c.TokenProvider.Refresh(&GenericSecret{
+	return c.TokenProvider.Refresh(&GenericToken{
 		OwnerID: c.Conf.CorpID,
-		Type:    SecretTypeProviderAccessToken,
-	}, func() (OpaqueSecret, error) {
+		Type:    TokenTypeProviderAccessToken,
+	}, func() (OpaqueToken, error) {
 		return c.GetProviderToken()
 	})
 }
 
 // SuiteAccessToken request or return cached SuiteAccessToken
 func (c *Client) SuiteAccessToken() (string, error) {
-	return c.TokenProvider.Refresh(&GenericSecret{
+	return c.TokenProvider.Refresh(&GenericToken{
 		OwnerID: c.Conf.SuiteID,
-		Type:    SecretTypeSuiteAccessToken,
-	}, func() (OpaqueSecret, error) {
+		Type:    TokenTypeSuiteAccessToken,
+	}, func() (OpaqueToken, error) {
 		ticket := c.Conf.SuiteTicket
 		if ticket == "" {
 			var err error
-			ticket, err = c.TokenProvider.Refresh(&GenericSecret{
+			ticket, err = c.TokenProvider.Refresh(&GenericToken{
 				OwnerID: c.Conf.SuiteID,
-				Type:    SecretTypeSuiteTicket,
-			}, func() (OpaqueSecret, error) {
+				Type:    TokenTypeSuiteTicket,
+			}, func() (OpaqueToken, error) {
 				return nil, errors.New("missing suite ticket")
 			})
 			if err != nil {
