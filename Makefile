@@ -7,6 +7,11 @@ ci:
 	#command -v bazel > /dev/null || GOPROXY=https://goproxy.io,direct go install github.com/bazelbuild/bazelisk@latest
 	#$(BAZEL) info
 
+.PHONY: go-test-cover
+go-test-cover: ## run test & generate coverage
+	go test -race -coverprofile=cover.out -coverpkg=./... ./...
+	go tool cover -html=cover.out -o cover.html
+
 ### BEGIN COMMON
 COLOR 	:= "\e[1;36m%s\e[0m\n"
 RED 	:=   "\e[1;31m%s\e[0m\n"
