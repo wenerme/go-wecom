@@ -15,6 +15,7 @@
 # vendor/
 
 .idea
+.vscode
 ignored*
 cover.html
 wecom-cache.json

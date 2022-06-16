@@ -30,6 +30,8 @@ type ListUserResponseItem struct {
 	Gender string `json:"gender"`
 	// Email 邮箱，代开发自建应用需要管理员授权才返回；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
 	Email string `json:"email"`
+	// BizMail 企业邮箱，代开发自建应用不返回；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
+	BizMail string `json:"biz_mail"`
 	// IsLeaderInDept 表示在所在的部门内是否为上级。0-否；1-是。是一个列表，数量必须与department一致。第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
 	IsLeaderInDept []int `json:"is_leader_in_dept"`
 	// Avatar 头像url。 第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取
