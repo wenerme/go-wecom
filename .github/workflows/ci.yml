@@ -40,7 +40,7 @@ jobs:
       - name: Run CI
         # https://github.com/actions/setup-go/issues/107#issuecomment-854071850
         run: |
-          cp -f `which go` /usr/bin/go
+          [ `which go` = /usr/bin/go ] || cp -f `which go` /usr/bin/go
           # export PATH=${GOROOT}/bin:$PATH
           go version
           make ci
