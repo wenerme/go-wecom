@@ -116,3 +116,6 @@ docker:
 bin:
 	go build -o bin/wwfinance-libs ./cmd/wwfinance-libs
 	go build -o bin/wwfinance ./cmd/wwfinance
+
+install:
+	go install mvdan.cc/gofumpt@latest

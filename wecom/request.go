@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 
@@ -90,11 +90,11 @@ var wecomeMiddleware = req.Hook{
 	},
 	OnResponse: func(r *http.Response) error {
 		// todo detect json
-		body, err := ioutil.ReadAll(r.Body)
+		body, err := io.ReadAll(r.Body)
 		if err != nil {
 			return err
 		}
-		r.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+		r.Body = io.NopCloser(bytes.NewBuffer(body))
 		er := GenericResponse{}
 		// skip for now
 		if err = json.Unmarshal(body, &er); err != nil {

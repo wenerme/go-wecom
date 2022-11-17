@@ -1,10 +1,11 @@
 package main
 
 import (
-	dotenv "github.com/joho/godotenv"
-	"github.com/wenerme/go-wecom/WeWorkFinanceSDK/libs"
 	"log"
 	"os"
+
+	dotenv "github.com/joho/godotenv"
+	"github.com/wenerme/go-wecom/WeWorkFinanceSDK/libs"
 )
 
 func main() {
@@ -15,7 +16,7 @@ func main() {
 	}
 	if libPath != "" {
 		log.Printf("Extract library to %s", libPath)
-		_ = os.MkdirAll(libPath, 0755)
+		_ = os.MkdirAll(libPath, 0o755)
 		err := libs.ExtractTo(libPath)
 		if err != nil {
 			panic(err)

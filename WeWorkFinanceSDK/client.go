@@ -5,6 +5,7 @@ package WeWorkFinanceSDK
 // #include <stdlib.h>
 // #include "WeWorkFinanceSdk_C.h"
 import "C"
+
 import (
 	"crypto/rsa"
 	"encoding/json"
@@ -34,6 +35,7 @@ func (b *ClientOptionBuilder) PrivateKeys(m map[int]string) *ClientOptionBuilder
 	})
 	return b
 }
+
 func (b *ClientOptionBuilder) PrivateKeyFn(fn func(ver int) (string, error)) *ClientOptionBuilder {
 	keys := sync.Map{}
 	b.Options.PrivateKeyFn = func(ver int) (key *rsa.PrivateKey, err error) {
@@ -53,14 +55,17 @@ func (b *ClientOptionBuilder) PrivateKeyFn(fn func(ver int) (string, error)) *Cl
 	}
 	return b
 }
+
 func (b *ClientOptionBuilder) Proxy(value string) *ClientOptionBuilder {
 	b.Options.Proxy = value
 	return b
 }
+
 func (b *ClientOptionBuilder) ProxyCredential(value string) *ClientOptionBuilder {
 	b.Options.ProxyCredential = value
 	return b
 }
+
 func (b *ClientOptionBuilder) ParseEnv() *ClientOptionBuilder {
 	if b.Options.PrivateKey == nil {
 		pkFile := os.Getenv("WWF_PRIVATE_KEY_FILE")
@@ -89,6 +94,7 @@ func (b *ClientOptionBuilder) ParseEnv() *ClientOptionBuilder {
 	}
 	return b
 }
+
 func (b *ClientOptionBuilder) PrivateKey(v string) *ClientOptionBuilder {
 	key, err := ParsePrivateKey(v)
 	if err != nil {
@@ -107,6 +113,7 @@ func (b *ClientOptionBuilder) Apply() (*Client, error) {
 	b.Client.options = options
 	return b.Client, nil
 }
+
 func (b *ClientOptionBuilder) MustApply() *Client {
 	client, err := b.Apply()
 	if err != nil {
@@ -128,14 +135,14 @@ func (b *ClientOptionBuilder) Build() (ClientOptions, error) {
 		return ClientOptions{}, b.Errors[0]
 	}
 	o := b.Options
-	//if o.PrivateKey == nil && o.PrivateKeyFn == nil {
-	//	b.Errors = append(b.Errors, ErrorOfCode(10000))
-	//}
+	if o.PrivateKey == nil && o.PrivateKeyFn == nil {
+		b.Errors = append(b.Errors, ErrorOfCode(10000, "no private key"))
+	}
 	return o, nil
 }
 
 func NewClientFromEnv() (*Client, error) {
-	corpId, _ := os.LookupEnv("WWF_CORP_ID")
+	corpID, _ := os.LookupEnv("WWF_CORP_ID")
 	corpSecret, _ := os.LookupEnv("WWF_CORP_SECRET")
 	corpSecretFile, _ := os.LookupEnv("WWF_CORP_SECRET_FILE")
 	if corpSecretFile != "" && corpSecret == "" {
@@ -145,27 +152,28 @@ func NewClientFromEnv() (*Client, error) {
 		}
 		corpSecret = string(file)
 	}
-	if corpId == "" {
+	if corpID == "" {
 		return nil, fmt.Errorf("corpId not founed from env")
 	}
 	if corpSecret == "" {
 		return nil, fmt.Errorf("corpSecret not founed from env")
 	}
-	client, err := NewClient(corpId, corpSecret)
+	client, err := NewClient(corpID, corpSecret)
 	if err == nil {
 		client, err = client.Options().ParseEnv().Apply()
 	}
 	return client, err
 }
-func NewClient(corpId string, corpSecret string) (*Client, error) {
+
+func NewClient(corpID string, corpSecret string) (*Client, error) {
 	ptr := C.NewSdk()
-	corpIdC := C.CString(corpId)
+	corpIDC := C.CString(corpID)
 	corpSecretC := C.CString(corpSecret)
 	defer func() {
-		C.free(unsafe.Pointer(corpIdC))
+		C.free(unsafe.Pointer(corpIDC))
 		C.free(unsafe.Pointer(corpSecretC))
 	}()
-	retC := C.Init(ptr, corpIdC, corpSecretC)
+	retC := C.Init(ptr, corpIDC, corpSecretC)
 	ret := int(retC)
 	if ret != 0 {
 		return nil, ErrorOfCode(ret, "Init")
@@ -263,7 +271,7 @@ func (c *Client) Close() {
 }
 
 func getContentFromSlice(slice *C.struct_Slice_t) []byte {
-	return C.GoBytes(unsafe.Pointer(C.GetContentFromSlice(slice)), C.int(C.GetSliceLen(slice)))
+	return C.GoBytes(unsafe.Pointer(C.GetContentFromSlice(slice)), C.GetSliceLen(slice))
 }
 
 func DecryptData(privateKey *rsa.PrivateKey, encryptRandomKey string, encryptMsg string) (msg Message, err error) {

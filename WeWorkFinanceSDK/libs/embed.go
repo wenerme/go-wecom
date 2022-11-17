@@ -24,7 +24,7 @@ func ExtractTo(dir string) error {
 		if _, err := os.Stat(name); err == nil {
 			continue
 		}
-		if err := os.WriteFile(name, data, 0644); err != nil {
+		if err := os.WriteFile(name, data, 0o600); err != nil {
 			return err
 		}
 	}

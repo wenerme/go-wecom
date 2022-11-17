@@ -85,7 +85,6 @@ const (
 
 // ExternalContactGroupChatStatusType status type of external group chat
 // used by ListGroupChatResponseGroupChatList.Status
-//
 type ExternalContactGroupChatStatusType int
 
 const (
@@ -97,7 +96,6 @@ const (
 
 // AgentAuthType type of agent auth
 // used by ProviderGetLoginInfoResponse.Agent
-//
 type AgentAuthType int
 
 const (

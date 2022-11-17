@@ -92,24 +92,31 @@ type BaseMessage struct {
 func (m BaseMessage) GetID() string {
 	return m.ID
 }
+
 func (m BaseMessage) GetType() string {
 	return m.Type
 }
+
 func (m BaseMessage) GetAction() string {
 	return m.Action
 }
+
 func (m BaseMessage) GetTime() time.Time {
 	return time.UnixMilli(m.Timestamp)
 }
+
 func (m BaseMessage) GetRaw() json.RawMessage {
 	return m.Raw
 }
+
 func (m *BaseMessage) SetRaw(r json.RawMessage) {
 	m.Raw = r
 }
+
 func (m BaseMessage) String() string {
 	return m.toString("")
 }
+
 func (m BaseMessage) toString(ex string) string {
 	ts := time.UnixMilli(m.Timestamp)
 	return fmt.Sprintf("Message(%s @%s %s FROM %s TO %s %s)", m.ID, ts, m.Type, m.From, m.ToList, ex)
@@ -381,7 +388,7 @@ func (m SwitchMessage) GetRaw() json.RawMessage {
 	return m.Raw
 }
 
-func (m SwitchMessage) SetRaw(r json.RawMessage) {
+func (m *SwitchMessage) SetRaw(r json.RawMessage) {
 	m.Raw = r
 }
 

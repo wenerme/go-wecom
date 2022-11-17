@@ -16,7 +16,7 @@ func createNonce() string {
 
 func randBytes(n int) []byte {
 	b := make([]byte, n)
-	_, err := rand.Read(b)
+	_, err := rand.Read(b) // nolint:gosec
 	if err != nil {
 		// err is always nil
 		_, _ = mathrand.Read(b) // nolint:gosec

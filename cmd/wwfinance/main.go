@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	dotenv "github.com/joho/godotenv"
 	"github.com/wenerme/go-wecom/WeWorkFinanceSDK"
 )
@@ -18,7 +19,6 @@ func main() {
 		Limit:   10,
 		Timeout: 5,
 	})
-
 	if err != nil {
 		panic(err)
 	}
