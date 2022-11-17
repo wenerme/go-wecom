@@ -101,3 +101,18 @@ ensure-no-changes: ## ensure git doesn't have any changes
 help: ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 ### END COMMON
+
+docker:
+	docker run --rm -it \
+		-e GO111MODULE=on -e GOPROXY=https://goproxy.io \
+		-v ~/go:/root/go \
+		-v ~/.cache:/root/.cache \
+		-v $(PWD):/host \
+		--workdir /host \
+		-e HOME=/root\
+		--name go golang:1.19-bullseye bash
+
+.PHONY: bin
+bin:
+	go build -o bin/wwfinance-libs ./cmd/wwfinance-libs
+	go build -o bin/wwfinance ./cmd/wwfinance

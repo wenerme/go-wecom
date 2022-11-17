@@ -20,3 +20,5 @@ ignored*
 cover.html
 wecom-cache.json
 bazel-*
+.env
+/libs

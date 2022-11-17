@@ -27,6 +27,7 @@ Wechat Work/Wecom/企业微信 Golang SDK
 - wwcrypt - 企业微信回调加密实现 - 作用同 sbzhu/weworkapi_golang
 - 数据模型大多基于官方接口文档生成 - 包含注释说明
 - 包含 API+Event Mock 测试
+- 支持拉取会话存档
 
 ```go
 package wecom_test
@@ -131,7 +132,7 @@ client := wecom.NewClient(wecom.Conf{
 * [ ] OA
 * [-] 效率工具
 * [ ] 企业支付
-* [-] 会话内容存档
+* [x] 会话内容存档
 * [ ] 企业互联
 * [ ] 电子发票
 
@@ -392,6 +393,71 @@ client := wecom.NewClient(wecom.Conf{
   - change_external_tag shuffle
   - 批量安装应用 https://open.work.weixin.qq.com/api/doc/20990
 
+## 会话存档
+
+- 依赖 libWeWorkFinanceSdk_C.so
+  - 封装了 curl 和加密逻辑
+  - 会请求 qyapi.weixin.qq.com
+  - 因为使用 curl 所以 https_proxy 环境变量能生效
+  - 依赖 GLIBC
+    - 因此无法使用 AlpineLinux - 需要很多 hack
+    - 建议使用 debian 镜像
+- wwfinance-libs 内嵌了 libWeWorkFinanceSdk_C.so，可以解压出来
+- wwfinance 提供基础的验证工具
+
+**命令行工具**
+
+```bash
+make bin
+
+# 配置
+cp .env.example .env
+# extract lib
+./bin/wwfinance-libs
+
+LD_LIBRARY_PATH=/tmp/wwf/libs ./bin/wwfinance
+
+# 开发测试
+LD_LIBRARY_PATH=$PWD/WeWorkFinanceSDK/libs go run ./cmd/wwfinance/main.go
+```
+
+**代码调用**
+
+```go
+package main
+
+import (
+	"fmt"
+	dotenv "github.com/joho/godotenv"
+	"github.com/wenerme/go-wecom/WeWorkFinanceSDK"
+)
+
+func main() {
+	_ = dotenv.Load()
+
+	client, err := WeWorkFinanceSDK.NewClientFromEnv()
+	if err != nil {
+		panic(err)
+	}
+
+	data, err := client.GetChatData(WeWorkFinanceSDK.GetChatDataOptions{
+		Limit:   10,
+		Timeout: 5,
+	})
+
+	if err != nil {
+		panic(err)
+	}
+	for _, v := range data {
+		fmt.Println(v.Message)
+	}
+}
+
+```
+
+- 支持代理
+  - https_proxy=127.0.0.1:1080
+
 ## Reference
 
 - [wenerme/go-req](https://github.com/wenerme/go-req)
@@ -399,5 +465,7 @@ client := wecom.NewClient(wecom.Conf{
 - [xen0n/go-workwx](https://github.com/xen0n/go-workwx)
   - 比较成熟的 Golang 企业微信 SDK
   - 没有 第三方接口、服务商接口、会话存档
+- [NICEXAI/WeWorkFinanceSDK](https://github.com/NICEXAI/WeWorkFinanceSDK)
+  - 封装 WeWorkFinanceSDK
 - [sbzhu/weworkapi_golang](https://github.com/sbzhu/weworkapi_golang)
   - 官方 Golang 加密库
