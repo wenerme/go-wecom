@@ -1,11 +1,11 @@
 package models
 
 import (
-	"encoding/json"
 	"net/http"
 	"time"
 
 	"github.com/wenerme/go-wecom/WeWorkFinanceSDK"
+	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )
 
@@ -42,7 +42,7 @@ type Message struct {
 	FromID      string
 	ToID        string
 	RoomID      string
-	Raw         json.RawMessage
+	Raw         datatypes.JSON
 	HasMedia    bool
 	Medias      []*Media `gorm:"foreignKey:MessageID;references:MessageID"`
 }
@@ -57,7 +57,7 @@ func (m *Message) FromMessage(mm WeWorkFinanceSDK.Message) {
 	m.MessageID = mm.GetID()
 	m.Type = mm.GetType()
 	m.Action = mm.GetAction()
-	m.Raw = mm.GetRaw()
+	m.Raw = datatypes.JSON(mm.GetRaw())
 	m.Sequence = mm.GetSequence()
 	m.CorpID = mm.GetCorpID()
 	m.MessageTime = mm.GetTime()

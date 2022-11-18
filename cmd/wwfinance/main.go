@@ -11,29 +11,32 @@ import (
 	"strings"
 	"time"
 
-	"github.com/wenerme/go-wecom/WeWorkFinanceSDK/models"
-	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
 	_ "github.com/glebarez/go-sqlite"
 	gsqlite "github.com/glebarez/go-sqlite"
+	"github.com/wenerme/go-wecom/WeWorkFinanceSDK/models"
+	"gorm.io/gorm"
 
 	"github.com/glebarez/sqlite"
 	dotenv "github.com/joho/godotenv"
 	"github.com/oklog/ulid/v2"
 	"github.com/sirupsen/logrus"
 	"github.com/wenerme/go-wecom/WeWorkFinanceSDK"
+	"gorm.io/driver/postgres"
 )
 
 var defaultEntropySource = ulid.Monotonic(rand.Reader, 0)
 
-var fileID string
-var keepPolling bool
-var pollingInterval = time.Minute * 5
-var printMessage = true
-
-var _db *gorm.DB
-var _client WeWorkFinanceSDK.Client
+var (
+	fileID          string
+	keepPolling     bool
+	pollingInterval = time.Minute * 5
+	printMessage    = true
+	migrateOnly     = false
+	_db             *gorm.DB
+	_client         WeWorkFinanceSDK.Client
+)
 
 func MustNewULID() string {
 	n := ulid.MustNew(ulid.Timestamp(time.Now()), defaultEntropySource)
@@ -44,6 +47,7 @@ func main() {
 	_ = dotenv.Load()
 	flag.StringVar(&fileID, "file-id", "", "file id to pull")
 	flag.BoolVar(&keepPolling, "keep-polling", false, "keep polling")
+	flag.BoolVar(&migrateOnly, "migrate-only", false, "run migrate and exit")
 	flag.Parse()
 
 	logrus.SetFormatter(&logrus.TextFormatter{
@@ -133,64 +137,7 @@ func poll() {
 				}
 			}
 		}
-
-		var messages []*models.Message
-		var allMedias []*models.Media
-		var files []*models.File
-		for _, v := range data {
-			message := models.FromMessage(v.Message)
-			medias := WeWorkFinanceSDK.GetMedias(v.Message)
-			for _, media := range medias {
-				if media.MD5Sum != "" {
-					var last *models.File
-					db.Where("md5_sum = ?", media.MD5Sum).Limit(1).Find(&last)
-					if last.ID != "" {
-						logrus.Infof("skip file %s already exists", media.MD5Sum)
-						continue
-					}
-				}
-			RETRY:
-				data, err := client.ReadMediaData(WeWorkFinanceSDK.GetMediaDataOptions{
-					FileID: media.ID,
-				})
-				if err != nil {
-					panic(err)
-				}
-				if media.MD5Sum != "" {
-					sum := WeWorkFinanceSDK.MD5Sum(data)
-					if sum != media.MD5Sum {
-						logrus.Warnf("md5sum not match, retrying %s", media.ID)
-						time.Sleep(2 * time.Second)
-						goto RETRY
-					}
-				}
-				if err = media.VerifyData(data, nil); err != nil {
-					panic(err)
-				}
-
-				file := models.FileFromMedia(media)
-				files = append(files, file)
-				allMedias = append(allMedias, models.FromMedia(media))
-			}
-			message.HasMedia = len(medias) > 0
-			messages = append(messages, message)
-		}
-
-		if err = db.Clauses(clause.OnConflict{
-			DoNothing: true,
-		}).CreateInBatches(files, 10).Error; err != nil {
-			panic(err)
-		}
-		if err = db.Clauses(clause.OnConflict{
-			DoNothing: true,
-		}).CreateInBatches(allMedias, 100).Error; err != nil {
-			panic(err)
-		}
-		if err = db.Clauses(clause.OnConflict{
-			DoNothing: true,
-		}).CreateInBatches(messages, 100).Error; err != nil {
-			panic(err)
-		}
+		save(data)
 	}
 	logrus.WithFields(logrus.Fields{
 		"last_sequence": lastSequence,
@@ -198,11 +145,110 @@ func poll() {
 	}).Info("polling done")
 }
 
+func save(chatMessages []*WeWorkFinanceSDK.ChatData) {
+	db := _db
+	client := _client
+
+	var err error
+	var messages []*models.Message
+	var allMedias []*models.Media
+	var files []*models.File
+	for _, v := range chatMessages {
+		message := models.FromMessage(v.Message)
+		medias := WeWorkFinanceSDK.GetMedias(v.Message)
+		for _, media := range medias {
+			allMedias = append(allMedias, models.FromMedia(media))
+			if media.MD5Sum != "" {
+				var last *models.File
+				db.Select("id").Where("md5_sum = ?", media.MD5Sum).Limit(1).Find(&last)
+				if last.ID != "" {
+					logrus.Infof("skip file %s already exists", media.MD5Sum)
+					continue
+				}
+			}
+			var data []byte
+		RETRY:
+			data, err = client.ReadMediaData(WeWorkFinanceSDK.GetMediaDataOptions{
+				FileID: media.ID,
+			})
+			if err != nil {
+				panic(err)
+			}
+			if media.MD5Sum != "" {
+				sum := WeWorkFinanceSDK.MD5Sum(data)
+				if sum != media.MD5Sum {
+					logrus.Warnf("md5sum not match, size %v <-> %v, retrying %s", media.Size, len(data), media.ID)
+					time.Sleep(2 * time.Second)
+					goto RETRY
+				}
+			}
+			if err = media.VerifyData(data, nil); err != nil {
+				panic(err)
+			}
+
+			file := models.FileFromMedia(media)
+			files = append(files, file)
+		}
+		message.HasMedia = len(medias) > 0
+		messages = append(messages, message)
+	}
+
+	if err = db.Clauses(clause.OnConflict{
+		DoNothing: true,
+	}).CreateInBatches(files, 10).Error; err != nil {
+		panic(err)
+	}
+	// works with fk
+	err = db.Transaction(func(tx *gorm.DB) error {
+		if err = tx.Clauses(clause.OnConflict{
+			DoNothing: true,
+		}).CreateInBatches(allMedias, 100).Error; err != nil {
+			return err
+		}
+		if err = tx.Clauses(clause.OnConflict{
+			DoNothing: true,
+		}).CreateInBatches(messages, 100).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+}
+
 func mustInitDB() *gorm.DB {
 	gsqlite.MustRegisterScalarFunction("gen_ulid", 0, func(ctx *gsqlite.FunctionContext, args []driver.Value) (driver.Value, error) {
 		return MustNewULID(), nil
 	})
-	db, err := gorm.Open(sqlite.Open("wwfinance.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)"), &gorm.Config{})
+	typ := os.Getenv("DB_TYPE")
+	dsn := os.Getenv("DB_DSN")
+	_ = typ
+	var db *gorm.DB
+	var err error
+	if typ == "" {
+		typ = "sqlite"
+		if dsn == "" {
+			dsn = "wwfinance.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)"
+		}
+	}
+
+	switch typ {
+	case "sqlite":
+	case "sqlite3":
+		db, err = gorm.Open(sqlite.Open("wwfinance.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)"), &gorm.Config{
+			DisableForeignKeyConstraintWhenMigrating: true,
+		})
+	case "pg":
+		fallthrough
+	case "postgres":
+		fallthrough
+	case "postgresql":
+		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+			DisableForeignKeyConstraintWhenMigrating: true,
+		})
+	}
+
 	if err != nil {
 		panic(err)
 	}
@@ -210,6 +256,9 @@ func mustInitDB() *gorm.DB {
 	err = db.AutoMigrate(&models.Message{}, &models.Media{}, &models.File{})
 	if err != nil {
 		panic(err)
+	}
+	if migrateOnly {
+		os.Exit(0)
 	}
 	return db
 }
