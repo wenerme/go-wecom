@@ -179,13 +179,13 @@ func (c *client) GetMediaData(o GetMediaDataOptions) (*MediaData, error) {
 		o.Timeout = c.options.Timeout
 	}
 	indexBufC := C.CString(o.Index)
-	sdkFileIdC := C.CString(o.FileID)
+	sdkFileIDC := C.CString(o.FileID)
 	proxyC := C.CString(o.Proxy)
 	passwdC := C.CString(o.ProxyCredential)
 	mediaDataC := C.NewMediaData()
 	defer func() {
 		C.free(unsafe.Pointer(indexBufC))
-		C.free(unsafe.Pointer(sdkFileIdC))
+		C.free(unsafe.Pointer(sdkFileIDC))
 		C.free(unsafe.Pointer(proxyC))
 		C.free(unsafe.Pointer(passwdC))
 		C.FreeMediaData(mediaDataC)
@@ -195,7 +195,7 @@ func (c *client) GetMediaData(o GetMediaDataOptions) (*MediaData, error) {
 		return nil, errors.New("client closed")
 	}
 
-	retC := C.GetMediaData(c.ptr, indexBufC, sdkFileIdC, proxyC, passwdC, C.int(o.Timeout), mediaDataC)
+	retC := C.GetMediaData(c.ptr, indexBufC, sdkFileIDC, proxyC, passwdC, C.int(o.Timeout), mediaDataC)
 	ret := int(retC)
 	if ret != 0 {
 		return nil, ErrorOfCode(ret, "GetMediaData")
@@ -207,7 +207,7 @@ func (c *client) GetMediaData(o GetMediaDataOptions) (*MediaData, error) {
 	}, nil
 }
 
-//func (c *client) SaveMedia(o SaveMediaOptions) error {
+// func (c *client) SaveMedia(o SaveMediaOptions) error {
 //	if o.TempDir == "" {
 //		o.TempDir = c.options.TempDir
 //	}
@@ -304,7 +304,7 @@ func (c *client) GetMediaData(o GetMediaDataOptions) (*MediaData, error) {
 //	skipDelete = err == nil
 //
 //	return err
-//}
+// }
 
 func (c *client) Close() {
 	if c.ptr == nil {
@@ -362,12 +362,12 @@ func DecryptData(privateKey *rsa.PrivateKey, encryptRandomKey string, encryptMsg
 	return msg, err
 }
 
-type counterWriter struct {
-	Count int
-}
-
-func (c *counterWriter) Write(p []byte) (n int, err error) {
-	n = len(p)
-	c.Count += n
-	return n, nil
-}
+// type counterWriter struct {
+// 	Count int
+// }
+//
+// func (c *counterWriter) Write(p []byte) (n int, err error) {
+// 	n = len(p)
+// 	c.Count += n
+// 	return n, nil
+// }

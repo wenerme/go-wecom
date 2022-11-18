@@ -9,8 +9,8 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: 1.19
-          cache: true
-          cache-dependency-path: go.sum
+#          cache: true
+#          cache-dependency-path: go.sum
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Check go mod
@@ -39,8 +39,8 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: 1.19
-          cache: true
-          cache-dependency-path: go.sum
+#          cache: true
+#          cache-dependency-path: go.sum
       - name: Run CI
         # https://github.com/actions/setup-go/issues/107#issuecomment-854071850
         run: |
