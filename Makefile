@@ -9,7 +9,7 @@ ci:
 
 .PHONY: go-test-cover
 go-test-cover: ## run test & generate coverage
-	go test -race -coverprofile=cover.out -coverpkg=./... ./...
+	LD_LIBRARY_PATH=$(PWD)/WeWorkFinanceSDK/libs go test -race -coverprofile=cover.out -coverpkg=./... ./...
 	go tool cover -html=cover.out -o cover.html
 
 ### BEGIN COMMON
