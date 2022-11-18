@@ -395,15 +395,28 @@ client := wecom.NewClient(wecom.Conf{
 
 ## 会话存档
 
-- 依赖 libWeWorkFinanceSdk_C.so
-  - 封装了 curl 和加密逻辑
-  - 会请求 qyapi.weixin.qq.com
-  - 因为使用 curl 所以 https_proxy 环境变量能生效
+
+
+> **Note**
+>
+> 1. 会话存档保存 **5** 天
+> 1. 从 Sequence+1 拉取，不包含 Sequence
+> 1. limit 最大 1000
+> 1. 图片 jpg, 音频 amr, 视频 mp4
+> 1. MediaData 的 MD5 可能匹配不上，可以一直重试
+> 1. MediaData 单次最多返回 512K
+
+- libWeWorkFinanceSdk_C.so
   - 依赖 GLIBC
-    - 因此无法使用 AlpineLinux - 需要很多 hack
-    - 建议使用 debian 镜像
+  - 使用了 libcurl
+    - https_proxy 能生效
+- 实际请求 qyapi.weixin.qq.com
+- RSA2048 key
+  - `openssl genrsa -out private.pem 2048`
+  - `openssl rsa -in private.pem -pubout -out public.pem`
 - wwfinance-libs 内嵌了 libWeWorkFinanceSdk_C.so，可以解压出来
 - wwfinance 提供基础的验证工具
+  - 拉取所有数据到 sqlite wwfinance.db
 
 **命令行工具**
 

@@ -10,8 +10,12 @@ type Error struct {
 	Detail  string `json:"-"`
 }
 
+func (err Error) IsRetryable() bool {
+	return err.Code >= 10001 && err.Code <= 1003
+}
+
 func (err Error) Error() string {
-	if err.Detail == "" {
+	if err.Detail != "" {
 		return fmt.Sprintf("%d: %s %s", err.Code, err.Message, err.Detail)
 	}
 	return fmt.Sprintf("%d: %s", err.Code, err.Message)

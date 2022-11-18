@@ -9,12 +9,21 @@ package WeWorkFinanceSDK
 import "C"
 
 import (
+	"bytes"
 	"crypto/rsa"
 	"encoding/json"
+	"errors"
+	"io"
 	"unsafe"
 )
 
-func NewClient(corpID string, corpSecret string) (*Client, error) {
+type client struct {
+	ptr     *C.WeWorkFinanceSdk_t
+	corpID  string
+	options ClientOptions
+}
+
+func NewClient(corpID string, corpSecret string) (Client, error) {
 	ptr := C.NewSdk()
 	corpIDC := C.CString(corpID)
 	corpSecretC := C.CString(corpSecret)
@@ -27,12 +36,13 @@ func NewClient(corpID string, corpSecret string) (*Client, error) {
 	if ret != 0 {
 		return nil, ErrorOfCode(ret, "Init")
 	}
-	return &Client{
-		ptr: ptr,
+	return &client{
+		ptr:    ptr,
+		corpID: corpID,
 	}, nil
 }
 
-func (c *Client) GetChatData(o GetChatDataOptions) ([]*ChatData, error) {
+func (c *client) GetChatData(o GetChatDataOptions) ([]*ChatData, error) {
 	if o.Proxy == "" {
 		o.Proxy = c.options.Proxy
 	}
@@ -87,13 +97,216 @@ func (c *Client) GetChatData(o GetChatDataOptions) ([]*ChatData, error) {
 			if err != nil {
 				return nil, err
 			}
+			v.Message.SetSequence(v.Sequence)
+			v.Message.SetCorpID(c.corpID)
 		}
 	}
 
 	return data.ChatDataList, nil
 }
 
-func (c *Client) Close() {
+func (c *client) ReadMediaData(o GetMediaDataOptions) (b []byte, err error) {
+	buf := bytes.Buffer{}
+	if o.Proxy == "" {
+		o.Proxy = c.options.Proxy
+	}
+	if o.ProxyCredential == "" {
+		o.ProxyCredential = c.options.ProxyCredential
+	}
+	if o.Timeout == 0 {
+		o.Timeout = c.options.Timeout
+	}
+	if c.ptr == nil {
+		return nil, errors.New("client closed")
+	}
+
+	var indexBufC *C.char
+	sdkFileIdC := C.CString(o.FileID)
+	proxyC := C.CString(o.Proxy)
+	passwdC := C.CString(o.ProxyCredential)
+	mediaDataC := C.NewMediaData()
+	defer func() {
+		// C.free(unsafe.Pointer(indexBufC))
+		C.free(unsafe.Pointer(sdkFileIdC))
+		C.free(unsafe.Pointer(proxyC))
+		C.free(unsafe.Pointer(passwdC))
+		C.FreeMediaData(mediaDataC)
+	}()
+
+	for {
+
+		retC := C.GetMediaData(c.ptr, indexBufC, sdkFileIdC, proxyC, passwdC, C.int(o.Timeout), mediaDataC)
+		indexBufC = C.GetOutIndexBuf(mediaDataC)
+		ret := int(retC)
+		if ret != 0 {
+			return nil, ErrorOfCode(ret, "GetMediaData")
+		}
+		// 单次最大 512K
+		_, _ = buf.Write(C.GoBytes(unsafe.Pointer(C.GetData(mediaDataC)), C.int(C.GetDataLen(mediaDataC))))
+		if int(C.IsMediaDataFinish(mediaDataC)) == 1 {
+			break
+		}
+	}
+	return buf.Bytes(), err
+}
+
+func (c *client) CopyMediaData(o GetMediaDataOptions, w io.Writer) (sum int, err error) {
+	o.Index = ""
+	var data *MediaData
+	var n int
+	for {
+		data, err = c.GetMediaData(o)
+		if err != nil {
+			return
+		}
+		n, err = w.Write(data.Data)
+		sum += n
+		if data.Finished {
+			return
+		}
+		o.Index = data.OutIndexBuf
+	}
+}
+
+func (c *client) GetMediaData(o GetMediaDataOptions) (*MediaData, error) {
+	if o.Proxy == "" {
+		o.Proxy = c.options.Proxy
+	}
+	if o.ProxyCredential == "" {
+		o.ProxyCredential = c.options.ProxyCredential
+	}
+	if o.Timeout == 0 {
+		o.Timeout = c.options.Timeout
+	}
+	indexBufC := C.CString(o.Index)
+	sdkFileIdC := C.CString(o.FileID)
+	proxyC := C.CString(o.Proxy)
+	passwdC := C.CString(o.ProxyCredential)
+	mediaDataC := C.NewMediaData()
+	defer func() {
+		C.free(unsafe.Pointer(indexBufC))
+		C.free(unsafe.Pointer(sdkFileIdC))
+		C.free(unsafe.Pointer(proxyC))
+		C.free(unsafe.Pointer(passwdC))
+		C.FreeMediaData(mediaDataC)
+	}()
+
+	if c.ptr == nil {
+		return nil, errors.New("client closed")
+	}
+
+	retC := C.GetMediaData(c.ptr, indexBufC, sdkFileIdC, proxyC, passwdC, C.int(o.Timeout), mediaDataC)
+	ret := int(retC)
+	if ret != 0 {
+		return nil, ErrorOfCode(ret, "GetMediaData")
+	}
+	return &MediaData{
+		OutIndexBuf: C.GoString(C.GetOutIndexBuf(mediaDataC)),
+		Data:        C.GoBytes(unsafe.Pointer(C.GetData(mediaDataC)), C.int(C.GetDataLen(mediaDataC))),
+		Finished:    int(C.IsMediaDataFinish(mediaDataC)) == 1,
+	}, nil
+}
+
+//func (c *client) SaveMedia(o SaveMediaOptions) error {
+//	if o.TempDir == "" {
+//		o.TempDir = c.options.TempDir
+//	}
+//	if o.TempDir == "" {
+//		o.TempDir = os.TempDir()
+//	}
+//	var name string
+//	media := o.Media
+//	if media.MD5Sum != "" {
+//		name = media.MD5Sum + "." + media.Ext
+//	}
+//	if name != "" {
+//		if stat, _ := os.Stat(path.Join(o.Dir, name)); stat != nil && !o.Force {
+//			if !o.KeepData && o.Writer == nil && o.Media.MD5Sum != "" {
+//				return nil
+//			}
+//
+//			file, err := os.ReadFile(stat.Name())
+//			if err != nil {
+//				return err
+//			}
+//			if o.KeepData {
+//
+//			}
+//			return nil
+//		}
+//	}
+//
+//	temp, err := os.CreateTemp(o.TempDir, "weworkmedia")
+//	if err != nil {
+//		return err
+//	}
+//	skipClose := false
+//	skipDelete := false
+//	defer func() {
+//		if !skipClose {
+//			_ = temp.Close()
+//		}
+//		if !skipDelete {
+//			//_ = os.Remove(temp.Name())
+//		}
+//	}()
+//
+//	hash := md5.New()
+//	counter := &counterWriter{}
+//
+//	var writers = []io.Writer{hash, counter}
+//	if o.Writer != nil {
+//		writers = append(writers, o.Writer)
+//	}
+//	var buf *bytes.Buffer
+//	if o.KeepData {
+//		buf = new(bytes.Buffer)
+//		writers = append(writers, buf)
+//	}
+//
+//	w := io.MultiWriter(writers...)
+//	_, err = c.CopyMediaData(GetMediaDataOptions{
+//		FileID: media.ID,
+//	}, w)
+//	if err != nil {
+//		return err
+//	}
+//
+//	skipClose = true
+//	_ = temp.Close()
+//
+//	md5sum := hex.EncodeToString(hash.Sum(nil))
+//	if media.MD5Sum != "" {
+//		if media.MD5Sum != md5sum && o.CheckSum {
+//			println("temp", temp.Name())
+//			return fmt.Errorf("media md5sum not match: %s != %s #%v <-> #%v id=%s", media.MD5Sum, md5sum, media.Size, counter.Count, media.ID)
+//		}
+//	} else {
+//		media.MD5Sum = md5sum
+//	}
+//
+//	if media.Size != 0 {
+//		if media.Size != counter.Count {
+//			return fmt.Errorf("media size not match: %d != %d id=%s", media.Size, counter.Count, media.ID)
+//		}
+//	}
+//	if media.Ext == "" {
+//		media.Ext = "data"
+//	}
+//
+//	media.FileMD5Sum = md5sum
+//	name = md5sum + "." + media.Ext
+//	if buf != nil {
+//		media.Data = buf.Bytes()
+//	}
+//	//
+//	err = os.Rename(temp.Name(), path.Join(o.Dir, name))
+//	skipDelete = err == nil
+//
+//	return err
+//}
+
+func (c *client) Close() {
 	if c.ptr == nil {
 		return
 	}
@@ -149,7 +362,12 @@ func DecryptData(privateKey *rsa.PrivateKey, encryptRandomKey string, encryptMsg
 	return msg, err
 }
 
-type Client struct {
-	ptr     *C.WeWorkFinanceSdk_t
-	options ClientOptions
+type counterWriter struct {
+	Count int
+}
+
+func (c *counterWriter) Write(p []byte) (n int, err error) {
+	n = len(p)
+	c.Count += n
+	return n, nil
 }

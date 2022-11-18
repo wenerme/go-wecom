@@ -4,21 +4,30 @@ import "C"
 import (
 	"crypto/rsa"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 	"sync"
 )
 
 type GetChatDataOptions struct {
-	Sequence        int64
+	Sequence        uint64
 	Limit           int64
 	Proxy           string
 	ProxyCredential string
 	Timeout         int
 	SkipDecrypt     bool
 }
+type GetMediaDataOptions struct {
+	Index           string
+	FileID          string
+	Proxy           string
+	ProxyCredential string
+	Timeout         int
+}
 type ClientOptions struct {
 	Proxy           string
+	TempDir         string
 	ProxyCredential string
 	Timeout         int
 	PrivateKey      *rsa.PrivateKey
@@ -27,7 +36,7 @@ type ClientOptions struct {
 type ClientOptionBuilder struct {
 	Options ClientOptions
 	Errors  []error
-	Client  *Client
+	Client  *client
 }
 
 func (b *ClientOptionBuilder) PrivateKeys(m map[int]string) *ClientOptionBuilder {
@@ -106,7 +115,7 @@ func (b *ClientOptionBuilder) PrivateKey(v string) *ClientOptionBuilder {
 	return b
 }
 
-func (b *ClientOptionBuilder) Apply() (*Client, error) {
+func (b *ClientOptionBuilder) Apply() (Client, error) {
 	options, err := b.Build()
 	if err != nil {
 		return nil, err
@@ -115,7 +124,7 @@ func (b *ClientOptionBuilder) Apply() (*Client, error) {
 	return b.Client, nil
 }
 
-func (b *ClientOptionBuilder) MustApply() *Client {
+func (b *ClientOptionBuilder) MustApply() Client {
 	client, err := b.Apply()
 	if err != nil {
 		panic(err)
@@ -142,7 +151,7 @@ func (b *ClientOptionBuilder) Build() (ClientOptions, error) {
 	return o, nil
 }
 
-func NewClientFromEnv() (*Client, error) {
+func NewClientFromEnv() (Client, error) {
 	corpID, _ := os.LookupEnv("WWF_CORP_ID")
 	corpSecret, _ := os.LookupEnv("WWF_CORP_SECRET")
 	corpSecretFile, _ := os.LookupEnv("WWF_CORP_SECRET_FILE")
@@ -159,13 +168,44 @@ func NewClientFromEnv() (*Client, error) {
 	if corpSecret == "" {
 		return nil, fmt.Errorf("corpSecret not founed from env")
 	}
-	client, err := NewClient(corpID, corpSecret)
+	cli, err := NewClient(corpID, corpSecret)
 	if err == nil {
-		client, err = client.Options().ParseEnv().Apply()
+		cli, err = cli.Options().ParseEnv().Apply()
 	}
-	return client, err
+	return cli, err
 }
 
-func (c *Client) Options() *ClientOptionBuilder {
+func (c *client) Options() *ClientOptionBuilder {
 	return &ClientOptionBuilder{Options: c.options, Client: c}
+}
+
+type SaveMediaOptions struct {
+	Media   *Media
+	TempDir string
+	Dir     string // save to dir
+	// Name    string // save as name
+	// Path    string // save as final path
+	// Meta    string
+
+	Writer   io.Writer
+	KeepData bool
+	Force    bool
+	CheckSum bool
+}
+
+func (c *client) GetCorpID() string {
+	return c.corpID
+}
+
+type Client interface {
+	GetCorpID() string
+	Options() *ClientOptionBuilder
+	CopyMediaData(o GetMediaDataOptions, w io.Writer) (sum int, err error)
+	ReadMediaData(o GetMediaDataOptions) (data []byte, err error)
+	GetMediaData(o GetMediaDataOptions) (*MediaData, error)
+
+	// SaveMedia(o SaveMediaOptions) error
+
+	GetChatData(o GetChatDataOptions) ([]*ChatData, error)
+	Close()
 }

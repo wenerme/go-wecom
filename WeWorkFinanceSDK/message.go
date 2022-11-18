@@ -12,6 +12,15 @@ type Message interface {
 	GetAction() string
 	GetRaw() json.RawMessage
 	SetRaw(r json.RawMessage)
+	GetSequence() uint64
+	SetSequence(s uint64)
+	SetCorpID(corpID string)
+	GetCorpID() string
+	GetTime() time.Time
+}
+
+type HasBaseMessage interface {
+	GetBaseMessage() *BaseMessage
 }
 
 var MessageOfType = func(action, typ string) Message {
@@ -87,6 +96,8 @@ type BaseMessage struct {
 	Timestamp int64           `json:"msgtime,omitempty"` // 消息发送时间戳，utc时间，ms单位。
 	Type      string          `json:"msgtype,omitempty"` // 消息类型，具体数据见消息注释内容
 	Raw       json.RawMessage `json:"-"`                 // 原始消息对象
+	Sequence  uint64          `json:"-"`                 // 消息序号
+	CorpID    string          `json:"-"`
 }
 
 func (m BaseMessage) GetID() string {
@@ -113,13 +124,33 @@ func (m *BaseMessage) SetRaw(r json.RawMessage) {
 	m.Raw = r
 }
 
+func (m BaseMessage) GetSequence() uint64 {
+	return m.Sequence
+}
+
+func (m *BaseMessage) SetSequence(seq uint64) {
+	m.Sequence = seq
+}
+
+func (m BaseMessage) GetCorpID() string {
+	return m.CorpID
+}
+
+func (m *BaseMessage) SetCorpID(corpID string) {
+	m.CorpID = corpID
+}
+
+func (m *BaseMessage) GetBaseMessage() *BaseMessage {
+	return m
+}
+
 func (m BaseMessage) String() string {
 	return m.toString("")
 }
 
 func (m BaseMessage) toString(ex string) string {
 	ts := time.UnixMilli(m.Timestamp)
-	return fmt.Sprintf("Message(%s @%s %s FROM %s TO %s %s)", m.ID, ts, m.Type, m.From, m.ToList, ex)
+	return fmt.Sprintf("Message(%s @%s %s FROM %s TO %s %s)", m.Type, ts, m.ID, m.From, m.ToList, ex)
 }
 
 // TextMessage 文本
@@ -142,8 +173,19 @@ type ImageMessage struct {
 	Image struct {
 		SdkFileID string `json:"sdkfileid,omitempty"` // 媒体资源的id信息。
 		Md5Sum    string `json:"md5sum,omitempty"`    // 图片资源的md5值，供进行校验。
-		FileSize  uint32 `json:"filesize,omitempty"`  // 图片资源的文件大小。
+		FileSize  int    `json:"filesize,omitempty"`  // 图片资源的文件大小。
 	} `json:"image,omitempty"`
+}
+
+func (m ImageMessage) GetMedias() []Media {
+	return []Media{
+		{
+			ID:     m.Image.SdkFileID,
+			Size:   m.Image.FileSize,
+			MD5Sum: m.Image.Md5Sum,
+			Ext:    "jpg",
+		},
+	}
 }
 
 // RevokeMessage 撤回消息
@@ -171,10 +213,22 @@ type VoiceMessage struct {
 	BaseMessage
 	Voice struct {
 		SdkFileID  string `json:"sdkfileid,omitempty"`   // 媒体资源的id信息。
-		VoiceSize  uint32 `json:"voice_size,omitempty"`  // 语音消息大小。
-		PlayLength uint32 `json:"play_length,omitempty"` // 播放长度。
+		VoiceSize  int    `json:"voice_size,omitempty"`  // 语音消息大小。
+		PlayLength int    `json:"play_length,omitempty"` // 播放长度。
 		Md5Sum     string `json:"md5sum,omitempty"`      // 图片资源的md5值，供进行校验。
 	} `json:"voice,omitempty"`
+}
+
+func (m VoiceMessage) GetMedias() []Media {
+	return []Media{
+		{
+			ID:     m.Voice.SdkFileID,
+			Size:   m.Voice.VoiceSize,
+			MD5Sum: m.Voice.Md5Sum,
+			Ext:    "amr",
+			Length: m.Voice.PlayLength,
+		},
+	}
 }
 
 // VideoMessage 视频
@@ -183,10 +237,22 @@ type VideoMessage struct {
 	BaseMessage
 	Video struct {
 		SdkFileID  string `json:"sdkfileid,omitempty"`   // 媒体资源的id信息。
-		FileSize   uint32 `json:"filesize,omitempty"`    // 图片资源的文件大小。
-		PlayLength uint32 `json:"play_length,omitempty"` // 播放长度。
+		FileSize   int    `json:"filesize,omitempty"`    // 图片资源的文件大小。
+		PlayLength int    `json:"play_length,omitempty"` // 播放长度。
 		Md5Sum     string `json:"md5sum,omitempty"`      // 图片资源的md5值，供进行校验。
 	} `json:"video,omitempty"`
+}
+
+func (m VideoMessage) GetMedias() []Media {
+	return []Media{
+		{
+			ID:     m.Video.SdkFileID,
+			Size:   m.Video.FileSize,
+			MD5Sum: m.Video.Md5Sum,
+			Ext:    "mp4",
+			Length: m.Video.PlayLength,
+		},
+	}
 }
 
 // CardMessage 名片
@@ -217,26 +283,49 @@ type LocationMessage struct {
 type EmotionMessage struct {
 	BaseMessage
 	Emotion struct {
-		Type      uint32 `json:"type,omitempty"`      // 表情类型，png或者gif.1表示gif 2表示png。
-		Width     uint32 `json:"width,omitempty"`     // 表情图片宽度。
-		Height    uint32 `json:"height,omitempty"`    // 表情图片高度。
-		ImageSize uint32 `json:"imagesize,omitempty"` // 资源的文件大小。
+		Type      int    `json:"type,omitempty"`      // 表情类型，png或者gif.1表示gif 2表示png。
+		Width     int    `json:"width,omitempty"`     // 表情图片宽度。
+		Height    int    `json:"height,omitempty"`    // 表情图片高度。
+		ImageSize int    `json:"imagesize,omitempty"` // 资源的文件大小。
 		SdkFileID string `json:"sdkfileid,omitempty"` // 媒体资源的id信息。
 		Md5Sum    string `json:"md5sum,omitempty"`    // 图片资源的md5值，供进行校验。
 	} `json:"emotion,omitempty"`
 }
 
-func (m EmotionMessage) String() string {
+func (m EmotionMessage) GetMedias() []Media {
+	return []Media{
+		{
+			ID:     m.Emotion.SdkFileID,
+			Ext:    m.GetEmotionFormat(),
+			Size:   m.Emotion.ImageSize,
+			Width:  m.Emotion.Width,
+			Height: m.Emotion.Height,
+			MD5Sum: m.Emotion.Md5Sum,
+		},
+	}
+}
+
+func (m EmotionMessage) GetEmotionFormat() string {
 	typ := ""
 	switch m.Emotion.Type {
 	case 1:
 		typ = "gif"
 	case 2:
 		typ = "png"
-	default:
+	}
+	return typ
+}
+
+func (m EmotionMessage) getEmotionFormat() string {
+	typ := m.GetEmotionFormat()
+	if typ == "" {
 		typ = fmt.Sprintf("EmotionType(%d)", m.Emotion.Type)
 	}
-	return m.toString(fmt.Sprintf("EMOTION %s %dx%d %d %s", typ, m.Emotion.Width, m.Emotion.Height, m.Emotion.ImageSize, m.Emotion.SdkFileID))
+	return typ
+}
+
+func (m EmotionMessage) String() string {
+	return m.toString(fmt.Sprintf("EMOTION %s %dx%d %d %s", m.getEmotionFormat(), m.Emotion.Width, m.Emotion.Height, m.Emotion.ImageSize, m.Emotion.SdkFileID))
 }
 
 // FileMessage 文件
@@ -247,9 +336,21 @@ type FileMessage struct {
 		FileName  string `json:"filename,omitempty"`  // 文件名称。
 		FileExt   string `json:"fileext,omitempty"`   // 文件类型后缀。
 		SdkFileID string `json:"sdkfileid,omitempty"` // 媒体资源的id信息。
-		FileSize  uint32 `json:"filesize,omitempty"`  // 文件大小。
+		FileSize  int    `json:"filesize,omitempty"`  // 文件大小。
 		Md5Sum    string `json:"md5sum,omitempty"`    // 资源的md5值，供进行校验。
 	} `json:"file,omitempty"`
+}
+
+func (m FileMessage) GetMedias() []Media {
+	return []Media{
+		{
+			ID:     m.File.SdkFileID,
+			Name:   m.File.FileName,
+			Ext:    m.File.FileExt,
+			Size:   m.File.FileSize,
+			MD5Sum: m.File.Md5Sum,
+		},
+	}
 }
 
 // LinkMessage 链接
@@ -286,11 +387,16 @@ type ChatRecordMessage struct {
 	} `json:"chatrecord,omitempty"`
 }
 
+func (m ChatRecordMessage) GetMedias() []Media {
+	// TODO
+	return []Media{}
+}
+
 // ChatRecord 会话记录消息item
 type ChatRecord struct {
 	Type         string `json:"type,omitempty"`          // 每条聊天记录的具体消息类型：ChatRecordText/ ChatRecordFile/ ChatRecordImage/ ChatRecordVideo/ ChatRecordLink/ ChatRecordLocation/ ChatRecordMixed ….
 	Content      string `json:"content,omitempty"`       // 消息内容。Json串，内容为对应类型的json
-	MsgTime      int64  `json:"msgtime,omitempty"`       // 消息时间，utc时间，ms单位。
+	Timestamp    int64  `json:"msgtime,omitempty"`       // 消息时间，utc时间，ms单位。
 	FromChatroom bool   `json:"from_chatroom,omitempty"` // 是否来自群会话。
 }
 
@@ -365,11 +471,25 @@ type MeetingMessage struct {
 // SwitchMessage 切换企业日志
 // 注：切换企业日志不是真正的消息，与上述消息结构不完全相同
 type SwitchMessage struct {
-	ID     string          `json:"msgid,omitempty"`  // 消息id，消息的唯一标识，企业可以使用此字段进行消息去重
-	Action string          `json:"action,omitempty"` // 消息动作，切换企业为switch
-	Time   int64           `json:"time,omitempty"`   // 消息发送时间戳，utc时间，ms单位。
-	User   string          `json:"user,omitempty"`   // 具体为切换企业的成员的userid。
-	Raw    json.RawMessage `json:"-"`
+	ID        string          `json:"msgid,omitempty"`  // 消息id，消息的唯一标识，企业可以使用此字段进行消息去重
+	Action    string          `json:"action,omitempty"` // 消息动作，切换企业为switch
+	Timestamp int64           `json:"time,omitempty"`   // 消息发送时间戳，utc时间，ms单位。
+	User      string          `json:"user,omitempty"`   // 具体为切换企业的成员的userid。
+	Raw       json.RawMessage `json:"-"`
+	Sequence  uint64          `json:"-"` // 消息序号
+	CorpID    string          `json:"-"`
+}
+
+func (m SwitchMessage) String() string {
+	return fmt.Sprintf("SwitchMessage{ID:%s,Action:%s,Time:%d,User:%s,Sequence:%d,CorpID:%s}", m.ID, m.Action, m.Timestamp, m.User, m.Sequence, m.CorpID)
+}
+
+func (m SwitchMessage) GetSequence() uint64 {
+	return m.Sequence
+}
+
+func (m *SwitchMessage) SetSequence(seq uint64) {
+	m.Sequence = seq
 }
 
 func (m SwitchMessage) GetID() string {
@@ -390,6 +510,18 @@ func (m SwitchMessage) GetRaw() json.RawMessage {
 
 func (m *SwitchMessage) SetRaw(r json.RawMessage) {
 	m.Raw = r
+}
+
+func (m SwitchMessage) GetCorpID() string {
+	return m.CorpID
+}
+
+func (m *SwitchMessage) SetCorpID(corpID string) {
+	m.CorpID = corpID
+}
+
+func (m SwitchMessage) GetTime() time.Time {
+	return time.UnixMilli(m.Timestamp)
 }
 
 // DocMessage 在线文档消息
@@ -467,6 +599,14 @@ type MeetingVoiceCallMessage struct {
 	MeetingVoiceCall MeetingVoiceCall `json:"meeting_voice_call,omitempty"` // 音频消息内容。包括结束时间、fileid，可能包括多个demofiledata、sharescreendata消息，demofiledata表示文档共享信息，sharescreendata表示屏幕共享信息。Object类型
 }
 
+func (m MeetingVoiceCallMessage) GetMedias() []Media {
+	return []Media{
+		{
+			ID: m.MeetingVoiceCall.SdkFileID,
+		},
+	}
+}
+
 // MeetingVoiceCall 音频存档消息/音频消息内容
 type MeetingVoiceCall struct {
 	EndTime         int64             `json:"endtime,omitempty"`         // 音频结束时间
@@ -498,11 +638,22 @@ type VoipDocShareMessage struct {
 	VoipDocShare VoipDocShare `json:"voip_doc_share,omitempty"` // 共享文档消息内容。包括filename、md5sum、filesize、sdkfileid字段。Object类型
 }
 
+func (m VoipDocShareMessage) GetMedias() []Media {
+	return []Media{
+		{
+			ID:     m.VoipDocShare.SdkFileID,
+			Name:   m.VoipDocShare.FileName,
+			Size:   m.VoipDocShare.FileSize,
+			MD5Sum: m.VoipDocShare.Md5Sum,
+		},
+	}
+}
+
 // VoipDocShare 音频共享文档消息/共享文档消息内容
 type VoipDocShare struct {
 	FileName  string `json:"filename,omitempty"`  // 文档共享文件名称
 	Md5Sum    string `json:"md5sum,omitempty"`    // 共享文件的md5值
-	FileSize  uint64 `json:"filesize,omitempty"`  // 共享文件的大小
+	FileSize  int    `json:"filesize,omitempty"`  // 共享文件的大小
 	SdkFileID string `json:"sdkfileid,omitempty"` // 共享文件的sdkfile，通过此字段进行媒体数据下载
 }
 

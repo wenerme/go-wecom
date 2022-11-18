@@ -1,10 +1,12 @@
 package WeWorkFinanceSDK
 
 import (
+	"crypto/md5" // #nosec
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/base64"
+	"encoding/hex"
 	"encoding/pem"
 	"errors"
 	"fmt"
@@ -38,4 +40,10 @@ func RSADecryptBase64(privateKey *rsa.PrivateKey, cryptoText string) ([]byte, er
 		return nil, err
 	}
 	return rsa.DecryptPKCS1v15(rand.Reader, privateKey, encryptedData)
+}
+
+func MD5Sum(data []byte) string {
+	hash := md5.New() // #nosec
+	hash.Write(data)
+	return hex.EncodeToString(hash.Sum(nil))
 }
