@@ -121,13 +121,13 @@ func (c *client) ReadMediaData(o GetMediaDataOptions) (b []byte, err error) {
 	}
 
 	var indexBufC *C.char
-	sdkFileIdC := C.CString(o.FileID)
+	sdkFileIDC := C.CString(o.FileID)
 	proxyC := C.CString(o.Proxy)
 	passwdC := C.CString(o.ProxyCredential)
 	mediaDataC := C.NewMediaData()
 	defer func() {
 		// C.free(unsafe.Pointer(indexBufC))
-		C.free(unsafe.Pointer(sdkFileIdC))
+		C.free(unsafe.Pointer(sdkFileIDC))
 		C.free(unsafe.Pointer(proxyC))
 		C.free(unsafe.Pointer(passwdC))
 		C.FreeMediaData(mediaDataC)
@@ -135,7 +135,7 @@ func (c *client) ReadMediaData(o GetMediaDataOptions) (b []byte, err error) {
 
 	for {
 
-		retC := C.GetMediaData(c.ptr, indexBufC, sdkFileIdC, proxyC, passwdC, C.int(o.Timeout), mediaDataC)
+		retC := C.GetMediaData(c.ptr, indexBufC, sdkFileIDC, proxyC, passwdC, C.int(o.Timeout), mediaDataC)
 		indexBufC = C.GetOutIndexBuf(mediaDataC)
 		ret := int(retC)
 		if ret != 0 {
