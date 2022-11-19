@@ -1,38 +1,16 @@
 package models
 
 import (
+	"github.com/wenerme/go-wecom/commons/gorms"
 	"net/http"
 	"time"
 
 	"github.com/wenerme/go-wecom/WeWorkFinanceSDK"
 	"gorm.io/datatypes"
-	"gorm.io/gorm"
 )
 
-type Model struct {
-	ID        string         `gorm:"primaryKey;default:(gen_ulid())" sql:"DEFAULT:gen_ulid()"` // sqlite must define as (gen_ulid())
-	CreatedAt time.Time      `gorm:"index" sql:"type:timestamptz; DEFAULT:current_timestamp"`
-	UpdatedAt time.Time      `gorm:"index" sql:"type:timestamptz; DEFAULT:current_timestamp"`
-	DeletedAt gorm.DeletedAt `gorm:"index"`
-	DB        *gorm.DB       `gorm:"-" mapstructure:"-" json:"-" yaml:"-" copier:"-"`
-}
-
-func (model *Model) GetDB() *gorm.DB {
-	return model.DB
-}
-
-func (model *Model) AfterFind(tx *gorm.DB) (err error) {
-	model.DB = tx
-	return
-}
-
-func (model *Model) BeforeSave(tx *gorm.DB) (err error) {
-	model.DB = tx
-	return
-}
-
 type Message struct {
-	Model
+	gorms.Model
 	CorpID      string    `gorm:"uniqueIndex:messages_corp_id_sequence"`
 	MessageID   string    `gorm:"unique"`
 	Sequence    uint64    `gorm:"uniqueIndex:messages_corp_id_sequence"`
@@ -80,7 +58,7 @@ func (m *Message) FromMedias(medias []*WeWorkFinanceSDK.Media) {
 }
 
 type Media struct {
-	Model
+	gorms.Model
 	CorpID         string `gorm:"uniqueIndex:media_corp_id_sequence_index"`
 	MessageID      string `gorm:"index"`
 	Sequence       uint64 `gorm:"uniqueIndex:media_corp_id_sequence_index"`
@@ -97,7 +75,7 @@ type Media struct {
 }
 
 type File struct {
-	Model
+	gorms.Model
 	CorpID         string `gorm:"uniqueIndex:files_corp_id_md5sum"`
 	MD5Sum         string `gorm:"index;uniqueIndex:files_corp_id_md5sum;not null;default:null"`
 	OriginalMD5Sum string `gorm:"index"`

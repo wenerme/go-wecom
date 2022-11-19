@@ -63,3 +63,26 @@ type MessageAuditGetGroupChatResponse struct {
 	// Members roomid对应的群成员列表
 	Members []MessageAuditGetGroupChatMember `json:"members"  `
 }
+
+// MessageAuditGetRobotInfo 通过robot_id获取机器人的名称和创建者
+//
+// see https://developer.work.weixin.qq.com/document/path/91774#获取机器人信息
+func (c *Client) MessageAuditGetRobotInfo(r *MessageAuditGetGroupChatRequest, opts ...interface{}) (out MessageAuditGetGroupChatResponse, err error) {
+	err = c.Request.With(req.Request{
+		Method:  "GET",
+		URL:     "/cgi-bin/msgaudit/get_robot_info",
+		Query:   r,
+		Options: opts,
+	}).Fetch(&out)
+	return
+}
+
+type MessageAuditGetRobotInfoRequest struct {
+	RobotID string `json:"robot_id"`
+}
+
+type MessageAuditGetRobotInfoResponse struct {
+	RobotId       string `json:"robot_id"`       // 机器人ID
+	Name          string `json:"name"`           // 机器人名称
+	CreatorUserid string `json:"creator_userid"` // 机器人创建者的UserID
+}

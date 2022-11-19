@@ -6,6 +6,7 @@ import (
 	"database/sql/driver"
 	"flag"
 	"fmt"
+	dotenv "github.com/joho/godotenv"
 	"os"
 	"path"
 	"strings"
@@ -19,7 +20,6 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/glebarez/sqlite"
-	dotenv "github.com/joho/godotenv"
 	"github.com/oklog/ulid/v2"
 	"github.com/sirupsen/logrus"
 	"github.com/wenerme/go-wecom/WeWorkFinanceSDK"
@@ -36,6 +36,7 @@ var (
 	migrateOnly     = false
 	_db             *gorm.DB
 	_client         WeWorkFinanceSDK.Client
+	envFile         = ""
 )
 
 func MustNewULID() string {
@@ -44,15 +45,23 @@ func MustNewULID() string {
 }
 
 func main() {
-	_ = dotenv.Load()
 	flag.StringVar(&fileID, "file-id", "", "file id to pull")
-	flag.BoolVar(&keepPolling, "polling", false, "keep polling")
+	flag.StringVar(&envFile, "env-file", "", "load env from file")
+	flag.BoolVar(&keepPolling, "polling", true, "keep polling")
 	flag.BoolVar(&migrateOnly, "migrate-only", false, "run migrate and exit")
 	flag.Parse()
+	if envFile == "" {
+		envFile = os.Getenv("ENV_FILE")
+	}
 
 	logrus.SetFormatter(&logrus.TextFormatter{
 		FullTimestamp: true,
 	})
+	logrus.WithFields(logrus.Fields{
+		"env_file": envFile,
+	}).Info("load env")
+
+	_ = dotenv.Load(strings.Split(envFile, ",")...)
 
 	client, err := WeWorkFinanceSDK.NewClientFromEnv()
 	if err != nil {
