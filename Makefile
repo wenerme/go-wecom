@@ -29,40 +29,6 @@ GOPATH 	?= $(shell go env GOPATH)
 
 MODDIR	:= $(shell dirname $(shell go env GOMOD))
 
-##### Bazel #####
-
-git-add-bazel:
-	git add --ignore-error '**/BUILD.bazel' WORKSPACE deps.bzl BUILD.bazel
-
-##### Bazel Docker #####
-
-image: # build image
-	@[ ! -e BUILD.bazel ] || bazel run $(shell bazel query 'kind(container_image, //build/...)')
-
-image-ls: image
-	tar -tvf bazel-bin/build/server-layer.tar
-
-push: ## push image to registry
-	@[ ! -e BUILD.bazel ] || bazel run $(shell bazel query 'kind(container_push, //build/...)')
-
-##### Bazel Go #####
-
-gazelle: ## bazel gazelle
-	@bazel run --noshow_progress --noshow_loading_progress //:gazelle
-	git add --ignore-error '**/BUILD.bazel'
-
-gazelle-update-repos: tidy  ## bazel gazelle update-repos
-	@bazel run --noshow_progress --noshow_loading_progress //:gazelle-update-repos
-
-update: gazelle-update-repos gazelle
-
-.PHONY: build
-build: ## build binary
-	@[ ! -e BUILD.bazel ] || bazel build $(shell bazel query 'kind(go_binary, //cmd/...)')
-.PHONY: build
-test: ## bazel test
-	@[ ! -e BUILD.bazel ] || bazel test $(shell bazel query 'kind(go_test, //...)')
-
 ##### Golang #####
 
 .PHONY: lint
@@ -104,7 +70,7 @@ help: ## show this help
 
 docker:
 	docker run --rm -it \
-		-e GO111MODULE=on -e GOPROXY=https://goproxy.io \
+		-e GO111MODULE=on -e GOPROXY=https://goproxy.io -e GOPATH=/root/go \
 		-v ~/go:/root/go \
 		-v ~/.cache:/root/.cache \
 		-v $(PWD):/host \
@@ -114,8 +80,18 @@ docker:
 
 .PHONY: bin
 bin:
-	go build -o bin/wwfinance-libs ./cmd/wwfinance-libs
-	go build -o bin/wwfinance ./cmd/wwfinance
+	CGO_ENABLED=0 go build -o bin/wwfinance-libs -trimpath -ldflags "-s -w" github.com/wenerme/go-wecom/cmd/wwfinance-libs
+	go build -o bin/wwfinance-poller -trimpath -ldflags "-s -w" github.com/wenerme/go-wecom/cmd/wwfinance-poller
 
 install:
 	go install mvdan.cc/gofumpt@latest
+
+image:
+	docker build --pull -t wener/go-wecom .
+
+run-image:
+	docker run --rm -it -v $(PWD)/.env:/app/.env -v $(PWD)/data:/app/data wener/go-wecom
+introspect-image:
+	docker run --rm -it --entrypoint bash --env-file .env -v $(PWD)/data:/app/data wener/go-wecom
+run-poller:
+	LD_LIBRARY_PATH=$(PWD)/WeWorkFinanceSDK/libs go run ./cmd/wwfinance-poller/main.go

@@ -22,3 +22,7 @@ wecom-cache.json
 bazel-*
 .env
 /libs
+/bin
+/data
+.DS_Store
+/tmp

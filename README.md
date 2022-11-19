@@ -415,7 +415,7 @@ client := wecom.NewClient(wecom.Conf{
   - `openssl genrsa -out private.pem 2048`
   - `openssl rsa -in private.pem -pubout -out public.pem`
 - wwfinance-libs 内嵌了 libWeWorkFinanceSdk_C.so，可以解压出来
-- wwfinance 提供基础的验证工具
+- wwfinance-poller 提供基础的验证工具
   - 拉取所有数据到 sqlite wwfinance.db
 
 **命令行工具**
@@ -428,10 +428,13 @@ cp .env.example .env
 # extract lib
 ./bin/wwfinance-libs
 
-LD_LIBRARY_PATH=/tmp/wwf/libs ./bin/wwfinance
+LD_LIBRARY_PATH=/tmp/wwf/libs ./bin/wwfinance-poller
+
+# Docker 运行
+docker run --rm -it -v $PWD/.env:/app/.env -v $PWD/data:/app/data wener/go-wecom
 
 # 开发测试
-LD_LIBRARY_PATH=$PWD/WeWorkFinanceSDK/libs go run ./cmd/wwfinance/main.go
+LD_LIBRARY_PATH=$PWD/WeWorkFinanceSDK/libs go run ./cmd/wwfinance-poller/main.go
 ```
 
 **代码调用**

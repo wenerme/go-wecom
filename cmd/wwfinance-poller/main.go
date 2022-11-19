@@ -46,7 +46,7 @@ func MustNewULID() string {
 func main() {
 	_ = dotenv.Load()
 	flag.StringVar(&fileID, "file-id", "", "file id to pull")
-	flag.BoolVar(&keepPolling, "keep-polling", false, "keep polling")
+	flag.BoolVar(&keepPolling, "polling", false, "keep polling")
 	flag.BoolVar(&migrateOnly, "migrate-only", false, "run migrate and exit")
 	flag.Parse()
 
@@ -229,14 +229,15 @@ func mustInitDB() *gorm.DB {
 	if typ == "" {
 		typ = "sqlite"
 		if dsn == "" {
-			dsn = "wwfinance.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)"
+			dsn = "data/wwfinance.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)"
 		}
 	}
 
 	switch typ {
 	case "sqlite":
+		fallthrough
 	case "sqlite3":
-		db, err = gorm.Open(sqlite.Open("wwfinance.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)"), &gorm.Config{
+		db, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{
 			DisableForeignKeyConstraintWhenMigrating: true,
 		})
 	case "pg":
@@ -247,12 +248,16 @@ func mustInitDB() *gorm.DB {
 		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
 			DisableForeignKeyConstraintWhenMigrating: true,
 		})
+	default:
+		panic("unsupported db type " + typ)
 	}
 
 	if err != nil {
 		panic(err)
 	}
-	logrus.Info("db migration")
+	logrus.WithFields(logrus.Fields{
+		"db_type": typ,
+	}).Info("db migration")
 	err = db.AutoMigrate(&models.Message{}, &models.Media{}, &models.File{})
 	if err != nil {
 		panic(err)
