@@ -163,10 +163,10 @@ func NewClientFromEnv() (Client, error) {
 		corpSecret = string(file)
 	}
 	if corpID == "" {
-		return nil, fmt.Errorf("corpId not founed from env")
+		return nil, fmt.Errorf("corpId is required")
 	}
 	if corpSecret == "" {
-		return nil, fmt.Errorf("corpSecret not founed from env")
+		return nil, fmt.Errorf("corpSecret is required")
 	}
 	cli, err := NewClient(corpID, corpSecret)
 	if err == nil {

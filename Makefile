@@ -1,6 +1,3 @@
-# BAZEL=BAZELISK_BASE_URL=https://mirrors.huaweicloud.com/bazel `go env GOPATH`/bin/bazelisk
-BAZEL=`go env GOPATH`/bin/bazelisk
-
 ci:
 	go env
 	@$(MAKE) go-test-cover
@@ -71,12 +68,13 @@ help: ## show this help
 docker:
 	docker run --rm -it \
 		-e GO111MODULE=on -e GOPROXY=https://goproxy.io -e GOPATH=/root/go \
+		-e LD_LIBRARY_PATH=/host/WeWorkFinanceSDK/libs \
 		-v ~/go:/root/go \
 		-v ~/.cache:/root/.cache \
 		-v $(PWD):/host \
 		--workdir /host \
 		-e HOME=/root\
-		--name go golang:1.19-bullseye bash
+		--name go golang:1.20-bullseye bash
 
 .PHONY: bin
 bin:
@@ -88,6 +86,8 @@ install:
 
 image:
 	docker build --pull -t wener/go-wecom .
+image-push:
+	docker buildx build --push -t wener/go-wecom:wwfinance-poller .
 
 run-image:
 	docker run --rm -it -v $(PWD)/.env:/app/.env -v $(PWD)/data:/app/data wener/go-wecom

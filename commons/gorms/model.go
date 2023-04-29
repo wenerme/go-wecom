@@ -1,8 +1,9 @@
 package gorms
 
 import (
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Model struct {

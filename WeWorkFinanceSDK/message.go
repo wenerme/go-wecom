@@ -662,10 +662,10 @@ type VoipDocShare struct {
 type ExternalRedPacketMessage struct {
 	BaseMessage
 	RedPacket struct {
-		Type        int32 `json:"type,omitempty"`        // 红包消息类型。1 普通红包、2 拼手气群红包。Uint32类型
-		Wish        int32 `json:"wish,omitempty"`        // 红包祝福语。String类型
-		TotalCnt    int32 `json:"totalcnt,omitempty"`    // 红包总个数。Uint32类型
-		TotalAmount int32 `json:"totalamount,omitempty"` // 红包消息类型。1 普通红包、2 拼手气群红包。Uint32类型
+		Type        int32  `json:"type,omitempty"`        // 红包消息类型。1 普通红包、2 拼手气群红包。Uint32类型
+		Wish        string `json:"wish,omitempty"`        // 红包祝福语。String类型
+		TotalCnt    int32  `json:"totalcnt,omitempty"`    // 红包总个数。Uint32类型
+		TotalAmount int32  `json:"totalamount,omitempty"` // 红包消息类型。1 普通红包、2 拼手气群红包。Uint32类型
 	} `json:"redpacket,omitempty"`
 }
 

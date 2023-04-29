@@ -6,11 +6,12 @@ import (
 	"database/sql/driver"
 	"flag"
 	"fmt"
-	dotenv "github.com/joho/godotenv"
 	"os"
 	"path"
 	"strings"
 	"time"
+
+	dotenv "github.com/joho/godotenv"
 
 	"gorm.io/gorm/clause"
 
@@ -33,6 +34,7 @@ var (
 	keepPolling     bool
 	pollingInterval = time.Minute * 5
 	printMessage    = true
+	migrate         = true
 	migrateOnly     = false
 	_db             *gorm.DB
 	_client         WeWorkFinanceSDK.Client
@@ -46,12 +48,16 @@ func MustNewULID() string {
 
 func main() {
 	flag.StringVar(&fileID, "file-id", "", "file id to pull")
-	flag.StringVar(&envFile, "env-file", "", "load env from file")
-	flag.BoolVar(&keepPolling, "polling", true, "keep polling")
-	flag.BoolVar(&migrateOnly, "migrate-only", false, "run migrate and exit")
+	flag.StringVar(&envFile, "env-file", envFile, "load env from file")
+	flag.BoolVar(&keepPolling, "polling", keepPolling, "keep polling")
+	flag.BoolVar(&migrate, "migrate", migrate, "run migrate and exit")
+	flag.BoolVar(&migrateOnly, "migrate-only", migrateOnly, "run migrate and exit")
 	flag.Parse()
 	if envFile == "" {
 		envFile = os.Getenv("ENV_FILE")
+	}
+	if envFile == "" {
+		envFile = ".env"
 	}
 
 	logrus.SetFormatter(&logrus.TextFormatter{
@@ -60,8 +66,11 @@ func main() {
 	logrus.WithFields(logrus.Fields{
 		"env_file": envFile,
 	}).Info("load env")
-
-	_ = dotenv.Load(strings.Split(envFile, ",")...)
+	if err := dotenv.Load(strings.Split(envFile, ",")...); err != nil {
+		logrus.WithFields(logrus.Fields{
+			"error": err,
+		}).Warn("load env failed")
+	}
 
 	client, err := WeWorkFinanceSDK.NewClientFromEnv()
 	if err != nil {
@@ -267,9 +276,11 @@ func mustInitDB() *gorm.DB {
 	logrus.WithFields(logrus.Fields{
 		"db_type": typ,
 	}).Info("db migration")
-	err = db.AutoMigrate(&models.Message{}, &models.Media{}, &models.File{})
-	if err != nil {
-		panic(err)
+	if migrate {
+		err = db.AutoMigrate(&models.Message{}, &models.Media{}, &models.File{})
+		if err != nil {
+			panic(err)
+		}
 	}
 	if migrateOnly {
 		os.Exit(0)

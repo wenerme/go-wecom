@@ -357,8 +357,8 @@ func DecryptData(privateKey *rsa.PrivateKey, encryptRandomKey string, encryptMsg
 		return msg, err
 	}
 	msg = MessageOfType(getType.Action, getType.Type)
-	err = json.Unmarshal(buf, msg)
 	msg.SetRaw(buf)
+	err = json.Unmarshal(buf, msg)
 	return msg, err
 }
 

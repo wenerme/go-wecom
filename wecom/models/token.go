@@ -1,8 +1,9 @@
 package models
 
 import (
-	"github.com/wenerme/go-wecom/commons/gorms"
 	"time"
+
+	"github.com/wenerme/go-wecom/commons/gorms"
 )
 
 type Token struct {
