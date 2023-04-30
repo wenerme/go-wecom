@@ -52,6 +52,9 @@ func (c *client) GetChatData(o GetChatDataOptions) ([]*ChatData, error) {
 	if o.Timeout == 0 {
 		o.Timeout = c.options.Timeout
 	}
+	if o.Unmarshal == nil {
+		o.Unmarshal = Unmarshal
+	}
 
 	proxyC := C.CString(o.Proxy)
 	passwdC := C.CString(o.ProxyCredential)
@@ -93,10 +96,12 @@ func (c *client) GetChatData(o GetChatDataOptions) ([]*ChatData, error) {
 			if key == nil {
 				return nil, ErrorOfCode(10003, "PrivateKey not found")
 			}
-			v.Message, err = DecryptData(key, v.EncryptRandomKey, v.EncryptChatMessage)
+			var dec []byte
+			dec, err = DecryptData(key, v.EncryptRandomKey, v.EncryptChatMessage)
 			if err != nil {
 				return nil, err
 			}
+			v.Message, err = o.Unmarshal(dec)
 			v.Message.SetSequence(v.Sequence)
 			v.Message.SetCorpID(c.corpID)
 		}
@@ -318,7 +323,7 @@ func getContentFromSlice(slice *C.struct_Slice_t) []byte {
 	return C.GoBytes(unsafe.Pointer(C.GetContentFromSlice(slice)), C.GetSliceLen(slice))
 }
 
-func DecryptData(privateKey *rsa.PrivateKey, encryptRandomKey string, encryptMsg string) (msg Message, err error) {
+func DecryptData(privateKey *rsa.PrivateKey, encryptRandomKey string, encryptMsg string) (msg []byte, err error) {
 	encryptKey, err := RSADecryptBase64(privateKey, encryptRandomKey)
 	if err != nil {
 		return msg, err
@@ -348,17 +353,29 @@ func DecryptData(privateKey *rsa.PrivateKey, encryptRandomKey string, encryptMsg
 		i++
 	}
 
+	return buf, err
+}
+
+func Unmarshal(data []byte) (msg Message, err error) {
 	var getType struct {
 		Type   string `json:"msgtype,omitempty"`
 		Action string `json:"action,omitempty"`
 	}
-	err = json.Unmarshal(buf, &getType)
+	err = json.Unmarshal(data, &getType)
 	if err != nil {
 		return msg, err
 	}
 	msg = MessageOfType(getType.Action, getType.Type)
-	msg.SetRaw(buf)
-	err = json.Unmarshal(buf, msg)
+	msg.SetRaw(data)
+	err = json.Unmarshal(data, msg)
+	return msg, err
+}
+
+// UnmarshalToBase can avoid json error
+func UnmarshalToBase(data []byte) (msg *BaseMessage, err error) {
+	msg = &BaseMessage{}
+	msg.SetRaw(data)
+	err = json.Unmarshal(data, &msg)
 	return msg, err
 }
 

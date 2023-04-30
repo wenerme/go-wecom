@@ -17,6 +17,7 @@ type GetChatDataOptions struct {
 	ProxyCredential string
 	Timeout         int
 	SkipDecrypt     bool
+	Unmarshal       func(data []byte) (Message, error)
 }
 type GetMediaDataOptions struct {
 	Index           string
