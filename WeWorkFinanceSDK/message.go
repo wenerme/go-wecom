@@ -674,8 +674,8 @@ type ExternalRedPacketMessage struct {
 type SphFeedMessage struct {
 	BaseMessage
 	SphFeed struct {
-		FeedType string `json:"feed_type,omitempty"` // 视频号消息类型
+		FeedType int    `json:"feed_type,omitempty"` // 视频号消息类型
 		SphName  string `json:"sph_name,omitempty"`  // 视频号账号名称
-		FeedDesc uint64 `json:"feed_desc,omitempty"` // 视频号账号名称
+		FeedDesc string `json:"feed_desc,omitempty"` // 视频号账号名称
 	}
 }
