@@ -23,69 +23,6 @@ type HasBaseMessage interface {
 	GetBaseMessage() *BaseMessage
 }
 
-var MessageOfType = func(action, typ string) Message {
-	switch action {
-	case "switch":
-		return &SwitchMessage{}
-	}
-	switch typ {
-	case "text":
-		return &TextMessage{}
-	case "image":
-		return &ImageMessage{}
-	case "revoke":
-		return &RevokeMessage{}
-	case "agree":
-		fallthrough
-	case "disagree":
-		return &AgreeMessage{}
-	case "voice":
-		return &VoiceMessage{}
-	case "video":
-		return &VideoMessage{}
-	case "card":
-		return &CardMessage{}
-	case "location":
-		return &LocationMessage{}
-	case "emotion":
-		return &EmotionMessage{}
-	case "link":
-		return &LinkMessage{}
-	case "chatrecord":
-		return &ChatRecordMessage{}
-	case "todo":
-		return &TodoMessage{}
-	case "vote":
-		return &VoteMessage{}
-	case "collect":
-		return &CollectMessage{}
-	case "redpacket":
-		return &RedPacketMessage{}
-	case "meeting":
-		return &MeetingMessage{}
-	case "docmsg":
-		return &DocMessage{}
-	case "markdown":
-		return &MarkdownMessage{}
-	case "news":
-		return &NewsMessage{}
-	case "calendar":
-		return &CalendarMessage{}
-	case "mixed":
-		return &MixedMessage{}
-	case "external_redpacket":
-		return &ExternalRedPacketMessage{}
-	case "sphfeed":
-		return &SphFeedMessage{}
-	case "voip_doc_share":
-		return &VoipDocShareMessage{}
-	case "meeting_voice_call":
-	case "voiptext":
-	case "qydiskfile":
-	}
-	return &BaseMessage{}
-}
-
 // BaseMessage 会话存档基础消息
 type BaseMessage struct {
 	ID        string          `json:"msgid,omitempty"`   // 消息id，消息的唯一标识，企业可以使用此字段进行消息去重。
