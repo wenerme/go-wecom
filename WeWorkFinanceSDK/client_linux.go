@@ -12,9 +12,11 @@ import (
 	"bytes"
 	"crypto/rsa"
 	"encoding/json"
-	"errors"
+	"fmt"
 	"io"
 	"unsafe"
+
+	"github.com/pkg/errors"
 )
 
 type client struct {
@@ -99,7 +101,7 @@ func (c *client) GetChatData(o GetChatDataOptions) ([]*ChatData, error) {
 			var dec []byte
 			dec, err = DecryptData(key, v.EncryptRandomKey, v.EncryptChatMessage)
 			if err != nil {
-				return nil, err
+				return nil, errors.Wrapf(err, "DecryptData failed, seq: %d", v.Sequence)
 			}
 			v.Message, err = o.Unmarshal(dec)
 			v.Message.SetSequence(v.Sequence)
@@ -144,7 +146,7 @@ func (c *client) ReadMediaData(o GetMediaDataOptions) (b []byte, err error) {
 		indexBufC = C.GetOutIndexBuf(mediaDataC)
 		ret := int(retC)
 		if ret != 0 {
-			return nil, ErrorOfCode(ret, "GetMediaData")
+			return nil, ErrorOfCode(ret, fmt.Sprintf("GetMediaData fileId=%s", o.FileID))
 		}
 		// 单次最大 512K
 		_, _ = buf.Write(C.GoBytes(unsafe.Pointer(C.GetData(mediaDataC)), C.int(C.GetDataLen(mediaDataC))))
