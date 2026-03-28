@@ -1,0 +1,32 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "status": {
+    "applyment_state": "CHECKING",
+    "applyment_state_desc": "资料校验中",
+    "sign_state": "UNSIGNED",
+    "sign_url": "https://example.com/sign",
+    "sub_mchid": "1234567890",
+    "audit_detail": [
+      {
+        "param_name": "营业执照",
+        "reject_reason": "图片模糊"
+      }
+    ],
+    "account_validation": {
+      "account_name": "张三",
+      "account_no": "6222001234567890",
+      "pay_amount": 100,
+      "destination_account_number": "6222009876543210",
+      "destination_account_name": "李四",
+      "destination_account_bank": "中国工商银行",
+      "city": "北京市",
+      "remark": "货款",
+      "deadline": "2024-12-31 23:59:59"
+    },
+    "legal_validation_url": "https://example.com/legal_verify"
+  },
+  "apply_state": 1,
+  "real_sign_state": 1,
+  "reject_reason": ""
+}

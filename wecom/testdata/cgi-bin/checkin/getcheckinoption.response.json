@@ -1,0 +1,51 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "info": [
+    {
+      "userid": "james",
+      "group": {
+        "grouptype": 1,
+        "groupid": 69,
+        "open_sp_checkin": true,
+        "checkindate": [
+          {
+            "workdays": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "checkintime": [
+              {
+                "work_sec": 36000,
+                "off_work_sec": 43200,
+                "remind_work_sec": 35400,
+                "remind_off_work_sec": 43200
+              }
+            ],
+            "flex_time": 300000,
+            "noneed_offwork": true,
+            "limit_aheadtime": 10800000,
+            "flex_on_duty_time": 0,
+            "flex_off_duty_time": 0
+          }
+        ],
+        "spe_workdays": [],
+        "spe_offdays": [],
+        "sync_holidays": true,
+        "groupname": "打卡规则1",
+        "need_photo": true,
+        "wifimac_infos": [],
+        "note_can_use_local_pic": false,
+        "allow_checkin_offworkday": true,
+        "allow_apply_offworkday": true,
+        "loc_infos": [],
+        "schedulelist": [],
+        "offwork_interval_time": 300,
+        "group.checkin_method_type": 0
+      }
+    }
+  ]
+}

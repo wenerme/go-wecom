@@ -1,0 +1,9 @@
+{
+  "touser": "EXTERNAL_USERID",
+  "open_kfid": "OPEN_KFID",
+  "msgid": "MSGID",
+  "msgtype": "text",
+  "text": {
+    "content": "你好，这是测试消息"
+  }
+}

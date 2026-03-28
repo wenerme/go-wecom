@@ -1,0 +1,12 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "audio_detect": 1,
+  "paragraphs": [
+    {
+      "pid": "1111",
+      "start_time": 111111111,
+      "end_time": 2222222222
+    }
+  ]
+}

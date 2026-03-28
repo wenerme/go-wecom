@@ -1,0 +1,13 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "userid_list": [
+    {
+      "open_userid": "xxx",
+      "userid": "aaa"
+    }
+  ],
+  "invalid_open_userid_list": [
+    "yyy"
+  ]
+}

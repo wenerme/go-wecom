@@ -1,0 +1,28 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "record_file_id": "FIELID",
+  "meetingid": "MEETINGID",
+  "meeting_code": "CODE",
+  "view_address": "https://view.url",
+  "download_address": "https://download.url",
+  "download_address_file_type": "mp4",
+  "audio_address": "url",
+  "audio_address_file_type": "m4a",
+  "meeting_summary": [
+    {
+      "download_address": "https://download.url",
+      "file_type": "pdf"
+    }
+  ],
+  "ai_meeting_transcripts": [
+    {
+      "download_address": "http://1.2.3",
+      "file_type": "txt"
+    }
+  ],
+  "record_name": "录制1",
+  "start_time": 1743131564453,
+  "end_time": 1743131613969,
+  "meeting_record_name": "有录制的会议"
+}

@@ -1,0 +1,23 @@
+{
+  "docid": "DOCID",
+  "version": 10,
+  "requests": [
+    {
+      "insert_text": {
+        "text": "text content",
+        "location": {
+          "index": 10
+        }
+      }
+    },
+    {
+      "insert_table": {
+        "rows": 2,
+        "cols": 2,
+        "location": {
+          "index": 10
+        }
+      }
+    }
+  ]
+}

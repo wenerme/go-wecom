@@ -1,0 +1,12 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "out_trade_no_list": [
+    {
+      "out_trade_no": "xxxx"
+    },
+    {
+      "out_trade_no": "yyyy"
+    }
+  ]
+}

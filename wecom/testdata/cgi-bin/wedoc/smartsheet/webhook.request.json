@@ -1,0 +1,14 @@
+{
+  "add_records": [
+    {
+      "values": {
+        "FIELD_ID": [
+          {
+            "type": "text",
+            "text": "文本内容"
+          }
+        ]
+      }
+    }
+  ]
+}

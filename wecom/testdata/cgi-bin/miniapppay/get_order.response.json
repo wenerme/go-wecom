@@ -1,0 +1,40 @@
+{
+  "mchid": "1900000109",
+  "out_trade_no": "20231027000000001",
+  "trade_state": "SUCCESS",
+  "trade_state_desc": "支付成功",
+  "payer": {
+    "openid": "oUpF8uMuAJO_M2pxb1Q9zNjWeS6o"
+  },
+  "transaction_id": "420000190920231027000000001",
+  "bank_type": "CMB",
+  "attach": "自定义数据",
+  "success_time": "2023-10-27T10:00:00+08:00",
+  "amount": {
+    "total": 100,
+    "payer_total": 100,
+    "currency": "CNY"
+  },
+  "scene_info": {
+    "device_id": "device_001"
+  },
+  "promotion_detail": {
+    "coupon_id": "coupon_001",
+    "name": "满减券",
+    "scope": "GLOBAL",
+    "type": "CASH",
+    "amount": 10,
+    "stock_id": "stock_001",
+    "wechatpay_contribute": 5,
+    "merchant_contribute": 5,
+    "other_contribute": 0,
+    "currency": "CNY",
+    "goods_detail": {
+      "goods_id": "item_001",
+      "quantity": 1,
+      "unit_price": 100,
+      "discount_amount": 10,
+      "goods_remark": "备注信息"
+    }
+  }
+}

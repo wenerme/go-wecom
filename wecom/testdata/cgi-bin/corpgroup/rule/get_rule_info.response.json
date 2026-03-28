@@ -1,0 +1,26 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "rule_info": {
+    "owner_corp_range": {
+      "departmentids": [
+        "departmentid1",
+        "departmentid2"
+      ],
+      "userids": [
+        "userid1",
+        "userid2"
+      ]
+    },
+    "member_corp_range": {
+      "groupids": [
+        "groupid1",
+        "groupid2"
+      ],
+      "corpids": [
+        "corpid1",
+        "corpid2"
+      ]
+    }
+  }
+}

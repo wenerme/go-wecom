@@ -1,0 +1,24 @@
+{
+  "recv_scope": 0,
+  "to_parent_userid": [
+    "parent_userid1",
+    "parent_userid2"
+  ],
+  "to_student_userid": [
+    "student_userid1",
+    "student_userid2"
+  ],
+  "to_party": [
+    "partyid1",
+    "partyid2"
+  ],
+  "toall": 0,
+  "msgtype": "text",
+  "agentid": 1,
+  "text": {
+    "content": "你的快递已到，请携带工卡前往邮件中心领取。"
+  },
+  "enable_id_trans": 0,
+  "enable_duplicate_check": 0,
+  "duplicate_check_interval": 1800
+}

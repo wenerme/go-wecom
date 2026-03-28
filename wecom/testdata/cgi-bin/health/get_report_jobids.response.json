@@ -1,0 +1,9 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "ending": 1,
+  "jobids": [
+    "jobid1",
+    "jobid2"
+  ]
+}

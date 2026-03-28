@@ -1,0 +1,44 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "rule_list": [
+    {
+      "rule_id": 1,
+      "type": 1,
+      "name": "全员权限",
+      "priv_list": [
+        {
+          "sheet_id": "q979lj",
+          "priv": 2,
+          "can_insert_record": true,
+          "can_delete_record": true,
+          "record_priv": {
+            "record_range_type": 1
+          },
+          "field_priv": {
+            "field_range_type": 2,
+            "field_rule_list": [
+              {
+                "field_id": "fsMGQS",
+                "field_type": "FIELD_TYPE_TEXT",
+                "can_edit": false,
+                "can_insert": true,
+                "can_view": true
+              }
+            ],
+            "field_default_rule": {
+              "can_edit": false,
+              "can_insert": false,
+              "can_view": true
+            }
+          },
+          "can_create_modify_delete_view": true
+        },
+        {
+          "sheet_id": "kQ65QQ",
+          "priv": 1
+        }
+      ]
+    }
+  ]
+}

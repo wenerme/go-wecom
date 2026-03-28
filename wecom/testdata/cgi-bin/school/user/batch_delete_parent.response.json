@@ -1,0 +1,11 @@
+{
+  "errcode": 0,
+  "errmsg": "userid not found",
+  "result_list": [
+    {
+      "parent_userid": "lisi",
+      "errcode": 0,
+      "errmsg": "userid not found"
+    }
+  ]
+}

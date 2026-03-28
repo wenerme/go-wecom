@@ -1,0 +1,11 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "doc_base_info": {
+    "docid": "DOCID",
+    "doc_name": "DOC_NAME",
+    "create_time": 1717071093,
+    "modify_time": 1717071093,
+    "doc_type": 3
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "has_more": true,
+  "transcripts": {
+    "paragraphs": [
+      {
+        "pid": "11",
+        "start_time": 11111,
+        "end_time": 222222,
+        "speaker_info": {
+          "userid": "USERID"
+        },
+        "sentences": [
+          {
+            "sid": "1111",
+            "start_time": 111,
+            "end_time": 222,
+            "words": [
+              {
+                "wid": "111",
+                "start_time": 11,
+                "end_time": 22,
+                "text": "word"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "keywords": [
+      "nice",
+      "hard"
+    ],
+    "audio_detect": 1
+  }
+}

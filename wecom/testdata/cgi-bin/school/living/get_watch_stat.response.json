@@ -1,0 +1,31 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "ending": 1,
+  "next_key": "NEXT_KEY",
+  "stat_infoes": {
+    "students": [
+      {
+        "student_userid": "zhansan_child",
+        "parent_userid": "zhangsan",
+        "partyids": [
+          10,
+          11
+        ],
+        "watch_time": 30,
+        "enter_time": 1586433904,
+        "leave_time": 1586434000,
+        "is_comment": 1
+      }
+    ],
+    "visitors": [
+      {
+        "nickname": "wx_nickname1",
+        "watch_time": 30,
+        "enter_time": 1586433904,
+        "leave_time": 1586434000,
+        "is_comment": 1
+      }
+    ]
+  }
+}

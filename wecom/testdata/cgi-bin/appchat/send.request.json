@@ -1,0 +1,12 @@
+{
+  "chatid": "CHATID123",
+  "msgtype": "text",
+  "text": {
+    "content": "您的快递已到\n请携带工卡前往邮件中心领取",
+    "mentioned_list": [
+      "wangqing",
+      "@all"
+    ]
+  },
+  "safe": 0
+}

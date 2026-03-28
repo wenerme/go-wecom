@@ -1,0 +1,37 @@
+{
+  "group_id": "GROUP_ID",
+  "question": {
+    "text": {
+      "content": "主问题"
+    }
+  },
+  "similar_questions": {
+    "items": [
+      {
+        "text": {
+          "content": "相似问题1"
+        }
+      },
+      {
+        "text": {
+          "content": "相似问题2"
+        }
+      }
+    ]
+  },
+  "answers": [
+    {
+      "text": {
+        "content": "问题的回复"
+      },
+      "attachments": [
+        {
+          "msgtype": "image",
+          "image": {
+            "media_id": "MEDIA_ID"
+          }
+        }
+      ]
+    }
+  ]
+}

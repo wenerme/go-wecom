@@ -1,0 +1,82 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "group": [
+    {
+      "grouptype": 1,
+      "groupid": 69,
+      "open_sp_checkin": true,
+      "checkindate": [
+        {
+          "workdays": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "checkintime": [
+            {
+              "work_sec": 36000,
+              "off_work_sec": 43200,
+              "remind_work_sec": 35400,
+              "remind_off_work_sec": 43200
+            }
+          ],
+          "noneed_offwork": true,
+          "limit_aheadtime": 10800000,
+          "flex_on_duty_time": 0,
+          "flex_off_duty_time": 0
+        }
+      ],
+      "spe_workdays": [],
+      "spe_offdays": [],
+      "sync_holidays": true,
+      "groupname": "打卡规则1",
+      "need_photo": true,
+      "wifimac_infos": [
+        {
+          "wifiname": "Tencent-WiFi-1",
+          "wifimac": "c0:7b:bc:37:f8:d3"
+        }
+      ],
+      "note_can_use_local_pic": false,
+      "allow_checkin_offworkday": true,
+      "allow_apply_offworkday": true,
+      "loc_infos": [],
+      "range": {
+        "party_id": [],
+        "userid": [
+          "icef",
+          "LiJingZhong"
+        ],
+        "tagid": [
+          2
+        ]
+      },
+      "create_time": 1606204343,
+      "white_users": [
+        "canno"
+      ],
+      "type": 0,
+      "reporterinfo": {
+        "reporters": [
+          {
+            "userid": "brant"
+          }
+        ],
+        "updatetime": 1606305508
+      },
+      "ot_info": {},
+      "allow_apply_bk_cnt": -1,
+      "option_out_range": 0,
+      "create_userid": "gaogao",
+      "use_face_detect": false,
+      "allow_apply_bk_day_limit": -1,
+      "update_userid": "sandy",
+      "schedulelist": [],
+      "offwork_interval_time": 300,
+      "checkin_method_type": 0
+    }
+  ]
+}

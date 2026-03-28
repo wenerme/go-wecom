@@ -1,0 +1,10 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "invaliduser": "userid1|userid2",
+  "invalidparty": "partyid1|partyid2",
+  "invalidtag": "tagid1|tagid2",
+  "unlicenseduser": "userid3|userid4",
+  "msgid": "xxxx",
+  "response_code": "xyzxyz"
+}

@@ -1,0 +1,24 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "meeting_record_id": "record",
+  "meetingid": "MEETINGID",
+  "meeting_code": "MEETINGOCDE",
+  "title": "meetingtitle",
+  "record_files": [
+    {
+      "record_file_id": "FILEID",
+      "view_address": "https://view.url/124",
+      "download_address": "https://download.url/234",
+      "download_address_file_type": "mp4",
+      "audio_address": "https://audio.download/342",
+      "audio_address_file_type": "m4a",
+      "meeting_summary": [
+        {
+          "download_address": "https://summary.url",
+          "file_type": "txt"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "spaceid": "SPACEID",
+  "fatherid": "FATHERID",
+  "selected_ticket": "",
+  "file_name": "example.txt",
+  "size": 123,
+  "block_sha": [
+    "STATE1",
+    "STATE2"
+  ],
+  "skip_push_card": false
+}

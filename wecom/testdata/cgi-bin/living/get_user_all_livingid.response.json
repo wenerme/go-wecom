@@ -1,0 +1,9 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "next_cursor": "next_cursor",
+  "livingid_list": [
+    "livingid1",
+    "livingid2"
+  ]
+}

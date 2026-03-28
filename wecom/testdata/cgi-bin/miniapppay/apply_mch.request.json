@@ -1,0 +1,86 @@
+{
+  "out_request_no": "12345678901234567890123456789012",
+  "organization_type": 0,
+  "business_license_info": {
+    "cert_type": 2389,
+    "business_license_copy_open_wx_pay_media_id": "media_id_1",
+    "business_license_number": "91440300MA5XXXXX",
+    "merchant_name": "深圳市某某科技有限公司",
+    "legal_person": "张三",
+    "company_address": "广东省深圳市南山区科技园",
+    "business_time_begin_time": "2020-01-01",
+    "business_time_end_time": "长期"
+  },
+  "finance_institution_info": {
+    "finance_type": "BANK_AGENT",
+    "finance_license_pics_open_wx_pay_media_id": [
+      "media_id_2",
+      "media_id_3"
+    ]
+  },
+  "merchant_short_name": "某某科技",
+  "id_card_info": {
+    "id_card_copy_open_wx_pay_media_id": "media_id_4",
+    "id_card_national_open_wx_pay_media_id": "media_id_5",
+    "id_card_name": "张三",
+    "id_card_number": "110101199001011234",
+    "id_card_address": "北京市海淀区",
+    "id_card_valid_time_begin": "2010-01-01",
+    "id_card_valid_time": "2030-01-01",
+    "id_doc_type": 8
+  },
+  "owner": true,
+  "ubo_info": null,
+  "contact_info": {
+    "contact_type": "66",
+    "contact_info": {
+      "id_card_copy_open_wx_pay_media_id": "media_id_6",
+      "id_card_national_open_wx_pay_media_id": "media_id_7",
+      "id_card_name": "李四",
+      "id_card_number": "110101198001015678",
+      "id_card_valid_time_begin": "2010-01-01",
+      "id_card_valid_time": "2030-01-01",
+      "id_doc_type": 8
+    },
+    "business_authorization_letter_open_wx_pay_media_id": "media_id_8",
+    "mobile_phone": "13800138000",
+    "contact_email": "contact@example.com"
+  },
+  "account_info": {
+    "bank_account_type": 74,
+    "account_bank": "中国工商银行",
+    "account_name": "某某科技有限公司",
+    "bank_address_code": "100000",
+    "bank_name": "工行北京分行",
+    "account_number": "6222001234567890",
+    "bank_card_supplement": {
+      "settlement_certificate_open_wx_pay_media_id": "media_id_9",
+      "relationship_certificate_open_wx_pay_media_id": "media_id_10",
+      "other_certificate_open_wx_pay_media_id": [
+        "media_id_11"
+      ]
+    }
+  },
+  "sales_scene_info": {
+    "type": 1,
+    "store_url": "https://example.com/store",
+    "store_pic_open_wx_pay_media_id": "media_id_12",
+    "address_code": "110100",
+    "offline_address": "北京市朝阳区建国路88号",
+    "entrance_pic_open_wx_pay_media_id": "media_id_13",
+    "indoor_pic_open_wx_pay_media_id": "media_id_14"
+  },
+  "business_id": 1,
+  "qualifications": {
+    "id": [
+      "media_id_15",
+      "media_id_16"
+    ]
+  },
+  "business_addition_pics": {
+    "id": [
+      "media_id_17"
+    ]
+  },
+  "userid": "zhangsan"
+}

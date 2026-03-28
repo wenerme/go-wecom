@@ -1,0 +1,11 @@
+{
+  "errcode": 0,
+  "errmsg": "invalid student_userid: zhangsan",
+  "result_list": [
+    {
+      "student_userid": "zhangsan",
+      "errcode": 0,
+      "errmsg": "invalid student_userid: zhangsan"
+    }
+  ]
+}

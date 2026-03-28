@@ -1,0 +1,26 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "result_list": [
+    {
+      "userid": "zhangsan",
+      "errcode": 0,
+      "errmsg": "success"
+    },
+    {
+      "userid": "lisi",
+      "errcode": 0,
+      "errmsg": "ignored"
+    },
+    {
+      "department_id": 2,
+      "errcode": 0,
+      "errmsg": "success"
+    },
+    {
+      "department_id": 3,
+      "errcode": 0,
+      "errmsg": "ignored"
+    }
+  ]
+}

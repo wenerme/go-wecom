@@ -1,0 +1,13 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "invalid_parent_userid": [
+    "parent_userid1"
+  ],
+  "invalid_student_userid": [
+    "student_userid1"
+  ],
+  "invalid_party": [
+    "party1"
+  ]
+}

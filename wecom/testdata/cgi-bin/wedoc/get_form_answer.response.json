@@ -1,0 +1,30 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "answer": {
+    "answer_list": [
+      {
+        "answer_id": 15,
+        "user_name": "USER_NAME1",
+        "ctime": 1668430580,
+        "mtime": 1668430580,
+        "reply": {
+          "items": [
+            {
+              "question_id": 1,
+              "text_reply": "Ndjnd"
+            },
+            {
+              "question_id": 2,
+              "option_reply": [
+                2
+              ]
+            }
+          ]
+        },
+        "answer_status": 1,
+        "tmp_external_userid": "TMP_EXTERNAL_USERID1"
+      }
+    ]
+  }
+}

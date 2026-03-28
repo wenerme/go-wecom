@@ -1,0 +1,11 @@
+{
+  "errcode": 0,
+  "errmsg": "invalid parent_userid: lisi_parent_userid",
+  "result_list": [
+    {
+      "parent_userid": "lisi_parent_userid",
+      "errcode": 0,
+      "errmsg": "invalid parent_userid: lisi_parent_userid"
+    }
+  ]
+}

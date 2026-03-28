@@ -1,0 +1,17 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "file": {
+    "fileid": "FILEID",
+    "file_name": "FILE_NAME",
+    "spaceid": "SPACEID",
+    "fatherid": "FATHERID",
+    "file_size": 1777777777,
+    "ctime": 17777777777,
+    "mtime": 177777777,
+    "file_type": 2,
+    "file_status": 1,
+    "sha": "SHA",
+    "md5": "MD5"
+  }
+}

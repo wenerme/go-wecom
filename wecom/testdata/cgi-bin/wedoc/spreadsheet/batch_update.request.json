@@ -1,0 +1,18 @@
+{
+  "docid": "DOCID",
+  "requests": [
+    {
+      "add_sheet_request": {
+        "title": "sheet_name",
+        "row_count": 10,
+        "column_count": 10
+      }
+    },
+    {
+      "update_range_request": {
+        "sheet_id": "AAAAA",
+        "grid_data": {}
+      }
+    }
+  ]
+}

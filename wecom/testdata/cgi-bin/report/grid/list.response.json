@@ -1,0 +1,18 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "grid_list": [
+    {
+      "grid_id": "grid_id",
+      "grid_name": "网格名称示例",
+      "grid_parent_id": "parent_grid_id",
+      "grid_admin": [
+        "zhangsan"
+      ],
+      "grid_member": [
+        "lisi",
+        "11111"
+      ]
+    }
+  ]
+}

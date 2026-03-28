@@ -1,0 +1,91 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "info": {
+    "sp_no": "201909270002",
+    "sp_name": "全字段",
+    "sp_status": 1,
+    "template_id": "Bs5KJ2NT4ncf4ZygaE8MB3779yUW8nsMaJd3mmE9v",
+    "apply_time": 1569584428,
+    "applyer": {
+      "userid": "WuJunJie",
+      "partyid": "2"
+    },
+    "sp_record": [
+      {
+        "sp_status": 1,
+        "approverattr": 1,
+        "details": [
+          {
+            "approver": {
+              "userid": "WuJunJie"
+            },
+            "speech": "",
+            "sp_status": 1,
+            "sptime": 0,
+            "media_id": []
+          }
+        ]
+      }
+    ],
+    "notifyer": [
+      {
+        "userid": "LiuXiaoGang"
+      }
+    ],
+    "apply_data": {
+      "contents": [
+        {
+          "control": "Text",
+          "id": "Text-15111111111",
+          "title": [
+            {
+              "text": "文本控件",
+              "lang": "zh_CN"
+            }
+          ],
+          "value": {
+            "text": "文本填写的内容",
+            "tips": [],
+            "members": [],
+            "departments": [],
+            "files": [],
+            "children": [],
+            "stat_field": []
+          }
+        }
+      ]
+    },
+    "comments": [
+      {
+        "commentUserInfo": {
+          "userid": "WuJunJie"
+        },
+        "commenttime": 1569584111,
+        "commentcontent": "这是备注信息",
+        "commentid": "6741314136717778040",
+        "media_id": [
+          "WWCISP_Xa1dXIyC9VC2vGTXyBjUXh4GQ31G-a7jilEjFjkYBfncSJv0kM1cZAIXULWbbtosVqA7hprZIUkl4GP0DYZKDrIay9vCzeQelmmHiczwfn80v51EtuNouzBhUBTWo9oQIIzsSftjaVmd4EC_dj5-rayfDl6yIIRdoUs1V_Gz6Pi3yH37ELOgLNAPYUSJpA6V190Xunl7b0s5K5XC9c7eX5vlJek38rB_a2K-kMFMiM1mHDqnltoPa_NT9QynXuHi"
+        ]
+      }
+    ],
+    "process_list": {
+      "node_list": [
+        {
+          "node_type": 1,
+          "sp_status": 1,
+          "apv_rel": 1,
+          "sub_node_list": [
+            {
+              "userid": "userid1",
+              "speech": "",
+              "sp_yj": 1,
+              "sptime": 0,
+              "media_ids": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

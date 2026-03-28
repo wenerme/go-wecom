@@ -1,0 +1,13 @@
+{
+  "msgtype": "text",
+  "text": {
+    "content": "hello world",
+    "mentioned_list": [
+      "wangqing",
+      "@all"
+    ],
+    "mentioned_mobile_list": [
+      "13800001111"
+    ]
+  }
+}

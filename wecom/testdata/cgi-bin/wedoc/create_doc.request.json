@@ -1,0 +1,11 @@
+{
+  "spaceid": "SPACEID",
+  "fatherid": "FATHERID",
+  "doc_type": 3,
+  "doc_name": "DOC_NAME",
+  "admin_users": [
+    "USERID1",
+    "USERID2",
+    "USERID3"
+  ]
+}

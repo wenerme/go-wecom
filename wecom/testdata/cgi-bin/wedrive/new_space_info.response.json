@@ -1,0 +1,41 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "space_info": {
+    "spaceid": "SPACEID",
+    "space_name": "SPACE_NAME",
+    "auth_list": {
+      "auth_info": [
+        {
+          "type": 1,
+          "userid": "USERID",
+          "auth": 1
+        },
+        {
+          "type": 2,
+          "departmentid": "DEPARTMENTID",
+          "auth": 7
+        }
+      ],
+      "quit_userid": [
+        "USERID1",
+        "USERID2"
+      ]
+    },
+    "space_sub_type": 0,
+    "secure_setting": {
+      "enable_watermark": false,
+      "add_member_only_admin": true,
+      "enable_share_url": false,
+      "share_url_no_approve": false,
+      "share_url_no_approve_default_auth": 2,
+      "enable_share_external": false,
+      "enable_share_external_admin": true,
+      "enable_space_add_external_member": false,
+      "enable_space_add_external_member_admin": true,
+      "enable_confidential_mode": false,
+      "default_file_scope": 2,
+      "create_file_only_admin": false
+    }
+  }
+}

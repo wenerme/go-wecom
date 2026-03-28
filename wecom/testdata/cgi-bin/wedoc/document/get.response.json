@@ -1,0 +1,13 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "version": 10,
+  "document": {
+    "begin": 0,
+    "end": 20,
+    "property": {},
+    "type": "Document",
+    "children": [],
+    "text": "text content"
+  }
+}

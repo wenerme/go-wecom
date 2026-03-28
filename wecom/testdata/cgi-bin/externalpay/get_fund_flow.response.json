@@ -1,0 +1,27 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "next_cursor": "CURSOR",
+  "fund_flow_list": [
+    {
+      "timestamp": 1605171726,
+      "request_no": "1234567890",
+      "transaction_type": 3,
+      "fund_flow_type": 1,
+      "transaction_amount": 20,
+      "account_balance": 40,
+      "out_trade_no": "123456",
+      "mch_id": "123456",
+      "operator_userid": "ZhangSan",
+      "group_list": [
+        {
+          "group_name": "Rule1"
+        },
+        {
+          "group_name": "Rule2"
+        }
+      ],
+      "remark": "REMARK"
+    }
+  ]
+}

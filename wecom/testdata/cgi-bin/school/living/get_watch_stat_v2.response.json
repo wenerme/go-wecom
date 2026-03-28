@@ -1,0 +1,44 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "has_more": 1,
+  "next_cursor": "NEXT_CURSOR",
+  "stat_info": {
+    "students": [
+      {
+        "student_userid": "zhansan_child",
+        "partyids": [
+          10,
+          11
+        ],
+        "watch_time": 30,
+        "enter_time": 1586433904,
+        "leave_time": 1586434000,
+        "is_comment": 1
+      }
+    ],
+    "parents": [
+      {
+        "parent_userid": "zhangsan",
+        "student_userid": "zhansan_child",
+        "partyids": [
+          10,
+          11
+        ],
+        "watch_time": 30,
+        "enter_time": 1586433904,
+        "leave_time": 1586434000,
+        "is_comment": 1
+      }
+    ],
+    "visitors": [
+      {
+        "nickname": "wx_nickname1",
+        "watch_time": 30,
+        "enter_time": 1586433904,
+        "leave_time": 1586434000,
+        "is_comment": 1
+      }
+    ]
+  }
+}

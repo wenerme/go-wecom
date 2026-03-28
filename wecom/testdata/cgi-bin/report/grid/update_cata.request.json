@@ -1,0 +1,6 @@
+{
+  "category_id": "category_id",
+  "category_name": "分类名称",
+  "level": 2,
+  "parent_category_id": "parent_category_id"
+}

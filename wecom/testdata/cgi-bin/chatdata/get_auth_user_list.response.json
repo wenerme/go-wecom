@@ -1,0 +1,22 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "auth_user_list": [
+    {
+      "userid": "woxxxjigegen",
+      "edition_list": [
+        1
+      ]
+    },
+    {
+      "userid": "woaaaaaaaaaa",
+      "edition_list": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "next_cursor": "xjigeojgeigwj",
+  "has_more": true
+}
