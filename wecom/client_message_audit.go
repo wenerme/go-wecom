@@ -8,7 +8,7 @@ import (
 // 企业可通过此接口，获取企业开启会话内容存档的成员列表
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/91614
-func (c *Client) MessageAuditGetPermitUserList(r *MessageAuditGetPermitUserListRequest, opts ...interface{}) (out MessageAuditGetPermitUserListResponse, err error) {
+func (c *Client) MessageAuditGetPermitUserList(r *MessageAuditGetPermitUserListRequest, opts ...any) (out MessageAuditGetPermitUserListResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/msgaudit/get_permit_user_list",
@@ -22,7 +22,7 @@ func (c *Client) MessageAuditGetPermitUserList(r *MessageAuditGetPermitUserListR
 // 企业可通过此接口，获取会话内容存档本企业的内部群信息，包括群名称、群主id、公告、群创建时间以及所有群成员的id与加入时间。
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/92951
-func (c *Client) MessageAuditGetGroupChat(r *MessageAuditGetGroupChatRequest, opts ...interface{}) (out MessageAuditGetGroupChatResponse, err error) {
+func (c *Client) MessageAuditGetGroupChat(r *MessageAuditGetGroupChatRequest, opts ...any) (out MessageAuditGetGroupChatResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/msgaudit/groupchat/get",
@@ -67,7 +67,7 @@ type MessageAuditGetGroupChatResponse struct {
 // MessageAuditGetRobotInfo 通过robot_id获取机器人的名称和创建者
 //
 // see https://developer.work.weixin.qq.com/document/path/91774#获取机器人信息
-func (c *Client) MessageAuditGetRobotInfo(r *MessageAuditGetGroupChatRequest, opts ...interface{}) (out MessageAuditGetGroupChatResponse, err error) {
+func (c *Client) MessageAuditGetRobotInfo(r *MessageAuditGetGroupChatRequest, opts ...any) (out MessageAuditGetGroupChatResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/msgaudit/get_robot_info",

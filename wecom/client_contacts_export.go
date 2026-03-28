@@ -7,7 +7,7 @@ import (
 // ExportSimpleUser 导出成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/94849
-func (c *Client) ExportSimpleUser(r *ExportSimpleUserRequest, opts ...interface{}) (out ExportSimpleUserResponse, err error) {
+func (c *Client) ExportSimpleUser(r *ExportSimpleUserRequest, opts ...any) (out ExportSimpleUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/export/simple_user",
@@ -20,7 +20,7 @@ func (c *Client) ExportSimpleUser(r *ExportSimpleUserRequest, opts ...interface{
 // ExportUser 导出成员详情
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/94851
-func (c *Client) ExportUser(r *ExportUserRequest, opts ...interface{}) (out ExportUserResponse, err error) {
+func (c *Client) ExportUser(r *ExportUserRequest, opts ...any) (out ExportUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/export/user",
@@ -33,7 +33,7 @@ func (c *Client) ExportUser(r *ExportUserRequest, opts ...interface{}) (out Expo
 // ExportDepartment 导出部门
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/94852
-func (c *Client) ExportDepartment(r *ExportDepartmentRequest, opts ...interface{}) (out ExportDepartmentResponse, err error) {
+func (c *Client) ExportDepartment(r *ExportDepartmentRequest, opts ...any) (out ExportDepartmentResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/export/department",
@@ -46,7 +46,7 @@ func (c *Client) ExportDepartment(r *ExportDepartmentRequest, opts ...interface{
 // ExportTagUser 导出标签成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/94853
-func (c *Client) ExportTagUser(r *ExportTagUserRequest, opts ...interface{}) (out ExportTagUserResponse, err error) {
+func (c *Client) ExportTagUser(r *ExportTagUserRequest, opts ...any) (out ExportTagUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/export/taguser",
@@ -59,7 +59,7 @@ func (c *Client) ExportTagUser(r *ExportTagUserRequest, opts ...interface{}) (ou
 // ExportGetResult 接口定义
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/94854
-func (c *Client) ExportGetResult(r *ExportGetResultRequest, opts ...interface{}) (out ExportGetResultResponse, err error) {
+func (c *Client) ExportGetResult(r *ExportGetResultRequest, opts ...any) (out ExportGetResultResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/export/get_result",

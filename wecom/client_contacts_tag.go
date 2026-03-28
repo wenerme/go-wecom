@@ -7,7 +7,7 @@ import (
 // CreateTag 创建标签
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90210
-func (c *Client) CreateTag(r *CreateTagRequest, opts ...interface{}) (out CreateTagResponse, err error) {
+func (c *Client) CreateTag(r *CreateTagRequest, opts ...any) (out CreateTagResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/tag/create",
@@ -20,7 +20,7 @@ func (c *Client) CreateTag(r *CreateTagRequest, opts ...interface{}) (out Create
 // UpdateTag 更新标签名字
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90211
-func (c *Client) UpdateTag(r *UpdateTagRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) UpdateTag(r *UpdateTagRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/tag/update",
@@ -33,7 +33,7 @@ func (c *Client) UpdateTag(r *UpdateTagRequest, opts ...interface{}) (out Generi
 // DeleteTag 删除标签
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90212
-func (c *Client) DeleteTag(r *DeleteTagRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) DeleteTag(r *DeleteTagRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/tag/delete",
@@ -46,7 +46,7 @@ func (c *Client) DeleteTag(r *DeleteTagRequest, opts ...interface{}) (out Generi
 // GetTag 获取标签成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90213
-func (c *Client) GetTag(r *GetTagRequest, opts ...interface{}) (out GetTagResponse, err error) {
+func (c *Client) GetTag(r *GetTagRequest, opts ...any) (out GetTagResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/tag/get",
@@ -59,7 +59,7 @@ func (c *Client) GetTag(r *GetTagRequest, opts ...interface{}) (out GetTagRespon
 // AddTagUsers 增加标签成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90214
-func (c *Client) AddTagUsers(r *AddTagUsersRequest, opts ...interface{}) (out AddTagUsersResponse, err error) {
+func (c *Client) AddTagUsers(r *AddTagUsersRequest, opts ...any) (out AddTagUsersResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/tag/addtagusers",
@@ -72,7 +72,7 @@ func (c *Client) AddTagUsers(r *AddTagUsersRequest, opts ...interface{}) (out Ad
 // DeleteTagUsers 删除标签成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90215
-func (c *Client) DeleteTagUsers(r *DeleteTagUsersRequest, opts ...interface{}) (out DeleteTagUsersResponse, err error) {
+func (c *Client) DeleteTagUsers(r *DeleteTagUsersRequest, opts ...any) (out DeleteTagUsersResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/tag/deltagusers",
@@ -85,7 +85,7 @@ func (c *Client) DeleteTagUsers(r *DeleteTagUsersRequest, opts ...interface{}) (
 // ListTag 获取标签列表
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90216
-func (c *Client) ListTag(opts ...interface{}) (out ListTagResponse, err error) {
+func (c *Client) ListTag(opts ...any) (out ListTagResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/tag/list",

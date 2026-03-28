@@ -26,7 +26,7 @@ func (c *Client) GetUserInfo(r *GetUserInfoRequest) (out GetUserInfoResponse, er
 		Method:  http.MethodGet,
 		URL:     "/cgi-bin/user/getuserinfo",
 		Query:   r,
-		Options: []interface{}{},
+		Options: []any{},
 	}).Fetch(&out)
 	return
 }

@@ -37,7 +37,7 @@ func WebhookSend(r *WebhookSendRequest) (err error) {
 		},
 		Context: r.Context,
 		Body:    b,
-		Options: []interface{}{req.JSONEncode, req.JSONDecode},
+		Options: []any{req.JSONEncode, req.JSONDecode},
 	}.With(r.Request).Fetch(&er)
 	if err == nil {
 		err = er.AsError()
@@ -229,7 +229,7 @@ func WebhookUploadMedia(r *WebhookUploadMediaRequest) (out WebhookUploadMediaRes
 		},
 		Context: r.Context,
 		Body:    r.File,
-		Options: []interface{}{req.JSONDecode},
+		Options: []any{req.JSONDecode},
 	}.With(r.Request).Fetch(&er, &out)
 	if err == nil {
 		err = er.AsError()

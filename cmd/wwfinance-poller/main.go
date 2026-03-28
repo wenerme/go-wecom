@@ -6,6 +6,7 @@ import (
 	"database/sql/driver"
 	"flag"
 	"fmt"
+	"log/slog"
 	"os"
 	"path"
 	"strings"
@@ -22,7 +23,6 @@ import (
 
 	"github.com/glebarez/sqlite"
 	"github.com/oklog/ulid/v2"
-	"github.com/sirupsen/logrus"
 	"github.com/wenerme/go-wecom/WeWorkFinanceSDK"
 	"gorm.io/driver/postgres"
 )
@@ -60,16 +60,9 @@ func main() {
 		envFile = ".env"
 	}
 
-	logrus.SetFormatter(&logrus.TextFormatter{
-		FullTimestamp: true,
-	})
-	logrus.WithFields(logrus.Fields{
-		"env_file": envFile,
-	}).Info("load env")
+	slog.Info("load env", "env_file", envFile)
 	if err := dotenv.Load(strings.Split(envFile, ",")...); err != nil {
-		logrus.WithFields(logrus.Fields{
-			"error": err,
-		}).Warn("load env failed")
+		slog.Warn("load env failed", "error", err)
 	}
 
 	client, err := WeWorkFinanceSDK.NewClientFromEnv()
@@ -109,7 +102,7 @@ md5sum: %s
 			func() {
 				defer func() {
 					if err := recover(); err != nil {
-						logrus.WithError(fmt.Errorf("%v", err)).Error("polling")
+						slog.Error("polling", "error", fmt.Errorf("%v", err))
 					}
 				}()
 				poll()
@@ -128,9 +121,7 @@ func poll() {
 	seq := sql.NullInt64{}
 	db.Model(&models.Message{}).Select("max(sequence)").Scan(&seq)
 	lastSequence := uint64(seq.Int64)
-	logrus.WithFields(logrus.Fields{
-		"last_sequence": lastSequence,
-	}).Info("polling started")
+	slog.Info("polling started", "last_sequence", lastSequence)
 	total := 0
 	for {
 		data, err := client.GetChatData(WeWorkFinanceSDK.GetChatDataOptions{
@@ -157,10 +148,7 @@ func poll() {
 		}
 		save(data)
 	}
-	logrus.WithFields(logrus.Fields{
-		"last_sequence": lastSequence,
-		"pulled":        total,
-	}).Info("polling done")
+	slog.Info("polling done", "last_sequence", lastSequence, "pulled", total)
 }
 
 func save(chatMessages []*WeWorkFinanceSDK.ChatData) {
@@ -180,7 +168,7 @@ func save(chatMessages []*WeWorkFinanceSDK.ChatData) {
 				var last *models.File
 				db.Select("id").Where("md5_sum = ?", media.MD5Sum).Limit(1).Find(&last)
 				if last.ID != "" {
-					logrus.Infof("skip file %s already exists", media.MD5Sum)
+					slog.Info("skip file, already exists", "md5", media.MD5Sum)
 					continue
 				}
 			}
@@ -195,7 +183,7 @@ func save(chatMessages []*WeWorkFinanceSDK.ChatData) {
 			if media.MD5Sum != "" {
 				sum := WeWorkFinanceSDK.MD5Sum(data)
 				if sum != media.MD5Sum {
-					logrus.Warnf("md5sum not match, size %v <-> %v, retrying %s", media.Size, len(data), media.ID)
+					slog.Warn("md5sum not match, retrying", "expect_size", media.Size, "actual_size", len(data), "id", media.ID)
 					time.Sleep(2 * time.Second)
 					goto RETRY
 				}
@@ -252,17 +240,11 @@ func mustInitDB() *gorm.DB {
 	}
 
 	switch typ {
-	case "sqlite":
-		fallthrough
-	case "sqlite3":
+	case "sqlite", "sqlite3":
 		db, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{
 			DisableForeignKeyConstraintWhenMigrating: true,
 		})
-	case "pg":
-		fallthrough
-	case "postgres":
-		fallthrough
-	case "postgresql":
+	case "pg", "postgres", "postgresql":
 		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
 			DisableForeignKeyConstraintWhenMigrating: true,
 		})
@@ -273,9 +255,7 @@ func mustInitDB() *gorm.DB {
 	if err != nil {
 		panic(err)
 	}
-	logrus.WithFields(logrus.Fields{
-		"db_type": typ,
-	}).Info("db migration")
+	slog.Info("db migration", "db_type", typ)
 	if migrate {
 		err = db.AutoMigrate(&models.Message{}, &models.Media{}, &models.File{})
 		if err != nil {

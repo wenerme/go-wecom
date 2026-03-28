@@ -203,8 +203,8 @@ func TestNewClient(t *testing.T) {
 	}
 }
 
-func DecodeURLValues(values url.Values, out interface{}) error {
-	m := map[string]interface{}{}
+func DecodeURLValues(values url.Values, out any) error {
+	m := map[string]any{}
 	for k, v := range values {
 		if len(v) == 0 {
 			continue

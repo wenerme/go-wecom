@@ -22,7 +22,7 @@ func NewClient(conf Conf) *Client {
 		Request: req.Request{
 			BaseURL: DefaultAPI,
 			Method:  http.MethodGet,
-			Options: []interface{}{requestMiddleware, req.JSONEncode, req.JSONDecode},
+			Options: []any{requestMiddleware, req.JSONEncode, req.JSONDecode},
 		},
 	}
 	c.Request.Context = NewContext(ctx, c)
@@ -50,11 +50,11 @@ func (c *Client) With(conf Conf) (neo *Client) {
 func (c *Client) GetToken() (out TokenResponse, err error) {
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/gettoken",
-		Query: map[string]interface{}{
+		Query: map[string]any{
 			"corpid":     c.Conf.CorpID,
 			"corpsecret": c.Conf.CorpSecret,
 		},
-		Options: []interface{}{WithoutAccessToken},
+		Options: []any{WithoutAccessToken},
 	}).Fetch(&out)
 	if err == nil {
 		out.ExpiresAt = int64(out.ExpiresIn) + timeNow().Unix()
@@ -77,7 +77,7 @@ func (c *Client) GetJsAPITicket() (out TicketResponse, err error) {
 func (c *Client) GetAgentTicket() (out TicketResponse, err error) {
 	err = c.Request.With(req.Request{
 		URL: "/cgi-bin/ticket/get",
-		Query: map[string]interface{}{
+		Query: map[string]any{
 			"type": "agent_config",
 		},
 	}).Fetch(&out)

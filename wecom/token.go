@@ -49,7 +49,7 @@ type Token struct {
 
 	// raw optionally contains extra metadata from the server
 	// when updating a token.
-	raw interface{}
+	raw any
 }
 
 // Type returns t.TokenType if non-empty, else "Bearer".
@@ -81,7 +81,7 @@ func (t *Token) SetAuthHeader(r *http.Request) {
 // WithExtra returns a new Token that's a clone of t, but using the
 // provided raw extra map. This is only intended for use by packages
 // implementing derivative OAuth2 flows.
-func (t *Token) WithExtra(extra interface{}) *Token {
+func (t *Token) WithExtra(extra any) *Token {
 	t2 := new(Token)
 	*t2 = *t
 	t2.raw = extra
@@ -91,8 +91,8 @@ func (t *Token) WithExtra(extra interface{}) *Token {
 // Extra returns an extra field.
 // Extra fields are key-value pairs returned by the server as a
 // part of the token retrieval response.
-func (t *Token) Extra(key string) interface{} {
-	if raw, ok := t.raw.(map[string]interface{}); ok {
+func (t *Token) Extra(key string) any {
+	if raw, ok := t.raw.(map[string]any); ok {
 		return raw[key]
 	}
 

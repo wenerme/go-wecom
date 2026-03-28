@@ -208,7 +208,7 @@ func (s *SyncMapStore) Restore(data []byte) error {
 
 func (s *SyncMapStore) Dump() []byte {
 	var a []*cacheEntry
-	s.m.Range(func(key, value interface{}) bool {
+	s.m.Range(func(key, value any) bool {
 		e := &cacheEntry{
 			Key:  key.(string),
 			Data: value.(GenericToken),
@@ -274,7 +274,7 @@ func (s *SyncMapStore) Get(out *GenericToken) (found bool, err error) {
 		return false, err
 	}
 
-	var load interface{}
+	var load any
 	load, found = s.m.Load(key)
 	if found {
 		*out = load.(GenericToken)

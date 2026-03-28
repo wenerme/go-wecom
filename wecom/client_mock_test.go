@@ -71,13 +71,12 @@ func (ts *TestServer) Start() func() {
 
 func handleMockData(ts *TestServer) {
 	// ts.Mux.
-	ts.Mux.HandleFunc("/cgi-bin/*", func(writer http.ResponseWriter, request *http.Request) {
+	serveMockData := func(writer http.ResponseWriter, request *http.Request, prefix string) {
 		param := chi.URLParam(request, "*")
-
-		d, err := os.ReadFile("./testdata/cgi-bin/" + param + ".response.json")
+		d, err := os.ReadFile("./testdata/" + prefix + param + ".response.json")
 		if err != nil {
 			// no response
-			if _, err := os.Stat("./testdata/cgi-bin/" + param + ".request.json"); err == nil {
+			if _, err := os.Stat("./testdata/" + prefix + param + ".request.json"); err == nil {
 				render.JSON(writer, request, GenericResponse{ErrorMessage: "success"})
 				return
 			}
@@ -86,6 +85,12 @@ func handleMockData(ts *TestServer) {
 			return
 		}
 		render.JSON(writer, request, json.RawMessage(d))
+	}
+	ts.Mux.HandleFunc("/cgi-bin/*", func(w http.ResponseWriter, r *http.Request) {
+		serveMockData(w, r, "cgi-bin/")
+	})
+	ts.Mux.HandleFunc("/mmpaymkttransfers/*", func(w http.ResponseWriter, r *http.Request) {
+		serveMockData(w, r, "mmpaymkttransfers/")
 	})
 }
 
@@ -142,7 +147,7 @@ var (
 	ct   = cv.Type()
 )
 
-func registerClientAPIPath(path string, mn string, method interface{}) {
+func registerClientAPIPath(path string, mn string, method any) {
 	if _, ok := _pathToAPIName[path]; ok {
 		panic("path already exists: " + path)
 	}

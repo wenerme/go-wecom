@@ -8,7 +8,7 @@ import (
 // 本接口以userid（帐号）为主键，增量更新企业微信通讯录成员。请先下载CSV模板(下载增量更新成员模版)，根据需求填写文件内容。
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90980
-func (c *Client) BatchSyncUser(r *BatchSyncUserRequest, opts ...interface{}) (out BatchSyncUserResponse, err error) {
+func (c *Client) BatchSyncUser(r *BatchSyncUserRequest, opts ...any) (out BatchSyncUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/batch/syncuser",
@@ -22,7 +22,7 @@ func (c *Client) BatchSyncUser(r *BatchSyncUserRequest, opts ...interface{}) (ou
 // 本接口以userid为主键，全量覆盖企业的通讯录成员，任务完成后企业的通讯录成员与提交的文件完全保持一致。请先下载CSV文件(下载全量覆盖成员模版)，根据需求填写文件内容。
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90981
-func (c *Client) BatchReplaceUser(r *BatchReplaceUserRequest, opts ...interface{}) (out BatchReplaceUserResponse, err error) {
+func (c *Client) BatchReplaceUser(r *BatchReplaceUserRequest, opts ...any) (out BatchReplaceUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/batch/replaceuser",
@@ -36,7 +36,7 @@ func (c *Client) BatchReplaceUser(r *BatchReplaceUserRequest, opts ...interface{
 // 本接口以partyid为键，全量覆盖企业的通讯录组织架构，任务完成后企业的通讯录组织架构与提交的文件完全保持一致。请先下载CSV文件(下载全量覆盖部门模版)，根据需求填写文件内容。
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90982
-func (c *Client) BatchReplaceParty(r *BatchReplacePartyRequest, opts ...interface{}) (out BatchReplacePartyResponse, err error) {
+func (c *Client) BatchReplaceParty(r *BatchReplacePartyRequest, opts ...any) (out BatchReplacePartyResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/batch/replaceparty",
@@ -49,7 +49,7 @@ func (c *Client) BatchReplaceParty(r *BatchReplacePartyRequest, opts ...interfac
 // BatchGetResult 获取异步任务结果
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90983
-func (c *Client) BatchGetResult(r *BatchGetResultRequest, opts ...interface{}) (out BatchGetResultResponse, err error) {
+func (c *Client) BatchGetResult(r *BatchGetResultRequest, opts ...any) (out BatchGetResultResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/batch/getresult",

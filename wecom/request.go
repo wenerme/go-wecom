@@ -79,7 +79,7 @@ func requestMiddleware(r *req.Request) (err error) {
 
 var wecomeMiddleware = req.Hook{
 	Name: "WecomMiddleware",
-	HandleOption: func(r *req.Request, o interface{}) (bool, error) {
+	HandleOption: func(r *req.Request, o any) (bool, error) {
 		switch v := o.(type) {
 		case func(o *middlewareOptions):
 			v(getMiddlewareOptions(r))

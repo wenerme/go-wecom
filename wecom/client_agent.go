@@ -8,7 +8,7 @@ import (
 // 对于互联企业的应用，如果需要获取应用可见范围内其他互联企业的部门与成员，请调用互联企业-获取应用可见范围接口
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90363
-func (c *Client) GetAgent(r *GetAgentRequest, opts ...interface{}) (out GetAgentResponse, err error) {
+func (c *Client) GetAgent(r *GetAgentRequest, opts ...any) (out GetAgentResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/agent/get",
@@ -21,7 +21,7 @@ func (c *Client) GetAgent(r *GetAgentRequest, opts ...interface{}) (out GetAgent
 // ListAgent 获取access_token对应的应用列表
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90363
-func (c *Client) ListAgent(opts ...interface{}) (out ListAgentResponse, err error) {
+func (c *Client) ListAgent(opts ...any) (out ListAgentResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/agent/list",
@@ -34,7 +34,7 @@ func (c *Client) ListAgent(opts ...interface{}) (out ListAgentResponse, err erro
 // 请求说明：该接口指定应用自定义模版类型。同时也支持设置企业默认模版数据。若type指定为 “normal” 则为取消自定义模式，改为普通展示模式
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/94620
-func (c *Client) SetWorkbenchTemplate(r *SetWorkbenchTemplateRequest, opts ...interface{}) (out SetWorkbenchTemplateResponse, err error) {
+func (c *Client) SetWorkbenchTemplate(r *SetWorkbenchTemplateRequest, opts ...any) (out SetWorkbenchTemplateResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/agent/set_workbench_template",
@@ -47,7 +47,7 @@ func (c *Client) SetWorkbenchTemplate(r *SetWorkbenchTemplateRequest, opts ...in
 // GetWorkbenchTemplate 获取应用在工作台展示的模版
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/94620
-func (c *Client) GetWorkbenchTemplate(r *GetWorkbenchTemplateRequest, opts ...interface{}) (out GetWorkbenchTemplateResponse, err error) {
+func (c *Client) GetWorkbenchTemplate(r *GetWorkbenchTemplateRequest, opts ...any) (out GetWorkbenchTemplateResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/agent/get_workbench_template",
@@ -60,7 +60,7 @@ func (c *Client) GetWorkbenchTemplate(r *GetWorkbenchTemplateRequest, opts ...in
 // SetWorkbenchData 设置应用在用户工作台展示的数据
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/94620
-func (c *Client) SetWorkbenchData(r *SetWorkbenchDataRequest, opts ...interface{}) (out SetWorkbenchDataResponse, err error) {
+func (c *Client) SetWorkbenchData(r *SetWorkbenchDataRequest, opts ...any) (out SetWorkbenchDataResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/agent/set_workbench_data",

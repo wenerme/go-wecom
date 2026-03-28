@@ -1,6 +1,6 @@
 module github.com/wenerme/go-wecom
 
-go 1.19
+go 1.24
 
 require (
 	github.com/glebarez/go-sqlite v1.21.1
@@ -8,12 +8,12 @@ require (
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/render v1.0.2
 	github.com/go-playground/validator/v10 v10.14.0
+	github.com/gorilla/websocket v1.5.3
 	github.com/joho/godotenv v1.5.1
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/oklog/ulid/v2 v2.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/sbzhu/weworkapi_golang v0.0.0-20210525081115-1799804a7c8d
-	github.com/sirupsen/logrus v1.9.2
 	github.com/stretchr/testify v1.8.3
 	github.com/wenerme/go-req v0.10.1
 	gorm.io/datatypes v1.2.0

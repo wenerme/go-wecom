@@ -8,7 +8,7 @@ import (
 // 企业和第三方服务商可通过此接口获取配置了客户联系功能的成员列表。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92576
-func (c *Client) GetFollowUserList(opts ...interface{}) (out GetFollowUserListResponse, err error) {
+func (c *Client) GetFollowUserList(opts ...any) (out GetFollowUserListResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/externalcontact/get_follow_user_list",
@@ -21,7 +21,7 @@ func (c *Client) GetFollowUserList(opts ...interface{}) (out GetFollowUserListRe
 // 企业可以在管理后台-客户联系-加客户中配置成员的「联系我」的二维码或者小程序按钮，客户通过扫描二维码或点击小程序上的按钮，即可获取成员联系方式，主动联系到成员。企业可通过此接口为具有客户联系功能的成员生成专属的「联系我」二维码或者「联系我」按钮。如果配置的是「联系我」按钮，需要开发者的小程序接入小程序插件。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92577
-func (c *Client) AddContactWay(r *AddContactWayRequest, opts ...interface{}) (out AddContactWayResponse, err error) {
+func (c *Client) AddContactWay(r *AddContactWayRequest, opts ...any) (out AddContactWayResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/add_contact_way",
@@ -35,7 +35,7 @@ func (c *Client) AddContactWay(r *AddContactWayRequest, opts ...interface{}) (ou
 // 获取企业配置的「联系我」二维码和「联系我」小程序按钮。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92577
-func (c *Client) GetContactWay(r *GetContactWayRequest, opts ...interface{}) (out GetContactWayResponse, err error) {
+func (c *Client) GetContactWay(r *GetContactWayRequest, opts ...any) (out GetContactWayResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_contact_way",
@@ -49,7 +49,7 @@ func (c *Client) GetContactWay(r *GetContactWayRequest, opts ...interface{}) (ou
 // 更新企业配置的「联系我」二维码和「联系我」小程序按钮中的信息，如使用人员和备注等。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92577
-func (c *Client) UpdateContactWay(r *UpdateContactWayRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) UpdateContactWay(r *UpdateContactWayRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/update_contact_way",
@@ -63,7 +63,7 @@ func (c *Client) UpdateContactWay(r *UpdateContactWayRequest, opts ...interface{
 // 删除一个已配置的「联系我」二维码或者「联系我」小程序按钮。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92577
-func (c *Client) DeleteContactWay(r *DeleteContactWayRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) DeleteContactWay(r *DeleteContactWayRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/del_contact_way",
@@ -77,7 +77,7 @@ func (c *Client) DeleteContactWay(r *DeleteContactWayRequest, opts ...interface{
 // 将指定的企业成员和客户之前的临时会话断开，断开前会自动下发已配置的结束语。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92577
-func (c *Client) CloseTempChat(r *CloseTempChatRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) CloseTempChat(r *CloseTempChatRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/close_temp_chat",
@@ -91,7 +91,7 @@ func (c *Client) CloseTempChat(r *CloseTempChatRequest, opts ...interface{}) (ou
 // 企业可通过此接口获取指定成员添加的客户列表。客户是指配置了客户联系功能的成员所添加的外部联系人。没有配置客户联系功能的成员，所添加的外部联系人将不会作为客户返回。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92264
-func (c *Client) ListExternalContact(r *ListExternalContactRequest, opts ...interface{}) (out ListExternalContactResponse, err error) {
+func (c *Client) ListExternalContact(r *ListExternalContactRequest, opts ...any) (out ListExternalContactResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/externalcontact/list",
@@ -105,7 +105,7 @@ func (c *Client) ListExternalContact(r *ListExternalContactRequest, opts ...inte
 // 企业可通过此接口，根据外部联系人的userid（如何获取?），拉取客户详情。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92265
-func (c *Client) GetExternalContact(r *GetExternalContactRequest, opts ...interface{}) (out GetExternalContactResponse, err error) {
+func (c *Client) GetExternalContact(r *GetExternalContactRequest, opts ...any) (out GetExternalContactResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/externalcontact/get",
@@ -119,7 +119,7 @@ func (c *Client) GetExternalContact(r *GetExternalContactRequest, opts ...interf
 // 企业/第三方可通过此接口获取指定成员添加的客户信息列表。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93010
-func (c *Client) BatchGetByUser(r *BatchGetByUserRequest, opts ...interface{}) (out BatchGetByUserResponse, err error) {
+func (c *Client) BatchGetByUser(r *BatchGetByUserRequest, opts ...any) (out BatchGetByUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/batch/get_by_user",
@@ -133,7 +133,7 @@ func (c *Client) BatchGetByUser(r *BatchGetByUserRequest, opts ...interface{}) (
 // 企业可通过此接口修改指定用户添加的客户的备注信息。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92694
-func (c *Client) RemarkExternalContact(r *RemarkExternalContactRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) RemarkExternalContact(r *RemarkExternalContactRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/remark",
@@ -147,7 +147,7 @@ func (c *Client) RemarkExternalContact(r *RemarkExternalContactRequest, opts ...
 // 服务商为企业代开发微信小程序的场景，服务商可通过此接口，将微信客户的unionid转为external_userid（如何获取?）。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93274
-func (c *Client) UnionIDToExternalUserID(r *UnionIDToExternalUserIDRequest, opts ...interface{}) (out UnionIDToExternalUserIDResponse, err error) {
+func (c *Client) UnionIDToExternalUserID(r *UnionIDToExternalUserIDRequest, opts ...any) (out UnionIDToExternalUserIDResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/unionid_to_external_userid",
@@ -161,7 +161,7 @@ func (c *Client) UnionIDToExternalUserID(r *UnionIDToExternalUserIDRequest, opts
 // 企业可通过此接口获取企业客户标签详情。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92696
-func (c *Client) GetCorpTagList(r *GetCorpTagListRequest, opts ...interface{}) (out GetCorpTagListResponse, err error) {
+func (c *Client) GetCorpTagList(r *GetCorpTagListRequest, opts ...any) (out GetCorpTagListResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_corp_tag_list",
@@ -175,7 +175,7 @@ func (c *Client) GetCorpTagList(r *GetCorpTagListRequest, opts ...interface{}) (
 // 企业可通过此接口向客户标签库中添加新的标签组和标签，每个企业最多可配置3000个企业标签。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92696
-func (c *Client) AddCorpTag(r *AddCorpTagRequest, opts ...interface{}) (out AddCorpTagResponse, err error) {
+func (c *Client) AddCorpTag(r *AddCorpTagRequest, opts ...any) (out AddCorpTagResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/add_corp_tag",
@@ -189,7 +189,7 @@ func (c *Client) AddCorpTag(r *AddCorpTagRequest, opts ...interface{}) (out AddC
 // 企业可通过此接口编辑客户标签/标签组的名称或次序值。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92696
-func (c *Client) EditCorpTag(r *EditCorpTagRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) EditCorpTag(r *EditCorpTagRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/edit_corp_tag",
@@ -203,7 +203,7 @@ func (c *Client) EditCorpTag(r *EditCorpTagRequest, opts ...interface{}) (out Ge
 // 企业可通过此接口删除客户标签库中的标签，或删除整个标签组。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92696
-func (c *Client) DeleteCorpTag(r *DeleteCorpTagRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) DeleteCorpTag(r *DeleteCorpTagRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/del_corp_tag",
@@ -217,7 +217,7 @@ func (c *Client) DeleteCorpTag(r *DeleteCorpTagRequest, opts ...interface{}) (ou
 // 企业可通过此接口为指定成员的客户添加上由企业统一配置的标签。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92697
-func (c *Client) MarkTagExternalContact(r *MarkTagExternalContactRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) MarkTagExternalContact(r *MarkTagExternalContactRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/mark_tag",
@@ -231,7 +231,7 @@ func (c *Client) MarkTagExternalContact(r *MarkTagExternalContactRequest, opts .
 // 企业可通过此接口，转接在职成员的客户给其他成员。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/94096
-func (c *Client) TransferCustomerExternalContact(r *TransferCustomerExternalContactRequest, opts ...interface{}) (out TransferCustomerExternalContactResponse, err error) {
+func (c *Client) TransferCustomerExternalContact(r *TransferCustomerExternalContactRequest, opts ...any) (out TransferCustomerExternalContactResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/transfer_customer",
@@ -245,7 +245,7 @@ func (c *Client) TransferCustomerExternalContact(r *TransferCustomerExternalCont
 // 企业和第三方可通过此接口查询在职成员的客户转接情况。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/94097
-func (c *Client) TransferResultExternalContact(r *TransferResultExternalContactRequest, opts ...interface{}) (out TransferResultExternalContactResponse, err error) {
+func (c *Client) TransferResultExternalContact(r *TransferResultExternalContactRequest, opts ...any) (out TransferResultExternalContactResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/transfer_result",
@@ -259,7 +259,7 @@ func (c *Client) TransferResultExternalContact(r *TransferResultExternalContactR
 // 企业和第三方可通过此接口，获取所有离职成员的客户列表，并可进一步调用分配离职成员的客户接口将这些客户重新分配给其他企业成员。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92273
-func (c *Client) GetUnassignedList(r *GetUnassignedListRequest, opts ...interface{}) (out GetUnassignedListResponse, err error) {
+func (c *Client) GetUnassignedList(r *GetUnassignedListRequest, opts ...any) (out GetUnassignedListResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_unassigned_list",
@@ -273,7 +273,7 @@ func (c *Client) GetUnassignedList(r *GetUnassignedListRequest, opts ...interfac
 // 企业可通过此接口，分配离职成员的客户给其他成员。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/94100
-func (c *Client) TransferCustomerResigned(r *TransferCustomerResignedRequest, opts ...interface{}) (out TransferCustomerResignedResponse, err error) {
+func (c *Client) TransferCustomerResigned(r *TransferCustomerResignedRequest, opts ...any) (out TransferCustomerResignedResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/resigned/transfer_customer",
@@ -287,7 +287,7 @@ func (c *Client) TransferCustomerResigned(r *TransferCustomerResignedRequest, op
 // 企业和第三方可通过此接口查询离职成员的客户分配情况。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/94101
-func (c *Client) TransferResultResigned(r *TransferResultResignedRequest, opts ...interface{}) (out TransferResultResignedResponse, err error) {
+func (c *Client) TransferResultResigned(r *TransferResultResignedRequest, opts ...any) (out TransferResultResignedResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/resigned/transfer_result",
@@ -301,7 +301,7 @@ func (c *Client) TransferResultResigned(r *TransferResultResignedRequest, opts .
 // 企业可通过此接口，将已离职成员为群主的群，分配给另一个客服成员。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93242
-func (c *Client) TransferGroupChat(r *TransferGroupChatRequest, opts ...interface{}) (out TransferGroupChatResponse, err error) {
+func (c *Client) TransferGroupChat(r *TransferGroupChatRequest, opts ...any) (out TransferGroupChatResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/transfer",
@@ -315,7 +315,7 @@ func (c *Client) TransferGroupChat(r *TransferGroupChatRequest, opts ...interfac
 // 该接口用于获取配置过客户群管理的客户群列表。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93414
-func (c *Client) ListGroupChat(r *ListGroupChatRequest, opts ...interface{}) (out ListGroupChatResponse, err error) {
+func (c *Client) ListGroupChat(r *ListGroupChatRequest, opts ...any) (out ListGroupChatResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/list",
@@ -329,7 +329,7 @@ func (c *Client) ListGroupChat(r *ListGroupChatRequest, opts ...interface{}) (ou
 // 通过客户群ID，获取详情。包括群名、群成员列表、群成员入群时间、入群方式。（客户群是由具有客户群使用权限的成员创建的外部群）
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92707
-func (c *Client) GetGroupChat(r *GetGroupChatRequest, opts ...interface{}) (out GetGroupChatResponse, err error) {
+func (c *Client) GetGroupChat(r *GetGroupChatRequest, opts ...any) (out GetGroupChatResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/get",
@@ -343,7 +343,7 @@ func (c *Client) GetGroupChat(r *GetGroupChatRequest, opts ...interface{}) (out 
 // 企业和第三方应用可通过该接口获取企业全部的发表内容。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93443
-func (c *Client) GetMomentList(r *GetMomentListRequest, opts ...interface{}) (out GetMomentListResponse, err error) {
+func (c *Client) GetMomentList(r *GetMomentListRequest, opts ...any) (out GetMomentListResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_moment_list",
@@ -357,7 +357,7 @@ func (c *Client) GetMomentList(r *GetMomentListRequest, opts ...interface{}) (ou
 // 企业和第三方应用可通过该接口获取企业发表的朋友圈成员执行情况
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93443
-func (c *Client) GetMomentTask(r *GetMomentTaskRequest, opts ...interface{}) (out GetMomentTaskResponse, err error) {
+func (c *Client) GetMomentTask(r *GetMomentTaskRequest, opts ...any) (out GetMomentTaskResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_moment_task",
@@ -371,7 +371,7 @@ func (c *Client) GetMomentTask(r *GetMomentTaskRequest, opts ...interface{}) (ou
 // 企业和第三方应用可通过该接口获取客户朋友圈创建时，选择的客户可见范围
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93443
-func (c *Client) GetMomentCustomerList(r *GetMomentCustomerListRequest, opts ...interface{}) (out GetMomentCustomerListResponse, err error) {
+func (c *Client) GetMomentCustomerList(r *GetMomentCustomerListRequest, opts ...any) (out GetMomentCustomerListResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_moment_customer_list",
@@ -385,7 +385,7 @@ func (c *Client) GetMomentCustomerList(r *GetMomentCustomerListRequest, opts ...
 // 企业和第三方应用可通过该接口获取客户朋友圈发表后，可在微信朋友圈中查看的客户列表
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93443
-func (c *Client) GetMomentSendResult(r *GetMomentSendResultRequest, opts ...interface{}) (out GetMomentSendResultResponse, err error) {
+func (c *Client) GetMomentSendResult(r *GetMomentSendResultRequest, opts ...any) (out GetMomentSendResultResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_moment_send_result",
@@ -399,7 +399,7 @@ func (c *Client) GetMomentSendResult(r *GetMomentSendResultRequest, opts ...inte
 // 企业和第三方应用可通过此接口获取客户朋友圈的互动数据。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93443
-func (c *Client) GetMomentComments(r *GetMomentCommentsRequest, opts ...interface{}) (out GetMomentCommentsResponse, err error) {
+func (c *Client) GetMomentComments(r *GetMomentCommentsRequest, opts ...any) (out GetMomentCommentsResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_moment_comments",
@@ -413,7 +413,7 @@ func (c *Client) GetMomentComments(r *GetMomentCommentsRequest, opts ...interfac
 // 企业跟第三方应用可通过此接口添加企业群发消息的任务并通知成员发送给相关客户或客户群。（注：企业微信终端需升级到2.7.5版本及以上）注意：调用该接口并不会直接发送消息给客户/客户群，需要成员确认后才会执行发送（客服人员的企业微信需要升级到2.7.5及以上版本）旧接口创建企业群发已经废弃，接口升级后支持发送视频文件，并且支持最多同时发送9个附件。同一个企业每个自然月内仅可针对一个客户/客户群发送4条消息，超过接收上限的客户将无法再收到群发消息。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92698
-func (c *Client) AddMessageTemplate(r *AddMessageTemplateRequest, opts ...interface{}) (out AddMessageTemplateResponse, err error) {
+func (c *Client) AddMessageTemplate(r *AddMessageTemplateRequest, opts ...any) (out AddMessageTemplateResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/add_msg_template",
@@ -427,7 +427,7 @@ func (c *Client) AddMessageTemplate(r *AddMessageTemplateRequest, opts ...interf
 // 企业和第三方应用可通过此接口获取企业与成员的群发记录。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupMessageListV2(r *GetGroupMessageListV2Request, opts ...interface{}) (out GetGroupMessageListV2Response, err error) {
+func (c *Client) GetGroupMessageListV2(r *GetGroupMessageListV2Request, opts ...any) (out GetGroupMessageListV2Response, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_groupmsg_list_v2",
@@ -440,7 +440,7 @@ func (c *Client) GetGroupMessageListV2(r *GetGroupMessageListV2Request, opts ...
 // GetGroupMessageTask 获取群发成员发送任务列表
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupMessageTask(r *GetGroupMessageTaskRequest, opts ...interface{}) (out GetGroupMessageTaskResponse, err error) {
+func (c *Client) GetGroupMessageTask(r *GetGroupMessageTaskRequest, opts ...any) (out GetGroupMessageTaskResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_groupmsg_task",
@@ -453,7 +453,7 @@ func (c *Client) GetGroupMessageTask(r *GetGroupMessageTaskRequest, opts ...inte
 // GetGroupMessageSendResult 获取企业群发成员执行结果
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93439
-func (c *Client) GetGroupMessageSendResult(r *GetGroupMessageSendResultRequest, opts ...interface{}) (out GetGroupMessageSendResultResponse, err error) {
+func (c *Client) GetGroupMessageSendResult(r *GetGroupMessageSendResultRequest, opts ...any) (out GetGroupMessageSendResultResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_groupmsg_send_result",
@@ -467,7 +467,7 @@ func (c *Client) GetGroupMessageSendResult(r *GetGroupMessageSendResultRequest, 
 // 企业微信在向企业推送添加外部联系人事件时，会额外返回一个welcome_code，企业以此为凭据调用接口，即可通过成员向新添加的客户发送个性化的欢迎语。为了保证用户体验以及避免滥用，企业仅可在收到相关事件后20秒内调用，且只可调用一次。如果企业已经在管理端为相关成员配置了可用的欢迎语，则推送添加外部联系人事件时不会返回welcome_code。每次添加新客户时可能有多个企业自建应用/第三方应用收到带有welcome_code的回调事件，但仅有最先调用的可以发送成功。后续调用将返回41051（externaluser has started chatting）错误，请用户根据实际使用需求，合理设置应用可见范围，避免冲突。旧接口发送新客户欢迎语已经废弃，接口升级后支持发送视频文件，并且最多支持同时发送9个附件
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92599
-func (c *Client) SendWelcomeMessage(r *SendWelcomeMessageRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) SendWelcomeMessage(r *SendWelcomeMessageRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/send_welcome_msg",
@@ -481,7 +481,7 @@ func (c *Client) SendWelcomeMessage(r *SendWelcomeMessageRequest, opts ...interf
 // 企业可通过此API向企业的入群欢迎语素材库中添加素材。每个企业的入群欢迎语素材库中，最多容纳100个素材。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93438
-func (c *Client) AddGroupWelcomeTemplate(r *AddGroupWelcomeTemplateRequest, opts ...interface{}) (out AddGroupWelcomeTemplateResponse, err error) {
+func (c *Client) AddGroupWelcomeTemplate(r *AddGroupWelcomeTemplateRequest, opts ...any) (out AddGroupWelcomeTemplateResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/group_welcome_template/add",
@@ -495,7 +495,7 @@ func (c *Client) AddGroupWelcomeTemplate(r *AddGroupWelcomeTemplateRequest, opts
 // 企业可通过此API编辑入群欢迎语素材库中的素材，且仅能够编辑调用方自己创建的入群欢迎语素材。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93438
-func (c *Client) EditGroupWelcomeTemplate(r *EditGroupWelcomeTemplateRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) EditGroupWelcomeTemplate(r *EditGroupWelcomeTemplateRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/group_welcome_template/edit",
@@ -509,7 +509,7 @@ func (c *Client) EditGroupWelcomeTemplate(r *EditGroupWelcomeTemplateRequest, op
 // 企业可通过此API获取入群欢迎语素材。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93438
-func (c *Client) GetGroupWelcomeTemplate(r *GetGroupWelcomeTemplateRequest, opts ...interface{}) (out GetGroupWelcomeTemplateResponse, err error) {
+func (c *Client) GetGroupWelcomeTemplate(r *GetGroupWelcomeTemplateRequest, opts ...any) (out GetGroupWelcomeTemplateResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/group_welcome_template/get",
@@ -523,7 +523,7 @@ func (c *Client) GetGroupWelcomeTemplate(r *GetGroupWelcomeTemplateRequest, opts
 // 企业可通过此API删除入群欢迎语素材，且仅能删除调用方自己创建的入群欢迎语素材。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93438
-func (c *Client) DeleteGroupWelcomeTemplate(r *DeleteGroupWelcomeTemplateRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) DeleteGroupWelcomeTemplate(r *DeleteGroupWelcomeTemplateRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/group_welcome_template/del",
@@ -537,7 +537,7 @@ func (c *Client) DeleteGroupWelcomeTemplate(r *DeleteGroupWelcomeTemplateRequest
 // 企业可通过此接口获取成员联系客户的数据，包括发起申请数、新增客户数、聊天数、发送消息数和删除/拉黑成员的客户数等指标。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92275
-func (c *Client) GetUserBehaviorData(r *GetUserBehaviorDataRequest, opts ...interface{}) (out GetUserBehaviorDataResponse, err error) {
+func (c *Client) GetUserBehaviorData(r *GetUserBehaviorDataRequest, opts ...any) (out GetUserBehaviorDataResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_user_behavior_data",
@@ -550,7 +550,7 @@ func (c *Client) GetUserBehaviorData(r *GetUserBehaviorDataRequest, opts ...inte
 // GroupChatStatistic 按群主聚合的方式
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93476
-func (c *Client) GroupChatStatistic(r *GroupChatStatisticRequest, opts ...interface{}) (out GroupChatStatisticResponse, err error) {
+func (c *Client) GroupChatStatistic(r *GroupChatStatisticRequest, opts ...any) (out GroupChatStatisticResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/statistic",
@@ -563,7 +563,7 @@ func (c *Client) GroupChatStatistic(r *GroupChatStatisticRequest, opts ...interf
 // StatisticGroupByDay 按自然日聚合的方式
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/93476
-func (c *Client) StatisticGroupByDay(r *StatisticGroupByDayRequest, opts ...interface{}) (out StatisticGroupByDayResponse, err error) {
+func (c *Client) StatisticGroupByDay(r *StatisticGroupByDayRequest, opts ...any) (out StatisticGroupByDayResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/statistic_group_by_day",

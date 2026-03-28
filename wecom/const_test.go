@@ -14,7 +14,7 @@ type testStruct struct {
 func TestMarshal(t *testing.T) {
 	tests := []struct {
 		in  string
-		o   interface{}
+		o   any
 		out string
 	}{
 		{

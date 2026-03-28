@@ -29,7 +29,7 @@ func BuildOAuth2URL(o BuildOAuth2URLOptions) string {
 	return buildURLValues("https://open.weixin.qq.com/connect/oauth2/authorize?response_type=code&scope=snsapi_base#wechat_redirect", o)
 }
 
-func buildURLValues(base string, o interface{}) string {
+func buildURLValues(base string, o any) string {
 	u, err := url.Parse(base)
 	if err != nil {
 		panic(err)

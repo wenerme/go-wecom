@@ -8,8 +8,8 @@ import (
 // 该API用于获取第三方应用凭证（suite_access_token）。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90600
-func (c *Client) ProviderGetSuiteToken(r *ProviderGetSuiteTokenRequest, opts ...interface{}) (out SuiteTokenResponse, err error) {
-	opts = append([]interface{}{WithoutAccessToken}, opts...)
+func (c *Client) ProviderGetSuiteToken(r *ProviderGetSuiteTokenRequest, opts ...any) (out SuiteTokenResponse, err error) {
+	opts = append([]any{WithoutAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_suite_token",
@@ -23,8 +23,8 @@ func (c *Client) ProviderGetSuiteToken(r *ProviderGetSuiteTokenRequest, opts ...
 // 该API用于获取预授权码。预授权码用于企业授权时的第三方服务商安全验证。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90601
-func (c *Client) ProviderGetPreAuthCode(r *ProviderGetPreAuthCodeRequest, opts ...interface{}) (out PreAuthCodeResponse, err error) {
-	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
+func (c *Client) ProviderGetPreAuthCode(r *ProviderGetPreAuthCodeRequest, opts ...any) (out PreAuthCodeResponse, err error) {
+	opts = append([]any{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/service/get_pre_auth_code",
@@ -38,8 +38,8 @@ func (c *Client) ProviderGetPreAuthCode(r *ProviderGetPreAuthCodeRequest, opts .
 // 该接口可对某次授权进行配置。可支持测试模式（应用未发布时）。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90602
-func (c *Client) ProviderSetSessionInfo(r *ProviderSetSessionInfoRequest, opts ...interface{}) (out GenericResponse, err error) {
-	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
+func (c *Client) ProviderSetSessionInfo(r *ProviderSetSessionInfoRequest, opts ...any) (out GenericResponse, err error) {
+	opts = append([]any{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/set_session_info",
@@ -53,8 +53,8 @@ func (c *Client) ProviderSetSessionInfo(r *ProviderSetSessionInfoRequest, opts .
 // 该API用于使用临时授权码换取授权方的永久授权码，并换取授权信息、企业access_token，临时授权码一次有效。建议第三方以userid为主键，来建立自己的管理员账号。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90603
-func (c *Client) ProviderGetPermanentCode(r *ProviderGetPermanentCodeRequest, opts ...interface{}) (out ProviderGetPermanentCodeResponse, err error) {
-	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
+func (c *Client) ProviderGetPermanentCode(r *ProviderGetPermanentCodeRequest, opts ...any) (out ProviderGetPermanentCodeResponse, err error) {
+	opts = append([]any{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_permanent_code",
@@ -68,8 +68,8 @@ func (c *Client) ProviderGetPermanentCode(r *ProviderGetPermanentCodeRequest, op
 // 该API用于通过永久授权码换取企业微信的授权信息。 永久code的获取，是通过临时授权码使用get_permanent_code 接口获取到的permanent_code。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90604
-func (c *Client) ProviderGetAuthInfo(r *ProviderGetAuthInfoRequest, opts ...interface{}) (out ProviderGetAuthInfoResponse, err error) {
-	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
+func (c *Client) ProviderGetAuthInfo(r *ProviderGetAuthInfoRequest, opts ...any) (out ProviderGetAuthInfoResponse, err error) {
+	opts = append([]any{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_auth_info",
@@ -83,8 +83,8 @@ func (c *Client) ProviderGetAuthInfo(r *ProviderGetAuthInfoRequest, opts ...inte
 // 第三方服务商在取得企业的永久授权码后，通过此接口可以获取到企业的access_token。获取后可通过通讯录、应用、消息等企业接口来运营这些应用。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90605
-func (c *Client) ProviderGetCorpToken(r *ProviderGetCorpTokenRequest, opts ...interface{}) (out ProviderGetCorpTokenResponse, err error) {
-	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
+func (c *Client) ProviderGetCorpToken(r *ProviderGetCorpTokenRequest, opts ...any) (out ProviderGetCorpTokenResponse, err error) {
+	opts = append([]any{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_corp_token",
@@ -98,8 +98,8 @@ func (c *Client) ProviderGetCorpToken(r *ProviderGetCorpTokenRequest, opts ...in
 // 第三方服务商可以用此接口获取授权企业中某个第三方应用的管理员列表(不包括外部管理员)，以便服务商在用户进入应用主页之后根据是否管理员身份做权限的区分。
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/90606
-func (c *Client) ProviderGetAdminList(r *ProviderGetAdminListRequest, opts ...interface{}) (out ProviderGetAdminListResponse, err error) {
-	opts = append([]interface{}{WithSuiteAccessToken}, opts...)
+func (c *Client) ProviderGetAdminList(r *ProviderGetAdminListRequest, opts ...any) (out ProviderGetAdminListResponse, err error) {
+	opts = append([]any{WithSuiteAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/get_admin_list",

@@ -7,7 +7,7 @@ import (
 // CreateDepartment 创建部门
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90205
-func (c *Client) CreateDepartment(r *CreateDepartmentRequest, opts ...interface{}) (out CreateDepartmentResponse, err error) {
+func (c *Client) CreateDepartment(r *CreateDepartmentRequest, opts ...any) (out CreateDepartmentResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/department/create",
@@ -20,7 +20,7 @@ func (c *Client) CreateDepartment(r *CreateDepartmentRequest, opts ...interface{
 // UpdateDepartment 更新部门
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90206
-func (c *Client) UpdateDepartment(r *UpdateDepartmentRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) UpdateDepartment(r *UpdateDepartmentRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/department/update",
@@ -33,7 +33,7 @@ func (c *Client) UpdateDepartment(r *UpdateDepartmentRequest, opts ...interface{
 // DeleteDepartment 删除部门
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90207
-func (c *Client) DeleteDepartment(r *DeleteDepartmentRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) DeleteDepartment(r *DeleteDepartmentRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/department/delete",
@@ -46,7 +46,7 @@ func (c *Client) DeleteDepartment(r *DeleteDepartmentRequest, opts ...interface{
 // ListDepartment 获取部门列表
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90208
-func (c *Client) ListDepartment(r *ListDepartmentRequest, opts ...interface{}) (out ListDepartmentResponse, err error) {
+func (c *Client) ListDepartment(r *ListDepartmentRequest, opts ...any) (out ListDepartmentResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/department/list",

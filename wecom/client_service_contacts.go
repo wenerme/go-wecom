@@ -8,8 +8,8 @@ import (
 // 素材上传得到media_id，该media_id仅三天内有效media_id在同一企业内应用之间可以共享
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/91883
-func (c *Client) ProviderUploadMedia(r *ProviderUploadMediaRequest, opts ...interface{}) (out ProviderUploadMediaResponse, err error) {
-	opts = append([]interface{}{WithProviderAccessToken}, opts...)
+func (c *Client) ProviderUploadMedia(r *ProviderUploadMediaRequest, opts ...any) (out ProviderUploadMediaResponse, err error) {
+	opts = append([]any{WithProviderAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/media/upload",
@@ -23,8 +23,8 @@ func (c *Client) ProviderUploadMedia(r *ProviderUploadMediaRequest, opts ...inte
 // 通讯录id替换
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/91846
-func (c *Client) ProviderIDTranslateContact(r *ProviderIDTranslateContactRequest, opts ...interface{}) (out ProviderIDTranslateContactResponse, err error) {
-	opts = append([]interface{}{WithProviderAccessToken}, opts...)
+func (c *Client) ProviderIDTranslateContact(r *ProviderIDTranslateContactRequest, opts ...any) (out ProviderIDTranslateContactResponse, err error) {
+	opts = append([]any{WithProviderAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/contact/id_translate",
@@ -37,8 +37,8 @@ func (c *Client) ProviderIDTranslateContact(r *ProviderIDTranslateContactRequest
 // ProviderBatchGetResult 获取异步任务结果
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/91882
-func (c *Client) ProviderBatchGetResult(r *ProviderBatchGetResultRequest, opts ...interface{}) (out ProviderBatchGetResultResponse, err error) {
-	opts = append([]interface{}{WithProviderAccessToken}, opts...)
+func (c *Client) ProviderBatchGetResult(r *ProviderBatchGetResultRequest, opts ...any) (out ProviderBatchGetResultResponse, err error) {
+	opts = append([]any{WithProviderAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/service/batch/getresult",
@@ -51,8 +51,8 @@ func (c *Client) ProviderBatchGetResult(r *ProviderBatchGetResultRequest, opts .
 // ProviderSortContact 通讯录userid排序
 //
 // see https://work.weixin.qq.com/api/doc/90001/90143/92093
-func (c *Client) ProviderSortContact(r *ProviderSortContactRequest, opts ...interface{}) (out ProviderSortContactResponse, err error) {
-	opts = append([]interface{}{WithProviderAccessToken}, opts...)
+func (c *Client) ProviderSortContact(r *ProviderSortContactRequest, opts ...any) (out ProviderSortContactResponse, err error) {
+	opts = append([]any{WithProviderAccessToken}, opts...)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/service/contact/sort",

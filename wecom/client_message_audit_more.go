@@ -6,7 +6,7 @@ import "github.com/wenerme/go-req"
 // 企业可通过下述接口，获取会话中外部成员的同意情况
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/91782
-func (c *Client) MessageAuditCheckSingleAgree(r *MessageAuditCheckSingleAgreeRequest, opts ...interface{}) (out MessageAuditCheckSingleAgreeResponse, err error) {
+func (c *Client) MessageAuditCheckSingleAgree(r *MessageAuditCheckSingleAgreeRequest, opts ...any) (out MessageAuditCheckSingleAgreeResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/msgaudit/check_single_agree",
@@ -20,7 +20,7 @@ func (c *Client) MessageAuditCheckSingleAgree(r *MessageAuditCheckSingleAgreeReq
 // 企业可通过下述接口，获取会话中外部成员的同意情况
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/91782
-func (c *Client) MessageAuditCheckRoomAgree(r *MessageAuditCheckRoomAgreeRequest, opts ...interface{}) (out MessageAuditCheckRoomAgreeResponse, err error) {
+func (c *Client) MessageAuditCheckRoomAgree(r *MessageAuditCheckRoomAgreeRequest, opts ...any) (out MessageAuditCheckRoomAgreeResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/msgaudit/check_room_agree",

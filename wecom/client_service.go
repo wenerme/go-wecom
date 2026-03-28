@@ -27,7 +27,7 @@ func (c *Client) SuiteGetUserInfo(r *SuiteGetUserInfoRequest) (out SuiteGetUserI
 		Method:  http.MethodGet,
 		URL:     "/cgi-bin/service/getuserinfo3rd",
 		Query:   r,
-		Options: []interface{}{WithSuiteAccessToken},
+		Options: []any{WithSuiteAccessToken},
 	}).Fetch(&out)
 	if err == nil {
 		out.ExpiresAt = int64(out.ExpiresIn) + timeNow().Unix()
@@ -54,7 +54,7 @@ func (c *Client) SuiteGetUserDetail(r *SuiteGetUserDetailRequest) (out SuiteGetU
 		Method:  http.MethodPost,
 		URL:     "/cgi-bin/service/getuserdetail3rd",
 		Body:    r,
-		Options: []interface{}{WithSuiteAccessToken},
+		Options: []any{WithSuiteAccessToken},
 	}).Fetch(&out)
 	return
 }
@@ -67,7 +67,7 @@ func (c *Client) GetProviderToken() (out ProviderTokenResponse, err error) {
 			"corpid":          c.Conf.CorpID,
 			"provider_secret": c.Conf.ProviderSecret,
 		},
-		Options: []interface{}{WithoutAccessToken},
+		Options: []any{WithoutAccessToken},
 	}).Fetch(&out)
 	if err == nil {
 		out.ExpiresAt = int64(out.ExpiresIn) + timeNow().Unix()
@@ -87,7 +87,7 @@ func (c *Client) ProviderGetLoginInfo(r *ProviderGetLoginInfoRequest) (out Provi
 		Method: http.MethodPost,
 		URL:    "/cgi-bin/service/get_login_info",
 		Body:   r,
-		Options: []interface{}{func(m *middlewareOptions) {
+		Options: []any{func(m *middlewareOptions) {
 			m.GetToken = func(c *Client, r *req.Request) (string, string, error) {
 				// 名字是 access_token 但内容为 provider_access_token
 				token, err := c.ProviderAccessToken()

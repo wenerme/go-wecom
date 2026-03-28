@@ -9,7 +9,7 @@ import (
 // CreateUser 创建成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90195
-func (c *Client) CreateUser(r *CreateUserRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) CreateUser(r *CreateUserRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/create",
@@ -23,7 +23,7 @@ func (c *Client) CreateUser(r *CreateUserRequest, opts ...interface{}) (out Gene
 // 在通讯录同步助手中此接口可以读取企业通讯录的所有成员的信息，而自建应用可以读取该应用设置的可见范围内的成员信息。
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90196
-func (c *Client) GetUser(r *GetUserRequest, opts ...interface{}) (out GetUserResponse, err error) {
+func (c *Client) GetUser(r *GetUserRequest, opts ...any) (out GetUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/user/get",
@@ -36,7 +36,7 @@ func (c *Client) GetUser(r *GetUserRequest, opts ...interface{}) (out GetUserRes
 // UpdateUser 更新成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90197
-func (c *Client) UpdateUser(r *UpdateUserRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) UpdateUser(r *UpdateUserRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/update",
@@ -49,7 +49,7 @@ func (c *Client) UpdateUser(r *UpdateUserRequest, opts ...interface{}) (out Gene
 // DeleteUser 删除成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90198
-func (c *Client) DeleteUser(r *DeleteUserRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) DeleteUser(r *DeleteUserRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/user/delete",
@@ -62,7 +62,7 @@ func (c *Client) DeleteUser(r *DeleteUserRequest, opts ...interface{}) (out Gene
 // BatchDeleteUser 批量删除成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90199
-func (c *Client) BatchDeleteUser(r *BatchDeleteUserRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) BatchDeleteUser(r *BatchDeleteUserRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/batchdelete",
@@ -75,7 +75,7 @@ func (c *Client) BatchDeleteUser(r *BatchDeleteUserRequest, opts ...interface{})
 // SimpleListUser 获取部门成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90200
-func (c *Client) SimpleListUser(r *SimpleListUserRequest, opts ...interface{}) (out SimpleListUserResponse, err error) {
+func (c *Client) SimpleListUser(r *SimpleListUserRequest, opts ...any) (out SimpleListUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/user/simplelist",
@@ -88,7 +88,7 @@ func (c *Client) SimpleListUser(r *SimpleListUserRequest, opts ...interface{}) (
 // ListUser 获取部门成员详情
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90201
-func (c *Client) ListUser(r *ListUserRequest, opts ...interface{}) (out ListUserResponse, err error) {
+func (c *Client) ListUser(r *ListUserRequest, opts ...any) (out ListUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/user/list",
@@ -102,7 +102,7 @@ func (c *Client) ListUser(r *ListUserRequest, opts ...interface{}) (out ListUser
 // userid转openid
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90202
-func (c *Client) ConvertToOpenID(r *ConvertToOpenIDRequest, opts ...interface{}) (out ConvertToOpenIDResponse, err error) {
+func (c *Client) ConvertToOpenID(r *ConvertToOpenIDRequest, opts ...any) (out ConvertToOpenIDResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/convert_to_openid",
@@ -116,7 +116,7 @@ func (c *Client) ConvertToOpenID(r *ConvertToOpenIDRequest, opts ...interface{})
 // 此接口可以满足安全性要求高的企业进行成员验证。开启二次验证后，当且仅当成员登录时，需跳转至企业自定义的页面进行验证。验证频率可在设置页面选择。开启二次验证方法如下图：企业在开启二次验证时，必须在管理端填写企业二次验证页面的url。当成员登录企业微信或关注微工作台（原企业号）进入企业时，会自动跳转到企业的验证页面。在跳转到企业的验证页面时，会带上如下参数：code&#x3D;CODE。企业收到code后，使用“通讯录同步助手”调用接口“根据code获取成员信息”获取成员的userid。如果成员是首次加入企业，企业获取到userid，并验证了成员信息后，调用如下接口即可让成员成功加入企业。
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90203
-func (c *Client) AuthSuccess(r *AuthSuccessRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) AuthSuccess(r *AuthSuccessRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/user/authsucc",
@@ -130,7 +130,7 @@ func (c *Client) AuthSuccess(r *AuthSuccessRequest, opts ...interface{}) (out Ge
 // 企业可通过接口批量邀请成员使用企业微信，邀请后将通过短信或邮件下发通知。
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/90975
-func (c *Client) BatchInvite(r *BatchInviteRequest, opts ...interface{}) (out BatchInviteResponse, err error) {
+func (c *Client) BatchInvite(r *BatchInviteRequest, opts ...any) (out BatchInviteResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/batch/invite",
@@ -144,7 +144,7 @@ func (c *Client) BatchInvite(r *BatchInviteRequest, opts ...interface{}) (out Ba
 // 支持企业用户获取实时成员加入二维码。
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/91714
-func (c *Client) GetJoinQrcode(r *GetJoinQrcodeRequest, opts ...interface{}) (out GetJoinQrcodeResponse, err error) {
+func (c *Client) GetJoinQrcode(r *GetJoinQrcodeRequest, opts ...any) (out GetJoinQrcodeResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "GET",
 		URL:     "/cgi-bin/corp/get_join_qrcode",
@@ -157,7 +157,7 @@ func (c *Client) GetJoinQrcode(r *GetJoinQrcodeRequest, opts ...interface{}) (ou
 // GetActiveStat 获取企业活跃成员数
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/92714
-func (c *Client) GetActiveStat(r *GetActiveStatRequest, opts ...interface{}) (out GetActiveStatResponse, err error) {
+func (c *Client) GetActiveStat(r *GetActiveStatRequest, opts ...any) (out GetActiveStatResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/get_active_stat",

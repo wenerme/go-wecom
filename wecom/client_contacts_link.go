@@ -7,7 +7,7 @@ import (
 // LinkSimpleListUser 获取互联企业部门成员
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/93168
-func (c *Client) LinkSimpleListUser(r *LinkSimpleListUserRequest, opts ...interface{}) (out LinkSimpleListUserResponse, err error) {
+func (c *Client) LinkSimpleListUser(r *LinkSimpleListUserRequest, opts ...any) (out LinkSimpleListUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/linkedcorp/user/simplelist",
@@ -20,7 +20,7 @@ func (c *Client) LinkSimpleListUser(r *LinkSimpleListUserRequest, opts ...interf
 // LinkListUser 获取互联企业部门成员详情
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/93169
-func (c *Client) LinkListUser(r *LinkListUserRequest, opts ...interface{}) (out LinkListUserResponse, err error) {
+func (c *Client) LinkListUser(r *LinkListUserRequest, opts ...any) (out LinkListUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/linkedcorp/user/list",
@@ -33,7 +33,7 @@ func (c *Client) LinkListUser(r *LinkListUserRequest, opts ...interface{}) (out 
 // LinkListDepartment 获取互联企业部门列表
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/93170
-func (c *Client) LinkListDepartment(r *LinkListDepartmentRequest, opts ...interface{}) (out LinkListDepartmentResponse, err error) {
+func (c *Client) LinkListDepartment(r *LinkListDepartmentRequest, opts ...any) (out LinkListDepartmentResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/linkedcorp/department/list",
@@ -46,7 +46,7 @@ func (c *Client) LinkListDepartment(r *LinkListDepartmentRequest, opts ...interf
 // LinkGetUser 获取互联企业成员详细信息
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/93171
-func (c *Client) LinkGetUser(r *LinkGetUserRequest, opts ...interface{}) (out LinkGetUserResponse, err error) {
+func (c *Client) LinkGetUser(r *LinkGetUserRequest, opts ...any) (out LinkGetUserResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/linkedcorp/user/get",
@@ -60,7 +60,7 @@ func (c *Client) LinkGetUser(r *LinkGetUserRequest, opts ...interface{}) (out Li
 // 本接口只返回互联企业中非本企业内的成员和部门的信息，如果要获取本企业的可见范围，请调用“获取应用”接口
 //
 // see https://work.weixin.qq.com/api/doc/90000/90135/93172
-func (c *Client) LinkGetPermList(opts ...interface{}) (out LinkGetPermListResponse, err error) {
+func (c *Client) LinkGetPermList(opts ...any) (out LinkGetPermListResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/linkedcorp/agent/get_perm_list",

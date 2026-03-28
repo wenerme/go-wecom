@@ -8,7 +8,7 @@ import (
 
 func TestBuildURL(t *testing.T) {
 	for _, test := range []struct {
-		o interface{}
+		o any
 		u string
 	}{
 		{

@@ -46,7 +46,7 @@ func ExampleNewClient() {
 	dto := wecom.IPListResponse{}
 	err = client.Request.With(req.Request{
 		URL:     "/cgi-bin/get_api_domain_ip",
-		Options: []interface{}{
+		Options: []any{
 			// 如果不需要 access_token
 			// wecom.WithoutAccessToken,
 		},
@@ -63,7 +63,7 @@ func ExampleWebhookSend() {
 		Content: wecom.SendTextContent{Content: "Hello"},
 		// debug for test only
 		Request: req.Request{
-			Options: []interface{}{req.DebugHook(&req.DebugOptions{
+			Options: []any{req.DebugHook(&req.DebugOptions{
 				Body: true,
 			})},
 		},

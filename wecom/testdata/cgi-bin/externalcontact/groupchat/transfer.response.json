@@ -4,7 +4,7 @@
   "failed_chat_list": [
     {
       "chat_id": "wrOgQhDgAAcwMTB7YmDkbeBsgT_KAAAA",
-      "errcode": 90500,
+      "errcode": 0,
       "errmsg": "the owner of this chat is not resigned"
     }
   ]

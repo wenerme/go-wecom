@@ -8,7 +8,7 @@ import (
 // 该接口用于通过应用在企业内创建一个日历。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93647
-func (c *Client) AddCalendar(r *AddCalendarRequest, opts ...interface{}) (out AddCalendarResponse, err error) {
+func (c *Client) AddCalendar(r *AddCalendarRequest, opts ...any) (out AddCalendarResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/calendar/add",
@@ -22,7 +22,7 @@ func (c *Client) AddCalendar(r *AddCalendarRequest, opts ...interface{}) (out Ad
 // 该接口用于修改指定日历的信息。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93647
-func (c *Client) UpdateCalendar(r *UpdateCalendarRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) UpdateCalendar(r *UpdateCalendarRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/calendar/update",
@@ -36,7 +36,7 @@ func (c *Client) UpdateCalendar(r *UpdateCalendarRequest, opts ...interface{}) (
 // 该接口用于获取应用在企业内创建的日历信息。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93647
-func (c *Client) GetCalendar(r *GetCalendarRequest, opts ...interface{}) (out GetCalendarResponse, err error) {
+func (c *Client) GetCalendar(r *GetCalendarRequest, opts ...any) (out GetCalendarResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/calendar/get",
@@ -50,7 +50,7 @@ func (c *Client) GetCalendar(r *GetCalendarRequest, opts ...interface{}) (out Ge
 // 该接口用于删除指定日历。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93647
-func (c *Client) DeleteCalendar(r *DeleteCalendarRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) DeleteCalendar(r *DeleteCalendarRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/calendar/del",
@@ -64,7 +64,7 @@ func (c *Client) DeleteCalendar(r *DeleteCalendarRequest, opts ...interface{}) (
 // 该接口用于在日历中创建一个日程。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93648
-func (c *Client) AddSchedule(r *AddScheduleRequest, opts ...interface{}) (out AddScheduleResponse, err error) {
+func (c *Client) AddSchedule(r *AddScheduleRequest, opts ...any) (out AddScheduleResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/add",
@@ -78,7 +78,7 @@ func (c *Client) AddSchedule(r *AddScheduleRequest, opts ...interface{}) (out Ad
 // 该接口用于在日历中更新指定的日程。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93648
-func (c *Client) UpdateSchedule(r *UpdateScheduleRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) UpdateSchedule(r *UpdateScheduleRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/update",
@@ -92,7 +92,7 @@ func (c *Client) UpdateSchedule(r *UpdateScheduleRequest, opts ...interface{}) (
 // 该接口用于获取指定的日程详情。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93648
-func (c *Client) GetSchedule(r *GetScheduleRequest, opts ...interface{}) (out GetScheduleResponse, err error) {
+func (c *Client) GetSchedule(r *GetScheduleRequest, opts ...any) (out GetScheduleResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/get",
@@ -106,7 +106,7 @@ func (c *Client) GetSchedule(r *GetScheduleRequest, opts ...interface{}) (out Ge
 // 该接口用于取消指定的日程。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93648
-func (c *Client) DeleteSchedule(r *DeleteScheduleRequest, opts ...interface{}) (out GenericResponse, err error) {
+func (c *Client) DeleteSchedule(r *DeleteScheduleRequest, opts ...any) (out GenericResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/del",
@@ -120,7 +120,7 @@ func (c *Client) DeleteSchedule(r *DeleteScheduleRequest, opts ...interface{}) (
 // 该接口用于获取指定的日历下的日程列表。仅可获取应用自己创建的日历下的日程。
 //
 // see https://open.work.weixin.qq.com/api/doc/90000/90135/93648
-func (c *Client) ScheduleGetByCalendar(r *ScheduleGetByCalendarRequest, opts ...interface{}) (out ScheduleGetByCalendarResponse, err error) {
+func (c *Client) ScheduleGetByCalendar(r *ScheduleGetByCalendarRequest, opts ...any) (out ScheduleGetByCalendarResponse, err error) {
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/get_by_calendar",
