@@ -12,7 +12,7 @@ formatters:
       - client_gen_
 
 linters:
-  disable-all: true
+  default: none
   enable:
     - depguard
     - dogsled
