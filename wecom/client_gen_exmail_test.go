@@ -1,0 +1,28 @@
+package wecom
+
+func init() {
+	registerClientAPIPath("/cgi-bin/exmail/account/act_email", "ActEmailAccount", cRef.ActEmailAccount)
+	registerClientAPIPath("/cgi-bin/exmail/app/compose_send", "SendExmail", cRef.SendExmail)
+	registerClientAPIPath("/cgi-bin/exmail/app/get_email_alias", "GetEmailAlias", cRef.GetEmailAlias)
+	registerClientAPIPath("/cgi-bin/exmail/app/get_mail_list", "ListMail", cRef.ListMail)
+	registerClientAPIPath("/cgi-bin/exmail/app/read_mail", "ReadMail", cRef.ReadMail)
+	registerClientAPIPath("/cgi-bin/exmail/app/update_email_alias", "UpdateAppEmailAlias", cRef.UpdateAppEmailAlias)
+	registerClientAPIPath("/cgi-bin/exmail/group/create", "CreateMailGroup", cRef.CreateMailGroup)
+	registerClientAPIPath("/cgi-bin/exmail/group/delete", "DeleteMailGroup", cRef.DeleteMailGroup)
+	registerClientAPIPath("/cgi-bin/exmail/group/get", "GetMailGroup", cRef.GetMailGroup)
+	registerClientAPIPath("/cgi-bin/exmail/group/search", "SearchMailGroup", cRef.SearchMailGroup)
+	registerClientAPIPath("/cgi-bin/exmail/group/update", "UpdateMailGroup", cRef.UpdateMailGroup)
+	registerClientAPIPath("/cgi-bin/exmail/mail/get_newcount", "GetMailUnreadCount", cRef.GetMailUnreadCount)
+	registerClientAPIPath("/cgi-bin/exmail/publicmail/create", "CreatePublicMail", cRef.CreatePublicMail)
+	registerClientAPIPath("/cgi-bin/exmail/publicmail/delete", "DeletePublicMail", cRef.DeletePublicMail)
+	registerClientAPIPath("/cgi-bin/exmail/publicmail/delete_auth_code", "DeletePublicMailAuthCode", cRef.DeletePublicMailAuthCode)
+	registerClientAPIPath("/cgi-bin/exmail/publicmail/get", "GetPublicMailDetail", cRef.GetPublicMailDetail)
+	registerClientAPIPath("/cgi-bin/exmail/publicmail/get_auth_code_list", "ListPublicMailAuthCode", cRef.ListPublicMailAuthCode)
+	registerClientAPIPath("/cgi-bin/exmail/publicmail/search", "SearchPublicMail", cRef.SearchPublicMail)
+	registerClientAPIPath("/cgi-bin/exmail/publicmail/update", "UpdatePublicMail", cRef.UpdatePublicMail)
+	registerClientAPIPath("/cgi-bin/exmail/useroption/get", "GetUserOption", cRef.GetUserOption)
+	registerClientAPIPath("/cgi-bin/exmail/useroption/update", "UpdateUserOption", cRef.UpdateUserOption)
+	registerClientAPIPath("/cgi-bin/exmail/vip/batch_add", "BatchAddVip", cRef.BatchAddVip)
+	registerClientAPIPath("/cgi-bin/exmail/vip/batch_del", "BatchDelVip", cRef.BatchDelVip)
+	registerClientAPIPath("/cgi-bin/exmail/vip/list", "ListExmailVip", cRef.ListExmailVip)
+}

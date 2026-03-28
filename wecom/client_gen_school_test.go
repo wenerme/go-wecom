@@ -1,0 +1,28 @@
+package wecom
+
+func init() {
+	registerClientAPIPath("/cgi-bin/externalcontact/convert_to_openid", "ConvertToOpenid", cRef.ConvertToOpenid)
+	registerClientAPIPath("/cgi-bin/externalcontact/get_subscribe_qr_code", "GetSubscribeQrCode", cRef.GetSubscribeQrCode)
+	registerClientAPIPath("/cgi-bin/externalcontact/set_subscribe_mode", "SetExternalContactSubscribeMode", cRef.SetExternalContactSubscribeMode)
+	registerClientAPIPath("/cgi-bin/school/agent/get_allow_scope", "GetSchoolAgentAllowScope", cRef.GetSchoolAgentAllowScope)
+	registerClientAPIPath("/cgi-bin/school/department/list", "ListSchoolDepartment", cRef.ListSchoolDepartment)
+	registerClientAPIPath("/cgi-bin/school/department/update", "UpdateSchoolDepartment", cRef.UpdateSchoolDepartment)
+	registerClientAPIPath("/cgi-bin/school/get_chat_create_mode", "GetChatCreateMode", cRef.GetChatCreateMode)
+	registerClientAPIPath("/cgi-bin/school/getuserinfo", "GetSchoolUserInfo", cRef.GetSchoolUserInfo)
+	registerClientAPIPath("/cgi-bin/school/set_arch_sync_mode", "SetArchSyncMode", cRef.SetArchSyncMode)
+	registerClientAPIPath("/cgi-bin/school/set_upgrade_info", "SetSchoolUpgradeInfo", cRef.SetSchoolUpgradeInfo)
+	registerClientAPIPath("/cgi-bin/school/user/batch_create_parent", "BatchCreateParent", cRef.BatchCreateParent)
+	registerClientAPIPath("/cgi-bin/school/user/batch_create_student", "BatchCreateStudent", cRef.BatchCreateStudent)
+	registerClientAPIPath("/cgi-bin/school/user/batch_delete_parent", "BatchDeleteParent", cRef.BatchDeleteParent)
+	registerClientAPIPath("/cgi-bin/school/user/batch_delete_student", "BatchDeleteSchoolStudent", cRef.BatchDeleteSchoolStudent)
+	registerClientAPIPath("/cgi-bin/school/user/batch_update_parent", "BatchUpdateParent", cRef.BatchUpdateParent)
+	registerClientAPIPath("/cgi-bin/school/user/batch_update_student", "BatchUpdateStudent", cRef.BatchUpdateStudent)
+	registerClientAPIPath("/cgi-bin/school/user/create_parent", "CreateParentUser", cRef.CreateParentUser)
+	registerClientAPIPath("/cgi-bin/school/user/create_student", "CreateStudent", cRef.CreateStudent)
+	registerClientAPIPath("/cgi-bin/school/user/delete_parent", "DeleteParent", cRef.DeleteParent)
+	registerClientAPIPath("/cgi-bin/school/user/delete_student", "DeleteStudent", cRef.DeleteStudent)
+	registerClientAPIPath("/cgi-bin/school/user/list", "ListSchoolUser", cRef.ListSchoolUser)
+	registerClientAPIPath("/cgi-bin/school/user/list_parent", "ListSchoolParent", cRef.ListSchoolParent)
+	registerClientAPIPath("/cgi-bin/school/user/update_parent", "UpdateParent", cRef.UpdateParent)
+	registerClientAPIPath("/cgi-bin/school/user/update_student", "UpdateStudent", cRef.UpdateStudent)
+}
