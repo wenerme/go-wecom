@@ -14,7 +14,7 @@ func (c *Client) ListExternalPayBill(r *ListExternalPayBillRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalpay/get_bill_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -50,7 +50,7 @@ func (c *Client) GetFundFlow(r *GetFundFlowRequest, opts ...any) (out GetFundFlo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalpay/get_fund_flow",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -86,7 +86,7 @@ func (c *Client) GetPaymentInfo(r *GetPaymentInfoRequest, opts ...any) (out GetP
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalpay/get_payment_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -112,7 +112,7 @@ func (c *Client) GetMerchantDetail(r *GetMerchantDetailRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalpay/getmerchant",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -144,7 +144,7 @@ func (c *Client) ApplyMch(r *ApplyMchRequest, opts ...any) (out GenericResponse,
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/apply_mch",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -192,7 +192,7 @@ func (c *Client) GetApplymentStatus(r *GetApplymentStatusRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/get_applyment_status",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -224,14 +224,14 @@ func (c *Client) UploadMiniAppImage(r *UploadMiniAppImageRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/upload_image",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
 }
 
 // UploadMiniAppImageRequest is request of Client.UploadMiniAppImage
-type UploadMiniAppImageRequest struct {}
+type UploadMiniAppImageRequest struct{}
 
 // UploadMiniAppImageResponse is response of Client.UploadMiniAppImage
 type UploadMiniAppImageResponse struct {
@@ -247,7 +247,7 @@ func (c *Client) PayEmployee(r *PayEmployeeRequest, opts ...any) (out PayEmploye
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/mmpaymkttransfers/promotion/paywwsptrans2pocket",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -329,7 +329,7 @@ func (c *Client) QueryWxPaymentRecord(r *QueryWxPaymentRecordRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/mmpaymkttransfers/promotion/querywwsptrans2pocket",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -391,7 +391,7 @@ func (c *Client) QueryWorkWxRedpack(r *QueryWorkWxRedpackRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/mmpaymkttransfers/queryworkwxredpack",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -471,7 +471,7 @@ func (c *Client) SendWorkWxRedPacket(r *SendWorkWxRedPacketRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/mmpaymkttransfers/sendworkwxredpack",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -542,4 +542,3 @@ type SendWorkWxRedPacketResponse struct {
 	// SenderHeaderMediaID 发送者头像素材id
 	SenderHeaderMediaID string `json:"sender_header_media_id"`
 }
-

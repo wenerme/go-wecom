@@ -14,7 +14,7 @@ func (c *Client) GetCorpGroupToken(r *GetCorpGroupTokenRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/corp/gettoken",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -46,7 +46,7 @@ func (c *Client) TransferMiniProgramSession(r *TransferMiniProgramSessionRequest
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniprogram/transfer_session",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -67,4 +67,3 @@ type TransferMiniProgramSessionResponse struct {
 	// SessionKey 属于下级/下游企业的会话密钥
 	SessionKey string `json:"session_key"`
 }
-

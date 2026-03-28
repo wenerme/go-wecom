@@ -14,7 +14,7 @@ func (c *Client) ListAdminOperLog(r *ListAdminOperLogRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/security/admin_oper_log/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -54,7 +54,7 @@ func (c *Client) GetFileOperRecord(r *GetFileOperRecordRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/security/get_file_oper_record",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -94,7 +94,7 @@ func (c *Client) GetScreenOperRecord(r *GetScreenOperRecordRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/security/get_screen_oper_record",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -143,7 +143,7 @@ func (c *Client) GetServerDomainIp(r *GetServerDomainIpRequest, opts ...any) (ou
 }
 
 // GetServerDomainIpRequest is request of Client.GetServerDomainIp
-type GetServerDomainIpRequest struct {}
+type GetServerDomainIpRequest struct{}
 
 // GetServerDomainIpResponse is response of Client.GetServerDomainIp
 type GetServerDomainIpResponse struct {
@@ -161,7 +161,7 @@ func (c *Client) ListMemberOperLog(r *ListMemberOperLogRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/security/member_oper_log/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -201,7 +201,7 @@ func (c *Client) ImportTrustDevice(r *ImportTrustDeviceRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/security/trustdevice/import",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -227,7 +227,7 @@ func (c *Client) ListSecurityVip(r *ListSecurityVipRequest, opts ...any) (out Li
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/security/vip/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -259,7 +259,7 @@ func (c *Client) SubmitBatchAddJob(r *SubmitBatchAddJobRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/security/vip/submit_batch_add_job",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -287,7 +287,7 @@ func (c *Client) BatchDelSecurityVip(r *BatchDelSecurityVipRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/security/vip/submit_batch_del_job",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -306,4 +306,3 @@ type BatchDelSecurityVipResponse struct {
 	// InvalidUserIDList 非法的userid 列表，不在应用可见范围的useri以及无法识别的userid
 	InvalidUserIDList []string `json:"invalid_userid_list"`
 }
-

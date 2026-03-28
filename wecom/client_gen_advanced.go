@@ -14,7 +14,7 @@ func (c *Client) ListApplyId(r *ListApplyIdRequest, opts ...any) (out ListApplyI
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/advanced_feature/get_apply_id_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -52,7 +52,7 @@ func (c *Client) SetApprovalDetail(r *SetApprovalDetailRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/advanced_feature/set_approval_detail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -71,4 +71,3 @@ type SetApprovalDetailRequest struct {
 	// ProcessList 审批单审批节点信息对象
 	ProcessList any `json:"process_list" validate:"required"`
 }
-

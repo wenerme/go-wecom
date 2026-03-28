@@ -14,7 +14,7 @@ func (c *Client) DownloadWeDriveFile(r *DownloadWeDriveFileRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/journal/download_wedrive_file",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -46,7 +46,7 @@ func (c *Client) GetJournalDetail(r *GetJournalDetailRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/journal/get_record_detail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -72,7 +72,7 @@ func (c *Client) ListJournalRecord(r *ListJournalRecordRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/journal/get_record_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -110,7 +110,7 @@ func (c *Client) ListJournalStat(r *ListJournalStatRequest, opts ...any) (out Li
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/journal/get_stat_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -181,4 +181,3 @@ type ListJournalStatResponse struct {
 	// ReportType 汇报方式：2按日汇报; 3按周汇报; 4按月汇报
 	ReportType string `json:"report_type"`
 }
-

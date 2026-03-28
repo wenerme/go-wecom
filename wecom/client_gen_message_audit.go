@@ -14,7 +14,7 @@ func (c *Client) GetChatMsg(r *GetChatMsgRequest, opts ...any) (out GetChatMsgRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/external-contact/getchatmsg",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -39,4 +39,3 @@ type GetChatMsgResponse struct {
 	// Chatdata 聊天记录数据内容数组
 	Chatdata []map[string]any `json:"chatdata"`
 }
-

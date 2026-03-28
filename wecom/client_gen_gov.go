@@ -14,7 +14,7 @@ func (c *Client) AddGrid(r *AddGridRequest, opts ...any) (out AddGridResponse, e
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -48,7 +48,7 @@ func (c *Client) AddEventCategory(r *AddEventCategoryRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/add_cata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -78,7 +78,7 @@ func (c *Client) DeleteGrid(r *DeleteGridRequest, opts ...any) (out GenericRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -98,7 +98,7 @@ func (c *Client) DeleteReportCategory(r *DeleteReportCategoryRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/delete_cata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -118,7 +118,7 @@ func (c *Client) GetUserGridInfo(r *GetUserGridInfoRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/get_user_grid_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -146,7 +146,7 @@ func (c *Client) ListGrid(r *ListGridRequest, opts ...any) (out ListGridResponse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -172,14 +172,14 @@ func (c *Client) ListEventCategory(r *ListEventCategoryRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/list_cata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
 }
 
 // ListEventCategoryRequest is request of Client.ListEventCategory
-type ListEventCategoryRequest struct {}
+type ListEventCategoryRequest struct{}
 
 // ListEventCategoryResponse is response of Client.ListEventCategory
 type ListEventCategoryResponse struct {
@@ -203,7 +203,7 @@ func (c *Client) UpdateGrid(r *UpdateGridRequest, opts ...any) (out UpdateGridRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -237,7 +237,7 @@ func (c *Client) UpdateCategory(r *UpdateCategoryRequest, opts ...any) (out Gene
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/grid/update_cata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -263,7 +263,7 @@ func (c *Client) GetPatrolCategoryStatistic(r *GetPatrolCategoryStatisticRequest
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/patrol/category_statistic",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -301,7 +301,7 @@ func (c *Client) GetPatrolCorpStatus(r *GetPatrolCorpStatusRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/patrol/get_corp_status",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -344,7 +344,7 @@ func (c *Client) GetGridInfo(r *GetGridInfoRequest, opts ...any) (out GetGridInf
 }
 
 // GetGridInfoRequest is request of Client.GetGridInfo
-type GetGridInfoRequest struct {}
+type GetGridInfoRequest struct{}
 
 // GetGridInfoResponse is response of Client.GetGridInfo
 type GetGridInfoResponse struct {
@@ -366,7 +366,7 @@ func (c *Client) GetPatrolOrderInfo(r *GetPatrolOrderInfoRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/patrol/get_order_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -392,7 +392,7 @@ func (c *Client) ListPatrolOrder(r *ListPatrolOrderRequest, opts ...any) (out Li
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/patrol/get_order_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -426,7 +426,7 @@ func (c *Client) GetPatrolUserStatus(r *GetPatrolUserStatusRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/patrol/get_user_status",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -456,7 +456,7 @@ func (c *Client) GetReportCategoryStatistic(r *GetReportCategoryStatisticRequest
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/resident/category_statistic",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -482,7 +482,7 @@ func (c *Client) GetCorpResidentStatus(r *GetCorpResidentStatusRequest, opts ...
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/resident/get_corp_status",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -520,7 +520,7 @@ func (c *Client) GetResidentOrderInfo(r *GetResidentOrderInfoRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/resident/get_order_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -546,7 +546,7 @@ func (c *Client) ListResidentOrder(r *ListResidentOrderRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/resident/get_order_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -580,7 +580,7 @@ func (c *Client) GetResidentUserStatus(r *GetResidentUserStatusRequest, opts ...
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/report/resident/get_user_status",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -603,4 +603,3 @@ type GetResidentUserStatusResponse struct {
 	// Pending 待受理数量
 	Pending int `json:"pending"`
 }
-

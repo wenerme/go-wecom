@@ -14,7 +14,7 @@ func (c *Client) GetTfaInfo(r *GetTfaInfoRequest, opts ...any) (out GetTfaInfoRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/auth/get_tfa_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -42,7 +42,7 @@ func (c *Client) GetAuthUserDetail(r *GetAuthUserDetailRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/auth/getuserdetail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -82,7 +82,7 @@ func (c *Client) SubmitTfaSuccess(r *SubmitTfaSuccessRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/tfa_succ",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -95,4 +95,3 @@ type SubmitTfaSuccessRequest struct {
 	// TfaCode 获取用户二次验证信息接口返回的tfa_code，五分钟内有效且只能使用一次
 	TfaCode string `json:"tfa_code" validate:"required"`
 }
-

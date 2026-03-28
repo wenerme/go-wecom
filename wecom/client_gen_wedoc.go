@@ -14,7 +14,7 @@ func (c *Client) CreateDoc(r *CreateDocRequest, opts ...any) (out CreateDocRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/create_doc",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -50,7 +50,7 @@ func (c *Client) CreateForm(r *CreateFormRequest, opts ...any) (out CreateFormRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/create_form",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -136,7 +136,7 @@ func (c *Client) DeleteDoc(r *DeleteDocRequest, opts ...any) (out GenericRespons
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/del_doc",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -158,7 +158,7 @@ func (c *Client) GetDocAuth(r *GetDocAuthRequest, opts ...any) (out GetDocAuthRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/doc_get_auth",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -226,7 +226,7 @@ func (c *Client) ShareDoc(r *ShareDocRequest, opts ...any) (out ShareDocResponse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/doc_share",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -254,7 +254,7 @@ func (c *Client) BatchUpdateDocument(r *BatchUpdateDocumentRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/document/batch_update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -278,7 +278,7 @@ func (c *Client) GetWedocDocument(r *GetWedocDocumentRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/document/get",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -306,7 +306,7 @@ func (c *Client) GetDocBaseInfo(r *GetDocBaseInfoRequest, opts ...any) (out GetD
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/get_doc_base_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -340,7 +340,7 @@ func (c *Client) GetWedocFormAnswer(r *GetWedocFormAnswerRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/get_form_answer",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -402,7 +402,7 @@ func (c *Client) GetFormInfo(r *GetFormInfoRequest, opts ...any) (out GetFormInf
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/get_form_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -428,7 +428,7 @@ func (c *Client) GetFormStatistic(r *GetFormStatisticRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/get_form_statistic",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -486,7 +486,7 @@ func (c *Client) UploadWedocImage(r *UploadWedocImageRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/image_upload",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -520,7 +520,7 @@ func (c *Client) UpdateDocJoinRule(r *UpdateDocJoinRuleRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/mod_doc_join_rule",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -558,7 +558,7 @@ func (c *Client) UpdateDocMember(r *UpdateDocMemberRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/mod_doc_member",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -582,7 +582,7 @@ func (c *Client) UpdateDocSafetySetting(r *UpdateDocSafetySettingRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/mod_doc_safty_setting",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -606,7 +606,7 @@ func (c *Client) ModifyForm(r *ModifyFormRequest, opts ...any) (out GenericRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/modify_form",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -684,7 +684,7 @@ func (c *Client) RenameDoc(r *RenameDocRequest, opts ...any) (out GenericRespons
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/rename_doc",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -708,7 +708,7 @@ func (c *Client) AddFieldGroup(r *AddFieldGroupRequest, opts ...any) (out AddFie
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/add_field_group",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -740,7 +740,7 @@ func (c *Client) AddSmartsheetFields(r *AddSmartsheetFieldsRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/add_fields",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -770,7 +770,7 @@ func (c *Client) AddRecords(r *AddRecordsRequest, opts ...any) (out AddRecordsRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/add_records",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -802,7 +802,7 @@ func (c *Client) AddSmartSheet(r *AddSmartSheetRequest, opts ...any) (out AddSma
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/add_sheet",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -830,7 +830,7 @@ func (c *Client) AddView(r *AddViewRequest, opts ...any) (out AddViewResponse, e
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/add_view",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -866,7 +866,7 @@ func (c *Client) GetSheetPriv(r *GetSheetPrivRequest, opts ...any) (out GetSheet
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/content_priv/get_sheet_priv",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -896,7 +896,7 @@ func (c *Client) DeleteSmartsheetFieldGroups(r *DeleteSmartsheetFieldGroupsReque
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/delete_field_groups",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -920,7 +920,7 @@ func (c *Client) DeleteSmartsheetFields(r *DeleteSmartsheetFieldsRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/delete_fields",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -944,7 +944,7 @@ func (c *Client) DeleteSmartsheetRecords(r *DeleteSmartsheetRecordsRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/delete_records",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -968,7 +968,7 @@ func (c *Client) DeleteSheet(r *DeleteSheetRequest, opts ...any) (out GenericRes
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/delete_sheet",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -990,7 +990,7 @@ func (c *Client) DeleteViews(r *DeleteViewsRequest, opts ...any) (out GenericRes
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/delete_views",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1014,7 +1014,7 @@ func (c *Client) GetFieldGroups(r *GetFieldGroupsRequest, opts ...any) (out GetF
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/get_field_groups",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1052,7 +1052,7 @@ func (c *Client) GetSmartSheetFields(r *GetSmartSheetFieldsRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/get_fields",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1092,7 +1092,7 @@ func (c *Client) GetSmartsheetRecords(r *GetSmartsheetRecordsRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/get_records",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1148,7 +1148,7 @@ func (c *Client) GetSheet(r *GetSheetRequest, opts ...any) (out GetSheetResponse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/get_sheet",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1178,7 +1178,7 @@ func (c *Client) GetSmartsheetViews(r *GetSmartsheetViewsRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/get_views",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1218,7 +1218,7 @@ func (c *Client) UpdateFieldGroup(r *UpdateFieldGroupRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/update_field_group",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1256,7 +1256,7 @@ func (c *Client) UpdateSmartSheetFields(r *UpdateSmartSheetFieldsRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/update_fields",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1286,7 +1286,7 @@ func (c *Client) UpdateSmartsheetRecords(r *UpdateSmartsheetRecordsRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/update_records",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1318,7 +1318,7 @@ func (c *Client) UpdateSmartsheetSubSheet(r *UpdateSmartsheetSubSheetRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/update_sheet",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1340,7 +1340,7 @@ func (c *Client) UpdateView(r *UpdateViewRequest, opts ...any) (out UpdateViewRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/update_view",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1374,7 +1374,7 @@ func (c *Client) UpdateSmartSheetRecord(r *UpdateSmartSheetRecordRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/webhook",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1400,7 +1400,7 @@ func (c *Client) BatchUpdateSpreadsheet(r *BatchUpdateSpreadsheetRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/spreadsheet/batch_update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1428,7 +1428,7 @@ func (c *Client) GetSpreadsheetProperties(r *GetSpreadsheetPropertiesRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/spreadsheet/get_sheet_properties",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1454,7 +1454,7 @@ func (c *Client) GetSheetRangeData(r *GetSheetRangeDataRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/spreadsheet/get_sheet_range_data",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1484,7 +1484,7 @@ func (c *Client) BatchAddWedDocVip(r *BatchAddWedDocVipRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/vip/batch_add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1512,7 +1512,7 @@ func (c *Client) BatchDeleteDocVip(r *BatchDeleteDocVipRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/vip/batch_del",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1540,7 +1540,7 @@ func (c *Client) ListVipAccount(r *ListVipAccountRequest, opts ...any) (out List
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/vip/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1563,4 +1563,3 @@ type ListVipAccountResponse struct {
 	// UserIDList 符合条件的企业成员userid列表
 	UserIDList []string `json:"userid_list"`
 }
-

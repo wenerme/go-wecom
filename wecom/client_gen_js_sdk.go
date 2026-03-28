@@ -14,7 +14,7 @@ func (c *Client) GetLaunchCode(r *GetLaunchCodeRequest, opts ...any) (out GetLau
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/get_launch_code",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -61,4 +61,3 @@ type GetInvoiceTicketResponse struct {
 	// ExpiresIn 有效期，以秒为单位
 	ExpiresIn int `json:"expires_in"`
 }
-

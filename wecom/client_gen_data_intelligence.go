@@ -14,7 +14,7 @@ func (c *Client) CreateProgramTask(r *CreateProgramTaskRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/async_program_task",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -44,7 +44,7 @@ func (c *Client) CheckDebugMode(r *CheckDebugModeRequest, opts ...any) (out Chec
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/check_debug_mode",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -70,7 +70,7 @@ func (c *Client) CloseDebugMode(r *CloseDebugModeRequest, opts ...any) (out Gene
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/close_debug_mode",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -90,7 +90,7 @@ func (c *Client) GetAuthUserList(r *GetAuthUserListRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/get_auth_user_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -122,7 +122,7 @@ func (c *Client) OpenChatDataDebugMode(r *OpenChatDataDebugModeRequest, opts ...
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/open_debug_mode",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -144,7 +144,7 @@ func (c *Client) SetChatdataHideSensitiveInfoConfig(r *SetChatdataHideSensitiveI
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/set_hide_sensitiveinfo_config",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -166,7 +166,7 @@ func (c *Client) SetLogLevel(r *SetLogLevelRequest, opts ...any) (out GenericRes
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/set_log_level",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -188,7 +188,7 @@ func (c *Client) SetPublicKey(r *SetPublicKeyRequest, opts ...any) (out GenericR
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/set_public_key",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -210,7 +210,7 @@ func (c *Client) SetReceiveCallback(r *SetReceiveCallbackRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/set_receive_callback",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -230,7 +230,7 @@ func (c *Client) SyncCallProgram(r *SyncCallProgramRequest, opts ...any) (out Sy
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/sync_call_program",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -262,7 +262,7 @@ func (c *Client) UploadChatDataMedia(r *UploadChatDataMediaRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/chatdata/upload_media",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -283,4 +283,3 @@ type UploadChatDataMediaResponse struct {
 	// CreatedAt 文件上传时间戳
 	CreatedAt string `json:"created_at"`
 }
-

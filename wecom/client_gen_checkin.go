@@ -14,7 +14,7 @@ func (c *Client) AddCheckinOption(r *AddCheckinOptionRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/add_checkin_option",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -36,7 +36,7 @@ func (c *Client) AddCheckinRecord(r *AddCheckinRecordRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/add_checkin_record",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -80,7 +80,7 @@ func (c *Client) AddCheckinUserFace(r *AddCheckinUserFaceRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/addcheckinuserface",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -102,7 +102,7 @@ func (c *Client) GetCheckinDayData(r *GetCheckinDayDataRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/getcheckin_daydata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -132,7 +132,7 @@ func (c *Client) GetCheckinMonthData(r *GetCheckinMonthDataRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/getcheckin_monthdata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -162,7 +162,7 @@ func (c *Client) GetCheckinData(r *GetCheckinDataRequest, opts ...any) (out GetC
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/getcheckindata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -230,7 +230,7 @@ func (c *Client) GetCheckinOption(r *GetCheckinOptionRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/getcheckinoption",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -262,7 +262,7 @@ func (c *Client) GetCheckInScheduleList(r *GetCheckInScheduleListRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/getcheckinschedulist",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -292,14 +292,14 @@ func (c *Client) GetCorpCheckinOption(r *GetCorpCheckinOptionRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/getcorpcheckinoption",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
 }
 
 // GetCorpCheckinOptionRequest is request of Client.GetCorpCheckinOption
-type GetCorpCheckinOptionRequest struct {}
+type GetCorpCheckinOptionRequest struct{}
 
 // GetCorpCheckinOptionResponse is response of Client.GetCorpCheckinOption
 type GetCorpCheckinOptionResponse struct {
@@ -315,7 +315,7 @@ func (c *Client) PunchCorrection(r *PunchCorrectionRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/punch_correction",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -343,7 +343,7 @@ func (c *Client) SetCheckinScheduleList(r *SetCheckinScheduleListRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/checkin/setcheckinschedulist",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -367,7 +367,7 @@ func (c *Client) GetHardwareCheckinData(r *GetHardwareCheckinDataRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/hardware/get_hardware_checkin_data",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -398,4 +398,3 @@ type GetHardwareCheckinDataResponse struct {
 	// DeviceName 打卡设备名
 	DeviceName string `json:"device_name"`
 }
-

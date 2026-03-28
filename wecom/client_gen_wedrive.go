@@ -14,7 +14,7 @@ func (c *Client) AddFileMember(r *AddFileMemberRequest, opts ...any) (out Generi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_acl_add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -36,7 +36,7 @@ func (c *Client) DeleteMemberAcl(r *DeleteMemberAclRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_acl_del",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -58,7 +58,7 @@ func (c *Client) CreateFile(r *CreateFileRequest, opts ...any) (out CreateFileRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -92,7 +92,7 @@ func (c *Client) DeleteFile(r *DeleteFileRequest, opts ...any) (out GenericRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -112,7 +112,7 @@ func (c *Client) DownloadFile(r *DownloadFileRequest, opts ...any) (out Download
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_download",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -144,7 +144,7 @@ func (c *Client) GetDriveFileInfo(r *GetDriveFileInfoRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -194,7 +194,7 @@ func (c *Client) ListDriveFile(r *ListDriveFileRequest, opts ...any) (out ListDr
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -232,7 +232,7 @@ func (c *Client) MoveFile(r *MoveFileRequest, opts ...any) (out MoveFileResponse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_move",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -262,7 +262,7 @@ func (c *Client) RenameFile(r *RenameFileRequest, opts ...any) (out RenameFileRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_rename",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -290,7 +290,7 @@ func (c *Client) UpdateFileSecureSetting(r *UpdateFileSecureSettingRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_secure_setting",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -312,7 +312,7 @@ func (c *Client) SetFileShareSetting(r *SetFileShareSettingRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_setting",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -336,7 +336,7 @@ func (c *Client) GetFileShareUrl(r *GetFileShareUrlRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_share",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -362,7 +362,7 @@ func (c *Client) UploadFile(r *UploadFileRequest, opts ...any) (out UploadFileRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_upload",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -396,7 +396,7 @@ func (c *Client) InitWedriveFileUpload(r *InitWedriveFileUploadRequest, opts ...
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/file_upload_init",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -438,7 +438,7 @@ func (c *Client) GetFilePermission(r *GetFilePermissionRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/get_file_permission",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -502,14 +502,14 @@ func (c *Client) GetWeDriveProInfo(r *GetWeDriveProInfoRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/mng_pro_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
 }
 
 // GetWeDriveProInfoRequest is request of Client.GetWeDriveProInfo
-type GetWeDriveProInfoRequest struct {}
+type GetWeDriveProInfoRequest struct{}
 
 // GetWeDriveProInfoResponse is response of Client.GetWeDriveProInfo
 type GetWeDriveProInfoResponse struct {
@@ -531,7 +531,7 @@ func (c *Client) GetSpaceInfo(r *GetSpaceInfoRequest, opts ...any) (out GetSpace
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/new_space_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -557,7 +557,7 @@ func (c *Client) AddSpaceMemberDepartment(r *AddSpaceMemberDepartmentRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/space_acl_add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -579,7 +579,7 @@ func (c *Client) RemoveSpaceMemberOrDept(r *RemoveSpaceMemberOrDeptRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/space_acl_del",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -601,7 +601,7 @@ func (c *Client) CreateSpace(r *CreateSpaceRequest, opts ...any) (out CreateSpac
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/space_create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -631,7 +631,7 @@ func (c *Client) DismissSpace(r *DismissSpaceRequest, opts ...any) (out GenericR
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/space_dismiss",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -651,7 +651,7 @@ func (c *Client) RenameSpace(r *RenameSpaceRequest, opts ...any) (out GenericRes
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/space_rename",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -673,7 +673,7 @@ func (c *Client) UpdateSpaceSetting(r *UpdateSpaceSettingRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/space_setting",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -705,7 +705,7 @@ func (c *Client) GetSpaceShareLink(r *GetSpaceShareLinkRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/space_share",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -731,7 +731,7 @@ func (c *Client) BatchAddDriveVip(r *BatchAddDriveVipRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/vip/batch_add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -759,7 +759,7 @@ func (c *Client) BatchDelDriveVip(r *BatchDelDriveVipRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/vip/batch_del",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -787,7 +787,7 @@ func (c *Client) ListDriveVip(r *ListDriveVipRequest, opts ...any) (out ListDriv
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedrive/vip/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -810,4 +810,3 @@ type ListDriveVipResponse struct {
 	// UserIDList 符合条件的企业成员userid列表
 	UserIDList []string `json:"userid_list"`
 }
-

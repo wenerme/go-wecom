@@ -14,7 +14,7 @@ func (c *Client) CreateGroupChat(r *CreateGroupChatRequest, opts ...any) (out Cr
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/appchat/create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -72,7 +72,7 @@ func (c *Client) SendAppChatMessage(r *SendAppChatMessageRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/appchat/send",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -114,7 +114,7 @@ func (c *Client) UpdateAppChat(r *UpdateAppChatRequest, opts ...any) (out Generi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/appchat/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -172,7 +172,7 @@ func (c *Client) SendExternalContactMessage(r *SendExternalContactMessageRequest
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/message/send",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -232,7 +232,7 @@ func (c *Client) RecallAppMessage(r *RecallAppMessageRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/message/recall",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -252,7 +252,7 @@ func (c *Client) SendMessage(r *SendMessageRequest, opts ...any) (out SendMessag
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/message/send",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -304,7 +304,7 @@ func (c *Client) UpdateTemplateCard(r *UpdateTemplateCardRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/message/update_template_card",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -340,7 +340,7 @@ func (c *Client) UpdateGroupChat(r *UpdateGroupChatRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/wedoc/smartsheet/groupchat/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -359,4 +359,3 @@ type UpdateGroupChatRequest struct {
 	// DelUserList 踢出成员的id列表，一次最多传入500人
 	DelUserList []string `json:"del_user_list"`
 }
-

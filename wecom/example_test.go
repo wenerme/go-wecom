@@ -58,7 +58,7 @@ func ExampleNewClient() {
 }
 
 func ExampleWebhookSend() {
-	wecom.WebhookSend(&wecom.WebhookSendRequest{
+	_ = wecom.WebhookSend(&wecom.WebhookSendRequest{
 		Key:     "KEY",
 		Content: wecom.SendTextContent{Content: "Hello"},
 		// debug for test only

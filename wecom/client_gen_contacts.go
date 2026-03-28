@@ -94,7 +94,7 @@ func (c *Client) GetUserIdByEmail(r *GetUserIdByEmailRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/get_userid_by_email",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -122,7 +122,7 @@ func (c *Client) GetUserIDByMobile(r *GetUserIDByMobileRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/getuserid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -148,7 +148,7 @@ func (c *Client) ListUserId(r *ListUserIdRequest, opts ...any) (out ListUserIdRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/user/list_id",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -169,4 +169,3 @@ type ListUserIdResponse struct {
 	// DeptUser 用户-部门关系列表
 	DeptUser []map[string]any `json:"dept_user"`
 }
-

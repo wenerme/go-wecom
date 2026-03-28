@@ -14,7 +14,7 @@ func (c *Client) AddInterceptRule(r *AddInterceptRuleRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/add_intercept_rule",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -48,7 +48,7 @@ func (c *Client) AddMomentTask(r *AddMomentTaskRequest, opts ...any) (out AddMom
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/add_moment_task",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -78,7 +78,7 @@ func (c *Client) AddProductAlbum(r *AddProductAlbumRequest, opts ...any) (out Ad
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/add_product_album",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -110,7 +110,7 @@ func (c *Client) CancelGroupMsgSend(r *CancelGroupMsgSendRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/cancel_groupmsg_send",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -130,7 +130,7 @@ func (c *Client) CancelMomentTask(r *CancelMomentTaskRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/cancel_moment_task",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -157,7 +157,7 @@ func (c *Client) GetCustomerAcquisitionQuota(r *GetCustomerAcquisitionQuotaReque
 }
 
 // GetCustomerAcquisitionQuotaRequest is request of Client.GetCustomerAcquisitionQuota
-type GetCustomerAcquisitionQuotaRequest struct {}
+type GetCustomerAcquisitionQuotaRequest struct{}
 
 // GetCustomerAcquisitionQuotaResponse is response of Client.GetCustomerAcquisitionQuota
 type GetCustomerAcquisitionQuotaResponse struct {
@@ -179,7 +179,7 @@ func (c *Client) ListCustomerAcquisition(r *ListCustomerAcquisitionRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/customer_acquisition/customer",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -211,7 +211,7 @@ func (c *Client) GetCustomerAcquisitionChatInfo(r *GetCustomerAcquisitionChatInf
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/customer_acquisition/get_chat_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -241,7 +241,7 @@ func (c *Client) ListCustomerAcquisitionLinks(r *ListCustomerAcquisitionLinksReq
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/customer_acquisition/list_link",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -271,7 +271,7 @@ func (c *Client) ListCustomerStrategy(r *ListCustomerStrategyRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/customer_strategy/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -301,7 +301,7 @@ func (c *Client) ListGroupMsg(r *ListGroupMsgRequest, opts ...any) (out ListGrou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_groupmsg_list_v2",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -341,7 +341,7 @@ func (c *Client) ListMoment(r *ListMomentRequest, opts ...any) (out ListMomentRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_moment_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -379,7 +379,7 @@ func (c *Client) GetStrategyTagList(r *GetStrategyTagListRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/get_strategy_tag_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -409,7 +409,7 @@ func (c *Client) AddJoinWay(r *AddJoinWayRequest, opts ...any) (out AddJoinWayRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/add_join_way",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -449,7 +449,7 @@ func (c *Client) TransferGroupChatOwner(r *TransferGroupChatOwnerRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/onjob_transfer",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -477,7 +477,7 @@ func (c *Client) GetGroupChatStatistic(r *GetGroupChatStatisticRequest, opts ...
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/groupchat/statistic",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -519,7 +519,7 @@ func (c *Client) ListMomentStrategy(r *ListMomentStrategyRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/moment_strategy/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -549,7 +549,7 @@ func (c *Client) OpenGidToChatId(r *OpenGidToChatIdRequest, opts ...any) (out Op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/opengid_to_chatid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -575,7 +575,7 @@ func (c *Client) RemindGroupMsgSend(r *RemindGroupMsgSendRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/remind_groupmsg_send",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -595,7 +595,7 @@ func (c *Client) UploadAttachment(r *UploadAttachmentRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/media/upload_attachment",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -618,4 +618,3 @@ type UploadAttachmentResponse struct {
 	// CreatedAt 媒体文件上传时间戳
 	CreatedAt int `json:"created_at"`
 }
-

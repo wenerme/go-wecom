@@ -99,16 +99,16 @@ type BotMessage struct {
 
 // BotEvent represents an event callback
 type BotEvent struct {
-	MsgID      string   `json:"msgid"`
-	CreateTime int64    `json:"create_time"`
-	AiBotID    string   `json:"aibotid"`
-	ChatID     string   `json:"chatid,omitempty"`
-	ChatType   string   `json:"chattype,omitempty"`
-	From       BotUser  `json:"from"`
-	MsgType    string   `json:"msgtype"` // "event"
+	MsgID      string         `json:"msgid"`
+	CreateTime int64          `json:"create_time"`
+	AiBotID    string         `json:"aibotid"`
+	ChatID     string         `json:"chatid,omitempty"`
+	ChatType   string         `json:"chattype,omitempty"`
+	From       BotUser        `json:"from"`
+	MsgType    string         `json:"msgtype"` // "event"
 	Event      BotEventDetail `json:"event"`
 
-	ReqID  string       `json:"-"`
+	ReqID  string `json:"-"`
 	client *BotWSClient
 }
 
@@ -129,7 +129,7 @@ type BotMediaRef struct {
 }
 
 type BotVoiceRef struct {
-	MediaID    string `json:"media_id"`
+	MediaID     string `json:"media_id"`
 	TextContent string `json:"text_content,omitempty"` // voice-to-text
 }
 
@@ -333,7 +333,7 @@ func (c *BotWSClient) handleMessage(ctx context.Context, msg *WSMessage) {
 // ─── Reply helpers ────────────────────────────────────────────────────
 
 // ReplyText sends a text reply to the message
-func (m *BotMessage) ReplyText(ctx context.Context, content string) error {
+func (m *BotMessage) ReplyText(_ context.Context, content string) error {
 	body, _ := json.Marshal(map[string]any{
 		"msgtype": "text",
 		"text":    map[string]string{"content": content},
@@ -346,7 +346,7 @@ func (m *BotMessage) ReplyText(ctx context.Context, content string) error {
 }
 
 // ReplyMarkdown sends a markdown reply
-func (m *BotMessage) ReplyMarkdown(ctx context.Context, content string) error {
+func (m *BotMessage) ReplyMarkdown(_ context.Context, content string) error {
 	body, _ := json.Marshal(map[string]any{
 		"msgtype":  "markdown",
 		"markdown": map[string]string{"content": content},
@@ -360,7 +360,7 @@ func (m *BotMessage) ReplyMarkdown(ctx context.Context, content string) error {
 
 // ReplyStream sends a streaming response chunk. Use same streamID for continuation.
 // Set finish=true for the final chunk.
-func (m *BotMessage) ReplyStream(ctx context.Context, streamID string, content string, finish bool) error {
+func (m *BotMessage) ReplyStream(_ context.Context, streamID string, content string, finish bool) error {
 	body, _ := json.Marshal(map[string]any{
 		"msgtype": "stream",
 		"stream": BotStreamReply{
@@ -377,7 +377,7 @@ func (m *BotMessage) ReplyStream(ctx context.Context, streamID string, content s
 }
 
 // ReplyWelcome sends a welcome message (only for enter_chat events, within 5s)
-func (e *BotEvent) ReplyWelcome(ctx context.Context, content string) error {
+func (e *BotEvent) ReplyWelcome(_ context.Context, content string) error {
 	body, _ := json.Marshal(map[string]any{
 		"msgtype": "text",
 		"text":    map[string]string{"content": content},

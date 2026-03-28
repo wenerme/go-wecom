@@ -14,7 +14,7 @@ func (c *Client) CallPstnCc(r *CallPstnCcRequest, opts ...any) (out CallPstnCcRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/pstncc/call",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -40,7 +40,7 @@ func (c *Client) GetPstnccState(r *GetPstnccStateRequest, opts ...any) (out GetP
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/pstncc/getstates",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -65,4 +65,3 @@ type GetPstnccStateResponse struct {
 	// Reason 呼叫结果状态：0正常结束，详见文档说明
 	Reason int `json:"reason"`
 }
-

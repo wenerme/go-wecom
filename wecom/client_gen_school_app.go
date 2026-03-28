@@ -14,7 +14,7 @@ func (c *Client) GetHealthReportStat(r *GetHealthReportStatRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/health/get_health_report_stat",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -42,7 +42,7 @@ func (c *Client) GetReportAnswer(r *GetReportAnswerRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/health/get_report_answer",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -74,7 +74,7 @@ func (c *Client) GetHealthReportJobInfo(r *GetHealthReportJobInfoRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/health/get_report_job_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -120,7 +120,7 @@ func (c *Client) GetHealthReportJobIds(r *GetHealthReportJobIdsRequest, opts ...
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/health/get_report_jobids",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -150,7 +150,7 @@ func (c *Client) DeleteLivingReplayData(r *DeleteLivingReplayDataRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/living/delete_replay_data",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -170,7 +170,7 @@ func (c *Client) ListUserLivingId(r *ListUserLivingIdRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/living/get_user_all_livingid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -202,7 +202,7 @@ func (c *Client) GetPaymentResult(r *GetPaymentResultRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/get_payment_result",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -232,7 +232,7 @@ func (c *Client) GetTradeDetail(r *GetTradeDetailRequest, opts ...any) (out GetT
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/get_trade",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -288,7 +288,7 @@ func (c *Client) GetUnwatchLivingStat(r *GetUnwatchLivingStatRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/living/get_unwatch_stat",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -320,7 +320,7 @@ func (c *Client) GetUnwatchStatV2(r *GetUnwatchStatV2Request, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/living/get_unwatch_stat_v2",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -352,7 +352,7 @@ func (c *Client) GetLivingWatchStat(r *GetLivingWatchStatRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/living/get_watch_stat",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -384,7 +384,7 @@ func (c *Client) GetWatchStatV2(r *GetWatchStatV2Request, opts ...any) (out GetW
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/living/get_watch_stat_v2",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -407,4 +407,3 @@ type GetWatchStatV2Response struct {
 	// StatInfo 统计信息列表
 	StatInfo any `json:"stat_info"`
 }
-

@@ -4,23 +4,17 @@ import (
 	"crypto/rand"
 	"encoding/base32"
 	"encoding/base64"
-	mathrand "math/rand"
 )
 
 var nonceEncoder = base32.NewEncoding("abcdefghijklmnopqrstuvwxyz234567")
 
 func createNonce() string {
-	// no pad
 	return nonceEncoder.EncodeToString(randBytes(15))
 }
 
 func randBytes(n int) []byte {
 	b := make([]byte, n)
-	_, err := rand.Read(b) // nolint:gosec
-	if err != nil {
-		// err is always nil
-		_, _ = mathrand.Read(b) // nolint:gosec
-	}
+	_, _ = rand.Read(b)
 	return b
 }
 

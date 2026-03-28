@@ -14,7 +14,7 @@ func (c *Client) ConvertToOpenid(r *ConvertToOpenidRequest, opts ...any) (out Co
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/convert_to_openid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -47,7 +47,7 @@ func (c *Client) GetSubscribeQrCode(r *GetSubscribeQrCodeRequest, opts ...any) (
 }
 
 // GetSubscribeQrCodeRequest is request of Client.GetSubscribeQrCode
-type GetSubscribeQrCodeRequest struct {}
+type GetSubscribeQrCodeRequest struct{}
 
 // GetSubscribeQrCodeResponse is response of Client.GetSubscribeQrCode
 type GetSubscribeQrCodeResponse struct {
@@ -67,7 +67,7 @@ func (c *Client) SetExternalContactSubscribeMode(r *SetExternalContactSubscribeM
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/externalcontact/set_subscribe_mode",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -139,7 +139,7 @@ func (c *Client) UpdateSchoolDepartment(r *UpdateSchoolDepartmentRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/department/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -180,7 +180,7 @@ func (c *Client) GetChatCreateMode(r *GetChatCreateModeRequest, opts ...any) (ou
 }
 
 // GetChatCreateModeRequest is request of Client.GetChatCreateMode
-type GetChatCreateModeRequest struct {}
+type GetChatCreateModeRequest struct{}
 
 // GetChatCreateModeResponse is response of Client.GetChatCreateMode
 type GetChatCreateModeResponse struct {
@@ -226,7 +226,7 @@ func (c *Client) SetArchSyncMode(r *SetArchSyncModeRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/set_arch_sync_mode",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -246,7 +246,7 @@ func (c *Client) SetSchoolUpgradeInfo(r *SetSchoolUpgradeInfoRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/set_upgrade_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -274,7 +274,7 @@ func (c *Client) BatchCreateParent(r *BatchCreateParentRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/batch_create_parent",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -300,7 +300,7 @@ func (c *Client) BatchCreateStudent(r *BatchCreateStudentRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/batch_create_student",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -326,7 +326,7 @@ func (c *Client) BatchDeleteParent(r *BatchDeleteParentRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/batch_delete_parent",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -352,7 +352,7 @@ func (c *Client) BatchDeleteSchoolStudent(r *BatchDeleteSchoolStudentRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/batch_delete_student",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -378,7 +378,7 @@ func (c *Client) BatchUpdateParent(r *BatchUpdateParentRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/batch_update_parent",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -404,7 +404,7 @@ func (c *Client) BatchUpdateStudent(r *BatchUpdateStudentRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/batch_update_student",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -442,7 +442,7 @@ func (c *Client) CreateParentUser(r *CreateParentUserRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/create_parent",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -468,7 +468,7 @@ func (c *Client) CreateStudent(r *CreateStudentRequest, opts ...any) (out Generi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/create_student",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -634,7 +634,7 @@ func (c *Client) UpdateParent(r *UpdateParentRequest, opts ...any) (out GenericR
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/update_parent",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -660,7 +660,7 @@ func (c *Client) UpdateStudent(r *UpdateStudentRequest, opts ...any) (out Generi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/school/user/update_student",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -679,4 +679,3 @@ type UpdateStudentRequest struct {
 	// Department 学生所在的班级id列表，不超过20个
 	Department []int `json:"department"`
 }
-

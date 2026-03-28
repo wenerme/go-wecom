@@ -60,7 +60,7 @@ func (c *Client) UploadMedia(r *UploadMediaRequest, opts ...any) (out UploadMedi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/media/upload",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -90,7 +90,7 @@ func (c *Client) UploadMediaByUrl(r *UploadMediaByUrlRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/media/upload_by_url",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -124,7 +124,7 @@ func (c *Client) UploadImage(r *UploadImageRequest, opts ...any) (out UploadImag
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/media/uploadimg",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -141,4 +141,3 @@ type UploadImageResponse struct {
 	// URL 上传后得到的图片URL，永久有效
 	URL string `json:"url"`
 }
-

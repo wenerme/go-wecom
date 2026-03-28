@@ -14,7 +14,7 @@ func (c *Client) BatchOpenUserIdToUserId(r *BatchOpenUserIdToUserIdRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/batch/openuserid_to_userid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -44,7 +44,7 @@ func (c *Client) ConvertTmpExternalUserid(r *ConvertTmpExternalUseridRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/idconvert/convert_tmp_external_userid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -67,4 +67,3 @@ type ConvertTmpExternalUseridResponse struct {
 	// InvalidTmpExternalUserIDList 无法转换的tmp_external_userid。可能非法或没有权限
 	InvalidTmpExternalUserIDList []string `json:"invalid_tmp_external_userid_list"`
 }
-

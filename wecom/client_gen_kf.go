@@ -14,7 +14,7 @@ func (c *Client) AddKfAccount(r *AddKfAccountRequest, opts ...any) (out AddKfAcc
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/account/add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -42,7 +42,7 @@ func (c *Client) DeleteKfAccount(r *DeleteKfAccountRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/account/del",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -62,7 +62,7 @@ func (c *Client) ListKfAccount(r *ListKfAccountRequest, opts ...any) (out ListKf
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/account/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -90,7 +90,7 @@ func (c *Client) UpdateKfAccount(r *UpdateKfAccountRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/account/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -114,7 +114,7 @@ func (c *Client) BatchGetCustomer(r *BatchGetCustomerRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/customer/batchget",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -151,7 +151,7 @@ func (c *Client) GetUpgradeServiceConfig(r *GetUpgradeServiceConfigRequest, opts
 }
 
 // GetUpgradeServiceConfigRequest is request of Client.GetUpgradeServiceConfig
-type GetUpgradeServiceConfigRequest struct {}
+type GetUpgradeServiceConfigRequest struct{}
 
 // GetUpgradeServiceConfigResponse is response of Client.GetUpgradeServiceConfig
 type GetUpgradeServiceConfigResponse struct {
@@ -169,7 +169,7 @@ func (c *Client) GetCorpStatistic(r *GetCorpStatisticRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/get_corp_statistic",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -217,7 +217,7 @@ func (c *Client) GetServicerStatistic(r *GetServicerStatisticRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/get_servicer_statistic",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -283,7 +283,7 @@ func (c *Client) AddKnowledgeGroup(r *AddKnowledgeGroupRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/knowledge/add_group",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -309,7 +309,7 @@ func (c *Client) AddKnowledgeIntent(r *AddKnowledgeIntentRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/knowledge/add_intent",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -341,7 +341,7 @@ func (c *Client) SendKfMsg(r *SendKfMsgRequest, opts ...any) (out SendKfMsgRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/send_msg",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -389,7 +389,7 @@ func (c *Client) SendKfEventMsg(r *SendKfEventMsgRequest, opts ...any) (out Send
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/send_msg_on_event",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -419,7 +419,7 @@ func (c *Client) TransferServiceState(r *TransferServiceStateRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/service_state/trans",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -451,7 +451,7 @@ func (c *Client) AddServicer(r *AddServicerRequest, opts ...any) (out AddService
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/servicer/add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -481,7 +481,7 @@ func (c *Client) DeleteServiceUser(r *DeleteServiceUserRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/servicer/del",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -537,7 +537,7 @@ func (c *Client) SyncMsg(r *SyncMsgRequest, opts ...any) (out SyncMsgResponse, e
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/kf/sync_msg",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -566,4 +566,3 @@ type SyncMsgResponse struct {
 	// MsgList 消息列表
 	MsgList []map[string]any `json:"msg_list"`
 }
-

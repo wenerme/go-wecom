@@ -14,7 +14,7 @@ func (c *Client) GetDialRecord(r *GetDialRecordRequest, opts ...any) (out GetDia
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/dial/get_dial_record",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -37,4 +37,3 @@ type GetDialRecordResponse struct {
 	// Record 拨打记录列表
 	Record []map[string]any `json:"record"`
 }
-

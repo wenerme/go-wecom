@@ -16,7 +16,6 @@ import (
 
 	"gorm.io/gorm/clause"
 
-	_ "github.com/glebarez/go-sqlite"
 	gsqlite "github.com/glebarez/go-sqlite"
 	"github.com/wenerme/go-wecom/WeWorkFinanceSDK/models"
 	"gorm.io/gorm"

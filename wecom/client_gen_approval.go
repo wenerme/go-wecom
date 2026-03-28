@@ -14,7 +14,7 @@ func (c *Client) GetApprovalData(r *GetApprovalDataRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corp/getapprovaldata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -98,7 +98,7 @@ func (c *Client) GetOpenApprovalData(r *GetOpenApprovalDataRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corp/getopenapprovaldata",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -146,7 +146,7 @@ func (c *Client) SubmitApprovalEvent(r *SubmitApprovalEventRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/applyevent",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -184,7 +184,7 @@ func (c *Client) CreateApprovalTemplate(r *CreateApprovalTemplateRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/approval/create_template",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -212,7 +212,7 @@ func (c *Client) UpdateApprovalTemplate(r *UpdateApprovalTemplateRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/approval/update_template",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -236,7 +236,7 @@ func (c *Client) GetApprovalDetail(r *GetApprovalDetailRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/getapprovaldetail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -286,7 +286,7 @@ func (c *Client) GetApprovalInfo(r *GetApprovalInfoRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/getapprovalinfo",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -322,7 +322,7 @@ func (c *Client) GetApprovalTemplateDetail(r *GetApprovalTemplateDetailRequest, 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/gettemplatedetail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -357,7 +357,7 @@ func (c *Client) GetCorpVacationConfig(r *GetCorpVacationConfigRequest, opts ...
 }
 
 // GetCorpVacationConfigRequest is request of Client.GetCorpVacationConfig
-type GetCorpVacationConfigRequest struct {}
+type GetCorpVacationConfigRequest struct{}
 
 // GetCorpVacationConfigResponse is response of Client.GetCorpVacationConfig
 type GetCorpVacationConfigResponse struct {
@@ -391,7 +391,7 @@ func (c *Client) GetUserVacationQuota(r *GetUserVacationQuotaRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/vacation/getuservacationquota",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -417,7 +417,7 @@ func (c *Client) SetUserQuota(r *SetUserQuotaRequest, opts ...any) (out GenericR
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/vacation/setoneuserquota",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -436,4 +436,3 @@ type SetUserQuotaRequest struct {
 	// Remarks 修改备注，用于显示在假期余额的修改记录当中，可对修改行为作说明，不超过200字符
 	Remarks string `json:"remarks"`
 }
-

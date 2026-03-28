@@ -14,7 +14,7 @@ func (c *Client) AddMeetingAdvancedLayout(r *AddMeetingAdvancedLayoutRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/advanced_layout/add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -42,7 +42,7 @@ func (c *Client) ApplyMeetingAdvancedLayout(r *ApplyMeetingAdvancedLayoutRequest
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/advanced_layout/apply",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -66,7 +66,7 @@ func (c *Client) BatchDeleteLayout(r *BatchDeleteLayoutRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/advanced_layout/batch_delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -88,7 +88,7 @@ func (c *Client) GetUserLayout(r *GetUserLayoutRequest, opts ...any) (out GetUse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/advanced_layout/get_user_layout",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -124,7 +124,7 @@ func (c *Client) ListMeetingAdvancedLayout(r *ListMeetingAdvancedLayoutRequest, 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/advanced_layout/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -152,7 +152,7 @@ func (c *Client) UpdateMeetingAdvancedLayout(r *UpdateMeetingAdvancedLayoutReque
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/advanced_layout/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -178,7 +178,7 @@ func (c *Client) CancelMeeting(r *CancelMeetingRequest, opts ...any) (out Generi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/cancel",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -200,7 +200,7 @@ func (c *Client) CheckMeetingDevice(r *CheckMeetingDeviceRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/check_device_in_meeting",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -230,7 +230,7 @@ func (c *Client) CreateMeeting(r *CreateMeetingRequest, opts ...any) (out Create
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -278,7 +278,7 @@ func (c *Client) CreateCustomerShortUrl(r *CreateCustomerShortUrlRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/create_customer_short_url",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -306,7 +306,7 @@ func (c *Client) ApproveMeetingEnroll(r *ApproveMeetingEnrollRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/enroll/approve",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -336,7 +336,7 @@ func (c *Client) DeleteMeetingEnroll(r *DeleteMeetingEnrollRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/enroll/delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -364,7 +364,7 @@ func (c *Client) GetMeetingEnrollConfig(r *GetMeetingEnrollConfigRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/enroll/get_config",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -396,7 +396,7 @@ func (c *Client) ImportMeetingEnroll(r *ImportMeetingEnrollRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/enroll/import",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -426,7 +426,7 @@ func (c *Client) ListMeetingEnroll(r *ListMeetingEnrollRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/enroll/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -462,7 +462,7 @@ func (c *Client) QueryMeetingEnrollIdByTmpOpenid(r *QueryMeetingEnrollIdByTmpOpe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/enroll/query_by_tmp_openid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -492,7 +492,7 @@ func (c *Client) SetMeetingEnrollConfig(r *SetMeetingEnrollConfigRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/enroll/set_config",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -526,7 +526,7 @@ func (c *Client) ListAttendee(r *ListAttendeeRequest, opts ...any) (out ListAtte
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/get_attendee_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -566,7 +566,7 @@ func (c *Client) GetCustomerShortUrl(r *GetCustomerShortUrlRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/get_customer_short_url",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -592,7 +592,7 @@ func (c *Client) ListMeetingGuests(r *ListMeetingGuestsRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/get_guests",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -624,7 +624,7 @@ func (c *Client) GetMeetingInfo(r *GetMeetingInfoRequest, opts ...any) (out GetM
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/get_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -694,7 +694,7 @@ func (c *Client) ListMeetingInvitees(r *ListMeetingInviteesRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/get_invitees",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -726,7 +726,7 @@ func (c *Client) GetMeetingQuality(r *GetMeetingQualityRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/get_quality",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -776,7 +776,7 @@ func (c *Client) ListRealtimeAttendee(r *ListRealtimeAttendeeRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/get_realtime_attendee_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -812,7 +812,7 @@ func (c *Client) GetUserMeetingId(r *GetUserMeetingIdRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/get_user_meetingid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -848,7 +848,7 @@ func (c *Client) AddMeetingLayout(r *AddMeetingLayoutRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/layout/add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -880,7 +880,7 @@ func (c *Client) AddMeetingBackground(r *AddMeetingBackgroundRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/layout/add_background",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -912,7 +912,7 @@ func (c *Client) BatchDeleteMeetingBackground(r *BatchDeleteMeetingBackgroundReq
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/layout/batch_delete_background",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -934,7 +934,7 @@ func (c *Client) DeleteMeetingBackground(r *DeleteMeetingBackgroundRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/layout/delete_background",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -956,7 +956,7 @@ func (c *Client) ListMeetingBackgrounds(r *ListMeetingBackgroundsRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/layout/list_background",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -991,7 +991,7 @@ func (c *Client) ListMeetingLayoutTemplate(r *ListMeetingLayoutTemplateRequest, 
 }
 
 // ListMeetingLayoutTemplateRequest is request of Client.ListMeetingLayoutTemplate
-type ListMeetingLayoutTemplateRequest struct {}
+type ListMeetingLayoutTemplateRequest struct{}
 
 // ListMeetingLayoutTemplateResponse is response of Client.ListMeetingLayoutTemplate
 type ListMeetingLayoutTemplateResponse struct {
@@ -1007,7 +1007,7 @@ func (c *Client) SetMeetingDefaultLayout(r *SetMeetingDefaultLayoutRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/layout/set_default",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1029,7 +1029,7 @@ func (c *Client) SetMeetingDefaultBackground(r *SetMeetingDefaultBackgroundReque
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/layout/set_default_background",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1051,7 +1051,7 @@ func (c *Client) UpdateMeetingLayout(r *UpdateMeetingLayoutRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/layout/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1077,7 +1077,7 @@ func (c *Client) HangupMraCall(r *HangupMraCallRequest, opts ...any) (out Generi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/mra/hangup",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1099,7 +1099,7 @@ func (c *Client) QueryMraStatus(r *QueryMraStatusRequest, opts ...any) (out Quer
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/mra/query_status",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1147,7 +1147,7 @@ func (c *Client) SetMRAHand(r *SetMRAHandRequest, opts ...any) (out GenericRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/mra/set_raise_hand",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1171,7 +1171,7 @@ func (c *Client) BatchPhoneCallout(r *BatchPhoneCalloutRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/phone/callout",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1201,7 +1201,7 @@ func (c *Client) GetMeetingCalloutStatus(r *GetMeetingCalloutStatusRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/phone/get_callout_status",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1235,7 +1235,7 @@ func (c *Client) GetMeetingPhoneTmpOpenId(r *GetMeetingPhoneTmpOpenIdRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/phone/get_tmp_openid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1263,7 +1263,7 @@ func (c *Client) CreateMeetingPollTheme(r *CreateMeetingPollThemeRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/poll/create_theme",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1301,7 +1301,7 @@ func (c *Client) DeleteMeetingPoll(r *DeleteMeetingPollRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/poll/delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1329,7 +1329,7 @@ func (c *Client) FinishMeetingPoll(r *FinishMeetingPollRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/poll/finish",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1357,7 +1357,7 @@ func (c *Client) GetPollDetail(r *GetPollDetailRequest, opts ...any) (out GetPol
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/poll/get_poll_detail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1403,7 +1403,7 @@ func (c *Client) ListMeetingPoll(r *ListMeetingPollRequest, opts ...any) (out Li
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/poll/get_poll_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1433,7 +1433,7 @@ func (c *Client) GetMeetingPollThemeInfo(r *GetMeetingPollThemeInfoRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/poll/get_theme_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1471,7 +1471,7 @@ func (c *Client) StartMeetingPoll(r *StartMeetingPollRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/poll/start",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1503,7 +1503,7 @@ func (c *Client) UpdateMeetingPollTheme(r *UpdateMeetingPollThemeRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/poll/update_theme",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1537,7 +1537,7 @@ func (c *Client) CloseScreenShare(r *CloseScreenShareRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/close_screen_share",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1559,7 +1559,7 @@ func (c *Client) DismissMeeting(r *DismissMeetingRequest, opts ...any) (out Gene
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/dismiss",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1583,7 +1583,7 @@ func (c *Client) KickoutMeetingUsers(r *KickoutMeetingUsersRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/kickout_users",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1607,7 +1607,7 @@ func (c *Client) ManageWaitingRoomUsers(r *ManageWaitingRoomUsersRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/manage_waiting_room_users",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1633,7 +1633,7 @@ func (c *Client) MuteMeetingUser(r *MuteMeetingUserRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/mute_user",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1657,7 +1657,7 @@ func (c *Client) SetMeetingConfig(r *SetMeetingConfigRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/set",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1697,7 +1697,7 @@ func (c *Client) SetMeetingCohost(r *SetMeetingCohostRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/set_cohost",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1721,7 +1721,7 @@ func (c *Client) SetMeetingNicknames(r *SetMeetingNicknamesRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/set_nicknames",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1743,7 +1743,7 @@ func (c *Client) SwitchUserVideo(r *SwitchUserVideoRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/realcontrol/switch_user_video",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1767,7 +1767,7 @@ func (c *Client) DeleteMeetingRecord(r *DeleteMeetingRecordRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1789,7 +1789,7 @@ func (c *Client) DeleteMeetingRecordFile(r *DeleteMeetingRecordFileRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/delete_file",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1811,7 +1811,7 @@ func (c *Client) GetRecordFileDetail(r *GetRecordFileDetailRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/get_file",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1865,7 +1865,7 @@ func (c *Client) GetMeetingRecordFileList(r *GetMeetingRecordFileListRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/get_file_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1901,7 +1901,7 @@ func (c *Client) ListMeetingRecordStatistics(r *ListMeetingRecordStatisticsReque
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/get_statistics",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1931,7 +1931,7 @@ func (c *Client) ListMeetingRecord(r *ListMeetingRecordRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -1973,7 +1973,7 @@ func (c *Client) GetTranscriptDetail(r *GetTranscriptDetailRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/transcript/get_detail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2007,7 +2007,7 @@ func (c *Client) GetTranscriptParagraphList(r *GetTranscriptParagraphListRequest
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/transcript/get_paragraph_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2037,7 +2037,7 @@ func (c *Client) SearchTranscript(r *SearchTranscriptRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/transcript/search",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2069,7 +2069,7 @@ func (c *Client) UpdateMeetingRecordSharingConfig(r *UpdateMeetingRecordSharingC
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/record/update_sharing_config",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2093,7 +2093,7 @@ func (c *Client) BookMeetingRooms(r *BookMeetingRoomsRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/book",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2123,7 +2123,7 @@ func (c *Client) CallMeetingRoom(r *CallMeetingRoomRequest, opts ...any) (out Ca
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/call",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2153,7 +2153,7 @@ func (c *Client) CancelRoomCall(r *CancelRoomCallRequest, opts ...any) (out Gene
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/cancel_call",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2179,7 +2179,7 @@ func (c *Client) GetMeetingRoomConfig(r *GetMeetingRoomConfigRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/get_config",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2207,7 +2207,7 @@ func (c *Client) GetRoomInfo(r *GetRoomInfoRequest, opts ...any) (out GetRoomInf
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/get_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2245,14 +2245,14 @@ func (c *Client) GetMeetingRoomInventory(r *GetMeetingRoomInventoryRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/get_inventory",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
 }
 
 // GetMeetingRoomInventoryRequest is request of Client.GetMeetingRoomInventory
-type GetMeetingRoomInventoryRequest struct {}
+type GetMeetingRoomInventoryRequest struct{}
 
 // GetMeetingRoomInventoryResponse is response of Client.GetMeetingRoomInventory
 type GetMeetingRoomInventoryResponse struct {
@@ -2278,7 +2278,7 @@ func (c *Client) GetRoomResponseStatus(r *GetRoomResponseStatusRequest, opts ...
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/get_response_status",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2310,7 +2310,7 @@ func (c *Client) ListMeetingRoom(r *ListMeetingRoomRequest, opts ...any) (out Li
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2344,7 +2344,7 @@ func (c *Client) ListMeetingRoomControllers(r *ListMeetingRoomControllersRequest
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/list_controllers",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2378,7 +2378,7 @@ func (c *Client) ListMeetingRoomDevices(r *ListMeetingRoomDevicesRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/list_devices",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2412,7 +2412,7 @@ func (c *Client) ListRoomMeetings(r *ListRoomMeetingsRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/list_meetings",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2452,7 +2452,7 @@ func (c *Client) ReleaseMeetingRooms(r *ReleaseMeetingRoomsRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/rooms/release",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2474,7 +2474,7 @@ func (c *Client) SetMeetingGuests(r *SetMeetingGuestsRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/set_guests",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2496,7 +2496,7 @@ func (c *Client) SetMeetingInvitees(r *SetMeetingInviteesRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/set_invitees",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2518,7 +2518,7 @@ func (c *Client) ListMeetingStart(r *ListMeetingStartRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/statistics/get_start_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2560,7 +2560,7 @@ func (c *Client) UpdateMeeting(r *UpdateMeetingRequest, opts ...any) (out Update
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2606,7 +2606,7 @@ func (c *Client) ListMeetingVip(r *ListMeetingVipRequest, opts ...any) (out List
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/vip/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2638,7 +2638,7 @@ func (c *Client) BatchAddMeetingVip(r *BatchAddMeetingVipRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/vip/submit_batch_add_job",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2666,7 +2666,7 @@ func (c *Client) BatchDeleteMeetingVipJob(r *BatchDeleteMeetingVipJobRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/vip/submit_batch_del_job",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2694,7 +2694,7 @@ func (c *Client) ListMeetingWaitingRoomUser(r *ListMeetingWaitingRoomUserRequest
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/waitingroom/get_current_user_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2728,7 +2728,7 @@ func (c *Client) ListWaitingRoomUser(r *ListWaitingRoomUserRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/waitingroom/get_user_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2772,7 +2772,7 @@ func (c *Client) CancelWebinar(r *CancelWebinarRequest, opts ...any) (out Generi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/cancel",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2792,7 +2792,7 @@ func (c *Client) CreateWebinar(r *CreateWebinarRequest, opts ...any) (out Create
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2874,7 +2874,7 @@ func (c *Client) ApproveWebinarEnroll(r *ApproveWebinarEnrollRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/enroll/approve",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2904,7 +2904,7 @@ func (c *Client) DeleteWebinarEnroll(r *DeleteWebinarEnrollRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/enroll/delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2932,7 +2932,7 @@ func (c *Client) GetWebinarEnrollConfig(r *GetWebinarEnrollConfigRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/enroll/get_config",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2964,7 +2964,7 @@ func (c *Client) ImportWebinarEnroll(r *ImportWebinarEnrollRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/enroll/import",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -2994,7 +2994,7 @@ func (c *Client) ListWebinarEnroll(r *ListWebinarEnrollRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/enroll/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -3030,7 +3030,7 @@ func (c *Client) QueryWebinarEnrollIdByTmpOpenid(r *QueryWebinarEnrollIdByTmpOpe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/enroll/query_by_tmp_openid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -3060,7 +3060,7 @@ func (c *Client) SetWebinarEnrollConfig(r *SetWebinarEnrollConfigRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/enroll/set_config",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -3094,7 +3094,7 @@ func (c *Client) GetWebinarDetail(r *GetWebinarDetailRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/get",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -3174,7 +3174,7 @@ func (c *Client) ListWebinarGuest(r *ListWebinarGuestRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/list_guest",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -3202,7 +3202,7 @@ func (c *Client) UpdateWebinar(r *UpdateWebinarRequest, opts ...any) (out Generi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -3258,7 +3258,7 @@ func (c *Client) UpdateWebinarGuestList(r *UpdateWebinarGuestListRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/update_guest_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -3280,7 +3280,7 @@ func (c *Client) UpdateWebinarWarmUpConfig(r *UpdateWebinarWarmUpConfigRequest, 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/meeting/webinar/update_warm_up",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -3297,4 +3297,3 @@ type UpdateWebinarWarmUpConfigRequest struct {
 	// AllowAttendeesInviteOthers 允许参会者在暖场中邀请成员。true：允许，默认允许；false：不允许
 	AllowAttendeesInviteOthers bool `json:"allow_attendees_invite_others"`
 }
-

@@ -14,7 +14,7 @@ func (c *Client) GetInvoiceInfo(r *GetInvoiceInfoRequest, opts ...any) (out GetI
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/card/invoice/reimburse/getinvoiceinfo",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -58,7 +58,7 @@ func (c *Client) BatchGetInvoiceInfo(r *BatchGetInvoiceInfoRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/card/invoice/reimburse/getinvoiceinfobatch",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -88,7 +88,7 @@ func (c *Client) UpdateInvoiceStatus(r *UpdateInvoiceStatusRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/card/invoice/reimburse/updateinvoicestatus",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -112,7 +112,7 @@ func (c *Client) BatchUpdateInvoiceStatus(r *BatchUpdateInvoiceStatusRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/card/invoice/reimburse/updatestatusbatch",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -127,4 +127,3 @@ type BatchUpdateInvoiceStatusRequest struct {
 	// InvoiceList 发票列表，必须全部属于同一个openid
 	InvoiceList []map[string]any `json:"invoice_list" validate:"required"`
 }
-

@@ -14,7 +14,7 @@ func (c *Client) CreateCalendar(r *CreateCalendarRequest, opts ...any) (out Crea
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/calendar/add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -44,7 +44,7 @@ func (c *Client) GetCalendarDetail(r *GetCalendarDetailRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/calendar/get",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -70,7 +70,7 @@ func (c *Client) CreateSchedule(r *CreateScheduleRequest, opts ...any) (out Crea
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -98,7 +98,7 @@ func (c *Client) AddScheduleAttendees(r *AddScheduleAttendeesRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/add_attendees",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -120,7 +120,7 @@ func (c *Client) DeleteScheduleAttendees(r *DeleteScheduleAttendeesRequest, opts
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/del_attendees",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -142,7 +142,7 @@ func (c *Client) GetScheduleListByCalendar(r *GetScheduleListByCalendarRequest, 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/schedule/get_by_calendar",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -187,4 +187,3 @@ type GetScheduleListByCalendarResponse struct {
 	// CalID 日程所属日历ID
 	CalID string `json:"cal_id"`
 }
-

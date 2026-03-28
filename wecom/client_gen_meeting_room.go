@@ -14,7 +14,7 @@ func (c *Client) AddMeetingRoom(r *AddMeetingRoomRequest, opts ...any) (out AddM
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/meetingroom/add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -54,7 +54,7 @@ func (c *Client) GetMeetingRoomBookingInfo(r *GetMeetingRoomBookingInfoRequest, 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/oa/meetingroom/get_booking_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -81,4 +81,3 @@ type GetMeetingRoomBookingInfoResponse struct {
 	// BookingList 会议室预订信息列表
 	BookingList []map[string]any `json:"booking_list"`
 }
-

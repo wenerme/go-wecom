@@ -14,7 +14,7 @@ func (c *Client) SetAgent(r *SetAgentRequest, opts ...any) (out GenericResponse,
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/agent/set",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -48,7 +48,7 @@ func (c *Client) CreateMenu(r *CreateMenuRequest, opts ...any) (out GenericRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/menu/create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -115,4 +115,3 @@ type GetMenuRequest struct {
 	// AgentID 应用id
 	AgentID int `json:"agentid" validate:"required"`
 }
-

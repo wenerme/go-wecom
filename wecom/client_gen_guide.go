@@ -21,7 +21,7 @@ func (c *Client) GetApiDomainIp(r *GetApiDomainIpRequest, opts ...any) (out GetA
 }
 
 // GetApiDomainIpRequest is request of Client.GetApiDomainIp
-type GetApiDomainIpRequest struct {}
+type GetApiDomainIpRequest struct{}
 
 // GetApiDomainIpResponse is response of Client.GetApiDomainIp
 type GetApiDomainIpResponse struct {
@@ -44,11 +44,10 @@ func (c *Client) GetCallbackIp(r *GetCallbackIpRequest, opts ...any) (out GetCal
 }
 
 // GetCallbackIpRequest is request of Client.GetCallbackIp
-type GetCallbackIpRequest struct {}
+type GetCallbackIpRequest struct{}
 
 // GetCallbackIpResponse is response of Client.GetCallbackIp
 type GetCallbackIpResponse struct {
 	// IPList 企业微信服务器IP段列表
 	IPList []string `json:"ip_list"`
 }
-

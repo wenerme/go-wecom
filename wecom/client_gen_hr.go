@@ -21,7 +21,7 @@ func (c *Client) GetEmployeeFieldConfig(r *GetEmployeeFieldConfigRequest, opts .
 }
 
 // GetEmployeeFieldConfigRequest is request of Client.GetEmployeeFieldConfig
-type GetEmployeeFieldConfigRequest struct {}
+type GetEmployeeFieldConfigRequest struct{}
 
 // GetEmployeeFieldConfigResponse is response of Client.GetEmployeeFieldConfig
 type GetEmployeeFieldConfigResponse struct {
@@ -37,7 +37,7 @@ func (c *Client) GetStaffInfo(r *GetStaffInfoRequest, opts ...any) (out GetStaff
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/hr/get_staff_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -67,7 +67,7 @@ func (c *Client) UpdateStaffInfo(r *UpdateStaffInfoRequest, opts ...any) (out Up
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/hr/update_staff_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -94,4 +94,3 @@ type UpdateStaffInfoResponse struct {
 	// InsertResults 增加字段组的结果列表
 	InsertResults []map[string]any `json:"insert_results"`
 }
-

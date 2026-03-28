@@ -21,7 +21,7 @@ func (c *Client) GetChainList(r *GetChainListRequest, opts ...any) (out GetChain
 }
 
 // GetChainListRequest is request of Client.GetChainList
-type GetChainListRequest struct {}
+type GetChainListRequest struct{}
 
 // GetChainListResponse is response of Client.GetChainList
 type GetChainListResponse struct {
@@ -37,7 +37,7 @@ func (c *Client) GetChainUserCustomId(r *GetChainUserCustomIdRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/corp/get_chain_user_custom_id",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -67,7 +67,7 @@ func (c *Client) ListCorpGroupAppShare(r *ListCorpGroupAppShareRequest, opts ...
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/corp/list_app_share_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -105,7 +105,7 @@ func (c *Client) RemoveCorpFromGroup(r *RemoveCorpFromGroupRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/corp/remove_corp",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -129,7 +129,7 @@ func (c *Client) GetCorpSharedChainList(r *GetCorpSharedChainListRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/get_corp_shared_chain_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -183,7 +183,7 @@ func (c *Client) ImportChainContact(r *ImportChainContactRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/import_chain_contact",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -211,7 +211,7 @@ func (c *Client) AddCorpGroupRule(r *AddCorpGroupRuleRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/rule/add_rule",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -239,7 +239,7 @@ func (c *Client) DeleteCorpGroupRule(r *DeleteCorpGroupRuleRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/rule/delete_rule",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -261,7 +261,7 @@ func (c *Client) GetRuleInfo(r *GetRuleInfoRequest, opts ...any) (out GetRuleInf
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/rule/get_rule_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -289,7 +289,7 @@ func (c *Client) ListRuleId(r *ListRuleIdRequest, opts ...any) (out ListRuleIdRe
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/rule/list_ids",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -315,7 +315,7 @@ func (c *Client) ModifyRule(r *ModifyRuleRequest, opts ...any) (out GenericRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/rule/modify_rule",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -339,7 +339,7 @@ func (c *Client) LinkUnionidToExternalUserid(r *LinkUnionidToExternalUseridReque
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/unionid_to_external_userid",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -371,7 +371,7 @@ func (c *Client) UnionidToPendingId(r *UnionidToPendingIdRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/corpgroup/unionid_to_pending_id",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -390,4 +390,3 @@ type UnionidToPendingIdResponse struct {
 	// PendingID unionid和openid对应的pending_id
 	PendingID string `json:"pending_id"`
 }
-

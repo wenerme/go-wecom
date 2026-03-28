@@ -14,7 +14,7 @@ func (c *Client) ActEmailAccount(r *ActEmailAccountRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/account/act_email",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -38,7 +38,7 @@ func (c *Client) SendExmail(r *SendExmailRequest, opts ...any) (out GenericRespo
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/app/compose_send",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -72,14 +72,14 @@ func (c *Client) GetEmailAlias(r *GetEmailAliasRequest, opts ...any) (out GetEma
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/app/get_email_alias",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
 }
 
 // GetEmailAliasRequest is request of Client.GetEmailAlias
-type GetEmailAliasRequest struct {}
+type GetEmailAliasRequest struct{}
 
 // GetEmailAliasResponse is response of Client.GetEmailAlias
 type GetEmailAliasResponse struct {
@@ -97,7 +97,7 @@ func (c *Client) ListMail(r *ListMailRequest, opts ...any) (out ListMailResponse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/app/get_mail_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -133,7 +133,7 @@ func (c *Client) ReadMail(r *ReadMailRequest, opts ...any) (out ReadMailResponse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/app/read_mail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -159,7 +159,7 @@ func (c *Client) UpdateAppEmailAlias(r *UpdateAppEmailAliasRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/app/update_email_alias",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -179,7 +179,7 @@ func (c *Client) CreateMailGroup(r *CreateMailGroupRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/group/create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -217,7 +217,7 @@ func (c *Client) DeleteMailGroup(r *DeleteMailGroupRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/group/delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -311,7 +311,7 @@ func (c *Client) UpdateMailGroup(r *UpdateMailGroupRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/group/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -349,7 +349,7 @@ func (c *Client) GetMailUnreadCount(r *GetMailUnreadCountRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/mail/get_newcount",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -375,7 +375,7 @@ func (c *Client) CreatePublicMail(r *CreatePublicMailRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/publicmail/create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -417,7 +417,7 @@ func (c *Client) DeletePublicMail(r *DeletePublicMailRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/publicmail/delete",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -437,7 +437,7 @@ func (c *Client) DeletePublicMailAuthCode(r *DeletePublicMailAuthCodeRequest, op
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/publicmail/delete_auth_code",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -459,7 +459,7 @@ func (c *Client) GetPublicMailDetail(r *GetPublicMailDetailRequest, opts ...any)
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/publicmail/get",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -485,7 +485,7 @@ func (c *Client) ListPublicMailAuthCode(r *ListPublicMailAuthCodeRequest, opts .
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/publicmail/get_auth_code_list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -539,7 +539,7 @@ func (c *Client) UpdatePublicMail(r *UpdatePublicMailRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/publicmail/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -581,7 +581,7 @@ func (c *Client) GetUserOption(r *GetUserOptionRequest, opts ...any) (out GetUse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/useroption/get",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -609,7 +609,7 @@ func (c *Client) UpdateUserOption(r *UpdateUserOptionRequest, opts ...any) (out 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/useroption/update",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -631,7 +631,7 @@ func (c *Client) BatchAddVip(r *BatchAddVipRequest, opts ...any) (out BatchAddVi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/vip/batch_add",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -659,7 +659,7 @@ func (c *Client) BatchDelVip(r *BatchDelVipRequest, opts ...any) (out BatchDelVi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/vip/batch_del",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -687,7 +687,7 @@ func (c *Client) ListExmailVip(r *ListExmailVipRequest, opts ...any) (out ListEx
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/exmail/vip/list",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -710,4 +710,3 @@ type ListExmailVipResponse struct {
 	// UserIDList 符合条件的企业成员userid列表
 	UserIDList []string `json:"userid_list"`
 }
-

@@ -14,7 +14,7 @@ func (c *Client) CancelLiving(r *CancelLivingRequest, opts ...any) (out GenericR
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/living/cancel",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -34,7 +34,7 @@ func (c *Client) CreateLiving(r *CreateLivingRequest, opts ...any) (out CreateLi
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/living/create",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -78,7 +78,7 @@ func (c *Client) GetLivingCode(r *GetLivingCodeRequest, opts ...any) (out GetLiv
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/living/get_living_code",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -106,7 +106,7 @@ func (c *Client) GetLivingShareInfo(r *GetLivingShareInfoRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/living/get_living_share_info",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -140,7 +140,7 @@ func (c *Client) ModifyLiving(r *ModifyLivingRequest, opts ...any) (out GenericR
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/living/modify",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -163,4 +163,3 @@ type ModifyLivingRequest struct {
 	// RemindTime 指定直播开始前多久提醒用户，相对于living_start前的秒数，默认为0
 	RemindTime int `json:"remind_time"`
 }
-

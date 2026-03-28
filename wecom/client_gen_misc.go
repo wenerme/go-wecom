@@ -14,7 +14,7 @@ func (c *Client) SendWebhookMessage(r *SendWebhookMessageRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/webhook/send",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -43,4 +43,3 @@ type SendWebhookMessageRequest struct {
 	// TemplateCard 模板卡片消息内容对象
 	TemplateCard any `json:"template_card"`
 }
-

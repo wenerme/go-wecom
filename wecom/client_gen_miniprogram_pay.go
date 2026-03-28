@@ -14,7 +14,7 @@ func (c *Client) CloseMiniAppPayOrder(r *CloseMiniAppPayOrderRequest, opts ...an
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/close_order",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -36,7 +36,7 @@ func (c *Client) CreateMiniAppOrder(r *CreateMiniAppOrderRequest, opts ...any) (
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/create_order",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -84,7 +84,7 @@ func (c *Client) GetOrder(r *GetOrderRequest, opts ...any) (out GetOrderResponse
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/get_order",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -134,7 +134,7 @@ func (c *Client) GetRefundDetail(r *GetRefundDetailRequest, opts ...any) (out Ge
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/get_refund_detail",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -182,7 +182,7 @@ func (c *Client) GetMiniAppPaySign(r *GetMiniAppPaySignRequest, opts ...any) (ou
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/get_sign",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -216,7 +216,7 @@ func (c *Client) Refund(r *RefundRequest, opts ...any) (out RefundResponse, err 
 	err = c.Request.With(req.Request{
 		Method:  "POST",
 		URL:     "/cgi-bin/miniapppay/refund",
-		Body:   r,
+		Body:    r,
 		Options: opts,
 	}).Fetch(&out)
 	return
@@ -249,4 +249,3 @@ type RefundResponse struct {
 	// PromotionDetail 优惠退款功能信息
 	PromotionDetail []any `json:"promotion_detail"`
 }
-

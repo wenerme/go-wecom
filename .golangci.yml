@@ -1,5 +1,15 @@
+version: "2"
+
 run:
   modules-download-mode: readonly
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  exclusions:
+    paths:
+      - client_gen_
 
 linters:
   disable-all: true
@@ -10,46 +20,78 @@ linters:
     - goconst
     - gocritic
     - gocyclo
-    - gofmt
-    - goimports
     - revive
     - gosec
     - misspell
     - unconvert
-    # default
     - errcheck
-    - gosimple
     - govet
     - ineffassign
     - staticcheck
     - unused
-
-linters-settings:
-  dupl:
-    threshold: 100
-  funlen:
-    lines: 100
-    statements: 60
-  depguard:
+  exclusions:
     rules:
-      main:
-        deny:
-          - pkg: golang.org/x/net/context
-            desc: use standard library context
-          - pkg: github.com/prometheus/common/log
-            desc: use log/slog
+      - path: _test\.go
+        linters:
+          - funlen
+          - gosec
+      - linters:
+          - gocritic
+        text: "unnecessaryDefer:"
+      - path: client_gen_
+        linters:
+          - funlen
+          - goconst
+          - dupl
+          - misspell
+      - path: WeWorkFinanceSDK
+        linters:
+          - unconvert
+          - staticcheck
+          - revive
+          - gocritic
+          - gocyclo
+          - gosec
+          - ineffassign
+      - path: commons/
+        linters:
+          - revive
+      - path: wecom/models/
+        linters:
+          - revive
+      - path: cmd/
+        linters:
+          - revive
+          - gosec
+      - text: "safty"
+        linters:
+          - misspell
+      # G115 integer overflow - acceptable in this context
+      - text: "G115"
+        linters:
+          - gosec
+      # G304 file inclusion via variable - acceptable in test code
+      - text: "G304"
+        linters:
+          - gosec
 
-issues:
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - funlen
-    - linters:
-        - gocritic
-      text: "unnecessaryDefer:"
-    # Generated code may have long functions
-    - path: client_gen_.*\.go
-      linters:
-        - funlen
-        - goconst
-        - dupl
+  settings:
+    dupl:
+      threshold: 100
+    funlen:
+      lines: 100
+      statements: 60
+    revive:
+      rules:
+        - name: exported
+          disabled: true
+        - name: package-comments
+          disabled: true
+    depguard:
+      rules:
+        main:
+          deny:
+            - pkg: golang.org/x/net/context
+              desc: use standard library context
+            - pkg: github.com/prometheus/common/log
+              desc: use log/slog

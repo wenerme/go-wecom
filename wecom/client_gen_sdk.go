@@ -31,4 +31,3 @@ type GetUserInfoByCodeResponse struct {
 	// UserId 成员UserID
 	UserId string `json:"UserId"`
 }
-
