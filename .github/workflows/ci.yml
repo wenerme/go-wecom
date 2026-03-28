@@ -1,21 +1,16 @@
 name: CI
-on: [ push, pull_request ]
+on: [push, pull_request]
 
 jobs:
   go-mod:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Go
-        uses: actions/setup-go@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
-          go-version: 1.19
-#          cache: true
-#          cache-dependency-path: go.sum
-      - name: Checkout code
-        uses: actions/checkout@v2
+          go-version: "1.24"
       - name: Check go mod
         run: |
-          export PATH=${GOROOT}/bin:$PATH
           go version
           go mod tidy
           git diff --exit-code go.mod
@@ -23,31 +18,29 @@ jobs:
   golangci-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2
+        uses: golangci/golangci-lint-action@v6
         with:
           version: latest
-          # skip cache because of flaky behaviors
-          skip-build-cache: true
-          skip-pkg-cache: true
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
-          go-version: 1.19.3
-          check-latest: true
-#          cache: true
-#          cache-dependency-path: go.sum
-      - run: sudo rm /usr/bin/go
-      - name: Run CI
-        # https://github.com/actions/setup-go/issues/107#issuecomment-854071850
+          go-version: "1.24"
+      - name: Test
         run: |
-          export PATH=${GOROOT}/bin:$PATH
           go version
-          make ci
+          go test ./wecom/ -v -count=1
+      - name: Build
+        run: go build ./...
+      - name: Run CI
+        run: make ci
       - name: Upload coverage to codecov.io
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v4
